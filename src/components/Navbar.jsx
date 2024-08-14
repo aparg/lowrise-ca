@@ -113,7 +113,7 @@ const Navbar = (props) => {
             </Link>
           </div>
 
-          <div className="flex items-center h-[40px] rounded-md w-auto">
+          <div className="flex items-center h-[40px] rounded-md w-auto ms-3">
             <SearchBar />
             <button
               className="bg-gray-100 px-2 py-[0.73rem] search-button rounded-md"
