@@ -1,113 +1,119 @@
+import Slider from "@/components/Slider";
 import Image from "next/image";
+import { getSalesData } from "../../api/getSalesData";
+import Link from "next/link";
+import PropertyDisplaySection from "@/components/PropertyDisplaySection";
+import { generateURL } from "@/helpers/generateURL";
 
-export default function Home() {
+export default async function Home() {
+  const INITIAL_LIMIT = 4;
+  const INITIAL_OFFSET = 0;
+  const TORONTOHOMES = await getSalesData(
+    INITIAL_OFFSET,
+    INITIAL_LIMIT,
+    "Toronto"
+  );
+  const BRAMPTONHOMES = await getSalesData(
+    INITIAL_OFFSET,
+    INITIAL_LIMIT,
+    "Brampton"
+  );
+  const MISSISAUGAHOMES = await getSalesData(
+    INITIAL_OFFSET,
+    INITIAL_LIMIT,
+    "Mississauga"
+  );
+  const OAKVILLEHOMES = await getSalesData(
+    INITIAL_OFFSET,
+    INITIAL_LIMIT,
+    "Oakville"
+  );
+  {
+    /* pass property propertyType:"commercial" only for commercial card slider, default is residential */
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
+    <>
+      <div
+        className="max-w-full mx-auto relative justify-center sm:h-[92vh] h-[140vh] grid grid-cols-2 gap-x-0 flex items-center"
+        id="hero"
+      >
+        <div className="col-span-2 sm:col-span-1 flex flex-col sm:justify-start justify-center mb-8 sm:mb-0 order-2 sm:order-1">
+          {/* <span className="d-block mb-2 text-white">Find Your Next </span>{" "}
+                <span className="text-white">Commercial Property </span> */}
+          <h1 className="text-4xl/[2.5rem] font-extrabold text-black sm:text-5xl/[4.5rem] lg:text-6xl/[5rem] sm-center font-family2 mt-5 order-1 text-left">
+            Lowrise<span className="text-[#FF0000]">.</span>ca
+          </h1>
+          <div className="order-2 mt-2">
+            {/* <h2 className="mt-3 text-2xl text-black font-bold ">Lowrise.ca</h2> */}
+            <div className="text-[#000000] leading-7">
+              Lowrise.ca is your go-to platform for buying low-rise homes across
+              Canada. We specialize in connecting you with a curated selection
+              of townhomes, bungalows, and other low-rise properties in prime
+              locations. With a user-friendly interface and comprehensive
+              listings, finding your dream home has never been easier. Trust
+              Lowrise.ca to guide you to the perfect low-rise home that suits
+              your lifestyle and budget. Start your home-buying journey with us
+              today!
+            </div>
+          </div>
+          <div className="order-3 mt-4 flex flex-row relative">
+            <Link href="#">
+              <button className="border-black font-bold border-2 bg-black inline sm:px-5 px-3 py-2 rounded-md mr-4 text-white">
+                Contact Us
+              </button>
+            </Link>
+
+            <Link href="#">
+              <button className="border-black font-bold border-2 inline px-3 py-2 rounded-md ">
+                Learn More
+              </button>
+            </Link>
+          </div>
+        </div>
+        <div className="sm:col-span-1 col-span-2 order-1 my-4 sm:my-2">
+          <div className="flex items-center justify-end">
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+              src="/hero-img.png"
+              alt="hero-img"
+              className="rounded-lg w-full sm:w-10/12"
+              width="400"
+              height="600"
             />
-          </a>
+          </div>
         </div>
       </div>
+      <PropertyDisplaySection
+        title="Explore homes in Toronto"
+        subtitle=""
+        exploreAllLink={generateURL({ cityVal: "Toronto" })}
+      >
+        <Slider data={TORONTOHOMES} type="resale" />
+      </PropertyDisplaySection>
+      <PropertyDisplaySection
+        title="Explore homes in Brampton"
+        subtitle=""
+        exploreAllLink={generateURL({ cityVal: "Brampton" })}
+      >
+        <Slider data={BRAMPTONHOMES} type="resale" />
+      </PropertyDisplaySection>
+      <PropertyDisplaySection
+        title="Explore homes in Mississauga"
+        subtitle=""
+        exploreAllLink={generateURL({ cityVal: "Mississauga" })}
+      >
+        <Slider data={MISSISAUGAHOMES} type="resale" />
+      </PropertyDisplaySection>
+      <PropertyDisplaySection
+        title="Explore homes in Oakville"
+        subtitle=""
+        exploreAllLink={generateURL({ cityVal: "Oakville" })}
+      >
+        <Slider data={OAKVILLEHOMES} type="resale" />
+      </PropertyDisplaySection>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <div className="flex flex-col items-center mt-40 sm:mt-40"></div>
+      {/* pass props type="commercial" only for commercial card slider, default is residential */}
+    </>
   );
 }

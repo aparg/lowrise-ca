@@ -1,0 +1,66 @@
+import Link from "next/link";
+import React, { useState, useRef, useEffect } from "react";
+
+const Dropdown = ({ name, options, width = "25rem" }) => {
+  const [shown, setShown] = useState(false);
+  const dropdownRef = useRef(null);
+  let timeoutId = useRef(null);
+
+  const handleMouseEnter = () => {
+    setShown(true);
+    if (timeoutId.current) {
+      clearTimeout(timeoutId.current);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    timeoutId.current = setTimeout(() => {
+      setShown(false);
+    }, 300);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutId.current) {
+        clearTimeout(timeoutId.current);
+      }
+    };
+  }, []);
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        className={`font-normal text-sm text-black rounded-md focus:outline focus:text-primary-green bg-transparent hover:text-primary-green ${
+          shown && "bg-white"
+        }`}
+        onClick={() => setShown(!shown)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {name}
+      </button>
+
+      <div
+        className={`absolute left-0 sm:right-0 mt-2  bg-white rounded-md shadow-lg z-10 text-sm h-auto grid ${
+          options.length > 5
+            ? "grid-cols-3 sm:w-[25rem] w-[20rem] "
+            : "grid-cols-1 w-[13rem]"
+        } ${!shown && "hidden"}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {options.map((option) => (
+          <Link
+            href={option.link}
+            className="block sm:px-4 px-2 py-2 text-gray-800 hover:bg-gray-200 hover:rounded-md text-center"
+            key={option.name}
+          >
+            {option.name}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Dropdown;
