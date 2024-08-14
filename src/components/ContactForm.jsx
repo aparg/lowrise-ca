@@ -1,11 +1,10 @@
 import React from "react";
 import { ChevronDown } from "lucide-react";
-import Image from "next/image";
 
 const ContactForm = () => {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white mb-[10rem] mt-[3rem]">
-      <Image
+      <img
         src="/contact-bottom.png"
         alt="Logo"
         className="mx-auto mb-8"

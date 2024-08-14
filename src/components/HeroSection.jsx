@@ -24,7 +24,7 @@ const HeroSection = () => {
           <div className="w-full lg:w-1/2 mb-10 lg:mb-0">
             <Link href="/">
               <div className="flex justify-start mb-5">
-                <Image
+                <img
                   src="/lowriselogo.svg"
                   alt="Lowrise Logo"
                   width={200}

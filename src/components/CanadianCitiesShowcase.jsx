@@ -1,15 +1,11 @@
 import React from "react";
-import Image from "next/image";
 
 const CityCard = ({ name, imageUrl }) => (
   <div className="relative overflow-hidden rounded-lg shadow-lg group">
-    <Image
+    <img
       src={imageUrl}
       alt={`${name} cityscape`}
-      layout="responsive"
-      width={400}
-      height={200}
-      className="object-cover transition-transform duration-300 group-hover:scale-110"
+      className="object-cover transition-transform duration-300 group-hover:scale-110 h-[250px] w-full"
     />
     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
     <h3 className="absolute bottom-4 left-4 text-white text-2xl font-bold">
