@@ -25,7 +25,7 @@ const CommercialCard = ({ curElem, small = false }) => {
   const imgSrc = commercial.photos.replace(/MLS|index/gi, function (matched) {
     return mapObj[matched];
   });
-  console.log(imgSrc);
+  /* console.log(imgSrc); */
   const handleImageError = (e) => {
     e.target.onerror = null;
     e.target.src = `/noimage.webp`;

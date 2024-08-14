@@ -130,8 +130,8 @@ const FiltersWithSalesList = ({
     if (isLocalStorageAvailable() && filterState) {
       localStorage.setItem("filterState", JSON.stringify(filterState));
       localStorage.setItem("selectedCity", capitalizeFirstLetter(city));
-      console.log(JSON.stringify(filterState), city, "filterState");
-      console.log(city);
+      /* console.log(JSON.stringify(filterState), city, "filterState");
+      console.log(city); */
       // FilterSubmit(city, filterState, leadEmail);
     }
 

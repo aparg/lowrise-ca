@@ -86,7 +86,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
               className={`${small ? "h-44" : "h-52"} overflow-hidden relative`}
             >
               <div className="h-80 relative">
-                <Image
+                <img
                   className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110"
                   src={imgSrc}
                   width="900"
