@@ -3,9 +3,7 @@ import dynamic from "next/dynamic";
 
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
 import { getSalesData } from "../../../../api/getSalesData";
-import Link from "next/link";
 import { ImSpinner } from "react-icons/im";
-import { plural } from "@/constant/plural";
 
 const FiltersWithSalesList = dynamic(
   () => import("@/components/FiltersWithSalesList"),
@@ -28,32 +26,6 @@ const page = async ({ params }) => {
 
   return (
     <>
-      {/* <div className="fixed-breadcrumbs">
-        <div className="container-fluid">
-          <div className="">
-            <nav
-              style={{
-                '--bs-breadcrumb-divider':
-                  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E\")",
-              }}
-              aria-label="breadcrumb"
-            >
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item ">
-                  <Link href="/">Dolphy</Link>
-                </li>
-                <li className="breadcrumb-item ">
-                  <Link href="/ontario">ON</Link>
-                </li>
-                <li className="breadcrumb-item active" aria-current="page">
-                  {formattedSlug}
-                </li>
-              </ol>
-            </nav>
-          </div>
-        </div>
-      </div> */}
-
       <div className="container-fluid mt-4">
         <div className="">
           <div className="">

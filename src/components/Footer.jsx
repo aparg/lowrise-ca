@@ -31,7 +31,7 @@ const Footer = ({ cities }) => {
                   <li key={idx} className="text-center">
                     <Link
                       href={generateURL({ cityVal: val.city })}
-                      className="hover:text-blue-600 transition-colors"
+                      className="hover:text-primary-green transition-colors"
                     >
                       New homes in {val.city}
                     </Link>
@@ -45,7 +45,7 @@ const Footer = ({ cities }) => {
               <div className="max-w-3xl">
                 <div className="flex justify-center">
                   <Link href="/">
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mb-5">
                       <Image
                         src="/lowriselogo.svg"
                         alt="Lowrise Logo"

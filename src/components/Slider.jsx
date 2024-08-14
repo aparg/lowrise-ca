@@ -59,7 +59,7 @@ const Slider = ({ data, type }) => {
         </button>
       </div> */}
       <div
-        className={`w-full grid grid-rows-1 sm:grid-cols-4 grid-cols-1 overflow-x-hidden grid-nowrap justify-between py-3`}
+        className={`w-full grid grid-rows-1 sm:grid-cols-4 grid-cols-1 overflow-x-hidden grid-nowrap justify-between py-3 gap-4`}
         id="slider"
         ref={scrollRef}
       >
@@ -67,7 +67,7 @@ const Slider = ({ data, type }) => {
           if (curElem.MLS !== "C8446018" && curElem.MLS !== "C8450446") {
             //manual removal, to be removed later
             return (
-              <div className="pl-0 pr-6 my-2 sm:my-0" key={index} ref={cardRef}>
+              <div className="my-2 sm:my-0" key={index} ref={cardRef}>
                 {type === "resale" ? (
                   <ResaleCard curElem={curElem} />
                 ) : type === "commercial" ? (

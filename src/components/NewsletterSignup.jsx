@@ -2,7 +2,7 @@ import React from "react";
 
 const NewsletterSignup = () => {
   return (
-    <section className="py-12 bg-red-50 sm:py-16 lg:py-20 xl:py-24">
+    <section className="py-12 bg-red-50 sm:py-16 lg:py-20 xl:py-24 mt-[10rem]">
       <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-y-12 lg:gap-x-16 xl:gap-x-48">
           <div>

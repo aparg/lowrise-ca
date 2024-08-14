@@ -161,19 +161,16 @@ const FiltersWithSalesList = ({
     <>
       {filterState && (
         <div>
-          <div className="flex sticky top-0 z-[998] bg-white items-center w-full flex-wrap overflow-visible">
-            <Filters {...{ filterState, setFilterState, fetchFilteredData }} />
-          </div>
           <h2
-            className={`city-headline flex text-capitalize ${
-              isMobileView ? "pt-3" : "pt-4"
+            className={`font-extrabold text-2xl ${
+              isMobileView ? "pt-0" : "pt-0"
             }`}
           >
             {city ? capitalizeFirstLetter(decodeURIComponent(city)) : "Ontario"}{" "}
             Homes {filterState.saleLease} | Real Estate Updated Daily Listings
           </h2>
           <p
-            className="fw-light"
+            className="text-sm mb-5 mt-1"
             style={isMobileView ? { fontSize: "0.9rem" } : {}}
           >
             Refine your{" "}
@@ -187,6 +184,10 @@ const FiltersWithSalesList = ({
             </span>{" "}
             .
           </p>
+
+          <div className="flex sticky top-0 z-[998] bg-white items-center w-full flex-wrap overflow-visible">
+            <Filters {...{ filterState, setFilterState, fetchFilteredData }} />
+          </div>
 
           {!loading ? (
             <>

@@ -112,9 +112,9 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                   <s>${curElem.MaxListPrice}</s>
                 </span>
               )}
-              <h2 className="font-bold text-3xl items-center justify-start my-2">
+              <h2 className="font-bold text-2xl items-center justify-start my-2">
                 <div className="flex flex-row items-center">
-                  {price}
+                  <span className="font-extrabold">{price}</span>
                   {curElem.SaleLease === saleLease.lease.value && (
                     <span> /mo</span>
                   )}
@@ -190,7 +190,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
               </span>
               <div className="flex flex-row justify-between mt-2">
                 <div className="text-black truncate text-ellipsis">
-                  <div className="text-dark bva">
+                  <div className="text-dark text-sm mb-2">
                     {curElem.StreetName ? (
                       `${curElem.Street} ${curElem.StreetName}${" "}
                     ${curElem.StreetAbbreviation} ${

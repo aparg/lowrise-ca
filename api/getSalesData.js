@@ -15,6 +15,7 @@ export const getSalesData = async (offset, limit, city, listingType) => {
     const options = {
       method: "GET",
       cache: "no-store",
+      next: { revalidate: 10 },
     };
 
     if (listingType) {

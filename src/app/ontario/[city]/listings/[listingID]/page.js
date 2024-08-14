@@ -131,12 +131,12 @@ const page = async ({ params }) => {
                     </h2>
                     <Map main_data={main_data} />
                   </div>
-                  <div className="mt-8 sm:mt-24">
+                  {/* <div className="mt-8 sm:mt-24">
                     <h2 className="font-extrabold pb-3 text-lg sm:text-4xl">
                       Mortgage Calculator
                     </h2>
                     <MortgageCalculator price={main_data.ListPrice} />
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="sm:col-span-2 col-span-2 pt-5" id="contact">
