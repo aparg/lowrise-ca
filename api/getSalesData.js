@@ -14,7 +14,6 @@ export const getSalesData = async (offset, limit, city, listingType) => {
     );
     const options = {
       method: "GET",
-      next: { revalidate: 10 },
     };
 
     if (listingType) {
