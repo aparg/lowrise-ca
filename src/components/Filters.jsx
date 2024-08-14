@@ -121,7 +121,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
   return (
     <>
       <div
-        className={`filters flex gap-2 gap-md-3 my-2 flex flex-wrap bg-white overflow-visible${
+        className={`filters gap-2 gap-md-3 my-2 flex flex-wrap bg-white overflow-visible${
           navbar
             ? `filter__scrolled mt-4 pb-2 container-fluid`
             : `top-[0px] items-center`

@@ -30,7 +30,7 @@ const Dropdown = ({ name, options, width = "25rem" }) => {
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        className={`font-normal text-sm text-black rounded-md focus:outline focus:text-primary-green bg-transparent hover:text-primary-green ${
+        className={`font-normal text-sm text-black rounded-md bg-transparent hover:text-primary-green ${
           shown && "bg-white"
         }`}
         onClick={() => setShown(!shown)}

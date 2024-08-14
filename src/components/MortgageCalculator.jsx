@@ -1,9 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { VictoryPie, VictoryLabel } from "victory";
+
 export default function MortgageCalculator(props) {
   const [intrest, setIntrest] = useState(0);
-  const [calculatordata, Setcalculatordata] = useState({
+  const [calculatordata, setCalculatordata] = useState({
     hvalue: props.price || "",
     dpay: "",
     dper: "10",
@@ -11,42 +12,42 @@ export default function MortgageCalculator(props) {
     intrate: "2.5",
     loanterm: "30",
   });
-  const [calculated, setcalculated] = useState(null);
+  const [calculated, setCalculated] = useState(null);
 
   useEffect(() => {
-    let valll =
+    let val =
       (parseFloat(calculatordata.loanamt) *
         parseFloat(calculatordata.loanterm) *
         parseFloat(calculatordata.intrate)) /
       100;
-    setIntrest(valll);
+    setIntrest(val);
   }, [calculatordata.loanamt, calculatordata.loanterm, calculatordata.intrate]);
 
   useEffect(() => {
-    let dpayment =
-      (parseInt(calculatordata.dper) / 100) * parseInt(calculatordata.hvalue);
-    if (isNaN(dpayment)) {
-      dpayment = 0;
+    let hvalue = parseFloat(calculatordata.hvalue) || 0;
+    let dpay = parseFloat(calculatordata.dpay) || 0;
+    let dper = parseFloat(calculatordata.dper) || 0;
+
+    // Update down payment amount if percentage changes
+    if (dper !== (dpay / hvalue) * 100) {
+      dpay = (dper / 100) * hvalue;
+      setCalculatordata((prev) => ({ ...prev, dpay: dpay.toFixed(2) }));
     }
-    Setcalculatordata((prevState) => ({
-      ...prevState,
-      ["dpay"]: dpayment.toFixed(2),
-    }));
-    /* console.log(calculatordata.dpay); */
-  }, [calculatordata.hvalue, calculatordata.dper]);
+
+    // Update down payment percentage if amount changes
+    if (dpay !== (dper / 100) * hvalue) {
+      dper = (dpay / hvalue) * 100;
+      setCalculatordata((prev) => ({ ...prev, dper: dper.toFixed(2) }));
+    }
+
+    // Calculate loan amount
+    let loanamt = hvalue - dpay;
+    setCalculatordata((prev) => ({ ...prev, loanamt: loanamt.toFixed(2) }));
+  }, [calculatordata.hvalue, calculatordata.dpay, calculatordata.dper]);
 
   useEffect(() => {
-    let mortamt =
-      parseFloat(calculatordata.hvalue) - parseFloat(calculatordata.dpay);
-    if (isNaN(mortamt)) {
-      mortamt = 0;
-    }
-    Setcalculatordata((prevState) => ({
-      ...prevState,
-      ["loanamt"]: mortamt.toFixed(2),
-    }));
-    /* console.log(calculatordata.dpay); */
-  }, [calculatordata.hvalue, calculatordata.dper, calculatordata.dpay]);
+    setCalculated(CalcMonth().toFixed(2));
+  }, [calculatordata]);
 
   function CalcMonth() {
     let i = parseFloat(calculatordata.intrate) / 100;
@@ -61,319 +62,241 @@ export default function MortgageCalculator(props) {
     return monthh;
   }
 
-  useEffect(() => {
-    setcalculated(CalcMonth().toFixed(2));
-  }, [calculatordata]);
   const handleChange = (e) => {
     const { id, value } = e.target;
-    Setcalculatordata((prevState) => ({
+    setCalculatordata((prevState) => ({
       ...prevState,
       [id]: value,
     }));
-    setcalculated(CalcMonth().toFixed(2));
-    /* console.log(calculatordata); */
   };
 
-  let style = { fontSize: "15" };
-
   return (
-    <div id="max-w-4xl mx-auto" className="mt-8">
-      <div className="flex flex-col justify-start">
-        <div className="flex flex-col px-auto items-center mt-10">
-          <div className="my-3 block sm:hidden">
-            <h3 className="fs-2">
-              ${calculated} <span className="fs-5 text-secondary">/mo</span>
-            </h3>
+    <div className="max-w-3xl mx-auto bg-white rounded-lg overflow-hidden mb-20">
+      <div className="p-8">
+        <h2 className="text-5xl font-extrabold text-center">
+          Mortgage <span className="text-primary-green">Calculator</span>
+        </h2>
+        <p className="text-center text-gray-500 mt-1">
+          Calculate your monthly mortgage payments based on the home value,
+        </p>
+        <div className="mb-10"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <FloatingLabelInput
+            id="hvalue"
+            label="Home Value"
+            value={calculatordata.hvalue}
+            onChange={handleChange}
+            prefix="$"
+          />
+          <div className="grid grid-cols-2 gap-4">
+            <FloatingLabelInput
+              id="dpay"
+              label="Down Payment"
+              value={calculatordata.dpay}
+              onChange={handleChange}
+              prefix="$"
+            />
+            <FloatingLabelInput
+              id="dper"
+              label="Down Payment %"
+              value={calculatordata.dper}
+              onChange={handleChange}
+              suffix="%"
+            />
           </div>
-          <div className="w-full ">
-            <div className="grid grid-cols-2 sm:grid-cols-3">
-              <div className="sm:col-span-1 flex items-center">
-                <label className="mortlabel" htmlFor="hvalue">
-                  Home Value :
-                </label>
-              </div>
-              <div className="sm:col-span-2">
-                <div className="w-full flex justify-stretch border-2 rounded-md">
-                  <span className="p-3 bg-gray-100" id="basic-addon1">
-                    $
-                  </span>
-                  <input
-                    type="text"
-                    className="py-2 px-2 "
-                    aria-describedby="basic-addon1"
-                    id="hvalue"
-                    value={calculatordata.hvalue}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 my-3">
-              <div className="col-sm-4 flex items-center">
-                <label htmlFor="dpay" className="mortlabel">
-                  Down Payment :
-                </label>
-              </div>
-              <div className="sm:col-span-2">
-                <div className="w-full flex justify-stretch border-2 rounded-md">
-                  <span className="p-3  bg-gray-100">$</span>
-                  <input
-                    type="text"
-                    className="py-2 px-2 flex-grow"
-                    id="dpay"
-                    value={calculatordata.dpay}
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="number"
-                    className="py-2 px-2 flex-grow"
-                    id="dper"
-                    value={calculatordata.dper}
-                    onChange={handleChange}
-                  />
-                  <span className="p-3 rounn bg-gray-100">%</span>
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3  my-3">
-              <div className="col-sm-4 flex items-center">
-                <label htmlFor="loanamt" className="mortlabel">
-                  Mortgage Amt :
-                </label>
-              </div>
-              <div className="sm:col-span-2">
-                <div className="w-full flex justify-stretch border-2 rounded-md">
-                  <span className="p-3 bg-gray-100" id="basic-addon2">
-                    $
-                  </span>
-                  <input
-                    type="text"
-                    className="py-2 px-2 flex-grow"
-                    aria-describedby="basic-addon2"
-                    id="loanamt"
-                    value={calculatordata.loanamt}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3  my-3">
-              <div className="col-sm-4 flex items-center">
-                <label htmlFor="intrate" className="mortlabel">
-                  Interest Rate :
-                </label>
-              </div>
-              <div className="sm:col-span-2">
-                <div className="w-full flex justify-stretch border-2 rounded-md">
-                  <input
-                    type="number"
-                    className="py-2 px-2 flex-grow"
-                    aria-describedby="basic-addon3"
-                    id="intrate"
-                    value={calculatordata.intrate}
-                    onChange={handleChange}
-                  />
-                  <span className="p-3 bg-gray-100" id="basic-addon3">
-                    %
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3  my-3">
-              <div className="col-sm-4 flex items-center">
-                <label htmlFor="loanterm" className="mortlabel">
-                  Mortgage Term :
-                </label>
-              </div>
-              <div className="sm:col-span-2">
-                <div className="w-full flex justify-stretch border-2 rounded-md">
-                  <input
-                    type="number"
-                    className="py-2 px-2 flex-grow"
-                    aria-describedby="basic-addon4"
-                    id="loanterm"
-                    value={calculatordata.loanterm}
-                    onChange={handleChange}
-                  />
-                  <span className="p-3 bg-gray-100" id="basic-addon4">
-                    Yrs
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="rounded-mine bg-gray-100 flex items-center flex-column flex-md-grid mb-4">
-            <div className="p-3 rounded-mine">
-              <h3 className="fs-2 font-bold text-mine">
-                ${calculated} <span className="fs-5 text-secondary">/mo</span>
-              </h3>
-              <p className="text-secondary">
-                Your Estimated Monthly Mortgage Payment.
-              </p>
-            </div>
-            <svg width="400" height="400" className="">
-              {(calculatordata.loanamt > 10 || intrest > 10) && (
-                <>
-                  <VictoryPie
-                    standalone={false}
-                    width={400}
-                    height={400}
-                    data={[
-                      {
-                        x: `Mortgage \n$ ${parseInt(
-                          calculatordata.loanamt
-                        ).toLocaleString()}`,
-                        y: parseInt(calculatordata.loanamt),
-                      },
-                      {
-                        x: `Interest \n $ ${parseInt(
-                          intrest
-                        ).toLocaleString()}`,
-                        y: parseInt(intrest),
-                      },
-                    ]}
-                    innerRadius={68}
-                    labelRadius={100}
-                    padding={{ left: 120, right: 120 }}
-                    colorScale={["rgb(82 170 146)", "rgb(82 130 146)"]}
-                  />
-                  <VictoryLabel
-                    textAnchor="middle"
-                    style={style}
-                    x={200}
-                    y={200}
-                    text={"$" + calculated + "/mo"}
-                  />
-                </>
-              )}
-            </svg>
-          </div>
+          <FloatingLabelInput
+            id="loanamt"
+            label="Mortgage Amount"
+            value={calculatordata.loanamt}
+            onChange={handleChange}
+            prefix="$"
+            disabled
+          />
+          <FloatingLabelInput
+            id="intrate"
+            label="Interest Rate"
+            value={calculatordata.intrate}
+            onChange={handleChange}
+            suffix="%"
+          />
+          <FloatingLabelInput
+            id="loanterm"
+            label="Mortgage Term"
+            value={calculatordata.loanterm}
+            onChange={handleChange}
+            suffix="Yrs"
+          />
         </div>
-        <div className="mt-40 rounded-md p-6">
-          <h1 className="text-4xl font-bold leading-8 mb-5">
-            Steps to calculate your payments using a mortgage calculator{" "}
-          </h1>
-          1. Determine the purchase price of the home.
-          <br />
-          <br />
-          2. Calculate the down payment (usually 5-20% of the purchase price in
-          Canada).
-          <br />
-          <br />
-          3. Subtract the down payment from the purchase price to get the
-          mortgage amount.
-          <br />
-          <br />
-          4. Choose a mortgage term (typically 5 years in Canada) and
-          amortization period (usually 25-30 years).
-          <br />
-          <br />
-          5. Determine the interest rate (check current rates from Canadian
-          lenders).
-          <br />
-          <br />
-          6. Use a mortgage calculator or formula to determine the monthly
-          payment based on the mortgage amount, interest rate, and amortization
-          period.
-          <br />
-          <br />
-          7. Factor in additional costs like property taxes, home insurance, and
-          possibly mortgage insurance if the down payment is less than 20%.
-          <br />
-          <br />
-          8. Consider the impact of making accelerated bi-weekly payments
-          instead of monthly payments to pay off the mortgage faster.
-          <br />
-          <br />
-          9. Review the total interest paid over the life of the mortgage.
-          <br />
-          <br />
-          10. Ensure the monthly payments fit within your budget, typically not
-          exceeding 32% of your gross monthly income for housing costs.
-          <br />
-          <br />
+
+        <div className="mt-8 bg-gray-100 rounded-lg p-6 text-center">
+          <h3 className="text-2xl font-bold text-gray-800 mb-2">
+            ${calculated} <span className="text-lg text-gray-600">/mo</span>
+          </h3>
+          <p className="text-gray-600">
+            Your Estimated Monthly Mortgage Payment
+          </p>
         </div>
-        <div className="mt-40 rounded-md p-6">
-          <h1 className="text-4xl font-bold mb-5">Terms Explained</h1>
-          <b>Home Value:</b> The current market value or purchase price of the
-          property.
-          <br />
-          <br />
-          <b>Down Payment:</b> The initial upfront portion of the total home
-          purchase price paid by the buyer.
-          <br />
-          <br />
-          <b>Mortgage Amount:</b> The amount borrowed from a lender to purchase
-          the home (Home Value minus Down Payment).
-          <br />
-          <br />
-          <b>Interest Rate:</b> The percentage charged by the lender for
-          borrowing the money, usually expressed as an annual rate.
-          <br />
-          <br />
-          <b>Mortgage Term:</b> The length of time your mortgage agreement and
-          interest rate are in effect (typically 1-5 years in Canada).
-          <br />
-          <br />
-          <b>Amortization Period:</b> The total length of time it will take to
-          pay off the entire mortgage (usually 25-30 years in Canada).
-          <br />
-          <br />
-          <b>Monthly Payment:</b> The amount paid each month towards the
-          mortgage, including principal and interest.
-          <br />
-          <br />
-          <b>Principal:</b> The original amount borrowed, which decreases as
-          payments are made.
-          <br />
-          <br />
-          <b>CMHC Insurance:</b> Mortgage default insurance required for down
-          payments less than 20% of the home's value.
-          <br />
-          <br />
-          <b>Property Taxes:</b> Annual taxes levied by local governments based
-          on the property's assessed value.
-          <br />
-          <br />
-          <b>Home Insurance:</b> Coverage to protect the property against damage
-          or loss.
-          <br />
-          <br />
-          <b>Land Transfer Tax:</b> A tax paid to the provincial government when
-          purchasing a property.
-          <br />
-          <br />
-          <b>Closing Costs:</b> Additional expenses incurred when finalizing a
-          home purchase (legal fees, inspections, etc.).
-          <br />
-          <br />
-          <b>Prepayment Privileges:</b> Options to pay extra towards the
-          mortgage without penalties.
-          <br />
-          <br />
-          <b>Fixed Rate Mortgage:</b> A mortgage where the interest rate remains
-          constant for the term.
-          <br />
-          <br />
-          <b>Variable Rate Mortgage:</b> A mortgage where the interest rate can
-          fluctuate based on the prime rate.
-          <br />
-          <br />
-          <b>Refinancing:</b> The process of replacing an existing mortgage with
-          a new one, often to take advantage of better terms or rates.
-          <br />
-          <br />
-          These terms are commonly used in mortgage calculations and discussions
-          about home financing in Canada.
+
+        <div className="mt-8 flex justify-center">
+          <svg width="300" height="300">
+            {(calculatordata.loanamt > 10 || intrest > 10) && (
+              <>
+                <VictoryPie
+                  standalone={false}
+                  width={300}
+                  height={300}
+                  data={[
+                    {
+                      x: `Mortgage \n$ ${parseInt(
+                        calculatordata.loanamt
+                      ).toLocaleString()}`,
+                      y: parseInt(calculatordata.loanamt),
+                    },
+                    {
+                      x: `Interest \n $ ${parseInt(intrest).toLocaleString()}`,
+                      y: parseInt(intrest),
+                    },
+                  ]}
+                  innerRadius={68}
+                  labelRadius={100}
+                  colorScale={["rgb(82 170 146)", "rgb(82 130 146)"]}
+                />
+                <VictoryLabel
+                  textAnchor="middle"
+                  style={{ fontSize: 16 }}
+                  x={150}
+                  y={150}
+                  text={"$" + calculated + "/mo"}
+                />
+              </>
+            )}
+          </svg>
         </div>
       </div>
-      {/* <div className="mortgg3 px-5">
-        <span className="text-danger">*</span>
-        This calculator is for demonstration purposes only. The Canadian Real
-        Estate Association does not guarantee that all calculations are
-        accurate. Always consult a professional financial advisor before making
-        personal financial decisions.
-      </div> */}
+
+      <div className="bg-gray-50 p-8">
+        <h3 className="text-2xl font-bold mb-4">
+          Steps to Calculate Your Payments
+        </h3>
+        <ol className="list-decimal list-inside space-y-2 text-gray-700">
+          <li>Determine the purchase price of the home.</li>
+          <li>
+            Calculate the down payment (usually 5-20% of the purchase price in
+            Canada).
+          </li>
+          <li>
+            Subtract the down payment from the purchase price to get the
+            mortgage amount.
+          </li>
+          <li>
+            Choose a mortgage term (typically 5 years in Canada) and
+            amortization period (usually 25-30 years).
+          </li>
+          <li>
+            Determine the interest rate (check current rates from Canadian
+            lenders).
+          </li>
+          <li>Use a mortgage calculator to determine the monthly payment.</li>
+          <li>
+            Factor in additional costs like property taxes and home insurance.
+          </li>
+          <li>Consider the impact of making accelerated bi-weekly payments.</li>
+          <li>Review the total interest paid over the life of the mortgage.</li>
+          <li>
+            Ensure the monthly payments fit within your budget (typically not
+            exceeding 32% of your gross monthly income for housing costs).
+          </li>
+        </ol>
+      </div>
+
+      <div className="p-8">
+        <h3 className="text-2xl font-bold mb-4">Terms Explained</h3>
+        <dl className="space-y-4">
+          {[
+            {
+              term: "Home Value",
+              def: "The current market value or purchase price of the property.",
+            },
+            {
+              term: "Down Payment",
+              def: "The initial upfront portion of the total home purchase price paid by the buyer.",
+            },
+            {
+              term: "Mortgage Amount",
+              def: "The amount borrowed from a lender to purchase the home (Home Value minus Down Payment).",
+            },
+            {
+              term: "Interest Rate",
+              def: "The percentage charged by the lender for borrowing the money, usually expressed as an annual rate.",
+            },
+            {
+              term: "Mortgage Term",
+              def: "The length of time your mortgage agreement and interest rate are in effect (typically 1-5 years in Canada).",
+            },
+          ].map(({ term, def }) => (
+            <div key={term}>
+              <dt className="font-semibold text-gray-800">{term}</dt>
+              <dd className="text-gray-600 mt-1">{def}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <div className="bg-gray-100 p-4 text-center text-sm text-gray-600">
+        <p>
+          This calculator is for demonstration purposes only. Always consult a
+          professional financial advisor before making personal financial
+          decisions.
+        </p>
+      </div>
+      <div className="mb-20"></div>
     </div>
   );
 }
+
+const FloatingLabelInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  prefix,
+  suffix,
+  disabled,
+  type = "text",
+}) => (
+  <div className="relative mt-4">
+    <input
+      type={type}
+      id={id}
+      className={`
+        peer w-full h-[60px] px-4 pt-4 pb-1 rounded-md
+        bg-white border border-gray-300 text-gray-900 text-base
+        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+        ${disabled ? "bg-gray-100 cursor-not-allowed" : ""}
+        ${prefix ? "pl-8" : ""}
+        ${suffix ? "pr-8" : ""}
+      `}
+      placeholder=" "
+      value={value}
+      onChange={onChange}
+      disabled={disabled}
+    />
+    <label
+      htmlFor={id}
+      className={`
+        absolute top-1 left-4 text-gray-500 text-xs transition-all duration-200
+        peer-placeholder-shown:text-xs peer-placeholder-shown:top-3.5
+        peer-focus:top-1 peer-focus:text-xs 
+        ${prefix ? "left-8" : ""}
+      `}
+    >
+      {label}
+    </label>
+    {prefix && (
+      <span className="absolute left-3 top-3.5 text-gray-500">{prefix}</span>
+    )}
+    {suffix && (
+      <span className="absolute right-3 top-3.5 text-gray-500">{suffix}</span>
+    )}
+  </div>
+);

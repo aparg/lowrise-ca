@@ -63,10 +63,10 @@ const Navbar = (props) => {
   });
 
   const buyOpts = [
-    {
+    /* {
       name: "Semi-detached Homes for Sale",
       link: generateURL({ houseTypeVal: "semiDetached" }),
-    },
+    }, */
     {
       name: "Detached Homes for Lease",
       link: generateURL({ houseTypeVal: "detached" }),
@@ -88,22 +88,28 @@ const Navbar = (props) => {
   const calculatorOpts = [
     { name: "Mortgage Calculator", link: "/calculator/mortgage" },
     { name: "Property Tax Calculator", link: "/calculator/property-tax" },
-    { name: "Home Evaluation", link: "/home-value-estimator" },
   ];
 
   return (
     <header
       className={`lg:pb-0 relative bg-white ${showNavbar ? "" : "hidden"} ${
         isSticky
-          ? "bg-white sticky top-0 z-[1000]"
+          ? "bg-white sticky top-0 z-[999]"
           : "z-[1000] md:bg-transparent"
       }  container-fluid shadow-shuttle`}
     >
       <div className={`${isSticky && "sticky"}`}>
-        <nav className={`flex items-center justify-between h-14 sm:h-[5rem] max-w-[90%] mx-auto`}>
+        <nav
+          className={`flex items-center justify-between h-14 sm:h-[5rem] max-w-[90%] mx-auto`}
+        >
           <div className="flex-shrink-0 flex h-full items-center mr-2">
             <Link href="/" className="logo d-flex 0align-items-center">
-              <Image src={isSticky ? blackLogoPath : whiteLogoPath} alt="logo" width={120} height={5} />
+              <Image
+                src={isSticky ? blackLogoPath : whiteLogoPath}
+                alt="logo"
+                width={100}
+                height={5}
+              />
             </Link>
           </div>
 

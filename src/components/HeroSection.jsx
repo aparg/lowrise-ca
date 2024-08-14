@@ -48,7 +48,7 @@ const HeroSection = () => {
             </div>
             <div className="flex flex-wrap gap-4 my-8">
               <Link href="#contact">
-                <button className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition duration-300 ease-in-out">
+                <button className="px-6 py-3 bg-primary-green text-white font-semibold rounded-lg shadow-md hover:bg-primary-green transition duration-300 ease-in-out">
                   Contact Us
                 </button>
               </Link>

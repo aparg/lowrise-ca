@@ -5,6 +5,8 @@ import Link from "next/link";
 import PropertyDisplaySection from "@/components/PropertyDisplaySection";
 import { generateURL } from "@/helpers/generateURL";
 import HeroSection from "@/components/HeroSection";
+import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
+import ContactForm from "@/components/ContactForm";
 
 export default async function Home() {
   const INITIAL_LIMIT = 4;
@@ -43,6 +45,7 @@ export default async function Home() {
       >
         <Slider data={TORONTOHOMES} type="resale" />
       </PropertyDisplaySection>
+      <CanadianCitiesShowcase />
       <PropertyDisplaySection
         title="Explore homes in Brampton"
         subtitle=""
@@ -66,6 +69,7 @@ export default async function Home() {
       </PropertyDisplaySection>
 
       <div className="flex flex-col items-center mt-40 sm:mt-40"></div>
+      <ContactForm />
       {/* pass props type="commercial" only for commercial card slider, default is residential */}
     </>
   );

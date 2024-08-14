@@ -163,11 +163,12 @@ const FiltersWithSalesList = ({
         <div>
           <h2
             className={`font-extrabold text-2xl ${
-              isMobileView ? "pt-0" : "pt-0"
+              isMobileView ? "pt-2" : "pt-2"
             }`}
           >
             {city ? capitalizeFirstLetter(decodeURIComponent(city)) : "Ontario"}{" "}
-            Homes {filterState.saleLease} | Real Estate Updated Daily Listings
+            {requiredType ? requiredType : "Homes"} {filterState.saleLease} |
+            Real Estate Updated Daily Listings
           </h2>
           <p
             className="text-sm mb-5 mt-1"
