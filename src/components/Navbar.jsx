@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import SearchBar from "./SearchBar";
 import Dropdown from "./Dropdown";
 import { generateURL } from "@/helpers/generateURL";
+import Image from "next/image";
 import citiesWithProvinces from "@/constant/cities";
 
 const Navbar = (props) => {
@@ -54,8 +55,8 @@ const Navbar = (props) => {
     return;
   });
 
-  const whiteLogoPath = "/logo/whitelogo.svg";
-  const blackLogoPath = "/logo/blacklogo.svg";
+  const whiteLogoPath = "/lowriselogo.svg";
+  const blackLogoPath = "/lowriselogo.svg";
 
   const cities = citiesWithProvinces.map((obj) => {
     return { name: obj.city, link: generateURL({ cityVal: obj.city }) };
@@ -96,30 +97,20 @@ const Navbar = (props) => {
         isSticky
           ? "bg-white sticky top-0 z-[1000]"
           : "z-[1000] md:bg-transparent"
-      }  container-fluid`}
+      }  container-fluid shadow-shuttle`}
     >
       <div className={`${isSticky && "sticky"}`}>
-        <nav className={`flex items-center justify-between h-14 sm:h-[5rem]`}>
+        <nav className={`flex items-center justify-between h-14 sm:h-[5rem] max-w-[90%] mx-auto`}>
           <div className="flex-shrink-0 flex h-full items-center mr-2">
-            {/* <Link href="/" className="logo d-flex align-items-center">
-              <Image
-                className="w-22 hidden md:block"
-                src={"/logo/dolphin-logo.png"}
-              />
-              <Image className="w-20 md:hidden" src={blackLogoPath} />
-            </Link> */}
-            <Link href="/" className="logo d-flex align-items-center">
-              <h1 className="text-4xl font-extrabold text-black sm:text-2xl lg:text-3xl sm-center font-family2 order-1 text-left mw">
-                Lowrise<span className="text-[#FF0000]">.</span>ca
-              </h1>
+            <Link href="/" className="logo d-flex 0align-items-center">
+              <Image src={isSticky ? blackLogoPath : whiteLogoPath} alt="logo" width={120} height={5} />
             </Link>
-            {/* <h1 className="w-20 md:hidden" src={blackLogoPath} /> */}
           </div>
 
-          <div className="flex items-center border-2 h-[40px] rounded-md w-auto">
+          <div className="flex items-center h-[40px] rounded-md w-auto">
             <SearchBar />
             <button
-              className="input-group-text h-full bg-gray-100 mybtn block  py-search"
+              className="bg-gray-100 px-2 py-[0.73rem] search-button rounded-md"
               type="button"
               aria-label="Search Button"
             >
@@ -199,14 +190,14 @@ const Navbar = (props) => {
               width="auto"
             />
             <Dropdown
-              name="Calculator"
-              text={isSticky || !isHomePage ? "black" : "white"}
-              options={calculatorOpts}
-            />
-            <Dropdown
               name="Popular cities"
               text={isSticky || !isHomePage ? "black" : "white"}
               options={cities}
+            />
+            <Dropdown
+              name="Calculator"
+              text={isSticky || !isHomePage ? "black" : "white"}
+              options={calculatorOpts}
             />
             <Link
               href="/blogs"
@@ -257,8 +248,8 @@ const Navbar = (props) => {
               <Link href="tel:4168458996" className="flex items-center">
                 <img src="/contact.png" className="w-12"></img>
                 <div className="flex flex-col items-center justify-center">
-                  <div className="text-sm font-bold">(419) 999-8999</div>
-                  <div className="text-sm">Speak with Lowrise Team</div>
+                  <div className="text-lg font-bold">(419) 999-8999</div>
+                  <div className="text-xs">Speak with Lowrise Team</div>
                 </div>
               </Link>
             </Link>
@@ -337,8 +328,8 @@ const Navbar = (props) => {
                 <Link href="tel:4168458996" className="flex items-center">
                   <img src="/portfolio-img/contact1.png" className="w-12"></img>
                   <div className="flex flex-col items-center justify-center">
-                    <div className="text-sm font-bold">(416) 845-8996</div>
-                    <div className="text-sm">Speak with Lowrise team</div>
+                    <div className="text-lg font-bold">(416) 845-8996</div>
+                    <div className="text-xs">Speak with Lowrise team</div>
                   </div>
                 </Link>
               </Link>

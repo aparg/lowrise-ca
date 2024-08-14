@@ -1,19 +1,7 @@
-// import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { Montserrat } from "next/font/google";
 import Footer from "@/components/Footer";
-
-// const inter = Inter({ subsets: ["latin"] });
-// const montserrat = Montserrat({ subsets: ["latin"], weight: "400" });
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variants: ["100", "300", "400", "500", "600", "700", "800", "900"], // to have all the font weights available
-  style: ["normal"],
-  weight: ["400", "700"], // Adjust based on how wide you want it
-  display: "swap",
-  variant: "alternates",
-});
 
 export const metadata = {
   title: "Lowrise.ca",
@@ -23,11 +11,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={montserrat.className + "bg-white text-black"}>
-        <main className=" mx-auto max-w-[90%]">
-          <Navbar />
-          {children}
-        </main>
+      <body className="bg-white text-black">
+        <Navbar />
+        <main className="mx-auto max-w-[90%]">{children}</main>
         <Footer />
       </body>
     </html>

@@ -16,10 +16,13 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        "primary-green": "#40a2bf",
+        "primary-green": "#EE4266",
         "light-lime": "#e1f6b2",
         "primary-red": "#eb7e6c",
         "medium-black": "#222222",
+      },
+      boxShadow: {
+        shuttle: "0 0 1rem 1px rgb(0 0 0 / 3%);",
       },
     },
   },
