@@ -115,16 +115,6 @@ const Footer = ({ cities }) => {
           {/* Logo and copyright */}
           <div className="mt-16 pt-8 border-t border-gray-200">
             <div className="flex flex-col items-center space-y-4">
-              <Link href="/">
-                <div className="flex justify-center">
-                  <Image
-                    src="/lowriselogo.svg"
-                    alt="Lowrise Logo"
-                    width={200}
-                    height={200}
-                  />
-                </div>
-              </Link>
               <p className="text-xs text-gray-500 max-w-2xl text-center">
                 This representation is based in whole or part on data generated
                 by the Toronto Regional Real Estate Board. The Toronto Regional
