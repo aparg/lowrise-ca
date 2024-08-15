@@ -68,7 +68,7 @@ const Navbar = (props) => {
       link: generateURL({ houseTypeVal: "semiDetached" }),
     }, */
     {
-      name: "Detached Homes for Lease",
+      name: "Detached Homes for Sale",
       link: generateURL({ houseTypeVal: "detached" }),
     },
     {

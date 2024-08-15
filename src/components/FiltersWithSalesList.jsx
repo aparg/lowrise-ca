@@ -9,7 +9,7 @@ import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
 
 //CONSTANT
 import { bedCount, saleLease, houseType, washroomCount } from "@/constant";
-import { getFilteredRetsData } from "../../api/getSalesData";
+import { getFilteredRetsData } from "../api/getSalesData";
 import useDeviceView from "@/helpers/useDeviceView";
 import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
 import { ImSpinner } from "react-icons/im";

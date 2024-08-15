@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import TimeAgo from "@/helpers/TimeAgo";
-import { residential } from "../../api/routes/fetchRoutes";
+import { residential } from "../api/routes/fetchRoutes";
 import { houseType, saleLease } from "@/constant";
 import { generateURL } from "@/helpers/generateURL";
 import useDeviceView from "@/helpers/useDeviceView";

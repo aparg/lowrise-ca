@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import TimeAgo from "@/helpers/TimeAgo";
-import { commercial } from "../../api/routes/fetchRoutes";
+import { commercial } from "../api/routes/fetchRoutes";
 import { saleLease } from "@/constant";
 import { generateURL } from "@/helpers/generateURL";
 import { usePathname } from "next/navigation";

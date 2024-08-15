@@ -1,5 +1,5 @@
 import Slider from "@/components/Slider";
-import { getSalesData } from "../../api/getSalesData";
+import { getSalesData } from "../api/getSalesData";
 import PropertyDisplaySection from "@/components/PropertyDisplaySection";
 import { generateURL } from "@/helpers/generateURL";
 import HeroSection from "@/components/HeroSection";
