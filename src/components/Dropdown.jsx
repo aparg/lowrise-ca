@@ -41,7 +41,7 @@ const Dropdown = ({ name, options, width = "25rem" }) => {
       </button>
 
       <div
-        className={`absolute left-[-1rem] sm:right-0 mt-6 bg-white rounded-md shadow-shuttle z-10 text-sm h-auto grid ${
+        className={`absolute left-[-1rem] sm:right-0 mt-6 bg-white rounded-md shadow-2xl border z-10 text-sm h-auto grid ${
           options.length > 5
             ? "grid-cols-3 sm:w-[30rem] w-[20rem] "
             : "grid-cols-1 w-[16rem]"
