@@ -98,10 +98,10 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
               </div>
 
               <div className="absolute bottom-3 left-2 flex flex-row">
-                <div className="text-black text-[0.8rem] p-[2px] px-1 rounded-md mx-1 bg-white flex items-center">
+                <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
                   {curElem.TypeOwn1Out}{" "}
                 </div>
-                <div className="text-black text-xs p-[2px] px-1 rounded-md mx-1 bg-white flex items-center">
+                <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
                   <TimeAgo modificationTimestamp={curElem.TimestampSql} />
                 </div>
               </div>

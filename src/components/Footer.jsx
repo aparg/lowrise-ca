@@ -59,10 +59,11 @@ const Footer = ({ cities }) => {
                   </Link>
                 </div>
                 <p className="text-sm leading-relaxed mb-8">
-                  Lowrise refers potential buyers to real estate agents that are
-                  licensed in the province where the respective property is
-                  located. Dolphin Realty is licensed as a real estate brokerage
-                  in Ontario.
+                  Lowrise (“Lowrise.ca”) is a wholly-owned by Homebaba
+                  technologies Inc. Lowrise refers potential buyers to real
+                  estate agents that are licensed in the province where the
+                  respective property is located. Dolphin Realty is licensed as
+                  a real estate brokerage in Ontario.
                   <br />
                   <br />
                   IDX information is provided exclusively for consumers’
