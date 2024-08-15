@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { allCities } from "@/constant/cities";
 import { generateURL } from "@/helpers/generateURL";
-import { FaTwitter, FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import Image from "next/image";
 import NewsletterSignup from "./NewsletterSignup";
 
@@ -78,8 +78,8 @@ const Footer = ({ cities }) => {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Contact Us</h3>
                     <address className="not-italic text-sm">
-                      <p>4 Robert Speck Parkway, Mississauga, ONTARIO</p>
-                      <p>Phone: 647 527 4970</p>
+                      <p>8300 Woodbine Ave, Markham, ON L3R 9Y7</p>
+                      <p>Phone: 289-302-6322</p>
                       <p>
                         Email:{" "}
                         <a
@@ -95,22 +95,22 @@ const Footer = ({ cities }) => {
                     <h3 className="text-xl font-semibold mb-2">Follow Us</h3>
                     <div className="flex justify-center space-x-4">
                       <Link
-                        href="#"
+                        href="https://www.facebook.com/profile.php?id=100078509119684"
                         className="text-gray-600 hover:text-blue-600 transition-colors"
                       >
                         <FaFacebook size={24} />
                       </Link>
                       <Link
-                        href="#"
+                        href="https://www.instagram.com/dolphin_realty/"
                         className="text-gray-600 hover:text-pink-600 transition-colors"
                       >
                         <FaInstagram size={24} />
                       </Link>
                       <Link
-                        href="#"
+                        href="https://www.youtube.com/watch?v=DOr8JTMaQG0&t=1s"
                         className="text-gray-600 hover:text-blue-800 transition-colors"
                       >
-                        <FaLinkedin size={24} />
+                        <FaYoutube size={24} />
                       </Link>
                     </div>
                   </div>
