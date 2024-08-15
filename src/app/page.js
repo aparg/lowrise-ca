@@ -6,6 +6,13 @@ import HeroSection from "@/components/HeroSection";
 import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
 import ContactForm from "@/components/ContactForm";
 
+export const metadata = {
+  title: "Lowrise.ca | Resale Properties in Ontario",
+  description:
+    "Find the best resale properties in Ontario, Canada. Specializing in low-rise buildings and homes.",
+  keywords: "resale, properties, Ontario, Canada, low-rise, homes",
+};
+
 export default async function Home() {
   const INITIAL_LIMIT = 4;
   const INITIAL_OFFSET = 0;

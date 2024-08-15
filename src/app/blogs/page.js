@@ -2,6 +2,12 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { fetchAllBlogPosts, fetchCities } from "@/api/blogs";
 import BlogCard from "@/components/BlogCard";
 
+export const metadata = {
+  title: "Lowrise.ca Blog | Real Estate Insights",
+  description:
+    "Stay updated with the latest real estate trends, tips, and insights for Ontario's property market.",
+};
+
 export default async function Home() {
   const breadcrumbItems = [
     {

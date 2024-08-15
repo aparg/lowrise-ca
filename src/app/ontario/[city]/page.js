@@ -17,6 +17,16 @@ const FiltersWithSalesList = dynamic(
   }
 );
 
+export async function generateMetadata({ params }) {
+  const city = params.city;
+
+  return {
+    title: `${city} Properties | Lowrise.ca`,
+    description: `Discover resale properties and low-rise buildings in ${city}, Ontario.`,
+    keywords: `${city} real estate, Ontario properties, resale homes`,
+  };
+}
+
 const INITIAL_LIMIT = 30;
 const page = async ({ params }) => {
   const city = params.city;

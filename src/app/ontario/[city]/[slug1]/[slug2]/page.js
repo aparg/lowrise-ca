@@ -3,6 +3,16 @@ import { houseType, saleLease } from "@/constant/filters";
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
 import FiltersWithSalesList from "@/components/FiltersWithSalesList";
 
+export async function generateMetadata({ params }) {
+  const { slug1, slug2 } = params;
+
+  return {
+    title: `${slug1} ${slug2} Properties | Lowrise.ca`,
+    description: `Find ${slug1} ${slug2} resale properties in Ontario. Explore our curated listings.`,
+    keywords: `${slug1}, ${slug2}, Ontario real estate, property filter`,
+  };
+}
+
 const page = async ({ params }) => {
   let saleLeaseValue;
   let type;
