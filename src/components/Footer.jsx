@@ -61,6 +61,7 @@ const Footer = ({ cities }) => {
                   located. Dolphin Realty is licensed as a real estate brokerage
                   in Ontario.
                   <br />
+                  <br />
                   IDX information is provided exclusively for consumers’
                   personal, non-commercial use and that it may not be used for
                   any purpose other than to identify prospective properties
