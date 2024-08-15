@@ -3,16 +3,6 @@ import { houseType, saleLease } from "@/constant/filters";
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
 import FiltersWithSalesList from "@/components/FiltersWithSalesList";
 
-export async function generateMetadata({ params }) {
-  const { slug1, slug2 } = params;
-
-  return {
-    title: `${slug1} ${slug2} Properties | Lowrise.ca`,
-    description: `Find ${slug1} ${slug2} resale properties in Ontario. Explore our curated listings.`,
-    keywords: `${slug1}, ${slug2}, Ontario real estate, property filter`,
-  };
-}
-
 const page = async ({ params }) => {
   let saleLeaseValue;
   let type;
@@ -47,30 +37,30 @@ const page = async ({ params }) => {
 
 export default page;
 
-// export async function generateMetadata({ params }, parent) {
-//   let saleLeaseValue;
-//   let type;
-//   if (Object.keys(saleLease).includes(params.slug1)) {
-//     saleLeaseValue = params.slug1;
-//   } else if (Object.keys(saleLease).includes(params.slug2)) {
-//     saleLeaseValue = params.slug2;
-//   }
-//   if (Object.keys(houseType).includes(params.slug1)) {
-//     type = capitalizeFirstLetter(params.slug1);
-//   } else if (Object.keys(houseType).includes(params.slug2)) {
-//     type = capitalizeFirstLetter(params.slug2);
-//   }
-//   return {
-//     ...parent,
-//     alternates: {
-//       canonical: `https://luxehomesbyfara.com/ontario/${type}/${saleLeaseValue}/${type}`,
-//     },
-//     openGraph: {
-//       images: "/favicon.ico",
-//     },
-//     title: `Find ${type} Real Estate ${saleLease[saleLeaseValue]?.name} in ${params.city}`,
-//     description: `Explore top ${type}${
-//       plural[capitalizeFirstLetter(type)] || "properties"
-//     } in ${params.city || "Ontario"} and select the best ones`,
-//   };
-// }
+export async function generateMetadata({ params }, parent) {
+  let saleLeaseValue;
+  let type;
+  if (Object.keys(saleLease).includes(params.slug1)) {
+    saleLeaseValue = params.slug1;
+  } else if (Object.keys(saleLease).includes(params.slug2)) {
+    saleLeaseValue = params.slug2;
+  }
+  if (Object.keys(houseType).includes(params.slug1)) {
+    type = capitalizeFirstLetter(params.slug1);
+  } else if (Object.keys(houseType).includes(params.slug2)) {
+    type = capitalizeFirstLetter(params.slug2);
+  }
+  return {
+    ...parent,
+    alternates: {
+      canonical: `https://lowrise.ca/ontario/${type}/${saleLeaseValue}/${type}`,
+    },
+    openGraph: {
+      images: "/favicon.ico",
+    },
+    title: `Find ${type} Real Estate ${saleLease[saleLeaseValue]?.name} in ${params.city}`,
+    description: `Explore top ${type}${
+      plural[capitalizeFirstLetter(type)] || "properties"
+    } in ${params.city || "Ontario"} and select the best ones`,
+  };
+}
