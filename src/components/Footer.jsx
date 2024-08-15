@@ -11,6 +11,9 @@ import NewsletterSignup from "./NewsletterSignup";
 const Footer = ({ cities }) => {
   const pathname = usePathname();
 
+  let todaysutc = new Date().toUTCString();
+  let year_now = new Date().getFullYear();
+
   if (pathname.startsWith("/Linkdmin")) {
     return null;
   }
@@ -117,15 +120,6 @@ const Footer = ({ cities }) => {
 
           {/* Logo and copyright */}
           <div className="mt-16 pt-8 border-t border-gray-200">
-            <p className="text-xs leading-relaxed mb-8 text-center">
-              The trademarks REALTOR®, REALTORS®, and the REALTOR® logo are
-              controlled by The Canadian Real Estate Association (CREA) and
-              identify real estate professionals who are members of CREA. The
-              trademarks, Multiple Listing Service® and the associated logos are
-              owned by CREA and identify the quality of services provided by
-              real estate professionals who are members of CREA. Used under
-              license.
-            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 items-center space-y-4 gap-4">
               <div className="flex flex-col items-center space-y-4">
                 <img src="/logo/trebb.png" alt="TREBB Logo" className="w-28" />
@@ -145,28 +139,28 @@ const Footer = ({ cities }) => {
                   than Dolphin Realty Inc. may be marked with the Internet Data
                   Exchange logo and detailed information about those properties
                   will include the name of the listing broker(s) when required
-                  by the MLS. Copyright ©2024 All rights reserved. Last Updated:
-                  August 15, 2024 2:32 AM UTC
+                  by the MLS. Copyright ©2024 All rights reserved. Last Updated:{" "}
+                  {todaysutc} UTC
                 </p>
               </div>
               <div className="flex flex-col items-center space-y-4">
                 <img src="/crea.png" alt="TREBB Logo" className="w-28" />
                 <p className="text-xs text-gray-500 max-w-2xl text-center">
                   The listing data displayed is deemed reliable but is not
-                  guaranteed accurate by CREA®. Data last updated on August 14,
-                  2024 6:32 AM UTC The trademarks REALTOR®, REALTORS®; and the
-                  REALTOR® logo are controlled by The Canadian Real Estate
-                  Association (CREA®) and identify real estate professionals who
-                  are members of CREA®. Used under license. The trademarks MLS®,
-                  Multiple Listing Service® and the associated logos are owned
-                  by The Canadian Real Estate Association (CREA®) and identify
-                  the quality of services provided by real estate professionals
-                  who are members of CREA®. Used under license.
+                  guaranteed accurate by CREA®. Data last updated on {todaysutc}{" "}
+                  UTC The trademarks REALTOR®, REALTORS®; and the REALTOR® logo
+                  are controlled by The Canadian Real Estate Association (CREA®)
+                  and identify real estate professionals who are members of
+                  CREA®. Used under license. The trademarks MLS®, Multiple
+                  Listing Service® and the associated logos are owned by The
+                  Canadian Real Estate Association (CREA®) and identify the
+                  quality of services provided by real estate professionals who
+                  are members of CREA®. Used under license.
                 </p>
               </div>
             </div>
             <p className="text-sm text-center mt-10">
-              ©2024 Copyright Lowrise All Rights Reserved
+              ©{year_now} Copyright Lowrise.ca All Rights Reserved
             </p>
           </div>
         </div>
