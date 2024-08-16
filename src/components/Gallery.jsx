@@ -27,7 +27,7 @@ const Gallery = ({ data }) => {
           onInit={onInit}
           speed={500}
           plugins={[lgThumbnail, lgZoom]}
-          elementClassNames="grid grid-rows-2 grid-cols-4 gap-2"
+          elementClassNames="grid grid-rows-3 sm:grid-rows-2 grid-cols-4 gap-2"
         >
           <>
             {data?.length > 0 ? (
@@ -36,7 +36,7 @@ const Gallery = ({ data }) => {
                   href={`${url}`}
                   key={index}
                   className={`gallery-item ${
-                    index === 0 ? "row-span-2 col-span-2" : ""
+                    index === 0 ? "row-span-2 col-span-4 sm:col-span-2" : ""
                   } ${index >= 5 ? "hidden" : ""}`}
                 >
                   <Image
@@ -45,7 +45,9 @@ const Gallery = ({ data }) => {
                     width={500}
                     height={index === 0 ? 800 : 207}
                     className={`w-full ${
-                      index === 0 ? "h-[520px]" : "h-[255px]"
+                      index === 0
+                        ? "h-[240px] sm:h-[520px]"
+                        : "h-[100px] sm:h-[255px]"
                     } object-cover object-center rounded-[10px]`}
                     alt={`Image ${index + 1}`}
                   />

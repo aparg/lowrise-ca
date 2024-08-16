@@ -16,10 +16,12 @@ import Image from "next/image";
 import Slider from "@/components/Slider";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CreateSchema from "@/helpers/CreateSchema";
+import { slugGenerator } from "@/helpers/slugGenerator";
+import PropertyDisplaySection from "@/components/PropertyDisplaySection";
 // import { Button } from "@nextui-org/react";
 
 const INITIAL_OFFSET = 0;
-const INITIAL_LIMIT = 10;
+const INITIAL_LIMIT = 4;
 
 const fetchData = async (listingID) => {
   const options = {
@@ -85,8 +87,8 @@ const page = async ({ params }) => {
               <div className="col-12 px-0">
                 <Gallery data={imageURLs} />
               </div>
-              <div className="sm:max-w-[90%] w-full flex justify-center pt-4 relative">
-                <div className="grid grid-cols-6 justify-between sm:justify-between w-full gap-x-6 relative">
+              <div className="sm:max-w-[90%] w-full flex justify-center pt-0 sm:pt-4 relative">
+                <div className="grid sm:grid-cols-6 grid-cols-1 justify-between sm:justify-between w-full sm:gap-x-6 gap-y-8 sm:gap-y-0 relative">
                   <div className={`sm:col-span-4 col-span-4 col-md-8 `}>
                     <PropertyPage {...{ main_data }} />
                     <BookingDate bannerImage={imageURLs[0]} />
@@ -111,14 +113,15 @@ const page = async ({ params }) => {
                   <div className="mt-24 mb-10 col-span-4">
                     <FAQ main_data={main_data} />
                   </div>
-                  {formattedSlug && newSalesData?.length > 0 && (
-                    <section className="additonal__listing w-full mx-auto mt-24">
-                      {/* <PropertyDisplaySection data={newSalesData.slice(0, 5)} /> */}
-                      <Slider data={newSalesData} />
-                    </section>
-                  )}
                 </div>
               </div>
+              {formattedSlug && newSalesData?.length > 0 && (
+                <section className="additonal__listing w-full mx-auto mt-24">
+                  <PropertyDisplaySection title="You might be interested in">
+                    <Slider data={newSalesData} type="resale" />
+                  </PropertyDisplaySection>
+                </section>
+              )}
             </section>
           </div>
         </div>
@@ -138,8 +141,7 @@ export async function generateMetadata({ params }, parent) {
   return {
     ...parent,
     alternates: {
-      canonical: `https://lowrise.ca/pre-construction-homes/${params.city}/${params.slug}`,
-      canonical: `https://lowrise.ca/pre-construction-homes/${params.city}/${params.slug}`,
+      canonical: `https://lowrise.ca/listings/${slugGenerator(main_data)}`,
     },
     openGraph: {
       images: await fetch(imageURLs[0]),

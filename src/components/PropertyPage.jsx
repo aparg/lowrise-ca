@@ -115,7 +115,7 @@ const PropertyPage = ({ main_data }) => {
                   <div className="flex flex-col items-start">
                     <div className="flex flex-grid items-center">
                       <h3 className="text-5xl font-bold fs-1">C{price}</h3>
-                      <div className="flex items-center">
+                      {/* <div className="flex items-center">
                         <Image
                           width={20}
                           height={20}
@@ -131,7 +131,7 @@ const PropertyPage = ({ main_data }) => {
                                 parseFloat(main_data.ListPrice)
                             )}
                         </span>
-                      </div>
+                      </div> */}
                     </div>
                     <div>
                       <h1 className="fs-6 mb-2 my-4 text-lg">

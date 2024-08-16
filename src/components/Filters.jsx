@@ -216,7 +216,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
       </div>
 
       {isMobileView ? (
-        <div className="container-fluid price-filter__bottom">
+        <div className="container-fluid w-[90%] sm:w-auto">
           <PriceRangeFilterBottom
             name="priceRange"
             value={filterState.priceRange}
@@ -563,7 +563,7 @@ const PriceRangeFilterBottom = ({
 
   return (
     <>
-      <div className="price-range__slider">
+      <div className="w-full">
         {!unMount && (
           <Slider
             step={50}
@@ -586,9 +586,9 @@ const PriceRangeFilterBottom = ({
               return (
                 <div
                   {...props}
-                  className="p-1 top-50 bg-gray-100 border border-secondary rounded-circle shadow cursor-grab"
+                  className="bg-primary-green group p-1 top-1/2 shadow-medium rounded-full cursor-grab data-[dragging=true]:cursor-grabbing"
                 >
-                  <span className="bg-primary-green shadow rounded-circle w-5 h-5 d-block" />
+                  <span className="bg-primary-green shadow rounded-full w-3 h-3 block" />
                   {!props["data-pressed"] && (
                     <>
                       {props.index === 0 ? (
@@ -599,7 +599,7 @@ const PriceRangeFilterBottom = ({
                             left: -10,
                             fontSize: "11px",
                           }}
-                          className="custom-range-thumb p-1 border-md"
+                          className="bg-primary-green custom-range-thumb p-1 border-md"
                         >
                           {convertIntoCurrency(price.min)}
                         </span>
@@ -612,7 +612,7 @@ const PriceRangeFilterBottom = ({
                             left: -30,
                             fontSize: "11px",
                           }}
-                          className="custom-range-thumb p-1 border-md"
+                          className="bg-primary-green  custom-range-thumb p-1 border-md"
                         >
                           {convertIntoCurrency(price.max)}
                         </span>
