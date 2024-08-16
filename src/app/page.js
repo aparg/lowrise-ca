@@ -4,6 +4,7 @@ import { getSalesData } from "../../api/getSalesData";
 import Link from "next/link";
 import PropertyDisplaySection from "@/components/PropertyDisplaySection";
 import { generateURL } from "@/helpers/generateURL";
+import { fetchAllBlogPosts, fetchSomeBlogPosts } from "../../api/blogs";
 import HeroSection from "@/components/HeroSection";
 
 export default async function Home() {
@@ -29,6 +30,9 @@ export default async function Home() {
     INITIAL_LIMIT,
     "Oakville"
   );
+
+  // const BLOGPOSTS = await fetchSomeBlogPosts({ pageSize: 4 });
+  const BLOGPOSTS = await fetchAllBlogPosts();
   {
     /* pass property propertyType:"commercial" only for commercial card slider, default is residential */
   }
@@ -63,6 +67,13 @@ export default async function Home() {
         exploreAllLink={generateURL({ cityVal: "Oakville" })}
       >
         <Slider data={OAKVILLEHOMES} type="resale" />
+      </PropertyDisplaySection>
+      <PropertyDisplaySection
+        title="The Lowrise Insights"
+        subtitle=""
+        exploreAllLink="/blogs"
+      >
+        <Slider data={BLOGPOSTS.slice(0, 4)} type="blog" />
       </PropertyDisplaySection>
 
       <div className="flex flex-col items-center mt-40 sm:mt-40"></div>

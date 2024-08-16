@@ -104,7 +104,7 @@ const SalesList = ({
           </div>
         </>
       ) : (
-        <div className="fs-4 text-center flex w-100 flex-column items-center">
+        <div className="fs-4 text-center flex w-100 flex-col items-center">
           <Image
             src="/no-record-found.jpg"
             width="500"

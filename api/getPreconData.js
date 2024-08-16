@@ -1,6 +1,6 @@
 export const getPreconData = async () => {
   const res = await fetch(
-    "https://api.luxehomesbyfara.com/api/preconstructions/?page_size=4",
+    "https://api.homebaba.ca/api/preconstructions/?page_size=4",
     {
       next: { revalidate: 10 },
     }

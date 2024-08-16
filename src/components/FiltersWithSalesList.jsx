@@ -22,6 +22,7 @@ const FiltersWithSalesList = ({
   city = undefined,
   requiredType = undefined,
   saleLeaseVal = undefined,
+  filter,
 }) => {
   // const leadEmail = user?.emailAddresses[0].emailAddress;
 
@@ -166,7 +167,11 @@ const FiltersWithSalesList = ({
               isMobileView ? "pt-0" : "pt-0"
             }`}
           >
-            {city ? capitalizeFirstLetter(decodeURIComponent(city)) : "Ontario"}{" "}
+            {filter
+              ? filter
+              : city
+              ? capitalizeFirstLetter(decodeURIComponent(city))
+              : "Ontario"}{" "}
             Homes {filterState.saleLease} | Real Estate Updated Daily Listings
           </h2>
           <p

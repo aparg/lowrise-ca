@@ -1,8 +1,10 @@
 "use server";
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
 import { Resend } from "resend";
+import swal from "sweetalert";
 
-const resend = new Resend("re_EwHkJKn7_BqC3Jj57KVoFXeELa5b74Qhd");
+// const resend = new Resend("re_EwHkJKn7_BqC3Jj57KVoFXeELa5b74Qhd");
+const resend = new Resend("re_gt6Vfafr_KrsNXdvLfEcPzcfLnQrBMNxf");
 
 export const sendEmail = async ({ content, page = null, title = null }) => {
   const contentArray = [];
@@ -11,9 +13,9 @@ export const sendEmail = async ({ content, page = null, title = null }) => {
   }
   console.log("sending...");
   const { data, error } = await resend.emails.send({
-    from: "Acme <onboarding@resend.dev>",
-    to: ["faranakforoghi@gmail.com"],
-    subject: `Inquiry from ${page || "property"} in luxehomesbyfara.com`,
+    from: "lowrise <info@lowrise.ca>",
+    to: ["contact@homebaba.ca", "apargtm@gmail.com"],
+    subject: `Inquiry from ${page || "property"} in lowrise`,
     html: `<h1>${
       title || `Inquiry from ${page} page`
     }</h1><br/><ul>${contentArray
@@ -26,8 +28,7 @@ export const sendEmail = async ({ content, page = null, title = null }) => {
     swal(
       `Thank You, ${content.name || ""}`,
       "Please expect an email or call from us shortly",
-      "success"
+      "Success"
     );
   }
-  // console.log(data, error);
 };

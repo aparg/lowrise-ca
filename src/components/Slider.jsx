@@ -7,6 +7,7 @@ import useDeviceView from "@/helpers/useDeviceView";
 import ResaleCard from "./ResaleCard";
 import CommercialCard from "./CommercialCard";
 import PreconstructionCard from "./PreconstructionCard";
+import BlogCard from "./BlogCard";
 
 // type: resale/commercial
 // data: array of json properties
@@ -74,6 +75,8 @@ const Slider = ({ data, type }) => {
                   <CommercialCard curElem={curElem} />
                 ) : type === "preconstruction" ? (
                   <PreconstructionCard curElem={curElem} />
+                ) : type === "blog" ? (
+                  <BlogCard blog={curElem} />
                 ) : null}
               </div>
             );

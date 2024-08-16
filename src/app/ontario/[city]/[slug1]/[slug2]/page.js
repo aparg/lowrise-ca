@@ -53,7 +53,7 @@ export default page;
 //   return {
 //     ...parent,
 //     alternates: {
-//       canonical: `https://luxehomesbyfara.com/ontario/${type}/${saleLeaseValue}/${type}`,
+//       canonical: `https://lowrise.ca/ontario/${type}/${saleLeaseValue}/${type}`,
 //     },
 //     openGraph: {
 //       images: "/favicon.ico",

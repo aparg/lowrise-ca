@@ -41,7 +41,7 @@ export async function generateMetadata({ params }, parent) {
   return {
     ...parent,
     alternates: {
-      canonical: `https://luxehomesbyfara.com/ontario/${params.city}`,
+      canonical: `https://lowrise.ca/ontario/${params.city}`,
     },
     openGraph: {
       images: "/favicon.ico",

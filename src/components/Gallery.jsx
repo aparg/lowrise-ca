@@ -45,7 +45,7 @@ const Gallery = ({ data }) => {
                     width={500}
                     height={index === 0 ? 800 : 207}
                     className={`w-full ${
-                      index === 0 ? "h-[600px]" : "h-[295px]"
+                      index === 0 ? "h-[550px]" : "h-[270px]"
                     } object-cover object-center rounded-[10px]`}
                     alt={`Image ${index + 1}`}
                   />

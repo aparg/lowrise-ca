@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 export const fetchAllBlogPosts = async () => {
-  const res = await fetch("https://api.luxehomesbyfara.com/api/news/", {
+  const res = await fetch(`https://api.dolphy.ca/api/news/`, {
     next: { revalidate: 10 },
   });
 
@@ -19,8 +19,33 @@ export const fetchAllBlogPosts = async () => {
   return blogs.reverse();
 };
 
+export const fetchSomeBlogPosts = async ({ pageSize }) => {
+  const res = await fetch(
+    `https://api.dolphy.ca/api/news/${
+      pageSize ? `?page_size=${pageSize}` : ""
+    }`,
+    {
+      next: { revalidate: 10 },
+    }
+  );
+
+  if (!res.ok) {
+    notFound();
+  }
+
+  const blogs = await res.json();
+  console.log("BLOGS LENGTH");
+  console.log(blogs.length);
+  // REQUIRED LATERON AFTER TIME COMES FROM API
+  // const sortedBlogs = blogs.sort(
+  //   (a, b) => new Date(b.date_of_upload) - new Date(a.date_of_upload)
+  // );
+
+  return blogs.reverse();
+};
+
 export const fetchBlogPostBySlug = async (slug) => {
-  const res = await fetch(`https://api.luxehomesbyfara.com/api/news/${slug}`, {
+  const res = await fetch(`https://api.dolphy.ca/api/news/${slug}`, {
     next: { revalidate: 10 },
   });
 
@@ -33,12 +58,9 @@ export const fetchBlogPostBySlug = async (slug) => {
 };
 
 export const fetchBlogPostByCity = async (citySlug) => {
-  const res = await fetch(
-    `https://api.luxehomesbyfara.com/api/news/?city=${citySlug}`,
-    {
-      next: { revalidate: 10 },
-    }
-  );
+  const res = await fetch(`https://api.dolphy.ca/api/news/?city=${citySlug}`, {
+    next: { revalidate: 10 },
+  });
 
   if (!res.ok) {
     notFound();
@@ -49,7 +71,7 @@ export const fetchBlogPostByCity = async (citySlug) => {
 };
 
 export const fetchCities = async () => {
-  const res = await fetch("https://api.luxehomesbyfara.com/api/all-city/", {
+  const res = await fetch("https://api.dolphy.ca/api/all-city/", {
     next: { revalidate: 10 },
   });
 

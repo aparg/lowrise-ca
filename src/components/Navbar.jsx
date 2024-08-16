@@ -73,7 +73,7 @@ const Navbar = (props) => {
     },
     {
       name: "Townhomes for Sale",
-      link: generateURL({ houseTypeVal: "townhomes" }),
+      link: generateURL({ houseTypeVal: "townHouse" }),
     },
     {
       name: "Duplex  Homes for Sale",
@@ -100,10 +100,17 @@ const Navbar = (props) => {
       }  container-fluid shadow-shuttle`}
     >
       <div className={`${isSticky && "sticky"}`}>
-        <nav className={`flex items-center justify-between h-14 sm:h-[5rem] max-w-[90%] mx-auto`}>
+        <nav
+          className={`flex items-center justify-between h-14 sm:h-[5rem] max-w-[90%] mx-auto`}
+        >
           <div className="flex-shrink-0 flex h-full items-center mr-2">
-            <Link href="/" className="logo d-flex 0align-items-center">
-              <Image src={isSticky ? blackLogoPath : whiteLogoPath} alt="logo" width={120} height={5} />
+            <Link href="/" className="logo flex 0align-items-center">
+              <Image
+                src={isSticky ? blackLogoPath : whiteLogoPath}
+                alt="logo"
+                width={120}
+                height={5}
+              />
             </Link>
           </div>
 
@@ -248,7 +255,7 @@ const Navbar = (props) => {
               <Link href="tel:4168458996" className="flex items-center">
                 <img src="/contact.png" className="w-12"></img>
                 <div className="flex flex-col items-center justify-center">
-                  <div className="text-lg font-bold">(419) 999-8999</div>
+                  <div className="text-lg font-bold">249-201-6665</div>
                   <div className="text-xs">Speak with Lowrise Team</div>
                 </div>
               </Link>

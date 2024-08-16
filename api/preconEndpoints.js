@@ -1,4 +1,4 @@
 export const preconEndpoints = {
-  baseURL: "https://api.luxehomesbyfara.com",
-  shareURL: "https://luxehomesbyfara.com",
+  baseURL: "https://api.homebaba.ca",
+  shareURL: "https://lowrise.ca",
 };

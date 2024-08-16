@@ -72,7 +72,7 @@ const Footer = ({ cities }) => {
                     <h3 className="text-xl font-semibold mb-2">Contact Us</h3>
                     <address className="not-italic text-sm">
                       <p>4 Robert Speck Parkway, Mississauga, ONTARIO</p>
-                      <p>Phone: 647 527 4970</p>
+                      <p>Phone: 249-201-6665</p>
                       <p>
                         Email:{" "}
                         <a

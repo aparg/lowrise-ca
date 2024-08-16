@@ -183,12 +183,11 @@ const SearchBar = ({ bigger }) => {
     },
     //additional
     // highlightFirstSuggestion: true,
-    alwaysRenderSuggestions: true,
+    // alwaysRenderSuggestions: true,
   };
 
   return (
     <div className={bigger ? "fuller-search" : ""}>
-      {console.log(inputProps)}
       <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={onSuggestionsFetchRequested}

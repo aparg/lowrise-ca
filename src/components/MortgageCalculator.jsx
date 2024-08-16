@@ -202,7 +202,7 @@ export default function MortgageCalculator(props) {
               </div>
             </div>
           </div>
-          <div className="rounded-mine bg-gray-100 flex items-center flex-column flex-md-grid mb-4">
+          <div className="rounded-mine bg-gray-100 flex items-center flex-col flex-md-grid mb-4">
             <div className="p-3 rounded-mine">
               <h3 className="fs-2 font-bold text-mine">
                 ${calculated} <span className="fs-5 text-secondary">/mo</span>

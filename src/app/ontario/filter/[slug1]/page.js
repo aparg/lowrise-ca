@@ -22,6 +22,7 @@ const page = async ({ params }) => {
             INITIAL_LIMIT,
             saleLeaseVal: saleLeaseValue,
             requiredType: type,
+            filter: type || "",
           }}
         />
       </div>

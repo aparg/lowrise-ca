@@ -30,11 +30,22 @@ export default function BookShowingForm(props) {
   };
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    setCredentials({
+      name: "",
+      phone: "",
+      email: "",
+      message: props.defaultmessage,
+      proj_name: props.proj_name,
+      city: props.city,
+      realtor: "",
+      domainEmail: "",
+    });
     sendEmail({
       content: credentials,
       page: "Resale Page",
       title: `Inquiry for ${props.address} from Resale Property page`,
     });
+    setSubmitbtn("Submitted!");
     // ContactFormSubmit(
     //   credentials,
     //   setSubmitbtn,
@@ -58,11 +69,8 @@ export default function BookShowingForm(props) {
     }
   }, []);
   return (
-    <div
-      className="fixed-title pe-0 top-30 sticky mt-24 shadow-lg"
-      id="contact"
-    >
-      <div className="p-6 pb-0 box-shadow-custom rounded-mine bordt bg-white border-[#e8e9ea] flex-col items-center sticky">
+    <div className="fixed-title pe-0 shadow-lg sticky top-20" id="contact">
+      <div className="p-6 pb-0 box-shadow-custom rounded-mine bordt bg-white border-[#e8e9ea] flex-col items-center ">
         <h5 className="font-extrabold text-center text-3xl">Book a Showing!</h5>
         <p className="text-center  text-[1.1rem]">
           {/* with a {credentials.city}{" "}
@@ -176,7 +184,7 @@ export default function BookShowingForm(props) {
           <input
             type="submit"
             value={submitbtn}
-            className="px-4 py-2 !bg-primary-green !text-white px-4 py-2-md w-75 mb-3 rounded-full text-lg font-bold"
+            className="px-4 py-2 !bg-primary-green !text-white px-4 py-2-md w-75 mb-3 rounded-full text-lg font-bold hover:cursor-pointer"
             id="subbtn"
           />
           <div className="border-b border-gray-300 my-4 w-full"></div>
