@@ -76,7 +76,7 @@ const Slider = ({ data, type }) => {
                 ) : type === "preconstruction" ? (
                   <PreconstructionCard curElem={curElem} />
                 ) : type === "blog" ? (
-                  <BlogCard blog={curElem} />
+                  <BlogCard data={curElem} />
                 ) : null}
               </div>
             );

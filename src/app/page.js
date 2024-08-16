@@ -2,7 +2,7 @@ import Slider from "@/components/Slider";
 import { getSalesData } from "../api/getSalesData";
 import PropertyDisplaySection from "@/components/PropertyDisplaySection";
 import { generateURL } from "@/helpers/generateURL";
-import { fetchAllBlogPosts, fetchSomeBlogPosts } from "../../api/blogs";
+import { fetchAllBlogPosts } from "@/api/blogs";
 import HeroSection from "@/components/HeroSection";
 import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
 import ContactForm from "@/components/ContactForm";
@@ -40,6 +40,7 @@ export default async function Home() {
 
   // const BLOGPOSTS = await fetchSomeBlogPosts({ pageSize: 4 });
   const BLOGPOSTS = await fetchAllBlogPosts();
+  console.log(BLOGPOSTS.length);
   {
     /* pass property propertyType:"commercial" only for commercial card slider, default is residential */
   }

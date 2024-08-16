@@ -68,93 +68,16 @@ const page = async ({ params }) => {
     .filter(Boolean)
     .join(" ");
   return (
-    <div className="flex justify-center">
-      <div>
-        <div className="pt-md-3 pt-0">
-          <Breadcrumbs items={breadcrumbItems} />
-          <section className="padding-top w-full text-sm flex flex-col items-center justify-center gy-2">
-            <div className="col-12 px-0">
-              <Gallery data={imageURLs} />
-            </div>
-            <div className="sm:max-w-[90%] w-full flex justify-center pt-4 relative">
-              <div className="grid grid-cols-6 justify-between sm:justify-between w-full gap-x-6">
-                <div className={`sm:col-span-4 col-span-4 col-md-8 `}>
-                  <PropertyPage {...{ main_data }} />
-                  <BookingDate bannerImage={imageURLs[0]} />
-                  <div className="z-20 relative mt-8 sm:mt-24">
-                    <h2 className="font-extrabold pb-3 text-lg sm:text-4xl">
-                      Map View
-                    </h2>
-                    <Map main_data={main_data} />
-                  </div>
-                  {/* <div className="mt-8 sm:mt-24">
-                    <h2 className="font-extrabold pb-3 text-lg sm:text-4xl">
-                      Mortgage Calculator
-                    </h2>
-                    <MortgageCalculator price={main_data.ListPrice} />
-                  </div> */}
-                </div>
     <>
       <div className="flex justify-center">
-        <div className="sm:max-w-[90%] w-full">
-          {/* <div className="fixed w-100 bottom-0 sm:bottom-5 sm:hidden px-3 pb-4 pt-2 z-[999] bg-white border-top">
-          <Link
-            href="#contact"
-            className="px-4 py-2 px-4 py-2-md w-full bg-primary-green shadow-2xl text-white shadow-md rounded-full"
-          >
-            Book a showing
-          </Link>
-        </div> */}
-          <div className="fixed w-100 bottom-0 flex justify-center items-center sm:bottom-5 sm:hidden px-3 py-4 z-[999] bg-white border-top shadow-lg w-screen">
-            {/* <Link
-          href="#contact"
-          className="px-4 py-2 px-4 py-2-md w-full bg-primary-green shadow-2xl text-white shadow-md rounded-full"
-        >
-          Book a showing
-        </Link> */}
-            <div
-              className={`min-w-[50px] inline-flex items-center justify-center bg-[#3a88ef]/[0.08] hover:bg-[#3a88ef]/[0.2] rounded-md leading-7 py-[6px] px-[15px] text-md mx-1`}
-            >
-              <Image
-                width="50"
-                height="50"
-                className="pr-1 w-5"
-                src="/mailOutline.svg"
-                alt="Email"
-              />
-              Email
-            </div>
-            <div
-              className={`min-w-[70px] inline-flex items-center justify-center bg-[#ffedea]/[0.5] hover:bg-[#ffdad4]/[0.8] rounded-md leading-7 py-[6px] px-[15px] text-md mx-1`}
-            >
-              <Image
-                width="50"
-                height="50"
-                className="pr-1 w-5"
-                src="/phone.svg"
-                alt="Phone"
-              />
-              Phone
-            </div>
-            <div
-              className={`min-w-[70px] inline-flex items-center justify-center bg-[#43bb3f]/[0.1] hover:bg-[#43bb3f]/[0.2] rounded-md leading-7 py-[6px] px-[15px] text-md mx-1`}
-            >
-              <Image
-                width="50"
-                height="50"
-                className="pr-1 w-5"
-                src="/whatsapp.svg"
-                alt="whatsapp"
-              />
-              Whatsapp
-            </div>
-          </div>
-          <div className="container-fluid pt-md-3 pt-0">
+        <div>
+          <div className="pt-md-3 pt-0">
+            <Breadcrumbs items={breadcrumbItems} />
             <section className="padding-top w-full text-sm flex flex-col items-center justify-center gy-2">
               <div className="col-12 px-0">
                 <Gallery data={imageURLs} />
               </div>
-              <div className="sm:max-w-[90%] w-full flex justify-center pt-4">
+              <div className="sm:max-w-[90%] w-full flex justify-center pt-4 relative">
                 <div className="grid grid-cols-6 justify-between sm:justify-between w-full gap-x-6 relative">
                   <div className={`sm:col-span-4 col-span-4 col-md-8 `}>
                     <PropertyPage {...{ main_data }} />
