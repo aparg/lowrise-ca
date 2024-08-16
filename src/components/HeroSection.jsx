@@ -2,12 +2,15 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
+import { generateURL } from "@/helpers/generateURL";
 
-const HouseTypeCard = ({ type, icon }) => (
-  <div className="bg-white p-4 rounded-lg text-center border transition duration-300">
-    <div className="text-3xl mb-2">{icon}</div>
-    <h3 className="font-semibold text-gray-800">{type}</h3>
-  </div>
+const HouseTypeCard = ({ type, icon, link }) => (
+  <Link href={link} className="text-black">
+    <div className="bg-white p-4 rounded-lg text-center hover:cursor-pointer hover:border-primary-green border-2 transition duration-300 h-full">
+      <div className="text-3xl mb-2">{icon}</div>
+      <h3 className="font-semibold text-gray-800">{type}</h3>
+    </div>
+  </Link>
 );
 
 const houseTypes = [
@@ -18,10 +21,10 @@ const houseTypes = [
 
 const HeroSection = () => {
   return (
-    <div className="bg-gradient-to-br">
+    <div className="">
       <div className="mx-auto">
-        <div className="flex flex-col lg:flex-row items-center justify-between pb-12 gap-x-10 lg:pb-20">
-          <div className="w-full lg:w-1/2 mb-10 lg:mb-0">
+        <div className="flex flex-col lg:flex-row items-center justify-between mt-5 pb-12 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0">
+          <div className="w-full lg:w-1/2 mb-10 lg:mb-0 order-2 sm:order-1">
             <Link href="/">
               <div className="flex flex-col justify-start mb-5">
                 <img
@@ -35,17 +38,20 @@ const HeroSection = () => {
                 </h2>
               </div>
             </Link>
-            <p className="text-xl text-gray-700 mb-8 leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-700 mb-8 leading-relaxed">
               Your premier destination for low-rise homes across Canada.
               Discover curated selections of townhomes, bungalows, and other
               low-rise properties in prime locations.
             </p>
-            <div className="grid grid-cols-3 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4">
               {houseTypes.map((house, index) => (
                 <HouseTypeCard
                   key={index}
                   type={house.type}
                   icon={house.icon}
+                  link={generateURL({
+                    houseTypeVal: house.type.split("-").join("").toLowerCase(),
+                  })}
                 />
               ))}
             </div>
@@ -64,37 +70,15 @@ const HeroSection = () => {
                 </button>
               </Link>
             </div>
-            {/* <div className="flex items-center h-[40px] rounded-md w-auto mt-10">
-              <SearchBar bigger={true} />
-              <button
-                className="bg-gray-100 px-4 h-[60px] search-button rounded-md"
-                type="button"
-                aria-label="Search Button"
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg"
-                  viewBox="0 0 30 30"
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="22"
-                  width="22"
-                >
-                  <path
-                    d="M20.756 18.876l6.155 6.154-1.88 1.881-6.155-6.155A9.269 9.269 0 0 1 13.3 22.61a9.31 9.31 0 1 1 9.31-9.31c0 2.091-.69 4.021-1.854 5.576zM13.3 19.95a6.65 6.65 0 1 0 0-13.3 6.65 6.65 0 0 0 0 13.3z"
-                    fill="#000000"
-                  ></path>
-                </svg>
-              </button>
-            </div> */}
           </div>
-          <div className="w-full lg:w-1/2  relative">
+          <div className="w-full lg:w-1/2  relative order-1 sm:order-2">
             {/* <div className="relative w-full h-[500px] lg:h-[600px]"> */}
             <Image
               src="/hero-img.png"
               alt="Lowrise homes"
               width="800"
-              height="500"
-              className="rounded-lg h-[500px] lg:h-[600px]"
+              height="600"
+              className="rounded-lg h-[400px] sm:h-[500px] lg:h-[600px]"
               priority
             />
             {/* </div> */}

@@ -103,17 +103,18 @@ const Navbar = (props) => {
           className={`flex items-center justify-between h-14 sm:h-[5rem] max-w-[90%] mx-auto`}
         >
           <div className="flex-shrink-0 flex h-full items-center mr-2">
-            <Link href="/" className="logo d-flex 0align-items-center">
+            <Link href="/" className="logo d-flex items-center">
               <Image
                 src={isSticky ? blackLogoPath : whiteLogoPath}
                 alt="logo"
                 width={100}
                 height={5}
+                className="w-20 sm:w-30"
               />
             </Link>
           </div>
 
-          <div className="flex items-center h-[40px] rounded-md w-auto ms-3">
+          <div className="flex items-center h-[40px] rounded-md w-auto ms-0 sm:ms-3 ">
             <SearchBar />
             <button
               className="bg-gray-100 px-2 py-[0.73rem] search-button rounded-md"
@@ -332,7 +333,7 @@ const Navbar = (props) => {
              ${!isHomePage && "text-black"}`}
               >
                 <Link href="tel:4168458996" className="flex items-center">
-                  <img src="/portfolio-img/contact1.png" className="w-12"></img>
+                  <img src="/contact.png" className="w-12"></img>
                   <div className="flex flex-col items-center justify-center">
                     <div className="text-lg font-bold">(416) 845-8996</div>
                     <div className="text-xs">Speak with Lowrise team</div>

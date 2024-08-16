@@ -25,7 +25,7 @@ const CanadianCitiesShowcase = () => {
   ];
 
   return (
-    <div className="my-[10rem]">
+    <div className="my-[5rem] sm:my-[10rem]">
       <div className="mx-auto">
         <h2 className="text-4xl font-bold text-center mb-2 mt-10">
           Where are you <span className="text-primary-green">moving to</span>
