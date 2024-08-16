@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 export const fetchAllBlogPosts = async () => {
-  const res = await fetch(`https://api.dolphy.ca/api/news/`, {
+  const res = await fetch("https://api.dolphy.ca/api/news/", {
     next: { revalidate: 10 },
   });
 
@@ -11,31 +11,6 @@ export const fetchAllBlogPosts = async () => {
 
   const blogs = await res.json();
 
-  // REQUIRED LATERON AFTER TIME COMES FROM API
-  // const sortedBlogs = blogs.sort(
-  //   (a, b) => new Date(b.date_of_upload) - new Date(a.date_of_upload)
-  // );
-
-  return blogs.reverse();
-};
-
-export const fetchSomeBlogPosts = async ({ pageSize }) => {
-  const res = await fetch(
-    `https://api.dolphy.ca/api/news/${
-      pageSize ? `?page_size=${pageSize}` : ""
-    }`,
-    {
-      next: { revalidate: 10 },
-    }
-  );
-
-  if (!res.ok) {
-    notFound();
-  }
-
-  const blogs = await res.json();
-  console.log("BLOGS LENGTH");
-  console.log(blogs.length);
   // REQUIRED LATERON AFTER TIME COMES FROM API
   // const sortedBlogs = blogs.sort(
   //   (a, b) => new Date(b.date_of_upload) - new Date(a.date_of_upload)

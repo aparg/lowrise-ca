@@ -2,7 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
-import { getSalesData } from "../../../../api/getSalesData";
+import { getSalesData } from "../../../api/getSalesData";
 import { ImSpinner } from "react-icons/im";
 
 const FiltersWithSalesList = dynamic(

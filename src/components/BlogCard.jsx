@@ -1,47 +1,28 @@
-import React from "react";
-
-//LIB
 import Link from "next/link";
-import dayjs from "dayjs";
 
-//API
-import { endPoints } from "../../api/blogs/endpoints";
-
-//STYLES
-import "../app/blogs/blog.css";
-
-const BlogCard = ({ blog }) => {
+const BlogCard = ({ data }) => {
   return (
-    <div className="card border-0 my-3 my-md-0 blog-container shadow-lg relative">
-      {/* Wrap the card in the Link component */}
-      <Link href={`/blogs/${blog.slug}`} passHref className="h-100">
-        <div className="w-100 h-[18rem] relative">
-          <img
-            loading="lazy"
-            className="object-cover h-full w-full"
-            src={endPoints.baseURL + blog.news_thumbnail}
-            alt={blog.news_title.slice(0, 10)}
-            style={{ filter: "brightness(0.8)" }}
-          />
-          <div className="absolute bottom-0 mb-3" style={{ left: "20px" }}>
-            <Link href={`/blogs/category/${blog.city.slug}`}>
-              <div className="tag">
-                <p>{blog.city.name}</p>
-              </div>
-            </Link>
-          </div>
-        </div>
-        <div className="flex flex-col text-dark p-4">
-          <h5 className="card-title font-bold text-dark mb-[3rem] h-[4.5rem] overflow-hidden leading-[1.5rem] text-ellipsis">
-            {blog.news_title}
-          </h5>
-
-          <div className="text-black absolute bottom-0 mb-3">
-            Posted {dayjs(blog?.date_of_upload).format("MMMM DD, YYYY")}
-          </div>
-        </div>
-      </Link>
-    </div>
+    <Link
+      href={`/blogs/${data.slug}`}
+      className="bg-white rounded-lg shadow-md overflow-hidden transition duration-300 hover:shadow-lg block"
+    >
+      <div className="relative h-48">
+        <img
+          src={"https://api.dolphy.ca" + data.news_thumbnail}
+          alt={data.title}
+          className="w-full object-cover object-center h-[189px]"
+        />
+      </div>
+      <div className="p-4">
+        <span className="inline-block bg-red-50 border border-primary-green text-xs px-2 py-1 rounded-full tracking-wide text-primary-green">
+          {data.city.name}
+        </span>
+        <h2 className="mt-2 text-xl font-semibold text-gray-800 line-clamp-2">
+          {data.news_title}
+        </h2>
+        <p className="mt-2 text-gray-600 text-sm">{data.date}</p>
+      </div>
+    </Link>
   );
 };
 

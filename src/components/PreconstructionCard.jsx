@@ -25,7 +25,6 @@ const PreconstructionCard = ({ curElem }) => {
   const preconApiUrl = process.env.PRECON_API_URL;
   return (
     <>
-      {console.log(curElem)}
       <Link
         href={`/pre-construction-homes/${curElem?.city?.slug}/${curElem.slug}`}
         className="text-decoration-none text-dark bg-white shadow-lg rounded-mine"

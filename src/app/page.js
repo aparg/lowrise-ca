@@ -1,11 +1,18 @@
 import Slider from "@/components/Slider";
-import Image from "next/image";
-import { getSalesData } from "../../api/getSalesData";
-import Link from "next/link";
+import { getSalesData } from "../api/getSalesData";
 import PropertyDisplaySection from "@/components/PropertyDisplaySection";
 import { generateURL } from "@/helpers/generateURL";
 import { fetchAllBlogPosts, fetchSomeBlogPosts } from "../../api/blogs";
 import HeroSection from "@/components/HeroSection";
+import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
+import ContactForm from "@/components/ContactForm";
+
+export const metadata = {
+  title: "Lowrise.ca | Resale Properties in Ontario",
+  description:
+    "Find the best resale properties in Ontario, Canada. Specializing in low-rise buildings and homes.",
+  keywords: "resale, properties, Ontario, Canada, low-rise, homes",
+};
 
 export default async function Home() {
   const INITIAL_LIMIT = 4;
@@ -47,6 +54,7 @@ export default async function Home() {
       >
         <Slider data={TORONTOHOMES} type="resale" />
       </PropertyDisplaySection>
+      <CanadianCitiesShowcase />
       <PropertyDisplaySection
         title="Explore homes in Brampton"
         subtitle=""
@@ -77,6 +85,7 @@ export default async function Home() {
       </PropertyDisplaySection>
 
       <div className="flex flex-col items-center mt-40 sm:mt-40"></div>
+      <ContactForm />
       {/* pass props type="commercial" only for commercial card slider, default is residential */}
     </>
   );

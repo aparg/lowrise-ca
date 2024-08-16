@@ -10,7 +10,7 @@ import { ImSpinner } from "react-icons/im";
 //COMPONENT
 
 //SERVER
-import { getFilteredRetsData } from "../../api/getSalesData";
+import { getFilteredRetsData } from "../api/getSalesData";
 
 //CONSTANT
 import { saleLease, bedCount, houseType } from "@/constant";

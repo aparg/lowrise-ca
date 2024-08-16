@@ -9,7 +9,7 @@ import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
 
 //CONSTANT
 import { bedCount, saleLease, houseType, washroomCount } from "@/constant";
-import { getFilteredRetsData } from "../../api/getSalesData";
+import { getFilteredRetsData } from "../api/getSalesData";
 import useDeviceView from "@/helpers/useDeviceView";
 import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
 import { ImSpinner } from "react-icons/im";
@@ -131,8 +131,8 @@ const FiltersWithSalesList = ({
     if (isLocalStorageAvailable() && filterState) {
       localStorage.setItem("filterState", JSON.stringify(filterState));
       localStorage.setItem("selectedCity", capitalizeFirstLetter(city));
-      console.log(JSON.stringify(filterState), city, "filterState");
-      console.log(city);
+      /* console.log(JSON.stringify(filterState), city, "filterState");
+      console.log(city); */
       // FilterSubmit(city, filterState, leadEmail);
     }
 
@@ -164,7 +164,7 @@ const FiltersWithSalesList = ({
         <div>
           <h2
             className={`font-extrabold text-2xl ${
-              isMobileView ? "pt-0" : "pt-0"
+              isMobileView ? "pt-2" : "pt-2"
             }`}
           >
             {filter

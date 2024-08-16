@@ -10,6 +10,11 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "api.dolpy.ca",
+        port: "",
+      },
+      {
+        protocol: "https",
         hostname: "rets.dolphy.ca",
         port: "",
         pathname: "/commercialPhotos/**",

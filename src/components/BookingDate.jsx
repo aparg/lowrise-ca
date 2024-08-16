@@ -96,7 +96,7 @@ const BookingDate = ({ bannerImage }) => {
   };
 
   const submitData = () => {
-    console.log(timing);
+    /* console.log(timing); */
   };
 
   return (

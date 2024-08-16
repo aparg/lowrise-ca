@@ -17,7 +17,7 @@ import {
   TelegramIcon,
   WhatsappIcon,
 } from "next-share";
-import { endPoints } from "../../api/blogs/endpoints";
+import { endPoints } from "@/api/endpoints";
 
 const SocialMediaShare = () => {
   const pathname = usePathname();
@@ -26,7 +26,7 @@ const SocialMediaShare = () => {
   const title = "Check out this awesome blog!";
 
   return (
-    <div className="tags-container flex items-baseline">
+    <div className="tags-container d-flex align-items-baseline">
       <div className="flex gap-2 gap-md-3 flex-wrap">
         <div title="Share With Facebook">
           <FacebookShareButton url={url} quote={title}>

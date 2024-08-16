@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Autosuggest from "react-autosuggest";
 import { useRouter } from "next/navigation";
-import { searchProperties } from "../../api/searchProperties";
+import { searchProperties } from "../api/searchProperties";
 import { generateURL } from "@/helpers/generateURL";
 
 const SearchBar = ({ bigger }) => {

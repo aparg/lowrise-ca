@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import TimeAgo from "@/helpers/TimeAgo";
-import { residential } from "../../api/routes/fetchRoutes";
+import { residential } from "../api/routes/fetchRoutes";
 import { houseType, saleLease } from "@/constant";
 import { generateURL } from "@/helpers/generateURL";
 import useDeviceView from "@/helpers/useDeviceView";
@@ -86,7 +86,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
               className={`${small ? "h-44" : "h-52"} overflow-hidden relative`}
             >
               <div className="h-80 relative">
-                <Image
+                <img
                   className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110"
                   src={imgSrc}
                   width="900"
@@ -98,10 +98,10 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
               </div>
 
               <div className="absolute bottom-3 left-2 flex flex-row">
-                <div className="text-black text-[0.8rem] p-[2px] px-1 rounded-md mx-1 bg-white flex items-center">
+                <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
                   {curElem.TypeOwn1Out}{" "}
                 </div>
-                <div className="text-black text-xs p-[2px] px-1 rounded-md mx-1 bg-white flex items-center">
+                <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
                   <TimeAgo modificationTimestamp={curElem.TimestampSql} />
                 </div>
               </div>

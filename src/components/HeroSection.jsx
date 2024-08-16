@@ -24,7 +24,7 @@ const HeroSection = () => {
           <div className="w-full lg:w-1/2 mb-10 lg:mb-0">
             <Link href="/">
               <div className="flex justify-start mb-5">
-                <Image
+                <img
                   src="/lowriselogo.svg"
                   alt="Lowrise Logo"
                   width={200}
@@ -48,7 +48,7 @@ const HeroSection = () => {
             </div>
             <div className="flex flex-wrap gap-4 my-8">
               <Link href="#contact">
-                <button className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition duration-300 ease-in-out">
+                <button className="px-6 py-3 bg-primary-green text-white font-semibold rounded-lg shadow-md hover:bg-primary-green transition duration-300 ease-in-out">
                   Contact Us
                 </button>
               </Link>

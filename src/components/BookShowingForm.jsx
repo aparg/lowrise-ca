@@ -7,7 +7,7 @@ import BookingDate from "./BookingDate";
 import { usePathname } from "next/navigation";
 // import { Checkbox } from "@nextui-org/react";
 import Link from "next/link";
-import { sendEmail } from "../../api/resend";
+import { sendEmail } from "../api/resend";
 export default function BookShowingForm(props) {
   const pathname = usePathname();
   const [submitbtn, setSubmitbtn] = useState("Book now");
