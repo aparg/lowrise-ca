@@ -2,6 +2,7 @@ import React from "react";
 import { houseType, saleLease } from "@/constant";
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
 import FiltersWithSalesList from "@/components/FiltersWithSalesList";
+import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
 
 const page = async ({ params }) => {
   let saleLeaseValue = undefined;
@@ -25,6 +26,7 @@ const page = async ({ params }) => {
             filter: type || "",
           }}
         />
+        <CanadianCitiesShowcase />
       </div>
     );
   return <></>;

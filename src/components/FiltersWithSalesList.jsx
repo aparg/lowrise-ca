@@ -180,13 +180,17 @@ const FiltersWithSalesList = ({
           >
             Refine your{" "}
             <span className="text-capitalize">
-              {capitalizeFirstLetter(decodeURIComponent(city))}
+              {city
+                ? capitalizeFirstLetter(decodeURIComponent(city))
+                : "Ontario"}
             </span>{" "}
             real estate search by price, bedroom, or type (house, townhouse, or
             condo). View up-to-date MLS® listings in{" "}
             <span className="text-capitalize">
-              {capitalizeFirstLetter(decodeURIComponent(city))}
-            </span>{" "}
+              {city
+                ? capitalizeFirstLetter(decodeURIComponent(city))
+                : "Ontario"}
+            </span>
             .
           </p>
 

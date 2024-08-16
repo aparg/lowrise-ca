@@ -3,6 +3,7 @@ import { houseType, saleLease } from "@/constant/filters";
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
 import FiltersWithSalesList from "@/components/FiltersWithSalesList";
 import { plural } from "@/constant/plural";
+import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
 
 const page = async ({ params }) => {
   let saleLeaseValue;
@@ -30,6 +31,7 @@ const page = async ({ params }) => {
             filter: type || null,
           }}
         />
+        <CanadianCitiesShowcase />
       </div>
     );
   return <></>;

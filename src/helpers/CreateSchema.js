@@ -1,22 +1,24 @@
+import { residential } from "@/api/routes/fetchRoutes";
+import { generateURL } from "./generateURL";
+import { slugGenerator } from "./slugGenerator";
+
 export default function CreateSchema(listing) {
   return {
     "@context": "https://schema.org/",
     "@type": "Product",
-    name: listing.project_name,
+    name: listing.Address,
     image:
-      (listing.images &&
-        listing.images[0] &&
-        listing.images[0].split(",")[0]) ||
-      ((!listing.images || !listing.images[0]) && "/noimage.webp"),
+      (listing.PhotoLink && residential.photos + listing.PhotoLink[0]) ||
+      ((!listing.PhotoLink || !listing.PhotoLink[0]) && "/noimage.webp"),
     description:
-      listing.project_name +
-      " is a brand new Pre-construction located at  " +
-      listing.project_address +
+      listing.Address +
+      " is a brand new Home located at  " +
+      listing.Municipality +
       " , " +
-      listing.postalcode +
+      listing.PostalCode +
       " with great features " +
       " and in high demand all over canada.",
-    brand: listing.developer.name,
+    brand: listing.ListBrokerage,
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4",
@@ -26,10 +28,16 @@ export default function CreateSchema(listing) {
     },
     offers: {
       "@type": "AggregateOffer",
-      url: "https://homebaba.ca/" + listing.city.name + "/" + listing.slug,
+      url:
+        "https://lowrise.ca/" +
+        generateURL({
+          cityVal: listing.Municipality,
+          listingIDVal: slugGenerator(listing),
+        }),
       priceCurrency: "CAD",
-      lowPrice: listing.price_starting_from || "0",
-      highPrice: listing.price_to || "0",
+      // lowPrice: listing.price_starting_from || "0",
+      // highPrice: listing.price_to || "0",
+      price: listing.ListPrice,
     },
   };
 }

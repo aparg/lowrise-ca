@@ -15,6 +15,7 @@ import { getFilteredRetsData } from "../api/getSalesData";
 //CONSTANT
 import { saleLease, bedCount, houseType } from "@/constant";
 import ResaleCard from "./ResaleCard";
+import CreateSchema from "@/helpers/CreateSchema";
 
 const SalesList = ({
   salesData,
@@ -88,13 +89,16 @@ const SalesList = ({
         <>
           {salesData.map((curElem, index) => {
             return (
-              // <
-              //   showDecreasedPrice={filterState.priceDecreased}
-              //   city={city}
-              //   key={index}
-              //   curElem={curElem}
-              // />
-              <ResaleCard curElem={curElem} />
+              <>
+                <script
+                  key={curElem.Address}
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(CreateSchema(curElem)),
+                  }}
+                />
+                <ResaleCard curElem={curElem} />
+              </>
             );
             // }
             // return null

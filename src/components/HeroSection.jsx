@@ -20,16 +20,19 @@ const HeroSection = () => {
   return (
     <div className="bg-gradient-to-br">
       <div className="mx-auto">
-        <div className="flex flex-col lg:flex-row items-center justify-between py-12 lg:py-20">
+        <div className="flex flex-col lg:flex-row items-center justify-between pb-12 gap-x-10 lg:pb-20">
           <div className="w-full lg:w-1/2 mb-10 lg:mb-0">
             <Link href="/">
-              <div className="flex justify-start mb-5">
+              <div className="flex flex-col justify-start mb-5">
                 <img
                   src="/lowriselogo.svg"
                   alt="Lowrise Logo"
                   width={200}
                   height={200}
                 />
+                <h2 className="font-medium mt-2 text-2xl">
+                  Home for everyone!
+                </h2>
               </div>
             </Link>
             <p className="text-xl text-gray-700 mb-8 leading-relaxed">
@@ -45,6 +48,9 @@ const HeroSection = () => {
                   icon={house.icon}
                 />
               ))}
+            </div>
+            <div className="w-full mt-8">
+              <SearchBar bigger={true} />
             </div>
             <div className="flex flex-wrap gap-4 my-8">
               <Link href="#contact">
@@ -81,17 +87,17 @@ const HeroSection = () => {
               </button>
             </div> */}
           </div>
-          <div className="w-full lg:w-1/2 relative">
-            <div className="relative w-full h-[400px] lg:h-[500px]">
-              <Image
-                src="/hero-img.png"
-                alt="Lowrise homes"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-lg"
-                priority
-              />
-            </div>
+          <div className="w-full lg:w-1/2  relative">
+            {/* <div className="relative w-full h-[500px] lg:h-[600px]"> */}
+            <Image
+              src="/hero-img.png"
+              alt="Lowrise homes"
+              width="800"
+              height="500"
+              className="rounded-lg h-[500px] lg:h-[600px]"
+              priority
+            />
+            {/* </div> */}
             <div className="absolute bottom-4 left-4 bg-white bg-opacity-90 p-4 rounded-lg">
               <p className="text-sm font-semibold text-gray-900">
                 Featured Property

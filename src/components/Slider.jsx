@@ -8,6 +8,7 @@ import ResaleCard from "./ResaleCard";
 import CommercialCard from "./CommercialCard";
 import PreconstructionCard from "./PreconstructionCard";
 import BlogCard from "./BlogCard";
+import CreateSchema from "@/helpers/CreateSchema";
 
 // type: resale/commercial
 // data: array of json properties
@@ -70,7 +71,16 @@ const Slider = ({ data, type }) => {
             return (
               <div className="my-2 sm:my-0" key={index} ref={cardRef}>
                 {type === "resale" ? (
-                  <ResaleCard curElem={curElem} />
+                  <>
+                    <script
+                      key={curElem}
+                      type="application/ld+json"
+                      dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(CreateSchema(curElem)),
+                      }}
+                    />
+                    <ResaleCard curElem={curElem} />
+                  </>
                 ) : type === "commercial" ? (
                   <CommercialCard curElem={curElem} />
                 ) : type === "preconstruction" ? (

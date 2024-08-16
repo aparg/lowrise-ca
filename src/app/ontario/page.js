@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import { ImSpinner } from "react-icons/im";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
 
 const FiltersWithSalesList = dynamic(
   () => import("@/components/FiltersWithSalesList"),
@@ -30,7 +31,6 @@ const page = async ({ params }) => {
   return (
     <>
       <Breadcrumbs items={breadcrumbItems} />
-
       <div className="container-fluid">
         <FiltersWithSalesList
           {...{
@@ -38,6 +38,7 @@ const page = async ({ params }) => {
           }}
         />
       </div>
+      <CanadianCitiesShowcase />
     </>
   );
 };

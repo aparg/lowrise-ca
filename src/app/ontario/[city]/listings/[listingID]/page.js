@@ -15,6 +15,7 @@ import MortgageCalculator from "@/components/MortgageCalculator";
 import Image from "next/image";
 import Slider from "@/components/Slider";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import CreateSchema from "@/helpers/CreateSchema";
 // import { Button } from "@nextui-org/react";
 
 const INITIAL_OFFSET = 0;
@@ -71,6 +72,13 @@ const page = async ({ params }) => {
     <>
       <div className="flex justify-center">
         <div>
+          <script
+            key={main_data.MLS}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(CreateSchema(main_data)),
+            }}
+          />
           <div className="pt-md-3 pt-0">
             <Breadcrumbs items={breadcrumbItems} />
             <section className="padding-top w-full text-sm flex flex-col items-center justify-center gy-2">
