@@ -18,6 +18,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import CreateSchema from "@/helpers/CreateSchema";
 import { slugGenerator } from "@/helpers/slugGenerator";
 import PropertyDisplaySection from "@/components/PropertyDisplaySection";
+import PriceButton from "@/components/PriceButton";
 // import { Button } from "@nextui-org/react";
 
 const INITIAL_OFFSET = 0;
@@ -83,7 +84,7 @@ const page = async ({ params }) => {
           />
           <div className="pt-md-3 pt-0">
             <Breadcrumbs items={breadcrumbItems} />
-            <section className="padding-top w-full text-sm flex flex-col items-center justify-center gy-2">
+            <section className="padding-top w-full text-sm flex flex-col items-center justify-center gy-2 relative">
               <div className="col-12 px-0">
                 <Gallery data={imageURLs} />
               </div>
@@ -115,6 +116,7 @@ const page = async ({ params }) => {
                   </div>
                 </div>
               </div>
+
               {formattedSlug && newSalesData?.length > 0 && (
                 <section className="additonal__listing w-full mx-auto mt-24">
                   <PropertyDisplaySection title="You might be interested in">
@@ -122,6 +124,11 @@ const page = async ({ params }) => {
                   </PropertyDisplaySection>
                 </section>
               )}
+
+              <PriceButton
+                className="block sm:hidden"
+                price={main_data.ListPrice}
+              />
             </section>
           </div>
         </div>

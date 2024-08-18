@@ -14,6 +14,7 @@ import useDeviceView from "@/helpers/useDeviceView";
 import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
 import { ImSpinner } from "react-icons/im";
 import HotListings from "./HotListings";
+import PageSelector from "./PageSelector";
 // import FilterSubmit from "../FilterSubmit";
 
 const FiltersWithSalesList = ({
@@ -50,6 +51,8 @@ const FiltersWithSalesList = ({
   const [offset, setOffset] = useState(INITIAL_LIMIT);
   const { isMobileView } = useDeviceView();
   const [loading, setLoading] = useState(false);
+  const [noData, setNoData] = useState(false);
+  const [selected, setSelected] = useState(1); //the page that is selected
 
   const { hotSales, remainingSales } = useMemo(() => {
     // Get the current date and time
@@ -97,7 +100,11 @@ const FiltersWithSalesList = ({
     }
   };
 
-  const fetchFilteredData = async (params) => {
+  const fetchFilteredData = async (
+    params,
+    limit = INITIAL_LIMIT,
+    offset = 0
+  ) => {
     const payload = {
       saleLease: Object.values(saleLease).find(
         (saleLeaseObj) => saleLeaseObj.name === params.saleLease
@@ -113,17 +120,22 @@ const FiltersWithSalesList = ({
       priceDecreased: params.priceDecreased,
     };
     const queryParams = {
+      limit: limit,
+      offset: offset,
       city: capitalizeFirstLetter(city),
-      limit: INITIAL_LIMIT,
-      offset: 0,
       ...payload,
     };
+    console.log(queryParams);
     setLoading(true);
     // console.log(payload);
     const filteredSalesData = await getFilteredRetsData(queryParams);
-    setLoading(false);
-    setSalesData(filteredSalesData);
-    setOffset(INITIAL_LIMIT);
+    if (filteredSalesData?.length == 0) {
+      setNoData(true);
+    } else {
+      setLoading(false);
+      setSalesData(filteredSalesData);
+      setOffset(INITIAL_LIMIT);
+    }
   };
 
   useEffect(() => {
@@ -157,6 +169,20 @@ const FiltersWithSalesList = ({
 
     // fetchFilteredData(initialState);
   }, []);
+
+  useEffect(() => {
+    async function getUpdatedData() {
+      console.log("the page was changed");
+      await fetchFilteredData(
+        {
+          ...initialState,
+        },
+        selected * 20,
+        selected * 20 - 20
+      );
+    }
+    getUpdatedData();
+  }, [selected]);
 
   return (
     <>
@@ -194,7 +220,10 @@ const FiltersWithSalesList = ({
             .
           </p>
 
-          <div className="flex sticky top-0 z-[998] bg-white items-center w-full flex-wrap overflow-visible">
+          <div
+            className="flex sticky top-0 z-[998] bg-white items-center w-full flex-wrap overflow-visible"
+            id="filter"
+          >
             <Filters {...{ filterState, setFilterState, fetchFilteredData }} />
           </div>
 
@@ -218,9 +247,29 @@ const FiltersWithSalesList = ({
                   }}
                 />
               </div>
+              <div className="flex justify-center mt-10">
+                <PageSelector
+                  numberOfPages={40}
+                  batchSize={3}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+              </div>
             </>
+          ) : noData ? (
+            <div className="fs-4 text-center flex w-100 flex-col items-center">
+              <Image
+                src="/no-record-found.jpg"
+                width="500"
+                height="500"
+                alt="no record found"
+              />
+              <p>No Records Found</p>
+            </div>
           ) : (
-            <ImSpinner size={24} />
+            <div className="w-full flex justify-center">
+              <ImSpinner size={24} />
+            </div>
           )}
         </div>
       )}

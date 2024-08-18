@@ -16,6 +16,7 @@ import { getFilteredRetsData } from "../api/getSalesData";
 import { saleLease, bedCount, houseType } from "@/constant";
 import ResaleCard from "./ResaleCard";
 import CreateSchema from "@/helpers/CreateSchema";
+import PageSelector from "./PageSelector";
 
 const SalesList = ({
   salesData,
@@ -70,19 +71,25 @@ const SalesList = ({
     setIsLoading(true);
     const moreSalesListData = await getFilteredRetsData(queryParams);
 
-    setSalesData([...salesData, ...moreSalesListData]);
+    // setSalesData([...salesData, ...moreSalesListData]);
+    setSalesData([...moreSalesListData]);
     setOffset((prev) => {
       return prev + INITIAL_LIMIT;
     });
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    if (inView) {
-      loadMoreSalesData();
-    }
-  }, [inView]);
+  // useEffect(() => {
+  //   if (inView) {
+  //     loadMoreSalesData();
+  //   }
+  // }, [inView]);
 
+  const setPage = () => {
+    setSalesData([]);
+    setIsLoading(true);
+    loadMoreSalesData();
+  };
   return (
     <>
       {salesData?.length > 0 ? (
@@ -103,9 +110,9 @@ const SalesList = ({
             // }
             // return null
           })}
-          <div ref={ref} className="flex justify-center items-center w-100">
+          {/* <div ref={ref} className="flex justify-center items-center w-100">
             {isLoading ? <ImSpinner size={24} /> : null}
-          </div>
+          </div> */}
         </>
       ) : (
         <div className="fs-4 text-center flex w-100 flex-col items-center">

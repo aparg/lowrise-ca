@@ -174,13 +174,13 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
             {...{ washroomCountOptions, additonalFilterChange, filterState }}
           />
         </div>
-
+        {/* 
         <IndividualFilterNoOptions
           label="Price Decreased"
           name="priceDecreased"
           value={filterState.priceDecreased}
           handleFilterChange={handleFilterChange}
-        />
+        /> */}
         {!isMobileView ? (
           <div className="price-range__filter ml-2 h-[34px] pb-14 px-10 w-[25vw]">
             <div
@@ -563,7 +563,7 @@ const PriceRangeFilterBottom = ({
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full fixed bottom-0 border-t-2 left-0 px-4 py-4 bg-white">
         {!unMount && (
           <Slider
             step={50}
@@ -580,7 +580,7 @@ const PriceRangeFilterBottom = ({
               base: "max-w-md slider gap-3",
               track: "bg-gray-100 border border-secondary",
               filler: "bg-primary-green bg-gradient-to-r",
-              value: "font-bold fs-6",
+              value: "font-bold fs-6 text-white",
             }}
             renderThumb={(props) => {
               return (
@@ -598,6 +598,7 @@ const PriceRangeFilterBottom = ({
                             top: -32,
                             left: -10,
                             fontSize: "11px",
+                            color: "white",
                           }}
                           className="bg-primary-green custom-range-thumb p-1 border-md"
                         >
@@ -611,6 +612,7 @@ const PriceRangeFilterBottom = ({
                             top: -32,
                             left: -30,
                             fontSize: "11px",
+                            color: "white",
                           }}
                           className="bg-primary-green  custom-range-thumb p-1 border-md"
                         >
@@ -632,7 +634,7 @@ const PriceRangeFilterBottom = ({
                 ],
                 content: [
                   "py-2 shadow-xl",
-                  "text-dark custom-range-thumb rounded-circle",
+                  "text-white bg-[#217955] custom-range-thumb rounded-circle",
                 ],
               },
             }}
