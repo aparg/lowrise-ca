@@ -115,8 +115,8 @@ const Navbar = (props) => {
           </div>
 
           <div className="flex items-center h-[40px] rounded-md w-auto ms-0 sm:ms-3 ">
-            <SearchBar />
-            <button
+            <SearchBar numberOfSuggestions={4} />
+            {/* <button
               className="bg-gray-100 px-2 py-[0.73rem] search-button rounded-md"
               type="button"
               aria-label="Search Button"
@@ -134,7 +134,7 @@ const Navbar = (props) => {
                   fill="#000000"
                 ></path>
               </svg>
-            </button>
+            </button> */}
           </div>
 
           <button

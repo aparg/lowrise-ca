@@ -56,7 +56,7 @@ const HeroSection = () => {
               ))}
             </div>
             <div className="w-full mt-8">
-              <SearchBar bigger={true} />
+              <SearchBar bigger={true} numberOfSuggestions={3} />
             </div>
             <div className="flex flex-wrap gap-4 my-8">
               <Link href="#contact">

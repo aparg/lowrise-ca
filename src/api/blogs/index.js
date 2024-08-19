@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 export const fetchAllBlogPosts = async () => {
   const res = await fetch("https://api.dolphy.ca/api/news/", {
-    next: { revalidate: 10 },
+    // next: { revalidate: 10 },
   });
 
   if (!res.ok) {
@@ -21,7 +21,7 @@ export const fetchAllBlogPosts = async () => {
 
 export const fetchBlogPostBySlug = async (slug) => {
   const res = await fetch(`https://api.dolphy.ca/api/news/${slug}`, {
-    next: { revalidate: 10 },
+    // next: { revalidate: 10 },
   });
 
   if (!res.ok) {
@@ -34,7 +34,7 @@ export const fetchBlogPostBySlug = async (slug) => {
 
 export const fetchBlogPostByCity = async (citySlug) => {
   const res = await fetch(`https://api.dolphy.ca/api/news/?city=${citySlug}`, {
-    next: { revalidate: 10 },
+    // next: { revalidate: 10 },
   });
 
   if (!res.ok) {

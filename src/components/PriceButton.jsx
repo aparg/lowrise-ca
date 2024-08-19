@@ -5,7 +5,7 @@ const PriceButton = ({ price }) => {
   return (
     <Link
       href="#contact"
-      className="text-center fixed bottom-3 w-80 mx-auto shadow-xl z-[1000] overflow-hidden"
+      className="text-center fixed bottom-3 w-80 mx-auto shadow-xl z-[1000] overflow-hidden block sm:hidden"
     >
       <div className="text-primary-green bg-white font-bold text-lg bg-white rounded-t-xl w-full py-2 shadow-xl">
         Listing Price: ${price}
