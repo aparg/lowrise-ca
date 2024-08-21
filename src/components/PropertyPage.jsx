@@ -767,6 +767,11 @@ const PropertyPage = ({ main_data }) => {
             </div>
           </div>
         )}
+        {main_data.ListBrokerage && (
+          <div className="flex flex-grid text-lg font-medium py-1 leading-8">
+            Listed by {main_data?.ListBrokerage}
+          </div>
+        )}
       </div>
 
       <div className={isMobileView ? `mt-8 col-12` : `mt-24 col-12`}>
