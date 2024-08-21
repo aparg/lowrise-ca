@@ -242,7 +242,7 @@ const Navbar = (props) => {
             <Link
               href="tel:4168458996"
               title=""
-              className={`text-sm font-normal transition-all duration-200 ${
+              className={`text-sm font-normal transition-all flex duration-200 ${
                 isHomePage &&
                 !isSticky &&
                 "lg:text-black active:text-primary-green focus:text-primary-green"
