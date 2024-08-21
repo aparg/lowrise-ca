@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
           shadow="0 0 10px #00A1FF,0 0 5px #00A1FF"
         />
         <Navbar />
-        <main className="mx-auto max-w-[90%]">{children}</main>
+        <main className="">{children}</main>
         <Footer />
       </body>
     </html>

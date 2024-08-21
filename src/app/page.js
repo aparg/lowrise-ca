@@ -40,7 +40,6 @@ export default async function Home() {
 
   // const BLOGPOSTS = await fetchSomeBlogPosts({ pageSize: 4 });
   const BLOGPOSTS = await fetchAllBlogPosts();
-  console.log(BLOGPOSTS.length);
   {
     /* pass property propertyType:"commercial" only for commercial card slider, default is residential */
   }
@@ -48,45 +47,46 @@ export default async function Home() {
   return (
     <>
       <HeroSection />
-      <PropertyDisplaySection
-        title="Explore homes in Toronto"
-        subtitle=""
-        exploreAllLink={generateURL({ cityVal: "Toronto" })}
-      >
-        <Slider data={TORONTOHOMES} type="resale" />
-      </PropertyDisplaySection>
-      <CanadianCitiesShowcase />
-      <PropertyDisplaySection
-        title="Explore homes in Brampton"
-        subtitle=""
-        exploreAllLink={generateURL({ cityVal: "Brampton" })}
-      >
-        <Slider data={BRAMPTONHOMES} type="resale" />
-      </PropertyDisplaySection>
-      <PropertyDisplaySection
-        title="Explore homes in Mississauga"
-        subtitle=""
-        exploreAllLink={generateURL({ cityVal: "Mississauga" })}
-      >
-        <Slider data={MISSISAUGAHOMES} type="resale" />
-      </PropertyDisplaySection>
-      <PropertyDisplaySection
-        title="Explore homes in Oakville"
-        subtitle=""
-        exploreAllLink={generateURL({ cityVal: "Oakville" })}
-      >
-        <Slider data={OAKVILLEHOMES} type="resale" />
-      </PropertyDisplaySection>
-      <PropertyDisplaySection
-        title="The Lowrise Insights"
-        subtitle=""
-        exploreAllLink="/blogs"
-      >
-        <Slider data={BLOGPOSTS.slice(0, 4)} type="blog" />
-      </PropertyDisplaySection>
-
-      <div className="flex flex-col items-center mt-40 sm:mt-40"></div>
-      <ContactForm />
+      <section className="mx-auto max-w-[90%]">
+        <PropertyDisplaySection
+          title="Explore homes in Toronto"
+          subtitle=""
+          exploreAllLink={generateURL({ cityVal: "Toronto" })}
+        >
+          <Slider data={TORONTOHOMES} type="resale" />
+        </PropertyDisplaySection>
+        <CanadianCitiesShowcase />
+        <PropertyDisplaySection
+          title="Explore homes in Brampton"
+          subtitle=""
+          exploreAllLink={generateURL({ cityVal: "Brampton" })}
+        >
+          <Slider data={BRAMPTONHOMES} type="resale" />
+        </PropertyDisplaySection>
+        <PropertyDisplaySection
+          title="Explore homes in Mississauga"
+          subtitle=""
+          exploreAllLink={generateURL({ cityVal: "Mississauga" })}
+        >
+          <Slider data={MISSISAUGAHOMES} type="resale" />
+        </PropertyDisplaySection>
+        <PropertyDisplaySection
+          title="Explore homes in Oakville"
+          subtitle=""
+          exploreAllLink={generateURL({ cityVal: "Oakville" })}
+        >
+          <Slider data={OAKVILLEHOMES} type="resale" />
+        </PropertyDisplaySection>
+        <PropertyDisplaySection
+          title="The Lowrise Insights"
+          subtitle=""
+          exploreAllLink="/blogs"
+        >
+          <Slider data={BLOGPOSTS.slice(0, 4)} type="blog" />
+        </PropertyDisplaySection>
+        <div className="flex flex-col items-center mt-40 sm:mt-40"></div>
+        <ContactForm />
+      </section>
       {/* pass props type="commercial" only for commercial card slider, default is residential */}
     </>
   );

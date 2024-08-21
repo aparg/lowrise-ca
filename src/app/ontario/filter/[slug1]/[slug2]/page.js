@@ -22,7 +22,7 @@ const page = async ({ params }) => {
   const INITIAL_LIMIT = 30;
   if (isValidSlug)
     return (
-      <div className="container-fluid">
+      <div className="">
         <FiltersWithSalesList
           {...{
             INITIAL_LIMIT,

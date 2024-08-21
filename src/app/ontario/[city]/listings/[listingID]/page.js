@@ -124,9 +124,9 @@ const page = async ({ params }) => {
                   </PropertyDisplaySection>
                 </section>
               )}
-
+          
               <PriceButton
-                className="block sm:hidden"
+                
                 price={main_data.ListPrice}
               />
             </section>

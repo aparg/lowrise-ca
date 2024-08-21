@@ -223,7 +223,6 @@ const SearchBar = ({ numberOfSuggestions = 10 }) => {
     //   return property.Address;
     // });
     console.log("FIltered properties");
-    console.log(filteredProperties);
     setSuggestions([...filteredCities, ...filteredProperties]);
   };
   const citiesWithProvinces = [
@@ -294,7 +293,7 @@ const SearchBar = ({ numberOfSuggestions = 10 }) => {
           displaySuggestions ? "rounded-t-[28px]" : "rounded-[28px]"
         }`}
       >
-        <div className="flex items-center px-4 ">
+        <div className="flex items-center px-4 bg-white">
           <CgSearch size="1.25rem" />
         </div>
         <input
@@ -317,10 +316,10 @@ const SearchBar = ({ numberOfSuggestions = 10 }) => {
       <div className="relative">
         {displaySuggestions && (
           <div className="absolute top-0 rounded-b-[28px] border-[1px] border-[#dfe1e5] w-full bg-white p-4">
-            <section className="my-1 flex items-center cursor-pointer rounded-lg hover:bg-lime-100 px-2">
+            {/* <section className="my-1 flex items-center cursor-pointer rounded-lg hover:bg-lime-100 px-2">
               <CgTrack size="1.25rem" />
               <div className="ml-2 py-4">Current Location</div>
-            </section>
+            </section> */}
 
             {/* SUGGESTIONS */}
             {searchTerm && suggestions.length > 0 && (
@@ -378,7 +377,6 @@ const SearchBar = ({ numberOfSuggestions = 10 }) => {
 
 const SearchOption = ({ suggestion, setSearchTerm }) => {
   const addToLocalStorage = () => {
-    console.log(suggestion);
     if (window) {
       let searchesArray =
         JSON.parse(window.localStorage.getItem("searchValue")) || [];

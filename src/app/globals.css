@@ -121,3 +121,9 @@
   align-items: stretch;
   width: 100%;
 }
+
+#hero-section {
+  background: url(/hero-img.png);
+  background-repeat: no-repeat;
+  background-position: bottom;
+}

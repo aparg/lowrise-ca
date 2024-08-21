@@ -23,27 +23,25 @@ const HeroSection = () => {
   return (
     <div className="">
       <div className="mx-auto">
-        <div className="flex flex-col lg:flex-row items-center justify-between mt-5 pb-12 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0">
-          <div className="w-full lg:w-1/2 mb-10 lg:mb-0 order-2 sm:order-1">
-            <Link href="/">
-              <div className="flex flex-col justify-start mb-5">
+        <div
+          className="flex h-[90vh] flex-col lg:flex-row items-center justify-center pb-12 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0 bg-bottom bg-no-repeat"
+          id="hero-section"
+        >
+          <div className="w-full z-10 pb-40 sm:w-screen flex flex-col items-center mb-10 lg:mb-0 order-2 sm:order-1 cover">
+            {/* <Link href="/">
+              <div className="flex flex-col items-center justify-start mb-5">
                 <img
                   src="/lowriselogo.svg"
                   alt="Lowrise Logo"
                   width={200}
                   height={200}
                 />
-                <h2 className="font-medium mt-2 text-2xl">
-                  Home for everyone!
-                </h2>
               </div>
-            </Link>
-            <p className="text-lg sm:text-xl text-gray-700 mb-8 leading-relaxed">
-              Your premier destination for low-rise homes across Canada.
-              Discover curated selections of townhomes, bungalows, and other
-              low-rise properties in prime locations.
-            </p>
-            <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4">
+            </Link> */}
+            <h2 className="font-extrabold text-[4rem] sm:text-[6rem] text-center drop-shadow-md">
+              Home for everyone<span className="text-primary-green">!</span>
+            </h2>
+            <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4 mt-4">
               {houseTypes.map((house, index) => (
                 <HouseTypeCard
                   key={index}
@@ -55,40 +53,8 @@ const HeroSection = () => {
                 />
               ))}
             </div>
-            <div className="w-full mt-8">
-              <SearchBar bigger={true} numberOfSuggestions={3} />
-            </div>
-            <div className="flex flex-wrap gap-4 my-8">
-              <Link href="#contact">
-                <button className="px-6 py-3 bg-primary-green text-white font-semibold rounded-lg shadow-md hover:bg-primary-green transition duration-300 ease-in-out">
-                  Contact Us
-                </button>
-              </Link>
-              <Link href="#learn-more">
-                <button className="px-6 py-3 bg-white text-gray-900 font-semibold rounded-lg shadow-md border border-gray-300 hover:bg-gray-50 transition duration-300 ease-in-out">
-                  Learn More
-                </button>
-              </Link>
-            </div>
-          </div>
-          <div className="w-full lg:w-1/2  relative order-1 sm:order-2">
-            {/* <div className="relative w-full h-[500px] lg:h-[600px]"> */}
-            <Image
-              src="/hero-img.png"
-              alt="Lowrise homes"
-              width="800"
-              height="600"
-              className="rounded-lg h-[400px] sm:h-[500px] lg:h-[600px]"
-              priority
-            />
-            {/* </div> */}
-            <div className="absolute bottom-4 left-4 bg-white bg-opacity-90 p-4 rounded-lg">
-              <p className="text-sm font-semibold text-gray-900">
-                Featured Property
-              </p>
-              <p className="text-xs text-gray-600">
-                Modern Townhouse in Downtown
-              </p>
+            <div className="w-full sm:w-[60%] mt-8">
+              <SearchBar numberOfSuggestions={3} />
             </div>
           </div>
         </div>
@@ -98,3 +64,24 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
+{
+  /* <div className="w-full lg:w-1/2 relative order-1 sm:order-2">
+            <Image
+              src="/hero-img.png"
+              alt="Lowrise homes"
+              width="800"
+              height="600"
+              className="rounded-lg h-[400px] sm:h-[500px] lg:h-[600px]"
+              priority
+            />
+            <div className="absolute bottom-4 left-4 bg-white bg-opacity-90 p-4 rounded-lg">
+              <p className="text-sm font-semibold text-gray-900">
+                Featured Property
+              </p>
+              <p className="text-xs text-gray-600">
+                Modern Townhouse in Downtown
+              </p>
+            </div>
+          </div> */
+}

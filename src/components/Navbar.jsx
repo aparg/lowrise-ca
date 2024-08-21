@@ -151,7 +151,7 @@ const Navbar = (props) => {
             >
               <path
                 // strokeLinecap="round"
-                // stroke-linejoin="round"
+                // strokeLinejoin="round"
                 // strokeWidth="2"
                 d="M4 8h16M4 16h16"
               />
@@ -165,8 +165,8 @@ const Navbar = (props) => {
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 strokeWidth="2"
                 d="M6 18L18 6M6 6l12 12"
               />
@@ -240,7 +240,7 @@ const Navbar = (props) => {
               Contact{" "}
             </Link>
             <Link
-              href="#"
+              href="tel:4168458996"
               title=""
               className={`text-sm font-normal transition-all duration-200 ${
                 isHomePage &&
@@ -252,13 +252,11 @@ const Navbar = (props) => {
               }
              ${!isHomePage && "text-black"}`}
             >
-              <Link href="tel:4168458996" className="flex items-center">
-                <img src="/contact.png" className="w-12"></img>
-                <div className="flex flex-col items-center justify-center">
-                  <div className="text-lg font-bold">249-201-6665</div>
-                  <div className="text-xs">Speak with Lowrise Team</div>
-                </div>
-              </Link>
+              <img src="/contact.png" className="w-12"></img>
+              <div className="flex flex-col items-center justify-center">
+                <div className="text-lg font-bold">249-201-6665</div>
+                <div className="text-xs">Speak with Lowrise Team</div>
+              </div>
             </Link>
           </div>
         </nav>

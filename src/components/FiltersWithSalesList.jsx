@@ -15,6 +15,7 @@ import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
 import { ImSpinner } from "react-icons/im";
 import HotListings from "./HotListings";
 import PageSelector from "./PageSelector";
+import Image from "next/image";
 // import FilterSubmit from "../FilterSubmit";
 
 const FiltersWithSalesList = ({
@@ -48,7 +49,7 @@ const FiltersWithSalesList = ({
 
   const [filterState, setFilterState] = useState(null);
   const [salesData, setSalesData] = useState(salesListData);
-  const [offset, setOffset] = useState(INITIAL_LIMIT);
+  const [offset, setOffset] = useState(0);
   const { isMobileView } = useDeviceView();
   const [loading, setLoading] = useState(false);
   const [noData, setNoData] = useState(false);
@@ -178,7 +179,7 @@ const FiltersWithSalesList = ({
           ...initialState,
         },
         selected * 20,
-        selected * 20 - 20
+        20
       );
     }
     getUpdatedData();
@@ -187,7 +188,7 @@ const FiltersWithSalesList = ({
   return (
     <>
       {filterState && (
-        <div>
+        <div className="">
           <h2
             className={`font-extrabold text-2xl ${
               isMobileView ? "pt-2" : "pt-2"

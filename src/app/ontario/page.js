@@ -29,7 +29,7 @@ const page = async ({ params }) => {
     { label: "ON", href: null },
   ];
   return (
-    <>
+    <div className="">
       <Breadcrumbs items={breadcrumbItems} />
       <div className="container-fluid">
         <FiltersWithSalesList
@@ -39,7 +39,7 @@ const page = async ({ params }) => {
         />
       </div>
       <CanadianCitiesShowcase />
-    </>
+    </div>
   );
 };
 
