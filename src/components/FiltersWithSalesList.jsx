@@ -56,32 +56,41 @@ const FiltersWithSalesList = ({
   const [selected, setSelected] = useState(1); //the page that is selected
 
   const { hotSales, remainingSales } = useMemo(() => {
-    // Get the current date and time
-    const currentDate = new Date();
+    if (selected == 1) {
+      // Get the current date and time
+      const currentDate = new Date();
 
-    // Calculate the date and time 24 hours ago
-    const twentyFourHoursAgo = new Date(
-      currentDate.getTime() - 24 * 60 * 60 * 1000
-    );
+      // Calculate the date and time 24 hours ago
+      const twentyFourHoursAgo = new Date(
+        currentDate.getTime() - 24 * 60 * 60 * 1000
+      );
 
-    // Function to check if the data is from 24 hours ago
-    const is24HoursAgo = (timestampSql) => {
-      const timestampDate = new Date(timestampSql);
-      return timestampDate > twentyFourHoursAgo && timestampDate <= currentDate;
-    };
+      // Function to check if the data is from 24 hours ago
+      const is24HoursAgo = (timestampSql) => {
+        const timestampDate = new Date(timestampSql);
+        return (
+          timestampDate > twentyFourHoursAgo && timestampDate <= currentDate
+        );
+      };
 
-    // Separate sales data for 24 hours ago and remaining days
-    const hotSales = [];
-    const remainingSales = [];
-
-    salesData?.forEach((data) => {
-      if (is24HoursAgo(data.TimestampSql) && hotSales.length < 5) {
-        hotSales.push(data);
-      } else {
-        remainingSales.push(data);
+      // Separate sales data for 24 hours ago and remaining days
+      const hotSales = [];
+      const remainingSales = [];
+      {
+        console.log(salesData);
       }
-    });
-    return { hotSales, remainingSales };
+      salesData?.forEach((data) => {
+        if (is24HoursAgo(data.TimestampSql) && hotSales.length < 5) {
+          hotSales.push(data);
+        } else {
+          remainingSales.push(data);
+        }
+      });
+      console.log(hotSales, remainingSales);
+      return { hotSales, remainingSales };
+    } else {
+      return { hotSales: [], remainingSales: salesData };
+    }
   }, [salesData]);
 
   const _getMergedHouseType = (state) => {
@@ -135,7 +144,7 @@ const FiltersWithSalesList = ({
     } else {
       setLoading(false);
       setSalesData(filteredSalesData);
-      setOffset(INITIAL_LIMIT);
+      setOffset(offset);
     }
   };
 
@@ -178,8 +187,8 @@ const FiltersWithSalesList = ({
         {
           ...initialState,
         },
-        selected * 20,
-        20
+        20,
+        selected * 20
       );
     }
     getUpdatedData();
@@ -230,7 +239,7 @@ const FiltersWithSalesList = ({
 
           {!loading ? (
             <>
-              <HotListings salesData={hotSales} />
+              {selected === 1 && <HotListings salesData={hotSales} />}
               <div
                 className={`${
                   isMobileView ? "pt-1" : "pt-3"
@@ -240,7 +249,7 @@ const FiltersWithSalesList = ({
                   {...{
                     city,
                     INITIAL_LIMIT,
-                    salesData,
+                    salesData: remainingSales,
                     setSalesData,
                     offset,
                     setOffset,
