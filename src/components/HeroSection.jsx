@@ -41,7 +41,7 @@ const HeroSection = () => {
             <h2 className="font-extrabold text-[4rem]/[4.5rem] sm:text-[6rem] text-center drop-shadow-md">
               Home for everyone<span className="text-primary-green">!</span>
             </h2>
-            <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4 mt-4">
+            <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-12">
               {houseTypes.map((house, index) => (
                 <HouseTypeCard
                   key={index}
