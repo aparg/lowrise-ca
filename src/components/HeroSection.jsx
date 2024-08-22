@@ -24,7 +24,7 @@ const HeroSection = () => {
     <div className="">
       <div className="mx-auto">
         <div
-          className="flex h-[90vh] flex-col lg:flex-row items-center justify-center pb-12 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0 bg-bottom bg-no-repeat"
+          className="flex h-[90vh] flex-col lg:flex-row items-center justify-center pb-12 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0 px-2 sm:px-0 bg-bottom bg-no-repeat"
           id="hero-section"
         >
           <div className="w-full z-10 pb-40 sm:w-screen flex flex-col items-center mb-10 lg:mb-0 order-2 sm:order-1 cover">
@@ -38,7 +38,7 @@ const HeroSection = () => {
                 />
               </div>
             </Link> */}
-            <h2 className="font-extrabold text-[4rem] sm:text-[6rem] text-center drop-shadow-md">
+            <h2 className="font-extrabold text-[4rem]/[4.5rem] sm:text-[6rem] text-center drop-shadow-md">
               Home for everyone<span className="text-primary-green">!</span>
             </h2>
             <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4 mt-4">

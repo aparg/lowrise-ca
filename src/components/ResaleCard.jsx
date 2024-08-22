@@ -61,17 +61,154 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
 
     return parts.filter(Boolean).join("-");
   })();
-  return isMobileView || isTabletView ? (
-    <MobileCityResoCard
-      streetAndMLS={streetAndMLS}
-      small={small}
-      handleImageError={handleImageError}
-      imgSrc={imgSrc}
-      curElem={curElem}
-      price={price}
-      showDecreasedPrice={showDecreasedPrice}
-    />
-  ) : (
+  // return isMobileView || isTabletView ? (
+  //   <MobileCityResoCard
+  //     streetAndMLS={streetAndMLS}
+  //     small={small}
+  //     handleImageError={handleImageError}
+  //     imgSrc={imgSrc}
+  //     curElem={curElem}
+  //     price={price}
+  //     showDecreasedPrice={showDecreasedPrice}
+  //   />
+  // ) : (
+  //   <section className="">
+  //     <Link
+  //       href={generateURL({
+  //         cityVal: curElem.Municipality,
+  //         listingIDVal: streetAndMLS,
+  //       })}
+  //       className="text-black"
+  //     >
+  //       <div className="lg:px-0 h-full w-full">
+  //         <div className="flex flex-col overflow-hidden transition-all duration-200 transform bg-white shadow group rounded-xl p-0 hover:shadow-lg hover:-translate-y-1 relative">
+  //           <div
+  //             className={`${small ? "h-44" : "h-52"} overflow-hidden relative`}
+  //           >
+  //             <div className="h-80 relative">
+  //               <img
+  //                 className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110"
+  //                 src={imgSrc}
+  //                 width="900"
+  //                 height="800"
+  //                 alt="property image"
+  //                 onError={handleImageError}
+  //               />
+  //               {/* <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-50"></div> */}
+  //             </div>
+
+  //             <div className="absolute bottom-3 left-2 flex flex-row">
+  //               <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
+  //                 {curElem.TypeOwn1Out}{" "}
+  //               </div>
+  //               <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
+  //                 <TimeAgo modificationTimestamp={curElem.TimestampSql} />
+  //               </div>
+  //             </div>
+  //           </div>
+  //           <div className="flex-1 sm:px-3 py-2 px-2">
+  //             {showDecreasedPrice && (
+  //               <span className="text-gray-600">
+  //                 <s>${curElem.MaxListPrice}</s>
+  //               </span>
+  //             )}
+  //             <h2 className="font-bold text-2xl items-center justify-start my-2">
+  //               <div className="flex flex-row items-center">
+  //                 <span className="font-extrabold">{price}</span>
+  //                 {curElem.SaleLease === saleLease.lease.value && (
+  //                   <span> /mo</span>
+  //                 )}
+  //                 {showDecreasedPrice && (
+  //                   <div className="ml-2 flex items-center">
+  //                     <span className="text-green-700 text-sm text-md">
+  //                       {showDecreasedPrice &&
+  //                         "$" +
+  //                           priceFormatter(
+  //                             parseFloat(curElem.MaxListPrice) -
+  //                               parseFloat(curElem.ListPrice)
+  //                           )}
+  //                       {curElem.SaleLease === saleLease.lease.value && (
+  //                         <span>/mo</span>
+  //                       )}
+  //                     </span>
+  //                     <img
+  //                       className="w-4 h-4"
+  //                       src="/card-img/price-reduced.png"
+  //                       alt="reduced"
+  //                     ></img>
+  //                   </div>
+  //                 )}
+  //               </div>
+  //             </h2>
+  //             {/* <p className="mb-0 fs-mine text-limit font-md pb-0">
+  //                 {" "}
+  //                 MLS® #{curElem.MLS}
+  //               </p> */}
+  //             <span className={`text-black text-xs ${small && "hidden"}`}>
+  //               <div className="flex flex-row justify-start">
+  //                 {curElem.Bedrooms && (
+  //                   <div className="flex items-center mr-2">
+  //                     <img
+  //                       src="/resale-card-img/bedrooms.svg"
+  //                       className="w-3 mr-[2px] inline"
+  //                       alt="bedrooms"
+  //                     />
+  //                     <span>{Math.floor(curElem.Bedrooms)}</span>
+  //                   </div>
+  //                 )}
+  //                 {curElem.Washrooms && (
+  //                   <div className="flex items-center mr-2">
+  //                     <img
+  //                       src="/resale-card-img/bathrooms.svg"
+  //                       className="w-3 mr-[2px] inline"
+  //                       alt="washrooms"
+  //                     />
+  //                     <span>{Math.floor(curElem.Washrooms)}</span>
+  //                   </div>
+  //                 )}
+  //                 {curElem.GarageSpaces && (
+  //                   <div className="flex items-center mr-2">
+  //                     <img
+  //                       src="/resale-card-img/garage.svg"
+  //                       className="w-3 mr-[2px] inline"
+  //                       alt="washrooms"
+  //                     />
+  //                     <span>{Math.floor(curElem.GarageSpaces)}</span>
+  //                   </div>
+  //                 )}
+  //                 {curElem.ApproxSquareFootage && (
+  //                   <div className="flex items-center mr-2">
+  //                     <img
+  //                       src="/resale-card-img/ruler.svg"
+  //                       className="w-3 mr-[2px] inline"
+  //                       alt="washrooms"
+  //                     />
+  //                     <span>{curElem.ApproxSquareFootage} Sq.Ft.</span>
+  //                   </div>
+  //                 )}
+  //               </div>
+  //             </span>
+  //             <div className="flex flex-row justify-between mt-2">
+  //               <div className="text-black truncate text-ellipsis">
+  //                 <div className="text-dark text-sm mb-2">
+  //                   {curElem.StreetName ? (
+  //                     `${curElem.Street} ${curElem.StreetName}${" "}
+  //                   ${curElem.StreetAbbreviation} ${
+  //                       curElem.Municipality
+  //                     }, Ontario`
+  //                   ) : (
+  //                     <span className="p-4"></span>
+  //                   )}
+  //                 </div>
+  //               </div>
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </Link>
+  //   </section>
+  // );
+  return (
     <section className="">
       <Link
         href={generateURL({
@@ -177,7 +314,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                     </div>
                   )}
                   {curElem.ApproxSquareFootage && (
-                    <div className="flex items-center mr-2">
+                    <div className="flex items-center mr-2 hidden sm:block">
                       <img
                         src="/resale-card-img/ruler.svg"
                         className="w-3 mr-[2px] inline"
