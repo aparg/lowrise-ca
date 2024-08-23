@@ -114,8 +114,18 @@ const Navbar = (props) => {
             </Link>
           </div>
 
-          <div className="flex items-center h-[40px] rounded-md w-auto ms-0 sm:ms-3 ">
-            <SearchBar numberOfSuggestions={4} />
+          <div className="flex items-center rounded-md w-auto ms-0 sm:ms-3 ">
+            <div className="hidden sm:block">
+              <SearchBar
+                numberOfSuggestions={4}
+                height={50}
+                placeholderFont={0.5}
+              />
+            </div>
+            <div className="block sm:hidden">
+              <SearchBar numberOfSuggestions={4} height={40} />
+            </div>
+
             {/* <button
               className="bg-gray-100 px-2 py-[0.73rem] search-button rounded-md"
               type="button"

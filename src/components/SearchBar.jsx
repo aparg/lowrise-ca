@@ -208,7 +208,11 @@ import { searchProperties } from "../api/searchProperties";
 import Link from "next/link";
 import { generateURL } from "@/helpers/generateURL";
 
-const SearchBar = ({ numberOfSuggestions = 10 }) => {
+const SearchBar = ({
+  numberOfSuggestions = 10,
+  height = 50,
+  placeholderFont = 1.5,
+}) => {
   const [displaySuggestions, setDisplaySuggestions] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -287,17 +291,17 @@ const SearchBar = ({ numberOfSuggestions = 10 }) => {
   ];
 
   return (
-    <div className="flex flex-col relative">
+    <div className={`flex flex-col relative h-[${height}px]`}>
       <div
-        className={`w-full flex overflow-hidden border-[1px] border-[#dfe1e5] ${
+        className={`w-full h-full flex overflow-hidden border-[1px] border-[#dfe1e5] ${
           displaySuggestions ? "rounded-t-[28px]" : "rounded-[28px]"
         }`}
       >
-        <div className="flex items-center px-4 bg-white">
+        <div className="flex items-center pl-4 pr-0 justify-center bg-white">
           <CgSearch size="1.25rem" />
         </div>
         <input
-          className={`w-full py-3 px-2 focus:outline-none`}
+          className={`w-full py-3 px-2 focus:outline-none placeholder:text-${placeholderFont}rem`}
           placeholder="Search by address, city, neighbourhood or postal code"
           onChange={async (e) => {
             setDisplaySuggestions(true);

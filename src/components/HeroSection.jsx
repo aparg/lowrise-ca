@@ -54,7 +54,7 @@ const HeroSection = () => {
               ))}
             </div>
             <div className="w-full sm:w-[60%] mt-8">
-              <SearchBar numberOfSuggestions={3} />
+              <SearchBar numberOfSuggestions={3} height={60} />
             </div>
           </div>
         </div>

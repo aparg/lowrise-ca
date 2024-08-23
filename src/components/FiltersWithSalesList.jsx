@@ -243,7 +243,7 @@ const FiltersWithSalesList = ({
               <div
                 className={`${
                   isMobileView ? "pt-1" : "pt-3"
-                } grid grid-cols-2 md:grid-cols-4 xs:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 xl:grid-cols-5 gap-0 md:gap-x-2 sm:gap-y-[40px]`}
+                } grid grid-cols-2 md:grid-cols-4 xs:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 xl:grid-cols-5 gap-0 gap-x-2 gap-y-4 md:gap-x-2 sm:gap-y-[40px]`}
               >
                 <SalesList
                   {...{
