@@ -52,7 +52,7 @@ const Dropdown = ({ name, options, width = "25rem" }) => {
         {options.map((option) => (
           <Link
             href={option.link}
-            className="block sm:px-4 px-2 py-2 text-gray-800 hover:shadow-2xl hover:rounded-md text-start text-sm"
+            className="block sm:px-4 px-2 py-2 text-gray-800 hover:drop-shadow-2xl hover:font-bold hover:shadow-2xl hover:rounded-md text-start text-sm"
             key={option.name}
           >
             {option.name}

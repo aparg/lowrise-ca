@@ -17,7 +17,7 @@ const BlogCard = ({ data }) => {
         <span className="inline-block bg-red-50 border border-primary-green text-xs px-2 py-1 rounded-full tracking-wide text-primary-green">
           {data.city.name}
         </span>
-        <h2 className="mt-2 text-xl font-semibold text-gray-800 line-clamp-2">
+        <h2 className="mt-2 text-lg sm:text-xl font-semibold text-gray-800 line-clamp-3 sm:line-clamp-2">
           {data.news_title}
         </h2>
         <p className="mt-2 text-gray-600 text-sm">{data.date}</p>
