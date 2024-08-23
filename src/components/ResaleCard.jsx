@@ -218,11 +218,13 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
         className="text-black"
       >
         <div className="lg:px-0 h-full w-full">
-          <div className="flex flex-col overflow-hidden transition-all duration-200 transform bg-white shadow group rounded-xl p-0 hover:shadow-lg hover:-translate-y-1 relative">
+          <div className="flex flex-col overflow-hidden transition-all duration-200 transform bg-white shadow group rounded-md p-0 hover:shadow-lg hover:-translate-y-1 relative">
             <div
-              className={`${small ? "h-44" : "h-52"} overflow-hidden relative`}
+              className={`${
+                small ? "h-44" : "h-52 sm:h-80"
+              } overflow-hidden relative`}
             >
-              <div className="h-80 relative">
+              <div className="h-52 sm:h-80 relative">
                 <img
                   className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110"
                   src={imgSrc}
@@ -245,12 +247,11 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
             </div>
             <div className="flex-1 sm:px-3 py-2 px-2">
               {showDecreasedPrice && (
-                // <span className="text-gray-600">
-                <span className="text-primary-green">
+                <span className="text-gray-600">
                   <s>${curElem.MaxListPrice}</s>
                 </span>
               )}
-              <h2 className="font-bold text-2xl items-center justify-start my-2">
+              <h2 className="font-bold text-xl sm:text-2xl items-center justify-start my-2 text-primary-green">
                 <div className="flex flex-row items-center">
                   <span className="font-extrabold">{price}</span>
                   {curElem.SaleLease === saleLease.lease.value && (

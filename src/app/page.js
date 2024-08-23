@@ -15,7 +15,7 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const INITIAL_LIMIT = 4;
+  const INITIAL_LIMIT = 5;
   const INITIAL_OFFSET = 0;
   const TORONTOHOMES = await getSalesData(
     INITIAL_OFFSET,

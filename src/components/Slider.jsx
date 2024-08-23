@@ -61,7 +61,7 @@ const Slider = ({ data, type }) => {
         </button>
       </div> */}
       <div
-        className={`w-full grid grid-rows-1 grid-cols-2 sm:grid-cols-4 grid-cols-1 overflow-x-hidden grid-nowrap justify-between py-3 gap-4 auto-rows-[minmax(100px,_auto)]`}
+        className={`w-full grid grid-rows-1 grid-cols-2 sm:grid-cols-5 grid-cols-1 overflow-x-hidden grid-nowrap justify-between py-3 gap-4 auto-rows-[minmax(100px,_auto)]`}
         id="slider"
         ref={scrollRef}
       >
