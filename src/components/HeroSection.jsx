@@ -39,9 +39,9 @@ const HeroSection = () => {
               </div>
             </Link> */}
             <h2 className="font-extrabold text-[4rem]/[4.5rem] sm:text-[6rem] text-center drop-shadow-md">
-              Home for everyone<span className="text-primary-green">!</span>
+              Home for <span className="text-primary-green">everyone</span>
             </h2>
-            <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-12">
+            {/* <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-12">
               {houseTypes.map((house, index) => (
                 <HouseTypeCard
                   key={index}
@@ -52,8 +52,8 @@ const HeroSection = () => {
                   })}
                 />
               ))}
-            </div>
-            <div className="w-full sm:w-[60%] mt-8">
+            </div> */}
+            <div className="w-full sm:w-[60%] mt-16">
               <SearchBar numberOfSuggestions={3} height={60} />
             </div>
           </div>

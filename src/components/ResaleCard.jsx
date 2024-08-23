@@ -245,7 +245,8 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
             </div>
             <div className="flex-1 sm:px-3 py-2 px-2">
               {showDecreasedPrice && (
-                <span className="text-gray-600">
+                // <span className="text-gray-600">
+                <span className="text-primary-green">
                   <s>${curElem.MaxListPrice}</s>
                 </span>
               )}
