@@ -147,7 +147,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
   //             <span className={`text-black text-xs ${small && "hidden"}`}>
   //               <div className="flex flex-row justify-start">
   //                 {curElem.Bedrooms && (
-  //                   <div className="flex items-center mr-2">
+  //                   <div className="flex items-center mr-3">
   //                     <img
   //                       src="/resale-card-img/bedrooms.svg"
   //                       className="w-3 mr-[2px] inline"
@@ -218,7 +218,11 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
         className="text-black"
       >
         <div className="lg:px-0 h-full w-full">
-          <div className="flex flex-col overflow-hidden transition-all duration-200 transform bg-white shadow group rounded-md p-0 hover:shadow-lg hover:-translate-y-1 relative">
+          <div
+            className={`${
+              small ? "h-[20rem]" : "h-[30rem]"
+            } flex flex-col overflow-hidden transition-all duration-200 transform bg-white shadow group rounded-2xl p-0 hover:shadow-lg hover:-translate-y-1 relative`}
+          >
             <div
               className={`${
                 small ? "h-44" : "h-52 sm:h-80"
@@ -240,45 +244,22 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                 <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
                   {curElem.TypeOwn1Out}{" "}
                 </div>
-                <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
-                  <TimeAgo modificationTimestamp={curElem.TimestampSql} />
-                </div>
+                {/* <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
+                </div> */}
               </div>
             </div>
-            <div className="flex-1 sm:px-3 py-2 px-2">
-              {showDecreasedPrice && (
-                <span className="text-gray-600">
-                  <s>${curElem.MaxListPrice}</s>
-                </span>
-              )}
-              <h2 className="font-bold text-xl sm:text-2xl items-center justify-start my-2 text-primary-green">
-                <div className="flex flex-row items-center">
-                  <span className="font-extrabold">{price}</span>
+            <div className="flex-1 sm:px-3 pt-2 pb-4 px-2">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                <h2 className="font-bold text-2xl sm:text-2xl items-center justify-start mt-2 sm:my-2 text-primary-green">
+                  <span className="font-bold">{price}</span>
                   {curElem.SaleLease === saleLease.lease.value && (
                     <span> /mo</span>
                   )}
-                  {showDecreasedPrice && (
-                    <div className="ml-2 flex items-center">
-                      <span className="text-green-700 text-sm text-md">
-                        {showDecreasedPrice &&
-                          "$" +
-                            priceFormatter(
-                              parseFloat(curElem.MaxListPrice) -
-                                parseFloat(curElem.ListPrice)
-                            )}
-                        {curElem.SaleLease === saleLease.lease.value && (
-                          <span>/mo</span>
-                        )}
-                      </span>
-                      <img
-                        className="w-4 h-4"
-                        src="/card-img/price-reduced.png"
-                        alt="reduced"
-                      ></img>
-                    </div>
-                  )}
+                </h2>
+                <div className="text-sm font-medium text-gray-800 mb-1 sm:mb-0">
+                  <TimeAgo modificationTimestamp={curElem.TimestampSql} />
                 </div>
-              </h2>
+              </div>
               {/* <p className="mb-0 fs-mine text-limit font-md pb-0">
                   {" "}
                   MLS® #{curElem.MLS}
@@ -286,37 +267,46 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
               <span className={`text-black text-xs ${small && "hidden"}`}>
                 <div className="flex flex-row justify-start">
                   {curElem.Bedrooms && (
-                    <div className="flex items-center mr-2">
+                    <div className="flex items-center mr-3">
                       <img
                         src="/resale-card-img/bedrooms.svg"
                         className="w-3 mr-[2px] inline"
                         alt="bedrooms"
                       />
-                      <span>{Math.floor(curElem.Bedrooms)}</span>
+                      <span>
+                        {Math.floor(curElem.Bedrooms)}{" "}
+                        <span className="hidden sm:inline">Bed</span>
+                      </span>
                     </div>
                   )}
                   {curElem.Washrooms && (
-                    <div className="flex items-center mr-2">
+                    <div className="flex items-center mr-3">
                       <img
                         src="/resale-card-img/bathrooms.svg"
                         className="w-3 mr-[2px] inline"
                         alt="washrooms"
                       />
-                      <span>{Math.floor(curElem.Washrooms)}</span>
+                      <span>
+                        {Math.floor(curElem.Washrooms)}{" "}
+                        <span className="hidden sm:inline">Bath</span>
+                      </span>
                     </div>
                   )}
                   {curElem.GarageSpaces && (
-                    <div className="flex items-center mr-2">
+                    <div className="flex items-center mr-3">
                       <img
                         src="/resale-card-img/garage.svg"
                         className="w-3 mr-[2px] inline"
                         alt="washrooms"
                       />
-                      <span>{Math.floor(curElem.GarageSpaces)}</span>
+                      <span>
+                        {Math.floor(curElem.GarageSpaces)}{" "}
+                        <span className="hidden sm:inline">Garage</span>
+                      </span>
                     </div>
                   )}
                   {curElem.ApproxSquareFootage && (
-                    <div className="flex items-center mr-2 hidden sm:block">
+                    <div className="flex items-center mr-3 hidden sm:block">
                       <img
                         src="/resale-card-img/ruler.svg"
                         className="w-3 mr-[2px] inline"
@@ -340,6 +330,9 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                     )}
                   </div>
                 </div>
+              </div>
+              <div className="text-xs text-gray-600">
+                MLS® {curElem.MLS} • Listed by {curElem.ListBrokerage}
               </div>
             </div>
           </div>

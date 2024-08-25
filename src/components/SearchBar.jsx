@@ -202,11 +202,12 @@
 
 // export default SearchBar;
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { CgPin, CgSearch, CgTrack } from "react-icons/cg";
 import { searchProperties } from "../api/searchProperties";
 import Link from "next/link";
 import { generateURL } from "@/helpers/generateURL";
+import debounce from "lodash.debounce";
 
 const SearchBar = ({
   numberOfSuggestions = 10,
@@ -216,6 +217,22 @@ const SearchBar = ({
   const [displaySuggestions, setDisplaySuggestions] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+
+  // Debouncing
+  const handleChange = async (e) => {
+    await getSuggestions(e.target.value);
+  };
+
+  const debouncedResults = useMemo(() => {
+    return debounce((e) => handleChange(e), 300);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  });
+
   const getSuggestions = async (searchTerm) => {
     const inputValueLowerCase = searchTerm?.trim()?.toLowerCase();
     const filteredCities = citiesWithProvinces.filter((data) =>
@@ -303,10 +320,10 @@ const SearchBar = ({
         <input
           className={`w-full py-3 px-2 focus:outline-none placeholder:text-${placeholderFont}rem`}
           placeholder="Search by address, city, neighbourhood or postal code"
-          onChange={async (e) => {
+          onChange={(e) => {
             setDisplaySuggestions(true);
             setSearchTerm(e.target.value);
-            await getSuggestions(e.target.value);
+            debouncedResults(e);
           }}
           onFocus={() => {
             setDisplaySuggestions(true);
