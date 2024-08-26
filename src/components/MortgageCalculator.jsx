@@ -2,14 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { VictoryPie, VictoryLabel } from "victory";
 
-export default function MortgageCalculator(props) {
+export default function MortgageCalculator({ price, showDetails = true }) {
   const [intrest, setIntrest] = useState(0);
   const [calculatordata, setCalculatordata] = useState({
-    hvalue: props.price || "",
+    hvalue: price || "",
     dpay: "",
     dper: "10",
     loanamt: "",
-    intrate: "2.5",
+    intrate: "4",
     loanterm: "30",
   });
   const [calculated, setCalculated] = useState(null);
@@ -138,12 +138,12 @@ export default function MortgageCalculator(props) {
         </div>
 
         <div className="mt-8 flex justify-center">
-          <svg width="300" height="300">
+          <svg width="400" height="300">
             {(calculatordata.loanamt > 10 || intrest > 10) && (
               <>
                 <VictoryPie
                   standalone={false}
-                  width={300}
+                  width={400}
                   height={300}
                   data={[
                     {
@@ -164,7 +164,7 @@ export default function MortgageCalculator(props) {
                 <VictoryLabel
                   textAnchor="middle"
                   style={{ fontSize: 16 }}
-                  x={150}
+                  x={200}
                   y={150}
                   text={"$" + calculated + "/mo"}
                 />
@@ -174,73 +174,84 @@ export default function MortgageCalculator(props) {
         </div>
       </div>
 
-      <div className="bg-gray-50 p-8">
-        <h3 className="text-2xl font-bold mb-4">
-          Steps to Calculate Your Payments
-        </h3>
-        <ol className="list-decimal list-inside space-y-2 text-gray-700">
-          <li>Determine the purchase price of the home.</li>
-          <li>
-            Calculate the down payment (usually 5-20% of the purchase price in
-            Canada).
-          </li>
-          <li>
-            Subtract the down payment from the purchase price to get the
-            mortgage amount.
-          </li>
-          <li>
-            Choose a mortgage term (typically 5 years in Canada) and
-            amortization period (usually 25-30 years).
-          </li>
-          <li>
-            Determine the interest rate (check current rates from Canadian
-            lenders).
-          </li>
-          <li>Use a mortgage calculator to determine the monthly payment.</li>
-          <li>
-            Factor in additional costs like property taxes and home insurance.
-          </li>
-          <li>Consider the impact of making accelerated bi-weekly payments.</li>
-          <li>Review the total interest paid over the life of the mortgage.</li>
-          <li>
-            Ensure the monthly payments fit within your budget (typically not
-            exceeding 32% of your gross monthly income for housing costs).
-          </li>
-        </ol>
-      </div>
-
-      <div className="p-8">
-        <h3 className="text-2xl font-bold mb-4">Terms Explained</h3>
-        <dl className="space-y-4">
-          {[
-            {
-              term: "Home Value",
-              def: "The current market value or purchase price of the property.",
-            },
-            {
-              term: "Down Payment",
-              def: "The initial upfront portion of the total home purchase price paid by the buyer.",
-            },
-            {
-              term: "Mortgage Amount",
-              def: "The amount borrowed from a lender to purchase the home (Home Value minus Down Payment).",
-            },
-            {
-              term: "Interest Rate",
-              def: "The percentage charged by the lender for borrowing the money, usually expressed as an annual rate.",
-            },
-            {
-              term: "Mortgage Term",
-              def: "The length of time your mortgage agreement and interest rate are in effect (typically 1-5 years in Canada).",
-            },
-          ].map(({ term, def }) => (
-            <div key={term}>
-              <dt className="font-semibold text-gray-800">{term}</dt>
-              <dd className="text-gray-600 mt-1">{def}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
+      {showDetails && (
+        <>
+          <div className="bg-gray-50 p-8">
+            <h3 className="text-2xl font-bold mb-4">
+              Steps to Calculate Your Payments
+            </h3>
+            <ol className="list-decimal list-inside space-y-2 text-gray-700">
+              <li>Determine the purchase price of the home.</li>
+              <li>
+                Calculate the down payment (usually 5-20% of the purchase price
+                in Canada).
+              </li>
+              <li>
+                Subtract the down payment from the purchase price to get the
+                mortgage amount.
+              </li>
+              <li>
+                Choose a mortgage term (typically 5 years in Canada) and
+                amortization period (usually 25-30 years).
+              </li>
+              <li>
+                Determine the interest rate (check current rates from Canadian
+                lenders).
+              </li>
+              <li>
+                Use a mortgage calculator to determine the monthly payment.
+              </li>
+              <li>
+                Factor in additional costs like property taxes and home
+                insurance.
+              </li>
+              <li>
+                Consider the impact of making accelerated bi-weekly payments.
+              </li>
+              <li>
+                Review the total interest paid over the life of the mortgage.
+              </li>
+              <li>
+                Ensure the monthly payments fit within your budget (typically
+                not exceeding 32% of your gross monthly income for housing
+                costs).
+              </li>
+            </ol>
+          </div>
+          <div className="p-8">
+            <h3 className="text-2xl font-bold mb-4">Terms Explained</h3>
+            <dl className="space-y-4">
+              {[
+                {
+                  term: "Home Value",
+                  def: "The current market value or purchase price of the property.",
+                },
+                {
+                  term: "Down Payment",
+                  def: "The initial upfront portion of the total home purchase price paid by the buyer.",
+                },
+                {
+                  term: "Mortgage Amount",
+                  def: "The amount borrowed from a lender to purchase the home (Home Value minus Down Payment).",
+                },
+                {
+                  term: "Interest Rate",
+                  def: "The percentage charged by the lender for borrowing the money, usually expressed as an annual rate.",
+                },
+                {
+                  term: "Mortgage Term",
+                  def: "The length of time your mortgage agreement and interest rate are in effect (typically 1-5 years in Canada).",
+                },
+              ].map(({ term, def }) => (
+                <div key={term}>
+                  <dt className="font-semibold text-gray-800">{term}</dt>
+                  <dd className="text-gray-600 mt-1">{def}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </>
+      )}
 
       <div className="bg-gray-100 p-4 text-center text-sm text-gray-600">
         <p>

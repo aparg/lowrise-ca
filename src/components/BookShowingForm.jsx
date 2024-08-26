@@ -106,7 +106,7 @@ const BookShowingForm = ({ address }) => {
   };
 
   return (
-    <div className="relative z-0 w-full rounded-md bg-gray-100 flex items-center mt-8 sm:mt-24">
+    <div className="sticky top-20 z-0 w-full rounded-md bg-gray-100 flex items-center mt-8 sm:mt-24">
       <div className="flex sm:flex-row flex-col w-full overflow-hidden">
         {/* <div className="w-full sm:w-1/2">
           <img

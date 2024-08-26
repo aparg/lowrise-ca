@@ -13,6 +13,7 @@ import Image from "next/image";
 
 import { priceFormatter } from "@/helpers/priceFormatter";
 import Link from "next/link";
+import MortgageCalculator from "./MortgageCalculator";
 
 const PropertyPage = ({ main_data }) => {
   const [navbar, setNavbar] = useState(false);
@@ -773,7 +774,9 @@ const PropertyPage = ({ main_data }) => {
           </div>
         )}
       </div>
-
+      <div>
+        <MortgageCalculator price={main_data?.ListPrice} showDetails={false} />
+      </div>
       <div className={isMobileView ? `mt-8 col-12` : `mt-24 col-12`}>
         <h2 className="font-bold pb-3 text-lg sm:text-2xl">
           <Image
