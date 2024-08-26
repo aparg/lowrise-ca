@@ -220,7 +220,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
         <div className="lg:px-0 h-full w-full">
           <div
             className={`${
-              small ? "h-[20rem]" : "h-[30rem]"
+              small ? "h-[20rem]" : "h-auto sm:h-[30rem]"
             } flex flex-col overflow-hidden transition-all duration-200 transform bg-white shadow group rounded-2xl p-0 hover:shadow-lg hover:-translate-y-1 relative`}
           >
             <div
