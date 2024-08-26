@@ -3,10 +3,10 @@ import React from "react";
 const NewsletterSignup = () => {
   return (
     <section className="py-16 bg-red-50 sm:py-20 lg:py-24 mt-[5rem]">
-      <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-4xl">
+      <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-semibold tracking-tight text-black sm:text-4xl lg:text-5xl mb-4">
-            Stay updated on Canada's homes market
+          <h2 className="text-3xl font-semibold tracking-tight text-black sm:text-4xl lg:text-5xl mb-4 text-center text-nowrap">
+            Lowrise homes for sale in Canada updated hourly
           </h2>
           <p className="text-base font-normal leading-7 text-gray-700 lg:text-lg max-w-2xl mx-auto">
             Subscribe to our free weekly newsletter for the latest
@@ -15,7 +15,7 @@ const NewsletterSignup = () => {
           </p>
         </div>
 
-        <div className="bg-white p-8 rounded-2xl shadow-lg">
+        <div className="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
           <form action="#" method="POST" className="space-y-4 mb-6">
             <div>
               <label htmlFor="email" className="sr-only">
