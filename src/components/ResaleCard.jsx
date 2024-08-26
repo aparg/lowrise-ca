@@ -220,7 +220,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
         <div className="lg:px-0 h-full w-full">
           <div
             className={`${
-              small ? "h-[20rem]" : "h-auto sm:h-[30rem]"
+              small ? "h-[20rem]" : "h-auto sm:h-[29rem]"
             } flex flex-col overflow-hidden transition-all duration-200 transform bg-white shadow group rounded-2xl p-0 hover:shadow-lg hover:-translate-y-1 relative`}
           >
             <div
@@ -317,9 +317,9 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                   )}
                 </div>
               </span>
-              <div className="flex flex-row justify-between mt-2">
+              <div className="flex flex-row justify-between my-1">
                 <div className="text-black truncate text-ellipsis">
-                  <div className="text-dark text-sm mb-2">
+                  <div className="text-dark text-sm">
                     {curElem.StreetName ? (
                       `${curElem.Street} ${curElem.StreetName}${" "}
                     ${curElem.StreetAbbreviation} ${
@@ -331,8 +331,9 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                   </div>
                 </div>
               </div>
+              <div className="text-xs text-gray-600">MLS® {curElem.MLS}</div>
               <div className="text-xs text-gray-600">
-                MLS® {curElem.MLS} • Listed by {curElem.ListBrokerage}
+                Listed by {curElem.ListBrokerage}
               </div>
             </div>
           </div>

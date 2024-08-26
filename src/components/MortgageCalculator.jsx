@@ -2,7 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { VictoryPie, VictoryLabel } from "victory";
 
-export default function MortgageCalculator({ price, showDetails = true }) {
+export default function MortgageCalculator({
+  price,
+  showDetails = true,
+  align = "center",
+}) {
   const [intrest, setIntrest] = useState(0);
   const [calculatordata, setCalculatordata] = useState({
     hvalue: price || "",
@@ -71,12 +75,24 @@ export default function MortgageCalculator({ price, showDetails = true }) {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white rounded-lg overflow-hidden mb-20">
-      <div className="p-8">
-        <h2 className="text-5xl font-extrabold text-center">
+    <div
+      className={`max-w-3xl ${
+        align == "center" ? "mx-auto" : ""
+      }  bg-white rounded-lg overflow-hidden mb-20`}
+    >
+      <div className="">
+        <h2
+          className={`text-5xl font-extrabold ${
+            align == "center" ? "text-center" : ""
+          }`}
+        >
           Mortgage <span className="text-primary-green">Calculator</span>
         </h2>
-        <p className="text-center text-gray-500 mt-1">
+        <p
+          className={`text-gray-500 mt-1  ${
+            align === "center" ? "text-center" : ""
+          }`}
+        >
           Calculate your monthly mortgage payments based on the home value,
         </p>
         <div className="mb-10"></div>
@@ -253,7 +269,11 @@ export default function MortgageCalculator({ price, showDetails = true }) {
         </>
       )}
 
-      <div className="bg-gray-100 p-4 text-center text-sm text-gray-600">
+      <div
+        className={`bg-gray-100 p-4 ${
+          align === "center" ? "text-center" : ""
+        } text-sm text-gray-600`}
+      >
         <p>
           This calculator is for demonstration purposes only. Always consult a
           professional financial advisor before making personal financial

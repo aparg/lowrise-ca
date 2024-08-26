@@ -769,13 +769,17 @@ const PropertyPage = ({ main_data }) => {
           </div>
         )}
         {main_data.ListBrokerage && (
-          <div className="flex flex-grid text-lg font-medium py-1 leading-8">
+          <div className="flex flex-grid text-lg font-medium py-1 leading-8 text-xs text-gray-700">
             Listed by {main_data?.ListBrokerage}
           </div>
         )}
       </div>
-      <div>
-        <MortgageCalculator price={main_data?.ListPrice} showDetails={false} />
+      <div className={isMobileView ? `mt-8 col-12` : `mt-24 col-12`}>
+        <MortgageCalculator
+          price={main_data?.ListPrice}
+          showDetails={false}
+          align="left"
+        />
       </div>
       <div className={isMobileView ? `mt-8 col-12` : `mt-24 col-12`}>
         <h2 className="font-bold pb-3 text-lg sm:text-2xl">
