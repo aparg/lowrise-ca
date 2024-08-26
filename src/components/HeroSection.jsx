@@ -39,7 +39,8 @@ const HeroSection = () => {
               </div>
             </Link> */}
             <h2 className="font-extrabold text-[4rem]/[4.5rem] sm:text-[6rem] text-center drop-shadow-md">
-              Home for <span className="text-primary-green">everyone</span>
+              Lowrise home for{" "}
+              <span className="text-primary-green">everyone</span>
             </h2>
             {/* <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-12">
               {houseTypes.map((house, index) => (
