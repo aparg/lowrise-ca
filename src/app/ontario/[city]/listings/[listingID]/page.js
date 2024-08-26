@@ -105,11 +105,7 @@ const page = async ({ params }) => {
                     className="sm:col-span-2 col-span-2 pt-5 relative"
                     id="contact"
                   >
-                    <BookShowingForm
-                      defaultmessage={`Please book a showing for this property "${address}"`}
-                      city={main_data.Municipality}
-                      address={address}
-                    ></BookShowingForm>
+                    <BookShowingForm address={address}></BookShowingForm>
                   </div>
                   <div className="mt-24 mb-10 col-span-4">
                     <FAQ main_data={main_data} />
@@ -124,11 +120,8 @@ const page = async ({ params }) => {
                   </PropertyDisplaySection>
                 </section>
               )}
-          
-              <PriceButton
-                
-                price={main_data.ListPrice}
-              />
+
+              <PriceButton price={main_data.ListPrice} />
             </section>
           </div>
         </div>

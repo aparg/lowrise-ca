@@ -1,105 +1,186 @@
 "use client";
-
-import { useEffect, useState } from "react";
 import React from "react";
-import BookingDate from "./BookingDate";
-// import { fetchHostEmail } from "@/actions/fetchHostEmail";
-import { usePathname } from "next/navigation";
-// import { Checkbox } from "@nextui-org/react";
-import Link from "next/link";
-import { sendEmail } from "../api/resend";
-export default function BookShowingForm(props) {
-  const pathname = usePathname();
-  const [submitbtn, setSubmitbtn] = useState("Book now");
-  const [credentials, setCredentials] = useState({
+import { useRef, useState, useEffect } from "react";
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import BookingDateOption from "./BookingDateOption";
+import TimingList from "./TimingList";
+import BookingType from "./BookingType";
+import { sendEmail } from "@/api/resend";
+const BookShowingForm = ({ address }) => {
+  // const [scrollPosition, setScrollPosition] = useState(0);
+  // const [maxScroll, setMaxScroll] = useState(0);
+  const cardRef = useRef(null);
+
+  //slide right and left code for cardref and containerref
+  const containerRef = useRef(null);
+  const scrollRef = useRef(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [phone, setPhone] = useState("");
+  const [timing, setTiming] = useState({
+    type: "",
+    date: "",
+    time: "",
+    phoneNumber: "",
     name: "",
-    phone: "",
-    email: "",
-    message: props.defaultmessage,
-    proj_name: props.proj_name,
-    city: props.city,
-    realtor: "",
-    domainEmail: "",
   });
+  const slideLeft = (e) => {
+    e.preventDefault();
+    const scrollContainer = scrollRef.current;
+    const cardWidth = cardRef.current.offsetWidth;
+    const scrollAmount = 300; // Adjust the scroll amount as needed
+    scrollContainer.scrollLeft -= scrollAmount;
+  };
+
+  const slideRight = (e) => {
+    e.preventDefault();
+    const scrollContainer = scrollRef.current;
+    const cardWidth = cardRef.current.offsetWidth;
+    const scrollAmount = 300; // Adjust the scroll amount as needed
+    scrollContainer.scrollLeft += scrollAmount;
+  };
+  function getDaysInMonth(year, month) {
+    // Get the number of days in a month
+    return new Date(year, month + 1, 0).getDate();
+  }
+
+  function getDaysArrayInMonth(year, month) {
+    const daysInMonth = getDaysInMonth(year, month);
+    const daysArray = [];
+
+    for (let i = 1; i <= daysInMonth; i++) {
+      const date = new Date(year, month, i);
+      const day = date.getDate();
+      const dayName = date
+        .toLocaleDateString("en-US", { weekday: "long" })
+        .slice(0, 3);
+      const monthName = date
+        .toLocaleDateString("default", { month: "long" })
+        .slice(0, 3);
+      daysArray.push({
+        day,
+        dayName,
+        month: monthName,
+        monthNumber: month + 1,
+        year,
+        selected: false,
+      }); // Month is 0-indexed, so we add 1 to get the correct month
+    }
+    daysArray.unshift({
+      day: "Any",
+      month: "",
+      dayName: "",
+      selected: false,
+      time: "",
+    });
+    return daysArray;
+  }
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth();
+  const [daysArray, setDaysArray] = useState(getDaysArrayInMonth(year, month));
+  const selectOption = (e, data) => {
+    const updatedDaysArray = daysArray.map((day) => {
+      if (day.day === data.day) {
+        return { ...day, selected: true };
+      } else {
+        return { ...day, selected: false };
+      }
+    });
+    setDaysArray(updatedDaysArray);
+    handleChange(e);
+  };
+
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    setCredentials((prevState) => ({
+    const { id, value } = e.currentTarget;
+    setTiming((prevState) => ({
       ...prevState,
       [id]: value,
     }));
   };
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    setCredentials({
-      name: "",
-      phone: "",
-      email: "",
-      message: props.defaultmessage,
-      proj_name: props.proj_name,
-      city: props.city,
-      realtor: "",
-      domainEmail: "",
+
+  const submitData = async () => {
+    await sendEmail({
+      content: timing,
+      page: address,
+      title: `Inquiry for property ${address}`,
     });
-    sendEmail({
-      content: credentials,
-      page: "Resale Page",
-      title: `Inquiry for ${props.address} from Resale Property page`,
-    });
-    setSubmitbtn("Submitted!");
-    // ContactFormSubmit(
-    //   credentials,
-    //   setSubmitbtn,
-    //   setCredentials,
-    //   contactType,
-    //   leadEmail
-    // );
   };
 
-  const getEmail = async () => {
-    const hostname = new URL(document.referrer).hostname;
-    const email = await fetchHostEmail(hostname);
-    setCredentials({
-      ...credentials,
-      domainEmail: email,
-    });
-  };
-  useEffect(() => {
-    if (pathname.includes("/embedded-site")) {
-      getEmail();
-    }
-  }, []);
   return (
-    <div className="fixed-title pe-0 shadow-lg sticky top-20" id="contact">
-      <div className="p-6 pb-0 box-shadow-custom rounded-mine bordt bg-white border-[#e8e9ea] flex-col items-center ">
-        <h5 className="font-extrabold text-center text-3xl">Book a Showing!</h5>
-        <p className="text-center  text-[1.1rem]">
-          {/* with a {credentials.city}{" "}
-          <span className="font-bold pr-1">Buyer's</span>
-          agent */}
-          Check out this home
-        </p>
-
-        {/* <div className="my-4"></div> */}
-        <form
-          method="POST"
-          className="mb-3 mt-10 flex flex-col items-center"
-          onSubmit={(e) => handleFormSubmit(e)}
-          id="contactForm"
-        >
-          <div className="w-full">
-            <div className="relative mb-3">
+    <div className="relative z-0 w-full rounded-md bg-gray-100 flex items-center mt-8 sm:mt-24">
+      <div className="flex sm:flex-row flex-col w-full overflow-hidden">
+        {/* <div className="w-full sm:w-1/2">
+          <img
+            src={bannerImage}
+            alt="property-img"
+            className="object-cover w-full h-full"
+          />
+        </div> */}
+        <div className="w-full sm:mx-2 p-4 flex flex-col justify-center items-center">
+          {/**Schedule a viewing form */}
+          <h1 className="font-bold text-3xl my-2 text-center">
+            Book a Showing
+          </h1>
+          <div className="flex justify-center">
+            <span className="tour-type rounded-full bg-light-lime px-1 py-1">
+              <BookingType handleChange={handleChange} />
+            </span>
+          </div>
+          <div className="max-w-[300px]">
+            <div className="relative my-2">
+              <button
+                className="absolute w-6 h-6 left-0 border-gray-200 border-2 rounded-full z-[999] translate-y-[-50%] left-[-10px] sm:left-[-20px] top-[50%] flex justify-center items-center bg-white z-10"
+                title="scroll left"
+                onClick={slideLeft}
+              >
+                <SlArrowLeft size={8} />
+              </button>
+              <button
+                className="absolute w-6 h-6 right-0 border-gray-200 border-2 rounded-full z-[999] translate-y-[-50%] right-[-10px] sm:right-[-20px] top-[50%] flex justify-center items-center bg-white z-10 flex justify-center"
+                title="scroll right"
+                onClick={slideRight}
+              >
+                <SlArrowRight size={8} />
+              </button>
+              <div className="flex flex-col items-center">
+                <div
+                  className="flex z-0 scroll-container relative w-full overflow-x-scroll overscroll-x-none no-scrollbar"
+                  style={{ transform: `translateX(${scrollPosition}px) z-0` }}
+                  id=""
+                  ref={scrollRef}
+                >
+                  {daysArray.map((data) => (
+                    <BookingDateOption
+                      ref={cardRef}
+                      data={data}
+                      key={data.day}
+                      handleChange={(e) => {
+                        selectOption(e, data);
+                      }}
+                      selected={data.selected}
+                      year={year}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <TimingList handleChange={handleChange} />
+            {/* <div className="text-md text-center my-2 text-gray-700">
+              No obligation or purchase necessary, cancel at any time
+            </div> */}
+            <div className="relative mb-1">
               <input
                 type="text"
-                placeholder=""
                 name="name"
                 id="name"
-                value={credentials.name}
+                placeholder=""
+                value={timing.name}
                 onChange={(e) => handleChange(e)}
-                className="fields fff w-full px-4 pt-5 pb-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 peer placeholder:translate-y-1/2 placeholder:scale-100"
+                required={true}
+                className="rounded-full bg-white mt-4 fff w-full px-4 pt-5 pb-1 border-b-2 focus:outline-none peer/bookshowingName placeholder:translate-y-1/2 placeholder:scale-100"
               />
               <label
                 htmlFor="name"
-                className="absolute left-0 px-4 text-gray-500 transition-all duration-300 peer-focus:-translate-y-[0.75] peer-focus:scale-30 peer-placeholder-shown:translate-y-1/2 peer-placeholder-shown:scale-100"
+                className="absolute left-0 top-5 px-4 text-gray-500 transition-all duration-300 peer-focus/bookshowingName:-translate-y-[0.85] peer-focus/bookshowingName:scale-30 peer-placeholder-shown/bookshowingName:translate-y-1/4 peer-placeholder-shown/bookshowingName:scale-100"
               >
                 Name
               </label>
@@ -107,95 +188,35 @@ export default function BookShowingForm(props) {
             <div className="relative mb-3">
               <input
                 type="text"
+                inputMode="numeric"
                 name="phone"
-                id="phone"
+                id="phoneNumber"
                 placeholder=""
-                value={credentials.phone}
+                value={timing.phoneNumber}
                 onChange={(e) => handleChange(e)}
                 required={true}
-                className="fields fff w-full px-4 pt-5 pb-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 peer placeholder:translate-y-1/2 placeholder:scale-100"
+                className="rounded-full bg-white mt-4 fff w-full px-4 pt-5 pb-1 border-b-2 focus:outline-none peer/bookshowingPhone placeholder:translate-y-1/2 placeholder:scale-100 "
               />
               <label
-                htmlFor="phone"
-                className="absolute left-0 px-4 text-gray-500 transition-all duration-300 peer-focus:-translate-y-[0.75] peer-focus:scale-30 peer-placeholder-shown:translate-y-1/2 peer-placeholder-shown:scale-100"
+                htmlFor="phoneNumber"
+                className="absolute left-0 top-5 px-4 text-gray-500 transition-all duration-300 peer-focus/bookshowingPhone:-translate-y-[0.85] peer-focus/bookshowingPhone:scale-30 peer-placeholder-shown/bookshowingPhone:translate-y-1/4 peer-placeholder-shown/bookshowingPhone:scale-100"
               >
                 Phone
               </label>
             </div>
-            {/* <BookingDate handleChange={handleChange} /> */}
-            {/* <div className="row me-0 row-cols-1 g-0">
-              <div className="col">
-                <div className="relative mb-3">
-                  <input
-                    type="email"
-                    aria-describedby="emailHelp"
-                    placeholder=""
-                    name="email"
-                    id="email"
-                    value={credentials.email}
-                    onChange={(e) => handleChange(e)}
-                    className="fields fff w-full px-4 pt-5 pb-2 border-b-2 border-gray-300 focus:outline-none focus:border-blue-500 peer placeholder:translate-y-1/2 placeholder:scale-100"
-                  />
-                  <label
-                    htmlFor="email"
-                    className="absolute left-0 px-4 text-gray-500 transition-all duration-300 peer-focus:-translate-y-[0.75] peer-focus:scale-30 peer-placeholder-shown:translate-y-1/2 peer-placeholder-shown:scale-100"
-                  >
-                    Your Email
-                  </label>
-                </div>
-              </div>
-            </div> */}
-            <div className="w-full">
-              <div className="mb-3">
-                <textarea
-                  id="message"
-                  name="message"
-                  className="w-full text-gray-500"
-                  rows="2"
-                  value={credentials.message}
-                  onChange={(e) => handleChange(e)}
-                ></textarea>
-              </div>
-            </div>
-          </div>
 
-          <div></div>
-
-          <div className="mb-3">
-            <div className="">
-              {/* <Checkbox
-                defaultSelected
-                color="success"
-                size="lg"
-                radius="sm"
-                className="flex"
-                style={{ alignItems: "flex-start !important" }}
-              ></Checkbox> */}
-              <p className="text-gray-400 text-xs text-justify">
-                I would like to receive marketing and promotional messages by
-                telephone, text message, and email from Fara, including
-                information and updates about properties of interest and the
-                services and features of Fara and our selected partners. I may
-                withdraw my consent at any time. Message and data rates may
-                apply. Consent is not required to receive real estate services.
-              </p>
-            </div>
+            <input
+              type="submit"
+              value="Schedule Tour"
+              className="px-4 py-2 bg-primary-green text-white px-4 md:py-2 w-full mb-3 rounded-full hover:cursor-pointer"
+              id="subbtn"
+              onClick={submitData}
+            />
           </div>
-          <input
-            type="submit"
-            value={submitbtn}
-            className="px-4 py-2 !bg-primary-green !text-white px-4 py-2-md w-75 mb-3 rounded-full text-lg font-bold hover:cursor-pointer"
-            id="subbtn"
-          />
-          <div className="border-b border-gray-300 my-4 w-full"></div>
-          <div className="pb-4 pt-2 flex flex-col justify-center items-center">
-            <span className="text-md block">Not a good time?</span>
-            <Link href={"#"} className="text-red-700 font-bold text-lg block">
-              Schedule a call
-            </Link>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default BookShowingForm;

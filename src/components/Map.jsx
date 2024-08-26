@@ -88,8 +88,7 @@ const Map = ({ main_data }) => {
           <Marker
             position={[state.lat, state.lon]}
             icon={L.icon({
-              iconUrl:
-                "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
+              iconUrl: "/property-page-img/marker.svg",
             })}
           ></Marker>
         </MapContainer>
