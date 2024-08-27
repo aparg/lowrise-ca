@@ -256,7 +256,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                     <span> /mo</span>
                   )}
                 </h2>
-                <div className="text-xs font-medium text-[#cc0b0b] mb-1 sm:mb-0">
+                <div className="text-xs font-medium text-[#CC0B0B] mb-1 sm:mb-0">
                   <TimeAgo modificationTimestamp={curElem.TimestampSql} />
                 </div>
               </div>
