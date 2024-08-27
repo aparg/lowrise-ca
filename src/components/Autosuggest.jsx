@@ -1,3 +1,4 @@
+"use client";
 import { generateURL } from "@/helpers/generateURL";
 import Link from "next/link";
 import React, { useRef } from "react";
@@ -51,7 +52,7 @@ const Autosuggest = ({
       )}
 
       {/* RECENT SEARCHES */}
-      {window &&
+      {typeof window !== "undefined" &&
         window.localStorage.getItem("searchValue") &&
         JSON.parse(window.localStorage.getItem("searchValue")).length > 0 && (
           <section
@@ -63,7 +64,7 @@ const Autosuggest = ({
               RECENT SEARCHES
             </div>
             <div>
-              {window &&
+              {typeof window !== "undefined" &&
                 JSON.parse(window.localStorage.getItem("searchValue"))?.map(
                   (suggestion) => (
                     <SearchOption
