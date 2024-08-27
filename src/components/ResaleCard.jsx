@@ -250,13 +250,13 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
             </div>
             <div className="flex-1 sm:px-3 pt-2 pb-4 px-2">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                <h2 className="font-bold text-2xl sm:text-2xl items-center justify-start mt-2 sm:my-2 text-primary-green">
-                  <span className="font-bold">{price}</span>
+                <h2 className="font-bold text-2xl sm:text-2xl items-center justify-start mt-2 sm:my-2">
+                  <span className="font-bold text-black">{price}</span>
                   {curElem.SaleLease === saleLease.lease.value && (
                     <span> /mo</span>
                   )}
                 </h2>
-                <div className="text-sm font-medium text-gray-800 mb-1 sm:mb-0">
+                <div className="text-xs font-medium text-[#cc0b0b] mb-1 sm:mb-0">
                   <TimeAgo modificationTimestamp={curElem.TimestampSql} />
                 </div>
               </div>
