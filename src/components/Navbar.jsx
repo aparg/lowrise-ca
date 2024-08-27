@@ -116,12 +116,12 @@ const Navbar = (props) => {
 
           <div className="flex items-center rounded-md sm:w-[35%] ms-0 sm:ms-3 ">
             <div className="hidden sm:block w-full">
-              <SearchBar numberOfSuggestions={4} height={50} />
+              <SearchBar numberOfSuggestions={4} height={40} />
             </div>
             <div className="block sm:hidden w-full">
               <SearchBar
                 numberOfSuggestions={4}
-                height={40}
+                small={true}
                 placeholder="Search"
               />
             </div>

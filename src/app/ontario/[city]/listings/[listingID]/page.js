@@ -19,6 +19,7 @@ import CreateSchema from "@/helpers/CreateSchema";
 import { slugGenerator } from "@/helpers/slugGenerator";
 import PropertyDisplaySection from "@/components/PropertyDisplaySection";
 import PriceButton from "@/components/PriceButton";
+import formatCurrency from "@/helpers/formatCurrency";
 // import { Button } from "@nextui-org/react";
 
 const INITIAL_OFFSET = 0;
@@ -121,7 +122,7 @@ const page = async ({ params }) => {
                 </section>
               )}
 
-              <PriceButton price={main_data.ListPrice} />
+              <PriceButton price={formatCurrency(main_data?.ListPrice)} />
             </section>
           </div>
         </div>

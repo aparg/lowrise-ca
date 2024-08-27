@@ -1,14 +1,13 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
-import { CgPin, CgSearch, CgTrack } from "react-icons/cg";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { CgSearch } from "react-icons/cg";
 import { searchProperties } from "../api/searchProperties";
-import Link from "next/link";
-import { generateURL } from "@/helpers/generateURL";
 import debounce from "lodash.debounce";
+import Autosuggest from "./Autosuggest";
 
 const SearchBar = ({
   numberOfSuggestions = 10,
-  height = 50,
+  small = false,
   placeholder = "Search by address, city, neighbourhood or postal code",
 }) => {
   const [displaySuggestions, setDisplaySuggestions] = useState(false);
@@ -105,21 +104,24 @@ const SearchBar = ({
   ];
 
   return (
-    <div className={`flex flex-col relative h-[${height}px]`}>
+    <div className={`flex flex-col relative`}>
       <div
         className={`w-full h-full flex overflow-hidden border-[1px] border-[#dfe1e5] ${
           displaySuggestions ? "rounded-t-[28px]" : "rounded-[28px]"
         }`}
       >
         <input
-          className={`w-full py-3 px-2 focus:outline-none text-center placeholder:text-[1rem] placeholder:text-center`}
-          placeholder={placeholder}
+          className={`w-full ${
+            small ? "py-1" : "py-3"
+          } px-2 focus:outline-none text-center placeholder:text-[1rem] placeholder:text-center`}
+          placeholder={displaySuggestions ? "" : placeholder}
           onChange={(e) => {
             setDisplaySuggestions(true);
             setSearchTerm(e.target.value);
             debouncedResults(e.target.value);
           }}
           onFocus={() => {
+            console.log("triggered");
             setDisplaySuggestions(true);
           }}
           onBlur={() => {
@@ -132,130 +134,17 @@ const SearchBar = ({
         </div>
       </div>
       <div className="relative">
-        {displaySuggestions && (
-          <div className="absolute top-0 rounded-b-[28px] border-[1px] border-[#dfe1e5] w-full bg-white p-4">
-            {/* <section className="my-1 flex items-center cursor-pointer rounded-lg hover:bg-lime-100 px-2">
-              <CgTrack size="1.25rem" />
-              <div className="ml-2 py-4">Current Location</div>
-            </section> */}
-
-            {/* SUGGESTIONS */}
-            {searchTerm && suggestions.length > 0 && (
-              <section className="my-1">
-                <div className="text-xs text-center text-gray-600 font-bold">
-                  SUGGESTIONS
-                </div>
-                <div>
-                  {suggestions
-                    .slice(0, numberOfSuggestions)
-                    .map((suggestion) => {
-                      return (
-                        <SearchOption
-                          suggestion={suggestion}
-                          setSearchTerm={setSearchTerm}
-                        />
-                      );
-                    })}
-                </div>
-                <span className="text-gray-700"></span>
-              </section>
-            )}
-
-            {/* RECENT SEARCHES */}
-            {window &&
-              window.localStorage.getItem("searchValue") &&
-              JSON.parse(window.localStorage.getItem("searchValue")).length >
-                0 && (
-                <section
-                  className={`my-1 ${
-                    suggestions.length > 0 &&
-                    searchTerm &&
-                    "border-t-1 mt-2 pt-2"
-                  }`}
-                >
-                  <div className="text-xs text-gray-600 font-bold text-center">
-                    RECENT SEARCHES
-                  </div>
-                  <div>
-                    {window &&
-                      JSON.parse(
-                        window.localStorage.getItem("searchValue")
-                      )?.map((suggestion) => (
-                        <SearchOption
-                          suggestion={JSON.parse(suggestion)}
-                          key={suggestion?.MLS || suggestion?.city}
-                        />
-                      ))}
-                  </div>
-                </section>
-              )}
-          </div>
-        )}
+        {console.log(displaySuggestions)}
+        <Autosuggest
+          displaySuggestions={displaySuggestions}
+          searchTerm={searchTerm}
+          suggestions={suggestions}
+          numberOfSuggestions={numberOfSuggestions}
+          setSearchTerm={setSearchTerm}
+        />
+        {/* )} */}
       </div>
     </div>
-  );
-};
-
-const SearchOption = ({ suggestion, setSearchTerm }) => {
-  const addToLocalStorage = () => {
-    if (window) {
-      let searchesArray =
-        JSON.parse(window.localStorage.getItem("searchValue")) || [];
-      if (suggestion?.MLS) {
-        const searchObj = JSON.stringify({
-          Address: suggestion?.Address,
-          Municipality: suggestion?.Municipality,
-          MLS: suggestion?.MLS,
-        });
-        searchesArray.unshift(searchObj);
-        if (searchesArray.length > 3) searchesArray = searchesArray.slice(0, 3);
-        window.localStorage.setItem(
-          "searchValue",
-          JSON.stringify(searchesArray)
-        );
-      } else {
-        const searchObj = JSON.stringify({
-          province: suggestion?.province,
-          city: suggestion?.city,
-        });
-        searchesArray.unshift(searchObj);
-        if (searchesArray.length > 3) searchesArray = searchesArray.slice(0, 3);
-        window.localStorage.setItem(
-          "searchValue",
-          JSON.stringify(searchesArray)
-        );
-      }
-    }
-  };
-  return (
-    <Link
-      href={
-        suggestion?.MLS
-          ? generateURL({
-              listingIDVal: suggestion.MLS,
-              cityVal: suggestion?.Municipality,
-            }) //for a listing
-          : `/${suggestion.province.toLowerCase()}/${suggestion.city.toLowerCase()}`
-      }
-      onClick={() => {
-        setSearchTerm("");
-        addToLocalStorage();
-      }}
-      className="w-full py-4 flex justify-center items-center cursor-pointer rounded-lg hover:bg-lime-100 px-2"
-      // key={suggestion?.MLS || suggestion?.city}
-    >
-      <div className="flex justify-between me-3">
-        <div className="flex justify-center items-center">
-          <div>
-            <CgPin className="1.25rem"></CgPin>
-          </div>
-
-          <span className="ml-2 text-center">
-            {suggestion?.Address || suggestion.city}
-          </span>
-        </div>
-      </div>
-    </Link>
   );
 };
 

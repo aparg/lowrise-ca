@@ -127,3 +127,31 @@
   background-repeat: no-repeat;
   background-position: bottom;
 }
+
+.searchbar-animation-open {
+  animation: searchbar-open 0.3s ease-out;
+  transform-origin: top;
+}
+
+.searchbar-animation-close {
+  animation: searchbar-close 0.2s ease-in;
+  transform-origin: top;
+  scale: 1 0;
+}
+
+@keyframes searchbar-close {
+  0% {
+    scale: 1 1;
+  }
+  100% {
+    scale: 1 0;
+  }
+}
+@keyframes searchbar-open {
+  0% {
+    scale: 1 0;
+  }
+  100% {
+    scale: 1 1;
+  }
+}

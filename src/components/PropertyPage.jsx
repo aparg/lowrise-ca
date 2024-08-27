@@ -14,6 +14,7 @@ import Image from "next/image";
 import { priceFormatter } from "@/helpers/priceFormatter";
 import Link from "next/link";
 import MortgageCalculator from "./MortgageCalculator";
+import formatCurrency from "@/helpers/formatCurrency";
 
 const PropertyPage = ({ main_data }) => {
   const [navbar, setNavbar] = useState(false);
@@ -48,20 +49,6 @@ const PropertyPage = ({ main_data }) => {
       return "N/A"; // or any default value or message you prefer
     }
   };
-
-  function formatCurrency(value) {
-    // Check if the value is not null or undefined
-    if (value != null) {
-      return Number(value).toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 0,
-      });
-    } else {
-      // Handle the case where the value is null or undefined
-      return "N/A"; // or any default value or message you prefer
-    }
-  }
 
   const handleScrollToContactAgent = () => {
     const element = document.getElementById("contact");

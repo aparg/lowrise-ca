@@ -40,7 +40,9 @@ const HotListings = ({ salesData }) => {
     >
       <div className="w-full flex flex-row justify-between">
         <h3
-          className={`text-3xl font-bold mw ${isMobileView ? "pt-3" : "pt-4"}`}
+          className={`text-2xl font-bold mb-1 ${
+            isMobileView ? "pt-3" : "pt-3"
+          }`}
         >
           Newest Arrival - Lowrise homes listed for sale in past 24 hours
         </h3>

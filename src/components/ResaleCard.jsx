@@ -318,7 +318,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                 </div>
               </span>
               <div className="flex flex-row justify-between my-1">
-                <div className="text-black truncate text-ellipsis">
+                <div className="text-black">
                   <div className="text-dark text-sm">
                     {curElem.StreetName ? (
                       `${curElem.Street} ${curElem.StreetName}${" "}
