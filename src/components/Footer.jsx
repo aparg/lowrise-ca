@@ -59,11 +59,11 @@ const Footer = ({ cities }) => {
                   </Link>
                 </div>
                 <p className="text-sm leading-relaxed mb-8">
-                  Lowrise (“Lowrise.ca”) is a wholly-owned by Homebaba
-                  technologies Inc. Lowrise refers potential buyers to real
-                  estate agents that are licensed in the province where the
-                  respective property is located. Dolphin Realty is licensed as
-                  a real estate brokerage in Ontario.
+                  Lowrise (“Lowrise.ca”) is a real estate marketplace platform
+                  -owned by Homebaba technologies Inc. Lowrise refers potential
+                  buyers to real estate agents that are licensed in the province
+                  where the respective property is located. Dolphin Realty is
+                  licensed as a real estate brokerage in Ontario.
                   <br />
                   <br />
                   IDX information is provided exclusively for consumers’
@@ -78,6 +78,7 @@ const Footer = ({ cities }) => {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Contact Us</h3>
                     <address className="not-italic text-sm">
+                      <p></p>
                       <p>8300 Woodbine Ave, Markham, ON L3R 9Y7</p>
                       <p>Phone: 289-302-6322</p>
                       <p>

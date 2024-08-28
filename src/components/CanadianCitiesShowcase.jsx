@@ -1,7 +1,7 @@
 import React from "react";
 
 const CityCard = ({ name, imageUrl }) => (
-  <div className="relative overflow-hidden rounded-lg shadow-lg group">
+  <div className="relative overflow-hidden rounded-lg shadow-lg group cursor-pointer">
     <img
       src={imageUrl}
       alt={`${name} cityscape`}
@@ -28,9 +28,9 @@ const CanadianCitiesShowcase = () => {
     <div className="my-[5rem] sm:my-[10rem]">
       <div className="mx-auto">
         <h2 className="text-4xl font-bold text-center mb-2 mt-10">
-          Where are you <span className="text-primary-green">moving to</span>
+          Lowrise homes for sale in{" "}
+          <span className="text-primary-green">your city </span>
           <span className="text-primary-green relative">
-            ?
             <span className="absolute bottom-0 left-0 w-full h-1 bg-primary-gretext-primary-green rounded"></span>
           </span>
         </h2>

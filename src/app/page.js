@@ -10,7 +10,7 @@ import ContactForm from "@/components/ContactForm";
 export const metadata = {
   title: "Lowrise.ca | Resale Properties in Ontario",
   description:
-    "Find the best resale properties in Ontario, Canada. Specializing in low-rise buildings and homes.",
+    "Lowrise or Lowrise.ca is Canada's Top Destination for Lowrise homes such as Townhomes, Detached & Semi Detached homes. The home listings are updated every minutes. Check out 100s of properties listed in Canada.",
   keywords: "resale, properties, Ontario, Canada, low-rise, homes",
 };
 
