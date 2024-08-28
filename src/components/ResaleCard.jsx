@@ -111,7 +111,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
         <div className="lg:px-0 h-full w-full">
           <div
             className={`${
-              small ? "h-[20rem]" : "h-auto sm:h-[29rem]"
+              small ? "h-[22rem]" : "h-auto sm:h-[29rem]"
             } flex flex-col overflow-hidden relative`}
           >
             <div
@@ -119,7 +119,11 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                 small ? "h-44" : "h-52 sm:h-80"
               } overflow-hidden relative`}
             >
-              <div className="h-52 sm:h-80 relative z-10">
+              <div
+                className={`${
+                  small ? "h-44" : "h-52 sm:h-80"
+                } sm:h-80 relative z-10`}
+              >
                 <img
                   className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110"
                   src={imgSrc}
@@ -231,7 +235,11 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
           </div>
         </div>
       </Link>
-      <div className="absolute top-[10rem] sm:top-[17rem] right-2 z-10">
+      <div
+        className={`absolute ${
+          small ? "top-[8rem] sm:top-[10rem]" : "sm:top-[18.5rem] top-[9rem]"
+        } right-2 z-10`}
+      >
         <Favorite
           isFavorite={isFavorite}
           toggleFavorite={toggleFavorite}
