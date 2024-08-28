@@ -93,7 +93,6 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
       const value = JSON.stringify(
         favorites.filter((val) => val !== curElem.MLS)
       );
-
       window.localStorage.setItem("favorites", value);
     }
 

@@ -23,6 +23,7 @@ import {
 //CONSTANT
 import { bedCount, saleLease, houseType, washroomCount } from "@/constant";
 import useDeviceView from "@/helpers/useDeviceView";
+import { FaChevronDown } from "react-icons/fa";
 
 const bgColor = {
   saleLease: "bg-primary-green",
@@ -265,7 +266,10 @@ const IndividualFilter = ({
           }`}
         >
           {getSelectedValue(selectedKeys)}
-          <i className="bi bi-chevron-down" style={{ fontSize: "0.7rem" }}></i>
+          {/* <i className="bi bi-chevron-down" style={{ fontSize: "0.7rem" }}></i> */}
+          <span className="mt-1" color="#111111">
+            <FaChevronDown size={10} />
+          </span>
         </Button>
       </DropdownTrigger>
       <DropdownMenu
