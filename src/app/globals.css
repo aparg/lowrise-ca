@@ -124,7 +124,7 @@
 
 #hero-section {
   background: url(/hero-img.png);
-  background-repeat: no-repeat;
+  background-repeat: repeat-x;
   background-position: bottom;
 }
 
