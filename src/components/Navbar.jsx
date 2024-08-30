@@ -85,6 +85,25 @@ const Navbar = (props) => {
     },
   ];
 
+  const rentOpts = [
+    {
+      name: "Detached Homes for Sale",
+      link: generateURL({ houseTypeVal: "detached", saleLeaseVal: "lease" }),
+    },
+    {
+      name: "Townhomes for Sale",
+      link: generateURL({ houseTypeVal: "townHouse", saleLeaseVal: "lease" }),
+    },
+    {
+      name: "Duplex  Homes for Sale",
+      link: generateURL({ houseTypeVal: "duplex", saleLeaseVal: "lease" }),
+    },
+    {
+      name: "Triplex Homes for Sale",
+      link: generateURL({ houseTypeVal: "triplex", saleLeaseVal: "lease" }),
+    },
+  ];
+
   const calculatorOpts = [
     { name: "Mortgage Calculator", link: "/calculator/mortgage" },
     { name: "Property Tax Calculator", link: "/calculator/property-tax" },
@@ -200,6 +219,12 @@ const Navbar = (props) => {
               {" "}
               Buy{" "}
             </Link> */}
+            <Dropdown
+              name="Rent"
+              text={isSticky || !isHomePage ? "black" : "white"}
+              options={rentOpts}
+              width="auto"
+            />
             <Dropdown
               name="Buy"
               text={isSticky || !isHomePage ? "black" : "white"}

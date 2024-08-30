@@ -113,7 +113,7 @@ const SearchBar = ({
         <input
           className={`w-full ${
             small ? "py-1" : "py-3"
-          } px-2 focus:outline-none text-center placeholder:text-[1rem] placeholder:text-center`}
+          } px-2 focus:outline-none text-center placeholder:text-[1rem] placeholder:text-center placeholder:text-sm`}
           placeholder={displaySuggestions ? "" : placeholder}
           onChange={(e) => {
             setDisplaySuggestions(true);

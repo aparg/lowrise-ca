@@ -100,7 +100,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
   };
 
   return (
-    <section className="relative transition-all duration-200 transform bg-white shadow group rounded-2xl p-0 hover:shadow-lg hover:-translate-y-1 ">
+    <section className="relative transition-all duration-200 transform bg-white shadow group rounded-2xl p-0 hover:shadow-lg hover:rounded-t-2xl  hover:-translate-y-1 overflow-hidden">
       <Link
         href={generateURL({
           cityVal: curElem.Municipality,
@@ -122,10 +122,10 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
               <div
                 className={`${
                   small ? "h-44" : "h-52 sm:h-80"
-                } sm:h-80 relative z-10`}
+                } sm:h-80 relative z-10 rounded-t-2xl`}
               >
                 <img
-                  className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110"
+                  className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110 rounded-t-2xl"
                   src={imgSrc}
                   width="900"
                   height="800"

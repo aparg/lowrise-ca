@@ -10,6 +10,7 @@ const Autosuggest = ({
   displaySuggestions,
   searchTerm,
   suggestions,
+
   numberOfSuggestions,
   setSearchTerm,
 }) => {
@@ -43,6 +44,7 @@ const Autosuggest = ({
                 <SearchOption
                   suggestion={suggestion}
                   setSearchTerm={setSearchTerm}
+                  key={suggestion}
                 />
               );
             })}
@@ -125,7 +127,7 @@ const SearchOption = ({ suggestion, setSearchTerm }) => {
         setSearchTerm("");
         addToLocalStorage();
       }}
-      className="w-full py-4 flex justify-center items-center cursor-pointer rounded-lg hover:bg-lime-100 px-2"
+      className="w-full py-2 flex justify-center items-center cursor-pointer rounded-lg hover:bg-lime-100 px-2"
       // key={suggestion?.MLS || suggestion?.city}
     >
       <div className="flex justify-between me-3">
