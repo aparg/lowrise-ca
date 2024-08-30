@@ -87,19 +87,19 @@ const Navbar = (props) => {
 
   const rentOpts = [
     {
-      name: "Detached Homes for Sale",
+      name: "Detached Homes for Lease",
       link: generateURL({ houseTypeVal: "detached", saleLeaseVal: "lease" }),
     },
     {
-      name: "Townhomes for Sale",
+      name: "Townhomes for Lease",
       link: generateURL({ houseTypeVal: "townHouse", saleLeaseVal: "lease" }),
     },
     {
-      name: "Duplex  Homes for Sale",
+      name: "Duplex  Homes for Lease",
       link: generateURL({ houseTypeVal: "duplex", saleLeaseVal: "lease" }),
     },
     {
-      name: "Triplex Homes for Sale",
+      name: "Triplex Homes for Lease",
       link: generateURL({ houseTypeVal: "triplex", saleLeaseVal: "lease" }),
     },
   ];
