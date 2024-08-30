@@ -1,4 +1,5 @@
 "use client";
+import useDeviceView from "@/helpers/useDeviceView";
 import React, { useState, useEffect } from "react";
 import { VictoryPie, VictoryLabel } from "victory";
 
@@ -73,6 +74,8 @@ export default function CompactMortgageCalculator({
       [id]: value,
     }));
   };
+
+  const { isMobileView } = useDeviceView();
 
   return (
     <div
@@ -149,33 +152,58 @@ export default function CompactMortgageCalculator({
             <svg width="400" height="300">
               {(calculatordata.loanamt > 10 || intrest > 10) && (
                 <>
-                  <VictoryPie
-                    standalone={false}
-                    width={400}
-                    height={300}
-                    data={[
-                      {
-                        x: `Mortgage \n$ ${parseInt(
-                          calculatordata.loanamt
-                        ).toLocaleString()}`,
-                        y: parseInt(calculatordata.loanamt),
-                      },
-                      {
-                        x: `Interest \n $ ${parseInt(
-                          intrest
-                        ).toLocaleString()}`,
-                        y: parseInt(intrest),
-                      },
-                    ]}
-                    innerRadius={68}
-                    labelRadius={100}
-                    colorScale={["rgb(82 170 146)", "rgb(82 130 146)"]}
-                  />
+                  {isMobileView ? (
+                    <VictoryPie
+                      standalone={false}
+                      width={350}
+                      height={200}
+                      data={[
+                        {
+                          x: `Mortgage \n$ ${parseInt(
+                            calculatordata.loanamt
+                          ).toLocaleString()}`,
+                          y: parseInt(calculatordata.loanamt),
+                        },
+                        {
+                          x: `Interest \n $ ${parseInt(
+                            intrest
+                          ).toLocaleString()}`,
+                          y: parseInt(intrest),
+                        },
+                      ]}
+                      innerRadius={68}
+                      labelRadius={80}
+                      colorScale={["rgb(82 170 146)", "rgb(82 130 146)"]}
+                    />
+                  ) : (
+                    <VictoryPie
+                      standalone={false}
+                      width={400}
+                      height={300}
+                      data={[
+                        {
+                          x: `Mortgage \n$ ${parseInt(
+                            calculatordata.loanamt
+                          ).toLocaleString()}`,
+                          y: parseInt(calculatordata.loanamt),
+                        },
+                        {
+                          x: `Interest \n $ ${parseInt(
+                            intrest
+                          ).toLocaleString()}`,
+                          y: parseInt(intrest),
+                        },
+                      ]}
+                      innerRadius={68}
+                      labelRadius={100}
+                      colorScale={["rgb(82 170 146)", "rgb(82 130 146)"]}
+                    />
+                  )}
                   <VictoryLabel
                     textAnchor="middle"
                     style={{ fontSize: 16 }}
-                    x={200}
-                    y={150}
+                    x={175}
+                    y={100}
                     text={"$" + calculated + "/mo"}
                   />
                 </>
