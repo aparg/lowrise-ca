@@ -15,6 +15,7 @@ import { priceFormatter } from "@/helpers/priceFormatter";
 import Link from "next/link";
 import MortgageCalculator from "./MortgageCalculator";
 import formatCurrency from "@/helpers/formatCurrency";
+import CompactMortgageCalculator from "./CompactMortgageCalculator";
 
 const PropertyPage = ({ main_data }) => {
   const [navbar, setNavbar] = useState(false);
@@ -762,7 +763,7 @@ const PropertyPage = ({ main_data }) => {
         )}
       </div>
       <div className={isMobileView ? `mt-8 col-12` : `mt-24 col-12`}>
-        <MortgageCalculator
+        <CompactMortgageCalculator
           price={main_data?.ListPrice}
           showDetails={false}
           align="left"
