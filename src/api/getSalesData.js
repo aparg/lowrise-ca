@@ -142,6 +142,7 @@ export const getFilteredRetsData = async (queryParams) => {
       selectQuery += `,PriceDecreased=true`;
     }
     let url = "";
+
     if (queryParams.propertyType == "commercial") {
       url = commercial.properties.replace(
         "$query",

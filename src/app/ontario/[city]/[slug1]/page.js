@@ -8,7 +8,6 @@ const page = async ({ params }) => {
   let saleLeaseValue = undefined;
   let type = undefined;
 
-  const isValidSlug = saleLeaseValue || type;
   const city = params.city;
   const INITIAL_LIMIT = 30;
   const splitData = params.slug1.split("-");
@@ -18,9 +17,11 @@ const page = async ({ params }) => {
     } else if (Object.keys(houseType).includes(data)) {
       type = houseType[data].name;
     }
-    console.log(data);
     if (saleLeaseValue && type) return;
   });
+  const isValidSlug = saleLeaseValue || type;
+  console.log(saleLeaseValue, type);
+  console.log(isValidSlug);
   if (isValidSlug)
     return (
       <div className="container-fluid">

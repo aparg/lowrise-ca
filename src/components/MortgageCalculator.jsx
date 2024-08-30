@@ -11,7 +11,7 @@ export default function MortgageCalculator({
   const [calculatordata, setCalculatordata] = useState({
     hvalue: price || "",
     dpay: "",
-    dper: "10",
+    dper: "20",
     loanamt: "",
     intrate: "4",
     loanterm: "30",

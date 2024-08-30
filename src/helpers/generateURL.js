@@ -24,7 +24,9 @@ export const generateURL = ({
       if (saleLeaseType) {
         return `${
           embeddedSite ? "/embedded-site" : ""
-        }/ontario/${city}/${houseType}/${saleLeaseType}`;
+        }/ontario/${city}/${houseType}-${
+          houseType !== "townhouse" ? "homes" : ""
+        }-for-${saleLeaseType}`;
       }
       return `${
         embeddedSite ? "/embedded-site" : ""

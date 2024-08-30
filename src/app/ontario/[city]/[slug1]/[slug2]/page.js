@@ -8,7 +8,6 @@ const page = async ({ params }) => {
   let saleLeaseValue;
   let type;
 
-  const splitData = params.slug1.split("-");
   if (Object.keys(saleLease).includes(params.slug1)) {
     saleLeaseValue = params.slug1;
   } else if (Object.keys(saleLease).includes(params.slug2)) {

@@ -1,4 +1,5 @@
 "use client";
+import formatCurrency from "@/helpers/formatCurrency";
 import useDeviceView from "@/helpers/useDeviceView";
 import React, { useState, useEffect } from "react";
 import { VictoryPie, VictoryLabel } from "victory";
@@ -10,9 +11,9 @@ export default function CompactMortgageCalculator({
 }) {
   const [intrest, setIntrest] = useState(0);
   const [calculatordata, setCalculatordata] = useState({
-    hvalue: price || "",
+    hvalue: formatCurrency(parseFloat(price)) || "",
     dpay: "",
-    dper: "10",
+    dper: "20",
     loanamt: "",
     intrate: "4",
     loanterm: "30",
@@ -69,9 +70,10 @@ export default function CompactMortgageCalculator({
 
   const handleChange = (e) => {
     const { id, value } = e.target;
+    console.log(value);
     setCalculatordata((prevState) => ({
       ...prevState,
-      [id]: value,
+      [id]: value.replace("-", "").replace("$", "").replaceAll(",", ""),
     }));
   };
 
@@ -101,10 +103,17 @@ export default function CompactMortgageCalculator({
         <div className="mb-10"></div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="grid grid-cols-1 gap-4">
+            {console.log(calculatordata.hvalue.replaceAll(",", ""))}
             <FloatingLabelInput
               id="hvalue"
               label="Home Value"
-              value={calculatordata.hvalue}
+              value={
+                parseFloat(calculatordata.hvalue)
+                  ? formatCurrency(
+                      parseFloat(calculatordata.hvalue.replaceAll(",", ""))
+                    )
+                  : ""
+              }
               onChange={handleChange}
               prefix="$"
             />
@@ -127,7 +136,7 @@ export default function CompactMortgageCalculator({
             <FloatingLabelInput
               id="loanamt"
               label="Mortgage Amount"
-              value={calculatordata.loanamt}
+              value={formatCurrency(calculatordata.loanamt)}
               onChange={handleChange}
               prefix="$"
               disabled
