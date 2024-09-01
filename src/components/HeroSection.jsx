@@ -38,7 +38,7 @@ const HeroSection = () => {
                 />
               </div>
             </Link> */}
-            <h2 className="font-extrabold text-[4rem]/[4.5rem] sm:text-[6rem] text-center drop-shadow-md">
+            <h2 className="font-extrabold text-[4rem]/[4.5rem] sm:text-[4.3rem] text-center drop-shadow-md">
               Lowrise home for{" "}
               <span className="text-primary-green">everyone</span>
             </h2>
@@ -54,7 +54,7 @@ const HeroSection = () => {
                 />
               ))}
             </div> */}
-            <div className="w-full sm:w-[60%] mt-16">
+            <div className="w-full sm:w-[60%] mt-10">
               <SearchBar numberOfSuggestions={3} height={60} />
             </div>
           </div>
