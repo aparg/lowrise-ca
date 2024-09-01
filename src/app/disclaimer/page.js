@@ -5,19 +5,13 @@ const page = () => {
   return (
     <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto bg-white shadow-[0_0_50px_#EE426680] shadow-xl rounded-lg overflow-hidden">
-        <div className="bg-primary-green py-4 px-6">
-          <h1 className="text-3xl font-bold text-white flex items-center">
-            <FaExclamationTriangle className="mr-2" />
-            Disclaimer
-          </h1>
-        </div>
         <div className="p-6">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
             Understanding Average Price Calculations for Resale Homes
           </h2>
-          <ol className="list-decimal list-outside ml-6 space-y-6 marker:text-red-500 marker:font-bold">
+          <ol className="list-decimal list-outside ml-6 space-y-6 marker:font-bold">
             <li>
-              <h3 className="font-bold text-lg text-red-500 mb-2">
+              <h3 className="font-bold text-lg mb-2">
                 How We Calculate the Average Price
               </h3>
               <p className="text-gray-600">
@@ -30,7 +24,7 @@ const page = () => {
               </p>
             </li>
             <li>
-              <h3 className="font-bold text-lg text-red-500 mb-2">
+              <h3 className="font-bold text-lg mb-2">
                 Number of Properties Considered
               </h3>
               <p className="text-gray-600">
@@ -42,7 +36,7 @@ const page = () => {
               </p>
             </li>
             <li>
-              <h3 className="font-bold text-lg text-red-500 mb-2">
+              <h3 className="font-bold text-lg mb-2">
                 Limitations of Average Price Data
               </h3>
               <p className="text-gray-600">
@@ -54,9 +48,7 @@ const page = () => {
               </p>
             </li>
             <li>
-              <h3 className="font-bold text-lg text-red-500 mb-2">
-                Timeline of Data
-              </h3>
+              <h3 className="font-bold text-lg mb-2">Timeline of Data</h3>
               <p className="text-gray-600">
                 Average prices are based on sales data from the past [insert
                 timeframe, e.g., "6 months," "12 months"]. This timeline
@@ -67,7 +59,7 @@ const page = () => {
               </p>
             </li>
             <li>
-              <h3 className="font-bold text-lg text-red-500 mb-2">
+              <h3 className="font-bold text-lg mb-2">
                 Accuracy of Calculations and User Responsibility
               </h3>
               <p className="text-gray-600">
