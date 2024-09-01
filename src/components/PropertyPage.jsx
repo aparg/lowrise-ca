@@ -199,7 +199,10 @@ const PropertyPage = ({ main_data }) => {
         {/* Description */}
         <div className={`${isMobileView ? "pt-4 mt-8" : "mt-8 pt-4"}`}>
           <div className="border border-0 rounded-md bg-gray-100 p-3 sm:p-4">
-            <h2 className="font-extrabold text-2xl sm:text-4xl">Description</h2>
+            <h2 className="font-extrabold text-2xl sm:text-4xl">
+              Property Description - {main_data.Street} {main_data.StreetName}{" "}
+              {main_data.StreetAbbreviation}
+            </h2>
             <p className="text-lg pty-description pt-2 pb-4 leading-8">
               {main_data.RemarksForClients}
             </p>

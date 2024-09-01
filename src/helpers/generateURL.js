@@ -43,16 +43,16 @@ export const generateURL = ({
     if (saleLeaseType) {
       return `${
         embeddedSite ? "/embedded-site" : ""
-      }/ontario/filter/${houseType}/${saleLeaseType}`;
+      }/ontario/homes/${houseType}-${
+        houseType !== "town-homes" ? "homes" : ""
+      }-for-${saleLeaseType}`;
     }
-    return `${
-      embeddedSite ? "/embedded-site" : ""
-    }/ontario/filter/${houseType}`;
+    return `${embeddedSite ? "/embedded-site" : ""}/ontario/homes/${houseType}`;
   }
   if (saleLeaseType) {
     return `${
       embeddedSite ? "/embedded-site" : ""
-    }/ontario/filter/${saleLeaseType}`;
+    }/ontario/homes/${saleLeaseType}`;
   }
 
   return `${embeddedSite ? "/embedded-site" : ""}/ontario`;

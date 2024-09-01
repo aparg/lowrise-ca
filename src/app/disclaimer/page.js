@@ -6,7 +6,7 @@ const page = () => {
     <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto bg-white shadow-[0_0_50px_#EE426680] shadow-xl rounded-lg overflow-hidden">
         <div className="p-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">
             Understanding Average Price Calculations for Resale Homes
           </h2>
           <ol className="list-decimal list-outside ml-6 space-y-6 marker:font-bold">

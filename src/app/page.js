@@ -1,11 +1,12 @@
 import Slider from "@/components/Slider";
-import { getSalesData } from "../api/getSalesData";
+import { getFilteredRetsData, getSalesData } from "../api/getSalesData";
 import PropertyDisplaySection from "@/components/PropertyDisplaySection";
 import { generateURL } from "@/helpers/generateURL";
 import { fetchAllBlogPosts } from "@/api/blogs";
 import HeroSection from "@/components/HeroSection";
 import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
 import ContactForm from "@/components/ContactForm";
+import PropertiesDisplayer from "@/components/PropertiesDisplayer";
 
 export const metadata = {
   title: "Lowrise.ca | Resale Properties in Ontario",
@@ -37,7 +38,15 @@ export default async function Home() {
     INITIAL_LIMIT,
     "Oakville"
   );
-
+  const fetchFireplacesData = async () => {
+    const response = await fetch(
+      "https://rets.dolphy.ca/residential/Properties/?$range=minFireplacesTotal=1"
+    );
+    const data = await response.json();
+    return data.results;
+  };
+  const HOUSEWITHFIREPLACES = await fetchFireplacesData();
+  console.log(HOUSEWITHFIREPLACES);
   // const BLOGPOSTS = await fetchSomeBlogPosts({ pageSize: 4 });
   const BLOGPOSTS = await fetchAllBlogPosts();
   {
@@ -56,6 +65,7 @@ export default async function Home() {
           <Slider data={TORONTOHOMES} type="resale" />
         </PropertyDisplaySection>
         <CanadianCitiesShowcase />
+        <PropertiesDisplayer data={HOUSEWITHFIREPLACES} />
         <PropertyDisplaySection
           title="Explore homes in Brampton"
           subtitle=""

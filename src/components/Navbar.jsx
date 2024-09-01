@@ -69,19 +69,19 @@ const Navbar = (props) => {
     }, */
     {
       name: "Detached Homes for Sale",
-      link: generateURL({ houseTypeVal: "detached" }),
+      link: generateURL({ houseTypeVal: "detached", saleLeaseVal: "sale" }),
     },
     {
       name: "Townhomes for Sale",
-      link: generateURL({ houseTypeVal: "townHouse" }),
+      link: generateURL({ houseTypeVal: "townHouse", saleLeaseVal: "sale" }),
     },
     {
       name: "Duplex  Homes for Sale",
-      link: generateURL({ houseTypeVal: "duplex" }),
+      link: generateURL({ houseTypeVal: "duplex", saleLeaseVal: "sale" }),
     },
     {
       name: "Triplex Homes for Sale",
-      link: generateURL({ houseTypeVal: "triplex" }),
+      link: generateURL({ houseTypeVal: "triplex", saleLeaseVal: "sale" }),
     },
   ];
 
@@ -119,7 +119,7 @@ const Navbar = (props) => {
     >
       <div className={`${isSticky && "sticky"}`}>
         <nav
-          className={`flex items-center justify-between h-14 sm:h-[5rem] max-w-[90%] mx-auto`}
+          className={`flex items-center justify-between h-14 sm:h-[3.5rem] max-w-[90%] mx-auto`}
         >
           <div className="flex-shrink-0 flex h-full items-center mr-2">
             <Link href="/" className="logo d-flex items-center">
