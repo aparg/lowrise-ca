@@ -40,13 +40,12 @@ export default async function Home() {
   );
   const fetchFireplacesData = async () => {
     const response = await fetch(
-      "https://rets.dolphy.ca/residential/Properties/?$range=minFireplacesTotal=1"
+      "https://rets.dolphy.ca/residential/Properties/?$range=minFireplacesTotal=1&$limit=4"
     );
     const data = await response.json();
     return data.results;
   };
   const HOUSEWITHFIREPLACES = await fetchFireplacesData();
-  console.log(HOUSEWITHFIREPLACES);
   // const BLOGPOSTS = await fetchSomeBlogPosts({ pageSize: 4 });
   const BLOGPOSTS = await fetchAllBlogPosts();
   {

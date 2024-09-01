@@ -1,9 +1,11 @@
 import { residential } from "@/api/routes/fetchRoutes";
+import { generateURL } from "@/helpers/generateURL";
+import Link from "next/link";
 import React from "react";
 
 const PropertiesDisplayer = ({ data }) => {
   return (
-    <section class="py-12 sm:py-16 lg:py-20 bg-black">
+    <section class="py-12 sm:py-16 bg-gray-800 rounded-xl">
       <div class="px-6 mx-auto sm:px-8 lg:px-12 max-w-7xl">
         <div class="grid items-center grid-cols-1 lg:grid-cols-2 gap-5 xl:grid-cols-3 xl:gap-x-12">
           <div class="xl:order-2 xl:pb-0 pb-12 lg:col-span-2 xl:col-span-1 bg-dark-gray rounded-lg">
@@ -11,20 +13,18 @@ const PropertiesDisplayer = ({ data }) => {
               <h2 class="tracking-tighter text-white">
                 <span class="font-sans text-4xl font-normal sm:text-5xl md:text-6xl">
                   {" "}
-                  A Team of{" "}
+                  Homes with
                 </span>
                 <span class="font-serif text-5xl italic sm:text-6xl md:text-7xl">
                   {" "}
-                  specialists{" "}
+                  Fireplaces
                 </span>
               </h2>
               <p class="mt-6 font-sans text-lg font-normal leading-8 text-opacity-50 text-white">
-                Orci volutpat nunc, elementum aliquam purus eu libero enim. Mi
-                mauris sed ipsum dictum adipiscing elementum. Ante sit tortor
-                posuere ullamcorper id lectus. Eu quam in platea semper velit
-                tellus arcu vel.
+                Where marshmallows meet their toasty fate and cold feet find
+                their cozy soulmates.
               </p>
-              <div class="mt-12">
+              {/* <div class="mt-12">
                 <a
                   href="#"
                   title=""
@@ -50,7 +50,7 @@ const PropertiesDisplayer = ({ data }) => {
                             "
                   role="button"
                 >
-                  Learn More
+                  View More
                   <svg
                     class="h-6 w-6 ml-2"
                     xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@ const PropertiesDisplayer = ({ data }) => {
                     />
                   </svg>
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -76,7 +76,7 @@ const PropertiesDisplayer = ({ data }) => {
                 return (
                   <DisplayerCard
                     MLS={property.MLS}
-                    address={property.address}
+                    address={property.Address}
                     type={property.TypeOwn1Out}
                   />
                 );
@@ -86,11 +86,11 @@ const PropertiesDisplayer = ({ data }) => {
 
           <div class="xl:order-3 grid grid-cols-2 gap-5">
             {data.map((property, idx) => {
-              if (idx > 2) {
+              if (idx >= 2) {
                 return (
                   <DisplayerCard
                     MLS={property.MLS}
-                    address={property.address}
+                    address={property.Address}
                     type={property.TypeOwn1Out}
                   />
                 );
@@ -112,18 +112,20 @@ const DisplayerCard = ({ MLS, address, type }) => {
     return mapObj[matched];
   });
   return (
-    <div class="relative overflow-hidden rounded-lg">
-      <div class="aspect-w-3 aspect-h-5">
-        <img src={imgSrc} class="object-cover w-full h-full" alt="" />
-      </div>
-      <div class="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent"></div>
-      <div class="absolute inset-x-0 bottom-0">
-        <div class="px-4 py-6">
-          <p class="font-sans text-base font-normal text-white">{address}</p>
-          <p class="mt-1 font-serif text-sm italic text-white">{type}</p>
+    <Link href={generateURL({ listingIDVal: MLS })}>
+      <div class="relative overflow-hidden rounded-lg">
+        <div class="h-[30rem]">
+          <img src={imgSrc} class="object-cover w-full h-full" alt="" />
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-red-800 via-transparent to-transparent"></div>
+        <div class="absolute inset-x-0 bottom-0">
+          <div class="px-4 py-6">
+            <p class="font-sans text-base font-medium text-white">{address}</p>
+            <p class="mt-1 font-serif text-sm italic text-white">{type}</p>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 export default PropertiesDisplayer;
