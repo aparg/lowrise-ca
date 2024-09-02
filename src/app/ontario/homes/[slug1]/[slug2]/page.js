@@ -8,16 +8,25 @@ import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
 const page = async ({ params }) => {
   let saleLeaseValue;
   let type;
-  if (Object.keys(saleLease).includes(params.slug1)) {
-    saleLeaseValue = params.slug1;
-  } else if (Object.keys(saleLease).includes(params.slug2)) {
-    saleLeaseValue = params.slug2;
-  }
-  if (Object.keys(houseType).includes(params.slug1)) {
-    type = houseType[params.slug1].name;
-  } else if (Object.keys(houseType).includes(params.slug2)) {
-    type = houseType[params.slug2].name;
-  }
+  // if (Object.keys(saleLease).includes(params.slug1)) {
+  //   saleLeaseValue = params.slug1;
+  // } else if (Object.keys(saleLease).includes(params.slug2)) {
+  //   saleLeaseValue = params.slug2;
+  // }
+  // if (Object.keys(houseType).includes(params.slug1)) {
+  //   type = houseType[params.slug1].name;
+  // } else if (Object.keys(houseType).includes(params.slug2)) {
+  //   type = houseType[params.slug2].name;
+  // }
+  const splitData = params.slug1.split("-");
+  splitData.forEach((data) => {
+    if (Object.keys(saleLease).includes(data)) {
+      saleLeaseValue = data;
+    } else if (Object.keys(houseType).includes(data) && !type) {
+      type = houseType[data].name;
+    }
+    if (saleLeaseValue && type) return;
+  });
   const isValidSlug = saleLeaseValue || type;
   const INITIAL_LIMIT = 30;
   if (isValidSlug)
