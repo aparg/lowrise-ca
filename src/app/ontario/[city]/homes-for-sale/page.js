@@ -46,7 +46,9 @@ export async function generateMetadata({ params }, parent) {
     openGraph: {
       images: "/favicon.ico",
     },
-    title: `${params.city}  Real Estate MLS® Listings & Houses for Sale | Lowrise.ca`,
+    title: `${capitalizeFirstLetter(
+      params.city
+    )}  Real Estate MLS® Listings & Houses for Sale | Lowrise.ca`,
     description: `Find houses for sale in ${params.city}, ON. Visit Lowrise.ca to see all the ${params.city}, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
   };
 }
