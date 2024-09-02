@@ -121,7 +121,7 @@ const SearchOption = ({ suggestion, setSearchTerm }) => {
               listingIDVal: suggestion.MLS,
               cityVal: suggestion?.Municipality,
             }) //for a listing
-          : `/${suggestion.province.toLowerCase()}/${suggestion.city.toLowerCase()}`
+          : generateURL({ cityVal: suggestion?.city })
       }
       onClick={() => {
         setSearchTerm("");
