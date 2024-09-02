@@ -37,7 +37,9 @@ export const generateURL = ({
         embeddedSite ? "/embedded-site" : ""
       }/ontario/${city}/${saleLeaseType}`;
     }
-    return `${embeddedSite ? "/embedded-site" : ""}/ontario/${city}`;
+    return `${
+      embeddedSite ? "/embedded-site" : ""
+    }/ontario/${city}/homes-for-sale`;
   }
   if (houseType) {
     if (saleLeaseType) {
