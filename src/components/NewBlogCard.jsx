@@ -20,10 +20,7 @@ const NewBlogCard = ({ blog }) => {
           {blog.city.name}
         </span>
         <p className="text-md font-semibold leading-6 px-2 mt-2 mb-2">
-          <a href="#" title="" className="text-black">
-            {" "}
-            {blog.news_title}
-          </a>
+          <div className="text-black"> {blog.news_title}</div>
         </p>
       </div>
     </Link>

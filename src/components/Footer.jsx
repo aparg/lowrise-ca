@@ -83,12 +83,12 @@ const Footer = ({ cities }) => {
                       <p>Phone: 289-302-6322</p>
                       <p>
                         Email:{" "}
-                        <a
+                        <Link
                           href="mailto:info@lowrise.ca"
                           className="text-blue-600 hover:underline"
                         >
                           info@lowrise.ca
-                        </a>
+                        </Link>
                       </p>
                     </address>
                   </div>

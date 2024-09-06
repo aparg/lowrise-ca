@@ -60,7 +60,7 @@ const page = async ({ params }) => {
 
   const breadcrumbItems = [
     { label: "Ontario", href: "/ontario" },
-    { label: formattedSlug, href: `/ontario/${city}` },
+    { label: formattedSlug, href: `/ontario/${city}/homes-for-sale` },
     { label: main_data?.StreetName, href: "#" },
   ];
 
@@ -84,7 +84,9 @@ const page = async ({ params }) => {
             }}
           />
           <div className="pt-md-3 pt-0">
-            <Breadcrumbs items={breadcrumbItems} />
+            <div className="sticky top-0 z-[999]">
+              <Breadcrumbs items={breadcrumbItems} />
+            </div>
             <section className="padding-top w-full text-sm flex flex-col items-center justify-center gy-2 relative">
               <div className="col-12 px-0">
                 <Gallery data={imageURLs} />

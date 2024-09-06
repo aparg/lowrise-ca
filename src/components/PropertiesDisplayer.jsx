@@ -85,7 +85,7 @@ const DisplayerCard = ({ MLS, city, address, type, imageGradient }) => {
     return mapObj[matched];
   });
   return (
-    <Link href={generateURL({ listingIDVal: MLS, city: city })} key={MLS}>
+    <Link href={generateURL({ listingIDVal: MLS, cityVal: city })} key={MLS}>
       <div className="relative overflow-hidden rounded-lg">
         <div className="h-[30rem]">
           <img src={imgSrc} className="object-cover w-full h-full" alt="" />
