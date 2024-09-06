@@ -43,6 +43,7 @@ const PropertiesDisplayer = ({
                 return (
                   <DisplayerCard
                     MLS={property.MLS}
+                    city={property.Municipality}
                     address={property.Address}
                     type={property.TypeOwn1Out}
                     key={idx}
@@ -59,6 +60,7 @@ const PropertiesDisplayer = ({
                 return (
                   <DisplayerCard
                     MLS={property.MLS}
+                    city={property.Municipality}
                     address={property.Address}
                     type={property.TypeOwn1Out}
                     key={idx}
@@ -74,7 +76,7 @@ const PropertiesDisplayer = ({
   );
 };
 
-const DisplayerCard = ({ MLS, address, type, imageGradient }) => {
+const DisplayerCard = ({ MLS, city, address, type, imageGradient }) => {
   const mapObj = {
     MLS: MLS,
     index: 1,
@@ -83,7 +85,7 @@ const DisplayerCard = ({ MLS, address, type, imageGradient }) => {
     return mapObj[matched];
   });
   return (
-    <Link href={generateURL({ listingIDVal: MLS })} key={MLS}>
+    <Link href={generateURL({ listingIDVal: MLS, city: city })} key={MLS}>
       <div className="relative overflow-hidden rounded-lg">
         <div className="h-[30rem]">
           <img src={imgSrc} className="object-cover w-full h-full" alt="" />

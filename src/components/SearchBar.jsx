@@ -135,13 +135,15 @@ const SearchBar = ({
       </div>
       <div className="relative">
         {/* {console.log(displaySuggestions)} */}
-        <Autosuggest
-          displaySuggestions={displaySuggestions}
-          searchTerm={searchTerm}
-          suggestions={suggestions}
-          numberOfSuggestions={numberOfSuggestions}
-          setSearchTerm={setSearchTerm}
-        />
+        {displaySuggestions && (
+          <Autosuggest
+            displaySuggestions={displaySuggestions}
+            searchTerm={searchTerm}
+            suggestions={suggestions}
+            numberOfSuggestions={numberOfSuggestions}
+            setSearchTerm={setSearchTerm}
+          />
+        )}
         {/* )} */}
       </div>
     </div>
