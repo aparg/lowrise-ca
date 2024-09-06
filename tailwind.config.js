@@ -42,4 +42,9 @@ module.exports = {
       });
     }),
   ],
+  safelist: [
+    {
+      pattern: /bg-\[#([0-9a-fA-F]{6})\]/,
+    },
+  ],
 };

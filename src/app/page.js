@@ -7,6 +7,7 @@ import HeroSection from "@/components/HeroSection";
 import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
 import ContactForm from "@/components/ContactForm";
 import PropertiesDisplayer from "@/components/PropertiesDisplayer";
+import { cache } from "sharp";
 
 export const metadata = {
   title: "Lowrise.ca | Resale Properties in Ontario",
@@ -40,12 +41,46 @@ export default async function Home() {
   );
   const fetchFireplacesData = async () => {
     const response = await fetch(
-      "https://rets.dolphy.ca/residential/Properties/?$range=minFireplacesTotal=1&$limit=4"
+      "https://rets.dolphy.ca/residential/Properties/?$range=minFireplacesTotal=1&$limit=4",
+      { cache: "no-cache" }
     );
     const data = await response.json();
     return data.results;
   };
+  const fetchSepEntranceData = async () => {
+    let conditions = [];
+    const properties = ["Basement1", "Basement2"];
+    properties.forEach((val) =>
+      // (conditions += `${val}=Indoor%20Pool,${val}=Outdoor%20Pool,${val}=Pool`)
+      conditions.push(`${val}=Sep%20Entrance`)
+    );
+    // conditions += `&$select=TypeOwnSrch='.S.'`;
+    const fetchString = `https://rets.dolphy.ca/residential/Properties/?$selectOr=${conditions.join(
+      ","
+    )}&$limit=1`;
+    const lowriseOnly = [
+      "TypeOwnSrch=.D.",
+      "TypeOwnSrch=.A.",
+      "TypeOwnSrch=.J.",
+      "TypeOwnSrch=.K.",
+    ];
+    const results = await Promise.all(
+      lowriseOnly.map(async (val) => {
+        const response = await fetch(fetchString + `&$select=${val}`, {
+          next: { revalidate: 43200 },
+        });
+        console.log(fetchString + `&$select=${val}`);
+        const data = await response.json();
+        return data.results[0];
+      })
+    );
+    console.log(results.length);
+    // console.log(results);
+    return results;
+  };
+
   const HOUSEWITHFIREPLACES = await fetchFireplacesData();
+  const HOUSEWITHSEPARATEENTRANCE = await fetchSepEntranceData();
   // const BLOGPOSTS = await fetchSomeBlogPosts({ pageSize: 4 });
   const BLOGPOSTS = await fetchAllBlogPosts();
   {
@@ -58,13 +93,20 @@ export default async function Home() {
       <section className="mx-auto max-w-[90%]">
         <PropertyDisplaySection
           title="Explore homes in Toronto"
-          subtitle=""
+          subtitle="Where marshmallows meet their toasty fate and cold feet find
+                their cozy soulmates."
           exploreAllLink={generateURL({ cityVal: "Toronto" })}
         >
           <Slider data={TORONTOHOMES} type="resale" />
         </PropertyDisplaySection>
         <CanadianCitiesShowcase />
-        <PropertiesDisplayer data={HOUSEWITHFIREPLACES} />
+        <PropertiesDisplayer
+          topic={"Fireplaces"}
+          subtitle={
+            "Where marshmallows meet their toasty fate and cold feet find their cozy soulmates."
+          }
+          data={HOUSEWITHFIREPLACES}
+        />
         <PropertyDisplaySection
           title="Explore homes in Brampton"
           subtitle=""
@@ -72,6 +114,15 @@ export default async function Home() {
         >
           <Slider data={BRAMPTONHOMES} type="resale" />
         </PropertyDisplaySection>
+        <PropertiesDisplayer
+          topic={"Separate Entrance"}
+          subtitle={
+            "A house with a separate entrance is like a mullet haircut - business in the front, party in the back."
+          }
+          bg="#454536"
+          imageGradient="#99531b"
+          data={HOUSEWITHSEPARATEENTRANCE}
+        />
         <PropertyDisplaySection
           title="Explore homes in Mississauga"
           subtitle=""

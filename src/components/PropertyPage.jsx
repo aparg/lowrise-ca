@@ -73,6 +73,7 @@ const PropertyPage = ({ main_data }) => {
     }
     return false;
   }, [main_data.MaxListPrice, main_data.ListPrice, main_data.MinListPrice]);
+
   useEffect(() => {
     if (window) {
       window.addEventListener("scroll", () => {
@@ -84,6 +85,8 @@ const PropertyPage = ({ main_data }) => {
       });
     }
   }, []);
+
+  console.log(nearby);
 
   return (
     <>
