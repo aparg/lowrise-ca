@@ -125,7 +125,7 @@ const SearchBar = ({
             setDisplaySuggestions(true);
           }}
           onBlur={() => {
-            setTimeout(() => setDisplaySuggestions(false), 500);
+            setTimeout(() => setDisplaySuggestions(false), 200);
           }}
           value={searchTerm}
         />
