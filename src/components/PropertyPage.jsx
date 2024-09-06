@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 
 import TimeAgo from "@/components/TimeAgo";
 
@@ -22,6 +22,8 @@ const PropertyPage = ({ main_data }) => {
   const [collapse, setCollapse] = useState(true);
   const { isMobileView } = useDeviceView();
   const [showMoreDesc, setShowMoreDesc] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const contentRef = useRef(null);
 
   const toggleShowMore = () => {
     setShowMoreDesc(!showMoreDesc);
@@ -91,6 +93,15 @@ const PropertyPage = ({ main_data }) => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    // Check if content is overflowing
+    if (contentRef.current) {
+      const element = contentRef.current;
+      // Compare the scrollHeight with clientHeight to determine if the text overflows
+      setIsOverflowing(element.scrollHeight > element.clientHeight);
+    }
+  }, [main_data.RemarksForClients]);
 
   return (
     <>
@@ -214,9 +225,10 @@ const PropertyPage = ({ main_data }) => {
               {main_data.RemarksForClients}
             </p> */}
             <p
-              className={`text-lg pty-description pt-2 pb-4 leading-8 ${
-                showMoreDesc ? "" : "line-clamp-5"
+              className={`text-lg pty-description pt-2 leading-8 ${
+                showMoreDesc ? "" : "line-clamp-4 sm:line-clamp-6"
               }`}
+              ref={contentRef}
               style={{
                 display: "-webkit-box",
                 WebkitBoxOrient: "vertical",
@@ -226,9 +238,11 @@ const PropertyPage = ({ main_data }) => {
             >
               {main_data.RemarksForClients}
             </p>
-            <button className="text-blue-500 mt-2" onClick={toggleShowMore}>
-              {showMoreDesc ? "See Less" : "See More"}
-            </button>
+            {isOverflowing && (
+              <button className="underline mt-2" onClick={toggleShowMore}>
+                {showMoreDesc ? "See Less" : "See More"}
+              </button>
+            )}
             {/* <div
               className={`grid grid-cols-2  grid-cols-md-4 w-100 ${
                 isMobileView ? "flex-wrap" : "flex-nowrap "
