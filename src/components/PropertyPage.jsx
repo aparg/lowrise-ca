@@ -21,6 +21,12 @@ const PropertyPage = ({ main_data }) => {
   const [navbar, setNavbar] = useState(false);
   const [collapse, setCollapse] = useState(true);
   const { isMobileView } = useDeviceView();
+  const [showMoreDesc, setShowMoreDesc] = useState(false);
+
+  const toggleShowMore = () => {
+    setShowMoreDesc(!showMoreDesc);
+  };
+
   const getCommunityFeatures = () => {
     const {
       PropertyFeatures1,
@@ -85,8 +91,6 @@ const PropertyPage = ({ main_data }) => {
       });
     }
   }, []);
-
-  console.log(nearby);
 
   return (
     <>
@@ -206,9 +210,25 @@ const PropertyPage = ({ main_data }) => {
               Property Description - {main_data.Street} {main_data.StreetName}{" "}
               {main_data.StreetAbbreviation}
             </h2>
-            <p className="text-lg pty-description pt-2 pb-4 leading-8">
+            {/* <p className="text-lg pty-description pt-2 pb-4 leading-8">
+              {main_data.RemarksForClients}
+            </p> */}
+            <p
+              className={`text-lg pty-description pt-2 pb-4 leading-8 ${
+                showMoreDesc ? "" : "line-clamp-5"
+              }`}
+              style={{
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
               {main_data.RemarksForClients}
             </p>
+            <button className="text-blue-500 mt-2" onClick={toggleShowMore}>
+              {showMoreDesc ? "See Less" : "See More"}
+            </button>
             {/* <div
               className={`grid grid-cols-2  grid-cols-md-4 w-100 ${
                 isMobileView ? "flex-wrap" : "flex-nowrap "
