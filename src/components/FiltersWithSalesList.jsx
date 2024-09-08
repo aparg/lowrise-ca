@@ -24,7 +24,6 @@ const FiltersWithSalesList = ({
   city = undefined,
   requiredType = undefined,
   saleLeaseVal = undefined,
-  filter,
 }) => {
   // const leadEmail = user?.emailAddresses[0].emailAddress;
 
@@ -202,13 +201,19 @@ const FiltersWithSalesList = ({
               isMobileView ? "pt-2" : "pt-2"
             }`}
           >
-            {filter
-              ? filter
+            {requiredType
+              ? requiredType
               : city
               ? capitalizeFirstLetter(decodeURIComponent(city))
               : "Ontario"}{" "}
-            Homes {filterState.saleLease} | Real Estate Updated Daily Listings
+            Homes {filterState.saleLease}{" "}
+            {requiredType && `in ${capitalizeFirstLetter(city)}`}
+            {filterState.priceRange.max
+              ? ` under C$${filterState.priceRange.max}`
+              : ""}{" "}
+            | Real Estate Updated Daily Listings
           </h1>
+          {console.log(filterState)}
           <p
             className="text-sm mb-5 mt-1"
             style={isMobileView ? { fontSize: "0.9rem" } : {}}
