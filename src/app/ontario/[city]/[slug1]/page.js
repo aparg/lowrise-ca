@@ -59,9 +59,9 @@ export async function generateMetadata({ params }, parent) {
     title: `Find ${type || ""} Real Estate ${
       saleLeaseValue ? saleLease[saleLeaseValue]?.name : ""
     } in ${params.city}`,
-    description: `Explore top ${type}${
-      plural[capitalizeFirstLetter(type)] || "properties"
-    } in ${params.city || "Ontario"} and select the best ones`,
+    description: `Explore affordable resale homes in ${capitalizeFirstLetter(
+      params.city
+    )} at Lowrise.ca. Browse the latest listings for townhomes, detached, and semi-detached houses. Begin your home-buying journey with top agents and find your dream home today.`,
   };
 }
 
