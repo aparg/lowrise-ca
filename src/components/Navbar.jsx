@@ -9,6 +9,7 @@ import { generateURL } from "@/helpers/generateURL";
 import Image from "next/image";
 import citiesWithProvinces from "@/constant/cities";
 import { useRouter } from "next/navigation";
+import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
 
 const Navbar = (props) => {
   const [isSticky, setIsSticky] = useState(true);
@@ -78,6 +79,9 @@ const Navbar = (props) => {
   //   else return undefined;
   // }
   const cityName = extractCityname(pathname);
+  const inCity = cityName
+    ? ` in ${decodeURIComponent(capitalizeFirstLetter(cityName))}`
+    : "";
   console.log(cityName);
   const buyOpts = [
     /* {
@@ -85,7 +89,7 @@ const Navbar = (props) => {
       link: generateURL({ houseTypeVal: "semiDetached" }),
     }, */
     {
-      name: "Semi Detached Homes for Sale",
+      name: "Semi Detached Homes for Sale" + inCity,
       link: generateURL({
         houseTypeVal: "semi detached",
         saleLeaseVal: "sale",
@@ -93,7 +97,7 @@ const Navbar = (props) => {
       }),
     },
     {
-      name: "Detached Homes for Sale",
+      name: "Detached Homes for Sale" + inCity,
       link: generateURL({
         houseTypeVal: "detached",
         saleLeaseVal: "sale",
@@ -101,7 +105,7 @@ const Navbar = (props) => {
       }),
     },
     {
-      name: "Townhomes for Sale",
+      name: "Townhomes for Sale" + inCity,
       link: generateURL({
         houseTypeVal: "town house",
         saleLeaseVal: "sale",
@@ -109,7 +113,7 @@ const Navbar = (props) => {
       }),
     },
     {
-      name: "Duplex  Homes for Sale",
+      name: "Duplex  Homes for Sale" + inCity,
       link: generateURL({
         houseTypeVal: "duplex",
         saleLeaseVal: "sale",
@@ -117,7 +121,7 @@ const Navbar = (props) => {
       }),
     },
     {
-      name: "Triplex Homes for Sale",
+      name: "Triplex Homes for Sale" + inCity,
       link: generateURL({
         houseTypeVal: "triplex",
         saleLeaseVal: "sale",
@@ -128,7 +132,7 @@ const Navbar = (props) => {
 
   const rentOpts = [
     {
-      name: "Semi Detached Homes for Lease",
+      name: "Semi Detached Homes for Lease" + inCity,
       link: generateURL({
         houseTypeVal: "semi detached",
         saleLeaseVal: "lease",
@@ -136,7 +140,7 @@ const Navbar = (props) => {
       }),
     },
     {
-      name: "Detached Homes for Lease",
+      name: "Detached Homes for Lease" + inCity,
       link: generateURL({
         houseTypeVal: "detached",
         saleLeaseVal: "lease",
@@ -144,7 +148,7 @@ const Navbar = (props) => {
       }),
     },
     {
-      name: "Townhomes for Lease",
+      name: "Townhomes for Lease" + inCity,
       link: generateURL({
         houseTypeVal: "town house",
         saleLeaseVal: "lease",
@@ -152,7 +156,7 @@ const Navbar = (props) => {
       }),
     },
     {
-      name: "Duplex  Homes for Lease",
+      name: "Duplex  Homes for Lease" + inCity,
       link: generateURL({
         houseTypeVal: "duplex",
         saleLeaseVal: "lease",
@@ -160,7 +164,7 @@ const Navbar = (props) => {
       }),
     },
     {
-      name: "Triplex Homes for Lease",
+      name: "Triplex Homes for Lease" + inCity,
       link: generateURL({
         houseTypeVal: "triplex",
         saleLeaseVal: "lease",

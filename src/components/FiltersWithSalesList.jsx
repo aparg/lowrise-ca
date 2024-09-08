@@ -19,7 +19,7 @@ import Image from "next/image";
 // import FilterSubmit from "../FilterSubmit";
 
 const FiltersWithSalesList = ({
-  salesListData,
+  salesListData = [],
   INITIAL_LIMIT,
   city = undefined,
   requiredType = undefined,
@@ -48,11 +48,11 @@ const FiltersWithSalesList = ({
     city: city,
   };
 
-  const [filterState, setFilterState] = useState(null);
+  const [filterState, setFilterState] = useState(initialState);
   const [salesData, setSalesData] = useState(salesListData);
   const [offset, setOffset] = useState(0);
   const { isMobileView } = useDeviceView();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [noData, setNoData] = useState(false);
   const [selected, setSelected] = useState(1); //the page that is selected
 
@@ -137,16 +137,14 @@ const FiltersWithSalesList = ({
       ...payload,
     };
     console.log(queryParams);
-    setLoading(true);
+    // setLoading(true);
     // console.log(payload);
     const filteredSalesData = await getFilteredRetsData(queryParams);
-    if (filteredSalesData?.length == 0) {
-      setNoData(true);
-    } else {
-      setLoading(false);
+    if (!filteredSalesData?.length == 0) {
       setSalesData(filteredSalesData);
       setOffset(offset);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -197,7 +195,7 @@ const FiltersWithSalesList = ({
 
   return (
     <>
-      {filterState ? (
+      {
         <div className="">
           <h1
             className={`font-extrabold text-2xl ${
@@ -238,7 +236,11 @@ const FiltersWithSalesList = ({
             <Filters {...{ filterState, setFilterState, fetchFilteredData }} />
           </div>
 
-          {!loading ? (
+          {loading ? (
+            <div className="w-[20px] mx-auto">
+              <ImSpinner size="sm" />
+            </div>
+          ) : salesData.length > 0 ? (
             <>
               {selected === 1 && <HotListings salesData={hotSales} />}
               <div
@@ -267,7 +269,7 @@ const FiltersWithSalesList = ({
                 />
               </div>
             </>
-          ) : noData ? (
+          ) : (
             <div className="fs-4 text-center flex w-100 flex-col items-center">
               <Image
                 src="/no-record-found.jpg"
@@ -277,17 +279,9 @@ const FiltersWithSalesList = ({
               />
               <p>No Records Found</p>
             </div>
-          ) : (
-            <div className="w-full flex justify-center">
-              <ImSpinner size={24} />
-            </div>
           )}
         </div>
-      ) : (
-        <div className="w-[20px] mx-auto">
-          <ImSpinner size="sm" />
-        </div>
-      )}
+      }
     </>
   );
 };
