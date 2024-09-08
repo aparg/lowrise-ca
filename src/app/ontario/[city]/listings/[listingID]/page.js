@@ -61,7 +61,11 @@ const page = async ({ params }) => {
   const breadcrumbItems = [
     { label: "Ontario", href: "/ontario" },
     { label: formattedSlug, href: `/ontario/${city}/homes-for-sale` },
-    { label: main_data?.StreetName, href: "#" },
+    {
+      label: `${main_data.Street} ${main_data.StreetName}${" "}
+    ${main_data.StreetAbbreviation}`,
+      href: "#",
+    },
   ];
 
   // const address = `${main_data?.Street} ${main_data?.StreetName} ${main_data?.StreetAbbreviation}`;
