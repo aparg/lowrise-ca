@@ -166,7 +166,7 @@ const PropertyPage = ({ main_data }) => {
                         </div>
                         {main_data.GarageSpaces && (
                           <>
-                            <span className="text-lg">|</span>
+                            <span className="text-lg">&nbsp;|&nbsp;</span>
                             <div className="flex justify-content-center align-items-center gap-1 text-lg ">
                               <img
                                 src="/property-page-img/garage.svg"
