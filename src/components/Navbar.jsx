@@ -85,6 +85,14 @@ const Navbar = (props) => {
       link: generateURL({ houseTypeVal: "semiDetached" }),
     }, */
     {
+      name: "Semi Detached Homes for Sale",
+      link: generateURL({
+        houseTypeVal: "semi detached",
+        saleLeaseVal: "sale",
+        cityVal: cityName,
+      }),
+    },
+    {
       name: "Detached Homes for Sale",
       link: generateURL({
         houseTypeVal: "detached",
@@ -119,6 +127,14 @@ const Navbar = (props) => {
   ];
 
   const rentOpts = [
+    {
+      name: "Semi Detached Homes for Lease",
+      link: generateURL({
+        houseTypeVal: "semi detached",
+        saleLeaseVal: "lease",
+        cityVal: cityName,
+      }),
+    },
     {
       name: "Detached Homes for Lease",
       link: generateURL({
