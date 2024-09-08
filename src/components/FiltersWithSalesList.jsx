@@ -45,6 +45,7 @@ const FiltersWithSalesList = ({
     sepEntrance: false,
     washroom: washroomCount.any.value,
     priceDecreased: false,
+    city: city,
   };
 
   const [filterState, setFilterState] = useState(null);
@@ -196,7 +197,7 @@ const FiltersWithSalesList = ({
 
   return (
     <>
-      {filterState && (
+      {filterState ? (
         <div className="">
           <h1
             className={`font-extrabold text-2xl ${
@@ -281,6 +282,10 @@ const FiltersWithSalesList = ({
               <ImSpinner size={24} />
             </div>
           )}
+        </div>
+      ) : (
+        <div className="w-[20px] mx-auto">
+          <ImSpinner size="sm" />
         </div>
       )}
     </>

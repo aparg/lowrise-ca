@@ -190,9 +190,9 @@ export const washroomCount = {
 export const houseType = {
   all: { name: "House Type", value: null },
   // condo: { name: "Condo", value: "CondoProperty" },
-  semi: { name: "Semi Detached", value: ".S." },
-  detached: { name: "Detached", value: ".D." },
-  town: { name: "Town House", value: ".A." },
-  duplex: { name: "Duplex", value: ".J." },
-  triplex: { name: "Triplex", value: ".K." },
+  semi: { name: "Semi Detached", value: ".S.", slug: "semi-detached-homes" },
+  detached: { name: "Detached", value: ".D.", slug: "detached-homes" },
+  town: { name: "Town House", value: ".A.", slug: "town-house" },
+  duplex: { name: "Duplex", value: ".J.", slug: "duplex-homes" },
+  triplex: { name: "Triplex", value: ".K.", slug: "triplex-homes" },
 };

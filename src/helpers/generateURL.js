@@ -1,61 +1,74 @@
-import { saleLease } from "@/constant";
-
+import { houseType, saleLease } from "@/constant";
+const houseTypeLinkObj = {};
+Object.values(houseType).forEach((elem) => {
+  houseTypeLinkObj[elem.name.toLowerCase()] = elem.slug;
+});
+console.log(houseTypeLinkObj);
 export const generateURL = ({
-  cityVal = null,
-  houseTypeVal = null,
-  saleLeaseVal = null,
+  cityVal,
+  houseTypeVal,
+  saleLeaseVal,
   listingIDVal = null,
   embeddedSite = false,
-} = {}) => {
-  const city = cityVal?.toLowerCase() || null;
+}) => {
+  const city = cityVal?.toLowerCase();
   const houseType = houseTypeVal?.toLowerCase() || null;
   const saleLeaseType =
     Object.keys(saleLease).find((key) => key == saleLeaseVal) ||
     Object.keys(saleLease)
-      .find((key) => saleLease[key].value == saleLeaseVal)
+      .find((key) => saleLease[key].name == saleLeaseVal)
       ?.toLowerCase() ||
     null;
   if (listingIDVal && city)
     return `${
       embeddedSite ? "/embedded-site" : ""
     }/ontario/${city}/listings/${listingIDVal}`;
-  if (city) {
-    if (houseType) {
-      if (saleLeaseType) {
-        return `${
-          embeddedSite ? "/embedded-site" : ""
-        }/ontario/${city}/${houseType}-${
-          houseType !== "townhouse" ? "homes" : ""
-        }-for-${saleLeaseType}`;
-      }
-      return `${
-        embeddedSite ? "/embedded-site" : ""
-      }/ontario/${city}/${houseType}`;
-    }
-    if (saleLeaseType) {
-      return `${
-        embeddedSite ? "/embedded-site" : ""
-      }/ontario/${city}/${saleLeaseType}`;
-    }
-    return `${
-      embeddedSite ? "/embedded-site" : ""
-    }/ontario/${city}/homes-for-sale`;
-  }
-  if (houseType) {
-    if (saleLeaseType) {
-      return `${
-        embeddedSite ? "/embedded-site" : ""
-      }/ontario/homes/${houseType}-${
-        houseType !== "town-homes" ? "homes" : ""
-      }-for-${saleLeaseType}`;
-    }
-    return `${embeddedSite ? "/embedded-site" : ""}/ontario/homes/${houseType}`;
-  }
-  if (saleLeaseType) {
-    return `${
-      embeddedSite ? "/embedded-site" : ""
-    }/ontario/homes/${saleLeaseType}`;
-  }
 
-  return `${embeddedSite ? "/embedded-site" : ""}/ontario`;
+  let finalLink = `${embeddedSite ? "/embedded-site" : ""}/ontario`;
+
+  if (city) finalLink += "/" + city;
+
+  if (!houseType && !saleLeaseType) return finalLink + "/homes-for-sale";
+
+  // console.log(houseTypeLinkObj, houseType);
+  if (houseType) finalLink += "/" + houseTypeLinkObj[houseType];
+
+  if (saleLeaseType) finalLink += "-for-" + saleLeaseType;
+
+  return finalLink;
+
+  // if (houseType) {
+  //   if (saleLeaseType) {
+  //     finalLink += `/${city}`;
+  //   }
+  //   return `${
+  //     embeddedSite ? "/embedded-site" : ""
+  //   }/ontario/${city}/${houseType}`;
+  // }
+  // if (saleLeaseType) {
+  //   return `${
+  //     embeddedSite ? "/embedded-site" : ""
+  //   }/ontario/${city}/${saleLeaseType}`;
+  // }
+  // return `${
+  //   embeddedSite ? "/embedded-site" : ""
+  // }/ontario/${city}/homes-for-sale`;
+
+  // if (houseType) {
+  //   if (saleLeaseType) {
+  //     return `${
+  //       embeddedSite ? "/embedded-site" : ""
+  //     }/ontario/homes/${houseType}-${
+  //       houseType !== "town-homes" ? "homes" : ""
+  //     }-for-${saleLeaseType}`;
+  //   }
+  //   return `${embeddedSite ? "/embedded-site" : ""}/ontario/homes/${houseType}`;
+  // }
+  // if (saleLeaseType) {
+  //   return `${
+  //     embeddedSite ? "/embedded-site" : ""
+  //   }/ontario/homes/${saleLeaseType}`;
+  // }
+
+  // return `${embeddedSite ? "/embedded-site" : ""}/ontario`;
 };

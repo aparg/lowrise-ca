@@ -8,6 +8,7 @@ import Dropdown from "./Dropdown";
 import { generateURL } from "@/helpers/generateURL";
 import Image from "next/image";
 import citiesWithProvinces from "@/constant/cities";
+import { useRouter } from "next/navigation";
 
 const Navbar = (props) => {
   const [isSticky, setIsSticky] = useState(true);
@@ -15,7 +16,6 @@ const Navbar = (props) => {
   const [showNavbar, setShowNavbar] = useState(true);
   const pathname = usePathname();
   // const { comparisonFlag } = useComparisionFlag();
-
   if (pathname.startsWith("/admin")) {
     return <></>;
   }
@@ -23,7 +23,6 @@ const Navbar = (props) => {
   useEffect(() => {
     const handleScroll = async () => {
       const offset = window.scrollY;
-      // console.log(offset);
       setIsSticky(offset > 0);
       if (offset > 0 && pathname.includes("/ontario")) {
         setShowNavbar(false);
@@ -62,6 +61,24 @@ const Navbar = (props) => {
     return { name: obj.city, link: generateURL({ cityVal: obj.city }) };
   });
 
+  function extractCityname(url) {
+    const regex =
+      /\/ontario\/([^/]+)\/(?:town-house|detached-homes|semi-detached-homes|duplex-homes|triplex-homes|homes)?-(?:for-sale|for-lease)/;
+    const match = url.match(regex);
+    console.log(match);
+    return match ? match[1] : null;
+  }
+
+  // function getCityName() {
+  //   if (
+  //     pathname.endsWith("homes-for-sale") ||
+  //     pathname.endsWith("homes-for-lease") || path.endsWith("homes-for-sale")
+  //   )
+  //     return extractCityname(pathname);
+  //   else return undefined;
+  // }
+  const cityName = extractCityname(pathname);
+  console.log(cityName);
   const buyOpts = [
     /* {
       name: "Semi-detached Homes for Sale",
@@ -69,38 +86,70 @@ const Navbar = (props) => {
     }, */
     {
       name: "Detached Homes for Sale",
-      link: generateURL({ houseTypeVal: "detached", saleLeaseVal: "sale" }),
+      link: generateURL({
+        houseTypeVal: "detached",
+        saleLeaseVal: "sale",
+        cityVal: cityName,
+      }),
     },
     {
       name: "Townhomes for Sale",
-      link: generateURL({ houseTypeVal: "townHouse", saleLeaseVal: "sale" }),
+      link: generateURL({
+        houseTypeVal: "town house",
+        saleLeaseVal: "sale",
+        cityVal: cityName,
+      }),
     },
     {
       name: "Duplex  Homes for Sale",
-      link: generateURL({ houseTypeVal: "duplex", saleLeaseVal: "sale" }),
+      link: generateURL({
+        houseTypeVal: "duplex",
+        saleLeaseVal: "sale",
+        cityVal: cityName,
+      }),
     },
     {
       name: "Triplex Homes for Sale",
-      link: generateURL({ houseTypeVal: "triplex", saleLeaseVal: "sale" }),
+      link: generateURL({
+        houseTypeVal: "triplex",
+        saleLeaseVal: "sale",
+        cityVal: cityName,
+      }),
     },
   ];
 
   const rentOpts = [
     {
       name: "Detached Homes for Lease",
-      link: generateURL({ houseTypeVal: "detached", saleLeaseVal: "lease" }),
+      link: generateURL({
+        houseTypeVal: "detached",
+        saleLeaseVal: "lease",
+        cityVal: cityName,
+      }),
     },
     {
       name: "Townhomes for Lease",
-      link: generateURL({ houseTypeVal: "townHouse", saleLeaseVal: "lease" }),
+      link: generateURL({
+        houseTypeVal: "town house",
+        saleLeaseVal: "lease",
+        cityVal: cityName,
+      }),
     },
     {
       name: "Duplex  Homes for Lease",
-      link: generateURL({ houseTypeVal: "duplex", saleLeaseVal: "lease" }),
+      link: generateURL({
+        houseTypeVal: "duplex",
+        saleLeaseVal: "lease",
+        cityVal: cityName,
+      }),
     },
     {
       name: "Triplex Homes for Lease",
-      link: generateURL({ houseTypeVal: "triplex", saleLeaseVal: "lease" }),
+      link: generateURL({
+        houseTypeVal: "triplex",
+        saleLeaseVal: "lease",
+        cityVal: cityName,
+      }),
     },
   ];
 

@@ -24,6 +24,10 @@ import {
 import { bedCount, saleLease, houseType, washroomCount } from "@/constant";
 import useDeviceView from "@/helpers/useDeviceView";
 import { FaChevronDown } from "react-icons/fa";
+import { Link } from "lucide-react";
+import { useRouter } from "next/router";
+import { generateURL } from "@/helpers/generateURL";
+// import Dropdown from "./Dropdown";
 
 const bgColor = {
   saleLease: "bg-primary-green",
@@ -53,7 +57,10 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
   //options for bed count
   const bedCountOptions = Object.values(bedCount).map((item) => item.name);
   //options for house type
-  const houseTypeOptions = Object.values(houseType).map((item) => item.name);
+  const houseTypeOptions = Object.values(houseType)
+    .filter((item) => item.value)
+    .map((item) => item.name);
+  console.log(houseTypeOptions);
   //options for washroom counts
   const washroomCountOptions = Object.values(washroomCount).map(
     (item) => item.name
@@ -158,6 +165,8 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
             // isMulti={true}
             isMulti={false}
             isMobileView={isMobileView}
+            city={filterState.city}
+            saleLease={filterState.saleLease}
           />
         </div>
 
@@ -232,6 +241,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
 };
 
 const IndividualFilter = ({
+  city,
   options,
   name,
   value,
@@ -239,6 +249,7 @@ const IndividualFilter = ({
   isMobileView,
   isMulti = false,
   defaultValue,
+  saleLease,
 }) => {
   const [selectedKeys, setSelectedKeys] = useState(() =>
     isMulti ? [...value] : [value]
@@ -253,6 +264,7 @@ const IndividualFilter = ({
     (key) => Array.from(key).join(", ").replaceAll("_", " "),
     [selectedKeys]
   );
+
   return (
     <Dropdown>
       <DropdownTrigger disableAnimation={true}>
@@ -280,10 +292,28 @@ const IndividualFilter = ({
         onSelectionChange={handleKeyChange}
       >
         {options.map((option) => {
-          return <DropdownItem key={option}>{option}</DropdownItem>;
+          if (name == "type") {
+            console.log(saleLease);
+            return (
+              <DropdownItem
+                key={option}
+                href={generateURL({
+                  cityVal: city,
+                  houseTypeVal: option,
+                  saleLeaseVal: saleLease,
+                })}
+              >
+                {option}
+              </DropdownItem>
+            );
+          } else return <DropdownItem key={option}>{option}</DropdownItem>;
         })}
       </DropdownMenu>
     </Dropdown>
+    // <Dropdown
+    //   name="House Type"
+    //   options={[{ name: "test", link: "/text" }]}
+    // ></Dropdown>
   );
 };
 
