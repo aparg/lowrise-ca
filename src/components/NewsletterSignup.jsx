@@ -41,11 +41,8 @@ const NewsletterSignup = () => {
             Your email is secure and we don't send spam. See our privacy policy.
           </p>
         </div>
-
+        {/* 
         <div className="mt-12 text-center">
-          <p className="text-base font-semibold text-black mb-3">
-            Trusted by 50k+ home buyers
-          </p>
           <div className="flex items-center justify-center space-x-2">
             <div className="flex items-center">
               {[...Array(5)].map((_, index) => (
@@ -60,11 +57,8 @@ const NewsletterSignup = () => {
                 </svg>
               ))}
             </div>
-            <p className="text-base font-normal text-black">4.4/5</p>
-            <p className="text-base font-normal text-gray-700">•</p>
-            <p className="text-base font-normal text-gray-700">3,841 Reviews</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
