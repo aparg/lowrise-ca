@@ -208,7 +208,7 @@ const FiltersWithSalesList = ({
               ? capitalizeFirstLetter(decodeURIComponent(city))
               : "Ontario"}{" "}
             Homes {filterState.saleLease}{" "}
-            {requiredType && `in ${capitalizeFirstLetter(city)}`}
+            {requiredType && `in ${capitalizeFirstLetter(city) || "Ontario"}`}
             {filterState.priceRange.max
               ? ` under ${formatCurrency(filterState.priceRange.max)}`
               : ""}{" "}
