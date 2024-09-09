@@ -239,8 +239,11 @@ const PropertyPage = ({ main_data }) => {
               {main_data.RemarksForClients}
             </p>
             {isOverflowing && (
-              <button className="underline mt-2" onClick={toggleShowMore}>
-                {showMoreDesc ? "See Less" : "See More"}
+              <button
+                className="mt-2 px-2 border-2 border-black py-1 text-black font-semibold rounded-lg hover:bg-gray-200 focus:outline-none transition-colors duration-200"
+                onClick={toggleShowMore}
+              >
+                {showMoreDesc ? "See Less" : "See More →"}
               </button>
             )}
             {/* <div
@@ -318,10 +321,7 @@ const PropertyPage = ({ main_data }) => {
               </div>
               <div className="col-5 col-md border-b-[0.1px] border-gray-200 border-sm py-2 md:py-3 pl-0">
                 <p className="cardd-subtitle_bg-black">
-                  {formatNumber(
-                    (main_data.LotDepth * main_data.LotFront).toFixed(0)
-                  )}{" "}
-                  Sqft
+                  {main_data.LotFront} X {main_data.LotDepth} Feet
                 </p>
               </div>
               <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">

@@ -16,6 +16,7 @@ import { ImSpinner } from "react-icons/im";
 import HotListings from "./HotListings";
 import PageSelector from "./PageSelector";
 import Image from "next/image";
+import formatCurrency from "@/helpers/formatCurrency";
 // import FilterSubmit from "../FilterSubmit";
 
 const FiltersWithSalesList = ({
@@ -209,7 +210,7 @@ const FiltersWithSalesList = ({
             Homes {filterState.saleLease}{" "}
             {requiredType && `in ${capitalizeFirstLetter(city)}`}
             {filterState.priceRange.max
-              ? ` under C$${filterState.priceRange.max}`
+              ? ` under ${formatCurrency(filterState.priceRange.max)}`
               : ""}{" "}
             | Real Estate Updated Daily Listings
           </h1>
