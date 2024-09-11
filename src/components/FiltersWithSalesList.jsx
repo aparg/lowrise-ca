@@ -87,7 +87,6 @@ const FiltersWithSalesList = ({
           remainingSales.push(data);
         }
       });
-      console.log(hotSales, remainingSales);
       return { hotSales, remainingSales };
     } else {
       return { hotSales: [], remainingSales: salesData };
@@ -136,7 +135,6 @@ const FiltersWithSalesList = ({
       city: capitalizeFirstLetter(city),
       ...payload,
     };
-    console.log(queryParams);
     // setLoading(true);
     // console.log(payload);
     const filteredSalesData = await getFilteredRetsData(queryParams);

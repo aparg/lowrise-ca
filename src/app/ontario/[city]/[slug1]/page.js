@@ -20,8 +20,6 @@ const page = async ({ params }) => {
     if (saleLeaseValue && type) return;
   });
   const isValidSlug = saleLeaseValue || type;
-  console.log(saleLeaseValue, type);
-  console.log(isValidSlug);
   if (isValidSlug)
     return (
       <div className="container-fluid">
@@ -58,10 +56,10 @@ export async function generateMetadata({ params }, parent) {
     },
     title: `Find ${type || ""} Real Estate ${
       saleLeaseValue ? saleLease[saleLeaseValue]?.name : ""
-    } in ${params.city}`,
-    description: `Explore affordable resale homes in ${capitalizeFirstLetter(
-      params.city
-    )} at Lowrise.ca. Browse the latest listings for townhomes, detached, and semi-detached houses. Begin your home-buying journey with top agents and find your dream home today.`,
+    } in ${decodeURIComponent(params.city)}`,
+    description: `Find 100+ ${
+      type || "properties"
+    } For Sale in Toronto, ON. Visit Lowrise.ca to explore  photos, prices & neighbourhood info. Check out townhomes with separate entrance, Basement, Pool and many more features including reduced prices homes.`,
   };
 }
 

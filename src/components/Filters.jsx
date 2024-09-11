@@ -60,7 +60,6 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
   const houseTypeOptions = Object.values(houseType)
     .filter((item) => item.value)
     .map((item) => item.name);
-  console.log(houseTypeOptions);
   //options for washroom counts
   const washroomCountOptions = Object.values(washroomCount).map(
     (item) => item.name
@@ -293,7 +292,6 @@ const IndividualFilter = ({
       >
         {options.map((option) => {
           if (name == "type") {
-            console.log(saleLease);
             return (
               <DropdownItem
                 key={option}
@@ -368,7 +366,7 @@ const PriceRangeFilter = ({ name, value, handleFilterChange, minMaxPrice }) => {
         defaultValue={[minMaxPrice.min, minMaxPrice.max]}
         formatOptions={{
           style: "currency",
-          currency: "USD",
+          currency: "CAD",
           minimumFractionDigits: 0,
           maximumFractionDigits: 0,
         }}

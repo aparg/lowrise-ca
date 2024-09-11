@@ -6,7 +6,7 @@ import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import useDeviceView from "@/helpers/useDeviceView";
 import ResaleCard from "./ResaleCard";
 import CommercialCard from "./CommercialCard";
-import PreconstructionCard from "./PreconstructionCard";
+// import PreconstructionCard from "./PreconstructionCard";
 import BlogCard from "./BlogCard";
 import CreateSchema from "@/helpers/CreateSchema";
 

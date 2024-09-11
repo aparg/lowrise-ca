@@ -69,13 +69,10 @@ export default async function Home() {
         const response = await fetch(fetchString + `&$select=${val}`, {
           next: { revalidate: 43200 },
         });
-        console.log(fetchString + `&$select=${val}`);
         const data = await response.json();
         return data.results[0];
       })
-    );
-    console.log(results.length);
-    // console.log(results);
+    ); // console.log(results);
     return results;
   };
 

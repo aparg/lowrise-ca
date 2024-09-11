@@ -47,9 +47,13 @@ export async function generateMetadata({ params }, parent) {
       images: "/favicon.ico",
     },
     title: `${capitalizeFirstLetter(
-      params.city
+      decodeURIComponent(params.city)
     )}  Real Estate MLS® Listings & Houses for Sale | Lowrise.ca`,
-    description: `Find houses for sale in ${params.city}, ON. Visit Lowrise.ca to see all the ${params.city}, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
+    description: `Find houses for sale in ${decodeURIComponent(
+      params.city
+    )}, ON. Visit Lowrise.ca to see all the ${
+      params.city
+    }, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
   };
 }
 

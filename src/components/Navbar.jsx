@@ -66,7 +66,6 @@ const Navbar = (props) => {
     const regex =
       /\/ontario\/([^/]+)\/(?:town-house|detached-homes|semi-detached-homes|duplex-homes|triplex-homes|homes)?-(?:for-sale|for-lease)/;
     const match = url.match(regex);
-    console.log(match);
     return match ? match[1] : null;
   }
 

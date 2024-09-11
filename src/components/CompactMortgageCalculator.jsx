@@ -70,7 +70,6 @@ export default function CompactMortgageCalculator({
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    console.log(value);
     setCalculatordata((prevState) => ({
       ...prevState,
       [id]: value.replace("-", "").replace("$", "").replaceAll(",", ""),
