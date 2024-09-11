@@ -20,7 +20,7 @@ const SearchBar = ({
   };
 
   const debouncedResults = useMemo(() => {
-    return debounce(async (value) => await handleChange(value), 500);
+    return debounce(async (value) => await handleChange(value), 100);
   }, []);
 
   useEffect(() => {
