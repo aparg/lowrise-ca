@@ -23,6 +23,7 @@ module.exports = {
       },
       boxShadow: {
         shuttle: "0 0 1rem 1px rgb(0 0 0 / 3%);",
+        "custom-primary": "0 0 10px rgba(238, 66, 102, 0.3)",
       },
     },
   },
