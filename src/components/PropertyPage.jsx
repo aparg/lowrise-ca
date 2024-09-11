@@ -240,7 +240,7 @@ const PropertyPage = ({ main_data }) => {
             </p>
             {isOverflowing && (
               <button
-                className="mt-2 px-2 border-2 border-black py-1 text-black font-semibold rounded-lg hover:bg-gray-200 focus:outline-none transition-colors duration-200"
+                className="mt-2 px-2 border-2 border-black py-[3px] text-white font-semibold rounded-lg bg-black hover:text-black hover:bg-gray-200 focus:outline-none transition-colors duration-200 sm:my-2 mt-2 mb-4"
                 onClick={toggleShowMore}
               >
                 {showMoreDesc ? "See Less" : "See More →"}
@@ -777,7 +777,7 @@ const PropertyPage = ({ main_data }) => {
             </div> */}
             <button
               onClick={() => setCollapse(!collapse)}
-              className="font-bold"
+              className="bg-black font-bold mt-2 px-2 border-2 border-black py-1 text-white font-semibold rounded-lg hover:text-black hover:bg-gray-200 focus:outline-none transition-colors duration-200 sm:my-2 mt-2 mb-4 "
             >
               See {collapse ? "More" : "Less"}
             </button>
