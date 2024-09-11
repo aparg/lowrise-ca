@@ -20,6 +20,7 @@ import { slugGenerator } from "@/helpers/slugGenerator";
 import PropertyDisplaySection from "@/components/PropertyDisplaySection";
 import PriceButton from "@/components/PriceButton";
 import formatCurrency from "@/helpers/formatCurrency";
+import Carousel from "@/components/Carousel";
 // import { Button } from "@nextui-org/react";
 
 const INITIAL_OFFSET = 0;
@@ -93,7 +94,12 @@ const page = async ({ params }) => {
             </div>
             <section className="padding-top w-full text-sm flex flex-col items-center justify-center gy-2 relative">
               <div className="col-12 px-0">
-                <Gallery data={imageURLs} />
+                <div className="hidden sm:block">
+                  <Gallery data={imageURLs} />
+                </div>
+                <div className="sm:hidden block mt-2">
+                  <Carousel urls={imageURLs} />
+                </div>
               </div>
               <div className="sm:max-w-[90%] w-full flex justify-center pt-0 sm:pt-4 relative">
                 <div className="grid sm:grid-cols-6 grid-cols-1 justify-between sm:justify-between w-full sm:gap-x-6 gap-y-8 sm:gap-y-0 relative">
