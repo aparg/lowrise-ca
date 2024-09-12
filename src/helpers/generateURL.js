@@ -11,7 +11,7 @@ export const generateURL = ({
   listingIDVal = null,
   embeddedSite = false,
 }) => {
-  const city = cityVal?.toLowerCase();
+  const city = cityVal?.toLowerCase().replaceAll(" ", "-");
   const houseType = houseTypeVal?.toLowerCase() || null;
   const saleLeaseType =
     Object.keys(saleLease).find((key) => key == saleLeaseVal) ||

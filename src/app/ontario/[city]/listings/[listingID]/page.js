@@ -21,6 +21,7 @@ import PropertyDisplaySection from "@/components/PropertyDisplaySection";
 import PriceButton from "@/components/PriceButton";
 import formatCurrency from "@/helpers/formatCurrency";
 import Carousel from "@/components/Carousel";
+import { generateURL } from "@/helpers/generateURL";
 // import { Button } from "@nextui-org/react";
 
 const INITIAL_OFFSET = 0;
@@ -41,7 +42,7 @@ const fetchData = async (listingID) => {
 };
 
 const page = async ({ params }) => {
-  const city = params.city;
+  const city = params.city.split("-").join(" ");
   const formattedSlug = capitalizeFirstLetter(city);
   const parts = params.listingID.split("-");
   const lastPart = parts[parts.length - 1];
@@ -61,7 +62,7 @@ const page = async ({ params }) => {
 
   const breadcrumbItems = [
     { label: "Ontario", href: "/ontario" },
-    { label: formattedSlug, href: `/ontario/${city}/homes-for-sale` },
+    { label: formattedSlug, href: generateURL({ cityVal: city }) },
     {
       label: `${main_data.Street} ${main_data.StreetName}${" "}
     ${main_data.StreetAbbreviation}`,

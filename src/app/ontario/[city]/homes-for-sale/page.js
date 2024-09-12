@@ -19,9 +19,8 @@ const FiltersWithSalesList = dynamic(
 
 const INITIAL_LIMIT = 30;
 const page = async ({ params }) => {
-  const city = params.city;
-  const formattedSlug = capitalizeFirstLetter(city);
-
+  const city = params.city.split("-").join(" ");
+  const formattedSlug = encodeURIComponent(capitalizeFirstLetter(city));
   const salesListData = await getSalesData(0, INITIAL_LIMIT, formattedSlug);
 
   return (
@@ -38,6 +37,7 @@ const page = async ({ params }) => {
 };
 
 export async function generateMetadata({ params }, parent) {
+  const formattedCity = capitalizeFirstLetter(params.city.replace("-", " "));
   return {
     ...parent,
     alternates: {
@@ -46,14 +46,8 @@ export async function generateMetadata({ params }, parent) {
     openGraph: {
       images: "/favicon.ico",
     },
-    title: `${capitalizeFirstLetter(
-      decodeURIComponent(params.city)
-    )}  Real Estate MLS® Listings & Houses for Sale | Lowrise.ca`,
-    description: `Find houses for sale in ${decodeURIComponent(
-      params.city
-    )}, ON. Visit Lowrise.ca to see all the ${
-      params.city
-    }, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
+    title: `${formattedCity}  Real Estate MLS® Listings & Houses for Sale | Lowrise.ca`,
+    description: `Find houses for sale in ${formattedCity}, ON. Visit Lowrise.ca to see all the ${params.city}, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
   };
 }
 

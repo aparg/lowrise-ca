@@ -8,7 +8,7 @@ const page = async ({ params }) => {
   let saleLeaseValue = undefined;
   let type = undefined;
 
-  const city = params.city;
+  const city = params.city.split("-").join(" ");
   const INITIAL_LIMIT = 30;
   const splitData = params.slug1.split("-");
   splitData.forEach((data) => {
@@ -39,13 +39,16 @@ const page = async ({ params }) => {
 export async function generateMetadata({ params }, parent) {
   let saleLeaseValue;
   let type;
-  if (Object.keys(saleLease).includes(params.slug1)) {
-    saleLeaseValue = params.slug1;
-  }
-  if (Object.keys(houseType).includes(params.slug1)) {
-    type = capitalizeFirstLetter(params.slug1);
-  }
-
+  const splitData = params.slug1.split("-");
+  splitData.forEach((data) => {
+    if (Object.keys(saleLease).includes(data)) {
+      saleLeaseValue = data;
+    } else if (Object.keys(houseType).includes(data) && !type) {
+      type = houseType[data].name;
+    }
+    if (saleLeaseValue && type) return;
+  });
+  const formattedCity = capitalizeFirstLetter(params.city.replace("-", " "));
   return {
     ...parent,
     alternates: {
@@ -54,12 +57,10 @@ export async function generateMetadata({ params }, parent) {
     openGraph: {
       images: "/favicon.ico",
     },
-    title: `Find ${type || ""} Real Estate ${
-      saleLeaseValue ? saleLease[saleLeaseValue]?.name : ""
-    } in ${decodeURIComponent(params.city)}`,
-    description: `Find 100+ ${
-      type || "properties"
-    } For Sale in Toronto, ON. Visit Lowrise.ca to explore  photos, prices & neighbourhood info. Check out townhomes with separate entrance, Basement, Pool and many more features including reduced prices homes.`,
+    title: `100+ ${
+      `${type} ${type !== "Town House" ? "homes" : ""}` || "properties"
+    } for sale | ${formattedCity} | Lowrise.ca `,
+    description: `100+ Detached, Semi detached & Townhomes for sale | ${formattedCity} | Lowrise.ca`,
   };
 }
 

@@ -191,6 +191,8 @@ const FiltersWithSalesList = ({
     getUpdatedData();
   }, [selected]);
 
+  const formattedCityName = capitalizeFirstLetter(decodeURIComponent(city));
+
   return (
     <>
       {
@@ -200,17 +202,16 @@ const FiltersWithSalesList = ({
               isMobileView ? "pt-2" : "pt-2"
             }`}
           >
-            {requiredType
-              ? requiredType
-              : city
-              ? capitalizeFirstLetter(decodeURIComponent(city))
-              : "Ontario"}{" "}
-            Homes {filterState.saleLease}{" "}
-            {requiredType && `in ${capitalizeFirstLetter(city) || "Ontario"}`}
-            {filterState.priceRange.max
-              ? ` under ${formatCurrency(filterState.priceRange.max)}`
-              : ""}{" "}
-            | Real Estate Updated Daily Listings
+            {`${
+              requiredType ? requiredType : city ? formattedCityName : "Ontario"
+            }
+            Homes ${filterState.saleLease} ${
+              requiredType ? "in " + formattedCityName : ""
+            } ${
+              filterState.priceRange.max
+                ? ` under ${formatCurrency(filterState.priceRange.max)}`
+                : ""
+            } | Real Estate Updated Daily Listings`}
           </h1>
           {console.log(filterState)}
           <p
