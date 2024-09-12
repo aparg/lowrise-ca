@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import Footer from "@/components/Footer";
+import Head from "next/head";
 
 export const metadata = {
   title: "Lowrise.ca",
@@ -31,6 +32,22 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-EXF0Z8ZNFH"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-EXF0Z8ZNFH');
+          `,
+          }}
+        />
+      </Head>
       <body className="bg-white text-black">
         <NextTopLoader
           color="#FF0000"
