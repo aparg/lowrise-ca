@@ -17,6 +17,10 @@ const Autosuggest = ({
   //For enter & exit animation
   // const [inProp, setInProp] = useState(false);
   const firstRender = useFirstRender();
+  const recentSearchArray =
+    typeof window !== "undefined"
+      ? JSON.parse(window.localStorage.getItem("searchValue"))
+      : [];
   return (
     <div
       className={`absolute top-0 rounded-b-[28px] border-[1px] border-[#dfe1e5] w-full bg-white p-4 shadow-custom-primary overflow-hidden ${
@@ -55,8 +59,8 @@ const Autosuggest = ({
 
       {/* RECENT SEARCHES */}
       {typeof window !== "undefined" &&
-        window.localStorage.getItem("searchValue") &&
-        JSON.parse(window.localStorage.getItem("searchValue")).length > 0 && (
+        recentSearchArray &&
+        recentSearchArray.length > 0 && (
           <section
             className={`my-1 ${
               suggestions.length > 0 && searchTerm && "border-t-1 mt-2 pt-2"
@@ -66,15 +70,12 @@ const Autosuggest = ({
               RECENT SEARCHES
             </div>
             <div>
-              {typeof window !== "undefined" &&
-                JSON.parse(window.localStorage.getItem("searchValue"))?.map(
-                  (suggestion) => (
-                    <SearchOption
-                      suggestion={JSON.parse(suggestion)}
-                      key={suggestion?.MLS || suggestion?.city}
-                    />
-                  )
-                )}
+              {[...new Set(recentSearchArray)]?.map((suggestion) => (
+                <SearchOption
+                  suggestion={JSON.parse(suggestion)}
+                  key={suggestion?.MLS || suggestion?.city}
+                />
+              ))}
             </div>
           </section>
         )}

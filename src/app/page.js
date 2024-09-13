@@ -72,7 +72,7 @@ export default async function Home() {
         const data = await response.json();
         return data.results[0];
       })
-    ); // console.log(results);
+    );
     return results;
   };
 
@@ -90,8 +90,7 @@ export default async function Home() {
       <section className="mx-auto max-w-[90%]">
         <PropertyDisplaySection
           title="Explore homes in Toronto"
-          subtitle="Where marshmallows meet their toasty fate and cold feet find
-                their cozy soulmates."
+          subtitle={""}
           exploreAllLink={generateURL({ cityVal: "Toronto" })}
         >
           <Slider data={TORONTOHOMES} type="resale" />

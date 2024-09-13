@@ -81,7 +81,6 @@ const Navbar = (props) => {
   const inCity = cityName
     ? ` in ${decodeURIComponent(capitalizeFirstLetter(cityName))}`
     : "";
-  console.log(cityName);
   const buyOpts = [
     /* {
       name: "Semi-detached Homes for Sale",

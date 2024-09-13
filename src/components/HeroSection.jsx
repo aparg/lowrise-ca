@@ -54,8 +54,15 @@ const HeroSection = () => {
                 />
               ))}
             </div> */}
-            <div className="w-[90%] sm:w-[60%] mt-10">
+            <div className="w-[90%] sm:w-[60%] mt-10 hidden sm:block">
               <SearchBar numberOfSuggestions={3} height={60} />
+            </div>
+            <div className="w-[90%] sm:w-[60%] mt-10 block sm:hidden">
+              <SearchBar
+                numberOfSuggestions={3}
+                height={60}
+                placeholder="City, Neighbourhood, Postal Code"
+              />
             </div>
           </div>
         </div>

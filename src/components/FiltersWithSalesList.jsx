@@ -77,9 +77,6 @@ const FiltersWithSalesList = ({
       // Separate sales data for 24 hours ago and remaining days
       const hotSales = [];
       const remainingSales = [];
-      {
-        console.log(salesData);
-      }
       salesData?.forEach((data) => {
         if (is24HoursAgo(data.TimestampSql) && hotSales.length < 5) {
           hotSales.push(data);
@@ -179,7 +176,6 @@ const FiltersWithSalesList = ({
 
   useEffect(() => {
     async function getUpdatedData() {
-      console.log("the page was changed");
       await fetchFilteredData(
         {
           ...initialState,
@@ -213,7 +209,6 @@ const FiltersWithSalesList = ({
                 : ""
             } | Real Estate Updated Daily Listings`}
           </h1>
-          {console.log(filterState)}
           <p
             className="text-sm mb-5 mt-1"
             style={isMobileView ? { fontSize: "0.9rem" } : {}}

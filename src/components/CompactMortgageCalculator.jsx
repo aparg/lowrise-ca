@@ -103,7 +103,6 @@ export default function CompactMortgageCalculator({
         <div className="mb-10"></div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="grid grid-cols-1 gap-4">
-            {console.log(parseFloat(calculatordata.hvalue.replaceAll(",", "")))}
             <FloatingLabelInput
               id="hvalue"
               label="Home Value"
