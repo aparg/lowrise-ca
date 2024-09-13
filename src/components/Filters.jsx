@@ -75,8 +75,8 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
       };
     } else {
       return {
-        min: 400000,
-        max: 3000000,
+        min: 300000,
+        max: 1500000,
       };
     }
   }, [filterState]);
@@ -202,8 +202,8 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
                 value={filterState.priceRange}
                 handleFilterChange={handleFilterChange}
                 minMaxPrice={{
-                  min: 40000,
-                  max: 10000000,
+                  min: 300000,
+                  max: 1500000,
                 }}
               />
             </div>
@@ -559,7 +559,7 @@ const PriceRangeFilterBottom = ({
     (price) => {
       return Number(price).toLocaleString("en-US", {
         style: "currency",
-        currency: "USD",
+        currency: "CAD",
         maximumFractionDigits: 0,
       });
     },

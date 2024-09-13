@@ -121,7 +121,7 @@ const PropertyPage = ({ main_data }) => {
                 <div className="flex flex-col">
                   <div className="flex flex-col items-start">
                     <div className="flex flex-grid items-center">
-                      <h3 className="text-5xl font-bold fs-1">C{price}</h3>
+                      <h3 className="text-5xl font-bold fs-1">{price}</h3>
                       {/* <div className="flex items-center">
                         <Image
                           width={20}
@@ -216,7 +216,7 @@ const PropertyPage = ({ main_data }) => {
         {/* <div className="border-b border-[0.5px] border-gray-200 mt-2 sm:mt-0 sm:ml-4"></div> */}
         {/* Description */}
         <div className={`${isMobileView ? "pt-4 mt-8" : "mt-8 pt-4"}`}>
-          <div className="border border-0 rounded-md bg-gray-100 p-3 sm:p-4">
+          <div className="border border-0 rounded-md bg-very-light-gray p-3 sm:p-4">
             <h2 className="font-extrabold text-2xl sm:text-4xl">
               Property Description - {main_data.Street} {main_data.StreetName}{" "}
               {main_data.StreetAbbreviation}
@@ -342,7 +342,7 @@ const PropertyPage = ({ main_data }) => {
         <div
           className={`${isMobileView ? "pt-4 pb-4 mt-8" : "mt-8 pt-4 pb-4"}`}
         >
-          <div className="p-4 rounded-md bg-gray-100  border-0">
+          <div className="p-4 rounded-md bg-very-light-gray  border-0">
             <h2 className="font-extrabold pb-3 text-2xl sm:text-4xl">
               Home Overview
             </h2>
@@ -787,7 +787,7 @@ const PropertyPage = ({ main_data }) => {
         {main_data?.Extras && (
           <div className={`${isMobileView ? "pt-4 pb-4" : "pt-4 pb-4"}`}>
             <div className="col-md-12 px-0">
-              <div className="container bg-gray-100 rounded-md p-4 border-0">
+              <div className="container bg-very-light-gray rounded-md p-4 border-0">
                 <h2 className="font-bold text-xl sm:text-xl">Extras</h2>
                 <div className="flex flex-grid text-lg py-1 leading-8">
                   {main_data.Extras}

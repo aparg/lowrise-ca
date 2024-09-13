@@ -11,7 +11,7 @@ export default function CompactMortgageCalculator({
 }) {
   const [intrest, setIntrest] = useState(0);
   const [calculatordata, setCalculatordata] = useState({
-    hvalue: formatCurrency(parseFloat(price)) || "",
+    hvalue: price || "",
     dpay: "",
     dper: "20",
     loanamt: "",
@@ -77,6 +77,7 @@ export default function CompactMortgageCalculator({
   };
 
   const { isMobileView } = useDeviceView();
+  const priceNumber = formatCurrency(calculatordata.hvalue).replace("$", "");
 
   return (
     <div
@@ -93,7 +94,7 @@ export default function CompactMortgageCalculator({
           Mortgage <span className="text-primary-green">Calculator</span>
         </h2>
         <p
-          className={`text-gray-500 mt-1  ${
+          className={`text-gray-500 mt-2  ${
             align === "center" ? "text-center" : ""
           }`}
         >
@@ -102,17 +103,11 @@ export default function CompactMortgageCalculator({
         <div className="mb-10"></div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="grid grid-cols-1 gap-4">
-            {console.log(calculatordata.hvalue.replaceAll(",", ""))}
+            {console.log(parseFloat(calculatordata.hvalue.replaceAll(",", "")))}
             <FloatingLabelInput
               id="hvalue"
               label="Home Value"
-              value={
-                parseFloat(calculatordata.hvalue)
-                  ? formatCurrency(
-                      parseFloat(calculatordata.hvalue.replaceAll(",", ""))
-                    )
-                  : ""
-              }
+              value={priceNumber ? priceNumber : ""}
               onChange={handleChange}
               prefix="$"
             />
@@ -120,7 +115,7 @@ export default function CompactMortgageCalculator({
               <FloatingLabelInput
                 id="dpay"
                 label="Down Payment"
-                value={calculatordata.dpay}
+                value={formatCurrency(calculatordata.dpay).replace("$", "")}
                 onChange={handleChange}
                 prefix="$"
               />
@@ -135,7 +130,7 @@ export default function CompactMortgageCalculator({
             <FloatingLabelInput
               id="loanamt"
               label="Mortgage Amount"
-              value={formatCurrency(calculatordata.loanamt)}
+              value={formatCurrency(calculatordata.loanamt).replace("$", "")}
               onChange={handleChange}
               prefix="$"
               disabled

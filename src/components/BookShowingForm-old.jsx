@@ -69,7 +69,10 @@ export default function BookShowingForm(props) {
     }
   }, []);
   return (
-    <div className="fixed-title pe-0 shadow-lg sticky top-20" id="contact">
+    <div
+      className="fixed-title pe-0 shadow-lg sticky top-20 shadow-black-box-shadow"
+      id="contact"
+    >
       <div className="p-6 pb-0 box-shadow-custom rounded-mine bordt bg-white border-[#e8e9ea] flex-col items-center ">
         <h5 className="font-extrabold text-center text-3xl">Book a Showing!</h5>
         <p className="text-center  text-[1.1rem]">

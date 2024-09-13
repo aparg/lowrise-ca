@@ -20,10 +20,12 @@ module.exports = {
         "light-lime": "#e1f6b2",
         "primary-red": "#eb7e6c",
         "medium-black": "#222222",
+        "very-light-gray": "#f9f9f9",
       },
       boxShadow: {
         shuttle: "0 0 1rem 1px rgb(0 0 0 / 3%);",
         "custom-primary": "0 0 10px rgba(238, 66, 102, 0.3)",
+        "black-box-shadow": "rgba(0, 0, 0, 0.12) 20px 20px 20px",
       },
     },
   },
@@ -42,10 +44,5 @@ module.exports = {
         },
       });
     }),
-  ],
-  safelist: [
-    {
-      pattern: /bg-\[#([0-9a-fA-F]{6})\]/,
-    },
   ],
 };
