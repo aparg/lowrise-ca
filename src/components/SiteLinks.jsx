@@ -23,6 +23,7 @@ const SiteLinks = ({ type }) => {
                     href={generateURL({
                       houseTypeVal: value,
                       saleLeaseVal: type,
+                      cityVal: city,
                     })}
                   >
                     {value} Homes in {city} for {type}

@@ -11,7 +11,7 @@ export const generateURL = ({
   embeddedSite = false,
 }) => {
   const city = cityVal?.toLowerCase().replaceAll(" ", "-");
-  const houseType = houseTypeVal?.toLowerCase() || null;
+  let houseType = houseTypeVal?.toLowerCase() || null;
   if (houseType == "house type") {
     houseType = null; //edge case for housetype object where housetype option represents nothing
   }
