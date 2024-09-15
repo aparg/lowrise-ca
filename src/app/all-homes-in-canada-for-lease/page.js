@@ -7,7 +7,7 @@ const page = () => {
 
 export async function generateMetadata() {
   return {
-    title: "All homes for sale lease in Canada | Lowrise.ca",
+    title: "All homes for lease in Canada | Lowrise.ca",
     description: "50000+ homes in Canada",
   };
 }
