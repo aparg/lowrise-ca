@@ -220,7 +220,7 @@ const FiltersWithSalesList = ({
               "for " + capitalizeFirstLetter(saleLeaseVal),
               ,
             ].join(" ") + " "}{" "}
-            {city ? ` | ${capitalizeFirstLetter(city)}` : ""}| Lowrise.ca
+            {city ? ` | ${capitalizeFirstLetter(city)}` : ""} | Lowrise.ca
           </h1>
           <h2
             className="text-sm mb-5 mt-1"

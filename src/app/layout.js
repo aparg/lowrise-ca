@@ -32,7 +32,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
+      {/* <Head>
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-EXF0Z8ZNFH"
@@ -47,7 +47,7 @@ export default function RootLayout({ children }) {
           `,
           }}
         />
-      </Head>
+      </Head> */}
       <body className="bg-white text-black">
         <NextTopLoader
           color="#FF0000"
