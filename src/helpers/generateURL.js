@@ -12,6 +12,9 @@ export const generateURL = ({
 }) => {
   const city = cityVal?.toLowerCase().replaceAll(" ", "-");
   const houseType = houseTypeVal?.toLowerCase() || null;
+  if (houseType == "house type") {
+    houseType = null; //edge case for housetype object where housetype option represents nothing
+  }
   const saleLeaseType =
     Object.keys(saleLease).find((key) => key == saleLeaseVal) ||
     Object.keys(saleLease)
