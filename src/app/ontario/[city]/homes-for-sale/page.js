@@ -49,8 +49,9 @@ export async function generateMetadata({ params }, parent) {
       images: "/favicon.ico",
     },
     title: [
-      "100+ Detached, Semi detached & Townhomes for sale",
-      formattedCity,
+      `100+ ${formattedCity} Detached, Semi detached & Townhomes for sale`,
+      ,
+      "New Listings",
       "Lowrise.ca",
     ].join("|"),
     description: `Find houses for sale in ${formattedCity}, ON. Visit Lowrise.ca to see all the ${params.city}, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
