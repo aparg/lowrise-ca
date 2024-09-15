@@ -48,7 +48,7 @@ const Autosuggest = ({
                 <SearchOption
                   suggestion={suggestion}
                   setSearchTerm={setSearchTerm}
-                  key={suggestion}
+                  key={suggestion?.MLS || suggestion?.city}
                 />
               );
             })}
