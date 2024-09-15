@@ -188,6 +188,11 @@ const FiltersWithSalesList = ({
   }, [selected]);
 
   const formattedCityName = capitalizeFirstLetter(decodeURIComponent(city));
+  const homeText = !requiredType
+    ? "Homes"
+    : !requiredType?.toLowerCase().includes("house")
+    ? "Homes"
+    : "";
 
   return (
     <>
@@ -208,13 +213,14 @@ const FiltersWithSalesList = ({
                 ? ` under ${formatCurrency(filterState.priceRange.max)}`
                 : ""
             } | Real Estate Updated Daily Listings`} */}
-            100+ {capitalizeFirstLetter(requiredType) || ""}{" "}
-            {!requiredType
-              ? "Homes"
-              : !requiredType?.toLowerCase().includes("house")
-              ? "Homes"
-              : ""}{" "}
-            for Sale | {capitalizeFirstLetter(city)} | Lowrise.ca
+            100+{" "}
+            {[
+              capitalizeFirstLetter(requiredType),
+              homeText,
+              "for " + capitalizeFirstLetter(saleLeaseVal),
+              ,
+            ].join(" ") + " "}{" "}
+            {city ? ` | ${capitalizeFirstLetter(city)}` : ""}| Lowrise.ca
           </h1>
           <h2
             className="text-sm mb-5 mt-1"
