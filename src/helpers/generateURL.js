@@ -22,7 +22,6 @@ export const generateURL = ({
     return `${
       embeddedSite ? "/embedded-site" : ""
     }/ontario/${city}/listings/${listingIDVal}`;
-
   let finalLink = `${embeddedSite ? "/embedded-site" : ""}/ontario`;
 
   if (city) finalLink += "/" + city;
