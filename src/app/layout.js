@@ -3,6 +3,7 @@ import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import Footer from "@/components/Footer";
 import Head from "next/head";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 export const metadata = {
   title: "Lowrise.ca",
@@ -61,6 +62,7 @@ export default function RootLayout({ children }) {
           shadow="0 0 10px #00A1FF,0 0 5px #00A1FF"
         />
         <Navbar />
+        <GoogleAnalytics />
         <main className="">{children}</main>
         <Footer />
       </body>
