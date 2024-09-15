@@ -22,13 +22,15 @@ const page = async ({ params }) => {
   const city = params.city.split("-").join(" ");
   const formattedSlug = encodeURIComponent(capitalizeFirstLetter(city));
   const salesListData = await getSalesData(0, INITIAL_LIMIT, formattedSlug);
-
+  const saleLeaseVal = "sale";
   return (
     <>
       <div className="container-fluid mt-4">
         <div className="">
           <div className="">
-            <FiltersWithSalesList {...{ salesListData, INITIAL_LIMIT, city }} />
+            <FiltersWithSalesList
+              {...{ salesListData, INITIAL_LIMIT, city, saleLeaseVal }}
+            />
           </div>
         </div>
       </div>

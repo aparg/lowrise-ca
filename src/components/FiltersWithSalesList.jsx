@@ -198,7 +198,7 @@ const FiltersWithSalesList = ({
               isMobileView ? "pt-2" : "pt-2"
             }`}
           >
-            {`${
+            {/* {`${
               requiredType ? requiredType : city ? formattedCityName : "Ontario"
             }
             Homes ${filterState.saleLease} ${
@@ -207,27 +207,25 @@ const FiltersWithSalesList = ({
               filterState.priceRange.max
                 ? ` under ${formatCurrency(filterState.priceRange.max)}`
                 : ""
-            } | Real Estate Updated Daily Listings`}
+            } | Real Estate Updated Daily Listings`} */}
+            100+ {capitalizeFirstLetter(requiredType) || ""}{" "}
+            {!requiredType
+              ? "Homes"
+              : !requiredType?.toLowerCase().includes("house")
+              ? "Homes"
+              : ""}{" "}
+            for Sale | {capitalizeFirstLetter(city)} | Lowrise.ca
           </h1>
-          <p
+          <h2
             className="text-sm mb-5 mt-1"
             style={isMobileView ? { fontSize: "0.9rem" } : {}}
           >
-            Refine your{" "}
-            <span className="text-capitalize">
-              {city
-                ? capitalizeFirstLetter(decodeURIComponent(city))
-                : "Ontario"}
-            </span>{" "}
-            real estate search by price, bedroom, or type (house, townhouse, or
-            condo). View up-to-date MLS® listings in{" "}
-            <span className="text-capitalize">
-              {city
-                ? capitalizeFirstLetter(decodeURIComponent(city))
-                : "Ontario"}
-            </span>
-            .
-          </p>
+            500+ {capitalizeFirstLetter(city)}{" "}
+            {capitalizeFirstLetter(requiredType) || ""} homes for{" "}
+            {saleLeaseVal || "sale"}. Book a showing for affordable homes with
+            pools, finished basements, walkouts. Prices from $1 to $5,000,000.
+            Open houses available.
+          </h2>
 
           <div
             className="flex sticky top-0 z-[998] bg-white items-center w-full flex-wrap overflow-visible"

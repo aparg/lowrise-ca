@@ -57,10 +57,10 @@ export async function generateMetadata({ params }, parent) {
     openGraph: {
       images: "/favicon.ico",
     },
-    title: `100+ ${
-      `${type} ${type !== "Town House" ? "homes" : ""}` || "properties"
-    } for sale | ${formattedCity} | Lowrise.ca `,
-    description: `100+ Detached, Semi detached & Townhomes for sale | ${formattedCity} | Lowrise.ca`,
+    title: `100+ ${formattedCity} ${capitalizeFirstLetter(
+      type
+    )} for Sale | New Listings | Lowrise.ca `,
+    description: `500+ ${formattedCity} ${type} homes for sale. Book a showing for affordable homes with pools, finished basements, walkouts. Prices from $1 to $5,000,000. Open houses available.`,
   };
 }
 

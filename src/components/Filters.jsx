@@ -24,7 +24,7 @@ import {
 import { bedCount, saleLease, houseType, washroomCount } from "@/constant";
 import useDeviceView from "@/helpers/useDeviceView";
 import { FaChevronDown } from "react-icons/fa";
-import { Link } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { generateURL } from "@/helpers/generateURL";
 // import Dropdown from "./Dropdown";
@@ -139,6 +139,8 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           name="saleLease"
           value={filterState.saleLease}
           handleFilterChange={handleFilterChange}
+          city={filterState.city}
+          type={filterState.type}
         />
 
         <div className="rounded-full overflow-hidden mr-4 ">
@@ -682,6 +684,8 @@ const IndividualFilterButton = ({
   name,
   value,
   handleFilterChange,
+  city,
+  type,
 }) => {
   const [activeFilter, setActiveFilter] = useState(value);
 
@@ -707,10 +711,18 @@ const IndividualFilterButton = ({
                 ? `border-primary-green text-white ${bgColor[name]}`
                 : "border-black"
             }`}
-            onClick={() => handleClick(name, option)}
+            // onClick={() => handleClick(name, option)}
             style={{ border: "2px solid #e5e7eb" }}
           >
-            {option}
+            <Link
+              href={generateURL({
+                saleLeaseVal: option,
+                cityVal: city,
+                houseTypeVal: type,
+              })}
+            >
+              {option}
+            </Link>
           </div>
         );
       })}
