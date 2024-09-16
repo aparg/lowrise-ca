@@ -55,6 +55,17 @@ const Carousel = ({ urls }) => {
         >
           <ChevronRight className="w-6 h-6 text-gray-800" />
         </button>
+        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {urls.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => scrollToImage(index)}
+              className={`w-2 h-2 rounded-full ${
+                index === currentIndex ? "bg-white" : "bg-white/50"
+              }`}
+            />
+          ))}
+        </div>
       </div>
       <div className="relative flex justify-center">
         {thumbnailStart > 0 && (
