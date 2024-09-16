@@ -37,7 +37,7 @@ const Carousel = ({ urls }) => {
 
   return (
     <div className="relative w-full max-w-2xl mx-auto">
-      <div className="relative aspect-16/14 mb-4">
+      <div className="relative aspect-16/14 mb-4 rounded-lg overflow-hidden">
         <img
           src={urls[currentIndex]}
           alt={`Slide ${currentIndex + 1}`}
@@ -69,7 +69,7 @@ const Carousel = ({ urls }) => {
           {urls.slice(thumbnailStart, thumbnailStart + 4).map((url, index) => (
             <div
               key={thumbnailStart + index}
-              className={`w-20 h-20 flex-shrink-0 cursor-pointer ${
+              className={`w-20 h-20 flex-shrink-0 cursor-pointer rounded-lg overflow-hidden ${
                 currentIndex === thumbnailStart + index
                   ? "border-4 border-blue-500"
                   : ""
