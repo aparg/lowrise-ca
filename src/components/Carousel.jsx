@@ -37,7 +37,7 @@ const Carousel = ({ urls }) => {
 
   return (
     <div className="relative w-full max-w-2xl mx-auto">
-      <div className="relative aspect-video mb-4">
+      <div className="relative aspect-16/14 mb-4">
         <img
           src={urls[currentIndex]}
           alt={`Slide ${currentIndex + 1}`}

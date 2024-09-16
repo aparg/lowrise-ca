@@ -27,6 +27,9 @@ module.exports = {
         "custom-primary": "0 0 10px rgba(238, 66, 102, 0.3)",
         "black-box-shadow": "rgba(0, 0, 0, 0.12) 20px 20px 20px",
       },
+      aspectRatio: {
+        "16/14": "16/14",
+      },
     },
   },
   plugins: [
