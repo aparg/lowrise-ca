@@ -1,88 +1,100 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const ImageCarousel = ({ urls }) => {
-  const scrollContainerRef = useRef(null);
+const Carousel = ({ urls }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const scrollToImage = (index) => {
-    scrollContainerRef.current.scrollTo({
-      left: index * scrollContainerRef.current.offsetWidth,
-      behavior: "smooth",
-    });
-  };
-
-  const handleScroll = () => {
-    const index = Math.round(
-      scrollContainerRef.current.scrollLeft /
-        scrollContainerRef.current.offsetWidth
-    );
-    setCurrentIndex(index);
-  };
+  const [thumbnailStart, setThumbnailStart] = useState(0);
 
   useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
-    scrollContainer.addEventListener("scroll", handleScroll);
-    return () => scrollContainer.removeEventListener("scroll", handleScroll);
-  }, []);
+    // Ensure the current image is always within the visible thumbnails
+    if (currentIndex < thumbnailStart) {
+      setThumbnailStart(currentIndex);
+    } else if (currentIndex >= thumbnailStart + 4) {
+      setThumbnailStart(currentIndex - 3);
+    }
+  }, [currentIndex]);
 
   const nextSlide = () => {
-    const newIndex = (currentIndex + 1) % urls.length;
-    scrollToImage(newIndex);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % urls.length);
   };
 
   const prevSlide = () => {
-    const newIndex = (currentIndex - 1 + urls.length) % urls.length;
-    scrollToImage(newIndex);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + urls.length) % urls.length);
+  };
+
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
+  const nextThumbnails = () => {
+    setThumbnailStart((prev) => Math.min(prev + 1, urls.length - 4));
+  };
+
+  const prevThumbnails = () => {
+    setThumbnailStart((prev) => Math.max(prev - 1, 0));
   };
 
   return (
     <div className="relative w-full max-w-2xl mx-auto">
-      <div
-        ref={scrollContainerRef}
-        className="overflow-x-auto flex snap-x snap-mandatory"
-        style={{
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-          WebkitOverflowScrolling: "touch",
-        }}
-      >
-        {urls.map((url, index) => (
-          <div key={index} className="w-full flex-shrink-0 snap-center">
-            <img
-              src={url}
-              alt={`Slide ${index + 1}`}
-              className="w-full h-64 object-cover"
-            />
-          </div>
-        ))}
+      <div className="relative aspect-video mb-4">
+        <img
+          src={urls[currentIndex]}
+          alt={`Slide ${currentIndex + 1}`}
+          className="w-full h-full object-cover"
+        />
+        <button
+          onClick={prevSlide}
+          className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-all"
+        >
+          <ChevronLeft className="w-6 h-6 text-gray-800" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-all"
+        >
+          <ChevronRight className="w-6 h-6 text-gray-800" />
+        </button>
       </div>
-      <button
-        onClick={prevSlide}
-        className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-all"
-      >
-        <ChevronLeft className="w-6 h-6 text-gray-800" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-all"
-      >
-        <ChevronRight className="w-6 h-6 text-gray-800" />
-      </button>
-      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {urls.map((_, index) => (
+      <div className="relative flex justify-center">
+        {thumbnailStart > 0 && (
           <button
-            key={index}
-            onClick={() => scrollToImage(index)}
-            className={`w-3 h-3 rounded-full ${
-              index === currentIndex ? "bg-white" : "bg-white/50"
-            }`}
-          />
-        ))}
+            onClick={prevThumbnails}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-all"
+          >
+            <ChevronLeft className="w-4 h-4 text-gray-800" />
+          </button>
+        )}
+        <div className="flex space-x-2 overflow-hidden">
+          {urls.slice(thumbnailStart, thumbnailStart + 4).map((url, index) => (
+            <div
+              key={thumbnailStart + index}
+              className={`w-20 h-20 flex-shrink-0 cursor-pointer ${
+                currentIndex === thumbnailStart + index
+                  ? "border-4 border-blue-500"
+                  : ""
+              }`}
+              onClick={() => goToSlide(thumbnailStart + index)}
+            >
+              <img
+                src={url}
+                alt={`Thumbnail ${thumbnailStart + index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+        {thumbnailStart < urls.length - 4 && (
+          <button
+            onClick={nextThumbnails}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-all"
+          >
+            <ChevronRight className="w-4 h-4 text-gray-800" />
+          </button>
+        )}
       </div>
     </div>
   );
 };
 
-export default ImageCarousel;
+export default Carousel;

@@ -22,6 +22,7 @@ import PriceButton from "@/components/PriceButton";
 import formatCurrency from "@/helpers/formatCurrency";
 import Carousel from "@/components/Carousel";
 import { generateURL } from "@/helpers/generateURL";
+import MobileGallery from "@/components/MobileGallery";
 // import { Button } from "@nextui-org/react";
 
 const INITIAL_OFFSET = 0;
@@ -100,6 +101,7 @@ const page = async ({ params }) => {
                 </div>
                 <div className="sm:hidden block mt-2">
                   <Carousel urls={imageURLs} />
+                  {/* <MobileGallery data={imageURLs} /> */}
                 </div>
               </div>
               <div className="sm:max-w-[90%] w-full flex justify-center pt-0 sm:pt-4 relative">
@@ -116,7 +118,7 @@ const page = async ({ params }) => {
                   </div>
 
                   <div
-                    className="sm:col-span-2 col-span-2 pt-5 relative"
+                    className="sm:col-span-2 col-span-2 relative"
                     id="contact"
                   >
                     <BookShowingForm address={address}></BookShowingForm>

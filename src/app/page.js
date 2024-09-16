@@ -140,7 +140,7 @@ export default async function Home() {
         >
           <Slider data={BLOGPOSTS.slice(0, 4)} type="blog" />
         </PropertyDisplaySection>
-        <div className="flex flex-col items-center mt-40 sm:mt-40"></div>
+        {/* <div className="flex flex-col items-center mt-40 sm:mt-40"></div> */}
         <ContactForm />
       </section>
       {/* pass props type="commercial" only for commercial card slider, default is residential */}
