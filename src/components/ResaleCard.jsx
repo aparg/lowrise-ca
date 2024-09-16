@@ -136,7 +136,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                 {/* <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-50"></div> */}
               </div>
 
-              <div className="absolute bottom-3 left-2 flex flex-row">
+              <div className="absolute bottom-3 left-2 flex flex-row z-20">
                 <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
                   {curElem.TypeOwn1Out}{" "}
                 </div>
