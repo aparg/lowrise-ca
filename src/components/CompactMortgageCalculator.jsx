@@ -86,12 +86,8 @@ export default function CompactMortgageCalculator({
       }  bg-white rounded-lg overflow-hidden mb-20`}
     >
       <div className="">
-        <h2
-          className={`text-5xl font-extrabold ${
-            align == "center" ? "text-center" : ""
-          }`}
-        >
-          Mortgage <span className="text-primary-green">Calculator</span>
+        <h2 className={`font-extrabold pb-3 text-2xl sm:text-4xl`}>
+          Mortgage Calculator
         </h2>
         <p
           className={`text-gray-500 mt-2  ${
@@ -100,7 +96,7 @@ export default function CompactMortgageCalculator({
         >
           Calculate your monthly mortgage payments based on the home value,
         </p>
-        <div className="mb-10"></div>
+        {/* <div className="mb-10"></div> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="grid grid-cols-1 gap-4">
             <FloatingLabelInput
@@ -204,8 +200,8 @@ export default function CompactMortgageCalculator({
                   <VictoryLabel
                     textAnchor="middle"
                     style={{ fontSize: 16 }}
-                    x={175}
-                    y={100}
+                    x={isMobileView ? 180 : 190}
+                    y={isMobileView ? 100 : 145}
                     text={"$" + calculated + "/mo"}
                   />
                 </>

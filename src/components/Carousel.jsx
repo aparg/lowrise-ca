@@ -71,7 +71,7 @@ const Carousel = ({ urls }) => {
           <ChevronLeft className="w-4 h-4 text-gray-800" />
         </button>
         <div
-          className="flex space-x-2 max-w-[20rem] overflow-x-auto scrollbar-hide py-2"
+          className="flex space-x-2 max-w-[22rem] overflow-x-auto scrollbar-hide py-2 px-1"
           ref={scrollRef}
         >
           {urls.map((url, index) => (
