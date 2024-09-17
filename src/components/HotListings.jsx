@@ -57,7 +57,7 @@ const HotListings = ({ salesData }) => {
 
       <div className="overflow-hidden">
         <div
-          className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-x-4 mt-1 mb-4 gap-y-3 sm:gap-y-0"
+          className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-x-4 mt-3 mb-4 gap-y-3 sm:gap-y-0"
           id="slider"
           ref={scrollRef}
         >
