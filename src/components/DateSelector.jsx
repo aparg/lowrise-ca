@@ -116,7 +116,7 @@ const DateSelector = () => {
   return (
     <div>
       <div className="flex justify-center">
-        <span className="tour-type rounded-full bg-light-lime px-1 py-1">
+        <span className="tour-type rounded-full bg-light-lime px-1 py-1 mt-2 mb-6">
           <BookingType handleChange={handleChange} />
         </span>
       </div>
@@ -162,7 +162,7 @@ const DateSelector = () => {
         {/* <div className="text-md text-center my-2 text-gray-700">
               No obligation or purchase necessary, cancel at any time
             </div> */}
-        <div className="relative mb-1">
+        <div className="relative mb-1 mt-4">
           <input
             type="text"
             name="name"
