@@ -1,17 +1,22 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Carousel = ({ urls }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [thumbnailStart, setThumbnailStart] = useState(0);
+  const scrollRef = useRef();
 
   useEffect(() => {
-    // Ensure the current image is always within the visible thumbnails
-    if (currentIndex < thumbnailStart) {
-      setThumbnailStart(currentIndex);
-    } else if (currentIndex >= thumbnailStart + 4) {
-      setThumbnailStart(currentIndex - 3);
+    // Scroll to the current thumbnail
+    if (scrollRef.current) {
+      const thumbnail = scrollRef.current.children[currentIndex];
+      if (thumbnail) {
+        thumbnail.scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest",
+        });
+      }
     }
   }, [currentIndex]);
 
@@ -27,17 +32,19 @@ const Carousel = ({ urls }) => {
     setCurrentIndex(index);
   };
 
-  const nextThumbnails = () => {
-    setThumbnailStart((prev) => Math.min(prev + 1, urls.length - 4));
-  };
-
-  const prevThumbnails = () => {
-    setThumbnailStart((prev) => Math.max(prev - 1, 0));
+  const scrollThumbnails = (direction) => {
+    if (scrollRef.current) {
+      const scrollAmount = 100; // Adjust this value to control scroll distance
+      scrollRef.current.scrollBy({
+        left: direction === "next" ? scrollAmount : -scrollAmount,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
     <div className="relative w-full max-w-2xl mx-auto">
-      <div className="relative aspect-16/14 mb-4 rounded-lg overflow-hidden">
+      <div className="relative aspect-16/14 mb-2 rounded-lg overflow-hidden">
         <img
           src={urls[currentIndex]}
           alt={`Slide ${currentIndex + 1}`}
@@ -55,54 +62,40 @@ const Carousel = ({ urls }) => {
         >
           <ChevronRight className="w-6 h-6 text-gray-800" />
         </button>
-        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {urls.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => scrollToImage(index)}
-              className={`w-2 h-2 rounded-full ${
-                index === currentIndex ? "bg-white" : "bg-white/50"
-              }`}
-            />
-          ))}
-        </div>
       </div>
       <div className="relative flex justify-center">
-        {thumbnailStart > 0 && (
-          <button
-            onClick={prevThumbnails}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-all"
-          >
-            <ChevronLeft className="w-4 h-4 text-gray-800" />
-          </button>
-        )}
-        <div className="flex space-x-2 overflow-hidden">
-          {urls.slice(thumbnailStart, thumbnailStart + 4).map((url, index) => (
+        <button
+          onClick={() => scrollThumbnails("prev")}
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-all"
+        >
+          <ChevronLeft className="w-4 h-4 text-gray-800" />
+        </button>
+        <div
+          className="flex space-x-2 max-w-[20rem] overflow-x-auto scrollbar-hide py-2"
+          ref={scrollRef}
+        >
+          {urls.map((url, index) => (
             <div
-              key={thumbnailStart + index}
+              key={index}
               className={`w-20 h-20 flex-shrink-0 cursor-pointer rounded-lg overflow-hidden ${
-                currentIndex === thumbnailStart + index
-                  ? "border-4 border-blue-500"
-                  : ""
+                currentIndex === index ? "ring-4 ring-blue-500" : ""
               }`}
-              onClick={() => goToSlide(thumbnailStart + index)}
+              onClick={() => goToSlide(index)}
             >
               <img
                 src={url}
-                alt={`Thumbnail ${thumbnailStart + index + 1}`}
+                alt={`Thumbnail ${index + 1}`}
                 className="w-full h-full object-cover"
               />
             </div>
           ))}
         </div>
-        {thumbnailStart < urls.length - 4 && (
-          <button
-            onClick={nextThumbnails}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-all"
-          >
-            <ChevronRight className="w-4 h-4 text-gray-800" />
-          </button>
-        )}
+        <button
+          onClick={() => scrollThumbnails("next")}
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-all"
+        >
+          <ChevronRight className="w-4 h-4 text-gray-800" />
+        </button>
       </div>
     </div>
   );
