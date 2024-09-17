@@ -276,18 +276,18 @@ const PropertyPage = ({ main_data }) => {
               }`}
             >
               <div className="col-span-1 md:col-span-1 border-b border-gray-200 py-2 md:py-3 pr-0">
-                <p className="font-bold text-black">Last check for updates</p>
-              </div>
-              <div className="col-span-1 md:col-span-1 border-b border-gray-200 py-2 md:py-3 pl-0">
-                <p className="text-black">
-                  <TimeAgo modificationTimestamp={main_data.TimestampSql} />
-                </p>
-              </div>
-              <div className="col-span-1 md:col-span-1 border-b border-gray-200 py-2 md:py-3 pr-0">
                 <p className="font-bold text-black">Property type</p>
               </div>
               <div className="col-span-1 md:col-span-1 border-b border-gray-200 py-2 md:py-3 pl-0">
                 <p className="text-black">{main_data.TypeOwn1Out}</p>
+              </div>
+              <div className="col-7 col-md border-b-[0.1px] border-gray-200 border-sm py-2 md:py-3 pr-0">
+                <p className="cardd-subtitle_bg-black font-bold">Lot size</p>
+              </div>
+              <div className="col-5 col-md border-b-[0.1px] border-gray-200 border-sm py-2 md:py-3 pl-0">
+                <p className="cardd-subtitle_bg-black">
+                  {main_data.LotFront} X {main_data.LotDepth} Feet
+                </p>
               </div>
             </div>
             <div
@@ -302,10 +302,14 @@ const PropertyPage = ({ main_data }) => {
                 <p className="cardd-subtitle_bg-black">{main_data.Style}</p>
               </div>
               <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Community</p>
+                <p className="cardd-subtitle_bg-black font-bold">
+                  Approx. Area
+                </p>
               </div>
               <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">{main_data.Community}</p>
+                <p className="cardd-subtitle_bg-black">
+                  {main_data.ApproxSquareFootage} Sqft
+                </p>
               </div>
             </div>
             <div
@@ -313,14 +317,24 @@ const PropertyPage = ({ main_data }) => {
                 isMobileView ? "flex-wrap" : "flex-nowrap "
               }`}
             >
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 border-sm py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Lot size</p>
+              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
+                <p className="cardd-subtitle_bg-black font-bold">Taxes</p>
               </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 border-sm py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  {main_data.LotFront} X {main_data.LotDepth} Feet
-                </p>
+              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
+                <p className="cardd-subtitle_bg-black">{TaxAnnualAmount}</p>
               </div>
+              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
+                <p className="cardd-subtitle_bg-black font-bold">Tax year</p>
+              </div>
+              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
+                <p className="cardd-subtitle_bg-black">{main_data.TaxYear}</p>
+              </div>
+            </div>
+            <div
+              className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
+                isMobileView ? "flex-wrap" : "flex-nowrap "
+              }`}
+            >
               <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
                 <p className="cardd-subtitle_bg-black font-bold">
                   Garage spaces
@@ -331,18 +345,36 @@ const PropertyPage = ({ main_data }) => {
                   {formatNumber(main_data.GarageSpaces)}
                 </p>
               </div>
+              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
+                <p className="cardd-subtitle_bg-black font-bold">Mls® #</p>
+              </div>
+              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
+                <p className="cardd-subtitle_bg-black">{main_data.MLS}</p>
+              </div>
             </div>
             {isOverflowing && (
               <button
                 className="mt-2 px-2 border-2 border-black py-[3px] text-white font-semibold rounded-lg bg-black hover:text-black hover:bg-gray-200 focus:outline-none transition-colors duration-200 sm:my-2 mt-2 mb-4"
                 onClick={toggleShowMore}
               >
-                {showMoreDesc ? "See Less" : "See More ↓"}
+                {showMoreDesc ? "See Less ↑" : "See More ↓"}
               </button>
             )}
           </div>
         </div>
-
+        {/* Extras */}
+        {main_data?.Extras && (
+          <div className={`${isMobileView ? "pt-4 pb-4" : "pt-4 pb-4"}`}>
+            <div className="col-md-12 px-0">
+              <div className="container bg-very-light-gray rounded-md p-4 border-0">
+                <h2 className="font-bold text-xl sm:text-xl">Extras</h2>
+                <div className="flex flex-grid text-lg py-1 leading-8">
+                  {main_data.Extras}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         {/*Home Overview  */}
         <div
           className={`${isMobileView ? "pt-4 pb-4 mt-8" : "mt-8 pt-4 pb-4"}`}
@@ -356,18 +388,15 @@ const PropertyPage = ({ main_data }) => {
                 isMobileView ? "flex-wrap" : "flex-nowrap "
               }`}
             >
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">
-                  Basement information
+              <div className="col-span-1 md:col-span-1 border-b border-gray-200 py-2 md:py-3 pr-0">
+                <p className="font-bold text-black">Last check for updates</p>
+              </div>
+              <div className="col-span-1 md:col-span-1 border-b border-gray-200 py-2 md:py-3 pl-0">
+                <p className="text-black">
+                  <TimeAgo modificationTimestamp={main_data.TimestampSql} />
                 </p>
               </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  {main_data?.Basement1
-                    ? `${main_data?.Basement1}, ${main_data?.Basement2}`
-                    : "None"}
-                </p>
-              </div>
+
               <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
                 <p className="cardd-subtitle_bg-black font-bold">
                   Virtual tour
@@ -388,11 +417,18 @@ const PropertyPage = ({ main_data }) => {
               }`}
             >
               <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Mls® #</p>
+                <p className="cardd-subtitle_bg-black font-bold">
+                  Basement information
+                </p>
               </div>
               <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">{main_data.MLS}</p>
+                <p className="cardd-subtitle_bg-black">
+                  {main_data?.Basement1
+                    ? `${main_data?.Basement1}, ${main_data?.Basement2}`
+                    : "None"}
+                </p>
               </div>
+
               <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
                 <p className="cardd-subtitle_bg-black font-bold">
                   Building size
@@ -427,25 +463,6 @@ const PropertyPage = ({ main_data }) => {
                 <p className="cardd-subtitle_bg-black">
                   {/* {main_data.PropertySubType} */}
                 </p>
-              </div>
-            </div>
-
-            <div
-              className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                isMobileView ? "flex-wrap" : "flex-nowrap "
-              }`}
-            >
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Taxes</p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">{TaxAnnualAmount}</p>
-              </div>
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Tax year</p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">{main_data.TaxYear}</p>
               </div>
             </div>
 
@@ -784,23 +801,11 @@ const PropertyPage = ({ main_data }) => {
               onClick={() => setCollapse(!collapse)}
               className="bg-black font-bold mt-2 px-2 border-2 border-black py-1 text-white font-semibold rounded-lg hover:text-black hover:bg-gray-200 focus:outline-none transition-colors duration-200 sm:my-2 mt-2 mb-4 "
             >
-              See {collapse ? "More" : "Less"}
+              See {collapse ? "More ↓" : "Less ↑"}
             </button>
           </div>
         </div>
-        {/* Extras */}
-        {main_data?.Extras && (
-          <div className={`${isMobileView ? "pt-4 pb-4" : "pt-4 pb-4"}`}>
-            <div className="col-md-12 px-0">
-              <div className="container bg-very-light-gray rounded-md p-4 border-0">
-                <h2 className="font-bold text-xl sm:text-xl">Extras</h2>
-                <div className="flex flex-grid text-lg py-1 leading-8">
-                  {main_data.Extras}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
+
         {main_data.ListBrokerage && (
           <div className="flex flex-grid text-lg font-medium py-1 leading-8 text-xs text-gray-700">
             Listed by {main_data?.ListBrokerage}
