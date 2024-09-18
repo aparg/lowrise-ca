@@ -49,7 +49,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </Head> */}
-      <body className="bg-white text-black tracking-[-0.045em]">
+      <body className="bg-white text-black">
         <NextTopLoader
           color="#FF0000"
           initialPosition={0.08}
