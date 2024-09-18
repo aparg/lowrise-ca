@@ -111,18 +111,17 @@ const PropertyPage = ({ main_data }) => {
             isMobileView ? "sm:p-4 pt-3 mt-3" : "mt-5"
           }`}
         >
-          <div className="w-full">
-            <div
-              className={`flex flex-col flex-wrap${
-                isMobileView ? "gap-3" : "gap-0"
-              }`}
-            >
-              <div className="flex items-center">
-                <div className="flex flex-col">
-                  <div className="flex flex-col items-start">
-                    <div className="flex flex-grid items-center">
-                      <h3 className="text-5xl font-bold fs-1">{price}</h3>
-                      {/* <div className="flex items-center">
+          <div
+            className={`flex flex-col flex-wrap${
+              isMobileView ? "gap-3" : "gap-0"
+            }`}
+          >
+            <div className="flex flex-col sm:flex-row w-full sm:items-center justify-between">
+              <h3 className="text-5xl font-bold">{price}</h3>
+              <span className="text-dark text-[#CC0B0B] font-bold mt-1 mb-2 sm:my-0">
+                <TimeAgo modificationTimestamp={main_data.TimestampSql} />
+              </span>
+              {/* <div className="flex items-center">
                         <Image
                           width={20}
                           height={20}
@@ -139,79 +138,60 @@ const PropertyPage = ({ main_data }) => {
                             )}
                         </span>
                       </div> */}
-                    </div>
-                    <div>
-                      <h1 className="fs-6 mb-2 my-4 text-lg">
-                        {main_data.Street} {main_data.StreetName}{" "}
-                        {main_data.StreetAbbreviation}, {main_data.Municipality}
-                        , {main_data.Province}, {main_data.PostalCode}
-                      </h1>
-                      <div className="rounded-md flex items-center">
-                        <div className="flex justify-content-center align-items-center gap-1 text-lg">
-                          <img
-                            src="/property-page-img/bedrooms.svg"
-                            alt="bedrooms"
-                            className="w-4"
-                          />{" "}
-                          {main_data.Bedrooms} Bedroom
-                        </div>
-                        <span className="text-lg mx-1">|</span>
-                        <div className="flex justify-content-center align-items-center gap-1 text-lg">
-                          <img
-                            src="/property-page-img/bathrooms.svg"
-                            alt="washrooms"
-                            className="w-4"
-                          />{" "}
-                          {main_data.Washrooms} Bathroom
-                        </div>
-                        {main_data.GarageSpaces && (
-                          <>
-                            <span className="text-lg">&nbsp;|&nbsp;</span>
-                            <div className="flex justify-content-center align-items-center gap-1 text-lg ">
-                              <img
-                                src="/property-page-img/garage.svg"
-                                alt="garages"
-                                className="w-3"
-                              />{" "}
-                              {Math.trunc(main_data.GarageSpaces)} Garage
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                    <span className="text-dark font-bold my-2 sm:my-0">
-                      <TimeAgo modificationTimestamp={main_data.TimestampSql} />
-                    </span>
-                  </div>
-                </div>
+            </div>
+            <h1 className="fs-6 mt-2 mb-1 text-lg">
+              {main_data.Street} {main_data.StreetName}{" "}
+              {main_data.StreetAbbreviation}, {main_data.Municipality},{" "}
+              {main_data.Province}, {main_data.PostalCode}
+            </h1>
+            <div className="rounded-md flex items-center">
+              <div className="flex justify-content-center align-items-center gap-1 text-lg">
+                <img
+                  src="/property-page-img/bedrooms.svg"
+                  alt="bedrooms"
+                  className="w-4"
+                />{" "}
+                {main_data.Bedrooms} Bedroom
               </div>
-              {/* <CompareButton main_data={main_data} width={8} /> */}
-              {/* <div className="flex flex-col font-md mt-2 text-lg">
+              <span className="text-lg mx-1">|</span>
+              <div className="flex justify-content-center align-items-center gap-1 text-lg">
+                <img
+                  src="/property-page-img/bathrooms.svg"
+                  alt="washrooms"
+                  className="w-4"
+                />{" "}
+                {main_data.Washrooms} Bathroom
+              </div>
+              {main_data.GarageSpaces && (
+                <>
+                  <span className="text-lg">&nbsp;|&nbsp;</span>
+                  <div className="flex justify-content-center align-items-center gap-1 text-lg ">
+                    <img
+                      src="/property-page-img/garage.svg"
+                      alt="garages"
+                      className="w-3"
+                    />{" "}
+                    {Math.trunc(main_data.GarageSpaces)} Garage
+                  </div>
+                </>
+              )}
+            </div>
+            <p className="card-subtitle my-1 font-normal text-lg">
+              MLS - #{main_data.MLS}{" "}
+            </p>
+            <h1 className="vmain-title">
+              <div className="uppercase bannerSection text-lg">
+                FOR {main_data.SaleLease}
+              </div>
+            </h1>
+            {/* <CompareButton main_data={main_data} width={8} /> */}
+            {/* <div className="flex flex-col font-md mt-2 text-lg">
                 <p class className="">
                   {main_data.Municipality}, {main_data.Province},{" "}
                   {main_data.PostalCode}
                 </p>
               </div> */}
-            </div>
           </div>
-          <div className="flex align-items-center flex-wrap">
-            <div className="flex">
-              <p className="card-subtitle my-0 mb-0 font-thin text-limit text-lg">
-                MLS - #{main_data.MLS}
-              </p>
-            </div>
-            <div className="tet-s flex"></div>
-          </div>
-          <h1 className="vmain-title">
-            <div className="uppercase bannerSection text-lg">
-              {/* <div className="listingStatus"></div> */}
-              FOR {main_data.SaleLease}
-              {/* tailwind style classname for bottom dashed border gray*/}
-              {/* <span className="border-gray-500 border-dotted border-b">
-                ACTIVE
-              </span> */}
-            </div>
-          </h1>
         </div>
         {/* <div className="border-b border-[0.5px] border-gray-200 mt-2 sm:mt-0 sm:ml-4"></div> */}
         {/* Description */}

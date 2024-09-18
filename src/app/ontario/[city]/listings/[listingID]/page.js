@@ -90,7 +90,7 @@ const page = async ({ params }) => {
               __html: JSON.stringify(CreateSchema(main_data)),
             }}
           />
-          <div className="pt-md-3 pt-0">
+          <div className="pt-md-3 pt-0 ">
             <div className="sticky top-0 z-[999]">
               <Breadcrumbs items={breadcrumbItems} />
             </div>
@@ -104,7 +104,7 @@ const page = async ({ params }) => {
                   {/* <MobileGallery data={imageURLs} /> */}
                 </div>
               </div>
-              <div className="sm:max-w-[90%] w-full flex justify-center pt-0 sm:pt-4 relative">
+              <div className=" w-full flex justify-center pt-0 sm:pt-4 relative">
                 <div className="grid sm:grid-cols-6 grid-cols-1 justify-between sm:justify-between w-full sm:gap-x-6 gap-y-8 sm:gap-y-0 relative">
                   <div className={`sm:col-span-4 col-span-4 col-md-8 `}>
                     <PropertyPage {...{ main_data }} />

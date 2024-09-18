@@ -35,8 +35,10 @@ const Gallery = ({ data }) => {
                 <Link
                   href={`${url}`}
                   key={index}
-                  className={`gallery-item ${
-                    index === 0 ? "row-span-2 col-span-4 sm:col-span-2" : ""
+                  className={`gallery-item overflow-hidden rounded-[10px] ${
+                    index === 0
+                      ? "row-span-2 col-span-4 sm:col-span-2 h-[240px] sm:h-[520px]"
+                      : "h-[100px] sm:h-[255px]"
                   } ${index >= 5 ? "hidden" : ""}`}
                 >
                   <Image
@@ -44,11 +46,9 @@ const Gallery = ({ data }) => {
                     src={url}
                     width={500}
                     height={index === 0 ? 800 : 207}
-                    className={`w-full ${
-                      index === 0
-                        ? "h-[240px] sm:h-[520px]"
-                        : "h-[100px] sm:h-[255px]"
-                    } object-cover object-center rounded-[10px]`}
+                    className={`w-full h-full ${
+                      index === 0 ? "" : ""
+                    } object-cover object-center transform duration-200 hover:scale-110`}
                     alt={`Image ${index + 1}`}
                   />
                 </Link>
