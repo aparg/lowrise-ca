@@ -96,7 +96,7 @@ const page = async ({ params }) => {
               <Breadcrumbs items={breadcrumbItems} />
               {/* <Thumbnails setCurrentImageIndex={setCurrentImageIndex} /> */}
             </div>
-            <section className="padding-top w-full text-smjustify-center gy-2 ">
+            <section className="padding-top w-full text-sm flex flex-col items-center justify-center gy-2 relative">
               <div className="hidden sm:block relative">
                 <Gallery data={imageURLs} />
                 <div className="space-x-2 order-2 sm:order-1 absolute bottom-2 left-2">
