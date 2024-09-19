@@ -1,4 +1,3 @@
-import React from "react";
 import dynamic from "next/dynamic";
 import Gallery from "@/components/Gallery";
 import Link from "next/link";
@@ -23,6 +22,8 @@ import formatCurrency from "@/helpers/formatCurrency";
 import Carousel from "@/components/Carousel";
 import { generateURL } from "@/helpers/generateURL";
 import MobileGallery from "@/components/MobileGallery";
+import Thumbnails from "@/components/Thumbnails";
+import TimeAgo from "@/helpers/TimeAgo";
 // import { Button } from "@nextui-org/react";
 
 const INITIAL_OFFSET = 0;
@@ -93,17 +94,22 @@ const page = async ({ params }) => {
           <div className="pt-md-3 pt-0 ">
             <div className="sticky top-0 z-[999]">
               <Breadcrumbs items={breadcrumbItems} />
+              {/* <Thumbnails setCurrentImageIndex={setCurrentImageIndex} /> */}
             </div>
-            <section className="padding-top w-full text-sm flex flex-col items-center justify-center gy-2 relative">
-              <div className="col-12 px-0">
-                <div className="hidden sm:block">
-                  <Gallery data={imageURLs} />
-                </div>
-                <div className="sm:hidden block mt-2">
-                  <Carousel urls={imageURLs} />
-                  {/* <MobileGallery data={imageURLs} /> */}
+            <section className="padding-top w-full text-smjustify-center gy-2 ">
+              <div className="hidden sm:block relative">
+                <Gallery data={imageURLs} />
+                <div className="space-x-2 order-2 sm:order-1 absolute bottom-2 left-2">
+                  <button className="bg-[#CC0B0B] p-1 text-white text-xs font-bold mt-1 mb-2 sm:my-0 w-fit-content rounded-md">
+                    <TimeAgo modificationTimestamp={main_data.TimestampSql} />
+                  </button>
+                  <button className="bg-[#CC0B0B] p-1 text-white text-xs font-bold mt-1 mb-2 sm:my-0 w-fit-content rounded-md">
+                    <span>{main_data.TypeOwn1Out}</span>
+                  </button>
                 </div>
               </div>
+              {/* Carousel is only for mobile. */}
+              <Carousel urls={imageURLs} />
               <div className=" w-full flex justify-center pt-0 sm:pt-4 relative">
                 <div className="grid sm:grid-cols-6 grid-cols-1 justify-between sm:justify-between w-full sm:gap-x-6 gap-y-8 sm:gap-y-0 relative">
                   <div className={`sm:col-span-4 col-span-4 col-md-8 `}>

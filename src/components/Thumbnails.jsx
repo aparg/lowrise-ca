@@ -1,26 +1,10 @@
-"use client";
-import React, { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
+"use state";
+import { ChevronLeft } from "lucide-react";
+import React from "react";
 
-const Carousel = ({ urls }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+const Thumbnails = () => {
+  const [currentIndex, setCurrentIndex] = useState(currentIndex);
   const scrollRef = useRef();
-
-  useEffect(() => {
-    // Scroll to the current thumbnail
-    if (scrollRef.current) {
-      const thumbnail = scrollRef.current.children[currentIndex];
-      if (thumbnail) {
-        thumbnail.scrollIntoView({
-          behavior: "smooth",
-          inline: "center",
-          block: "nearest",
-        });
-      }
-    }
-  }, [currentIndex]);
-
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % urls.length);
   };
@@ -31,9 +15,6 @@ const Carousel = ({ urls }) => {
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
-    if (window && window.scrollY > 10) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
   };
 
   const scrollThumbnails = (direction) => {
@@ -45,34 +26,9 @@ const Carousel = ({ urls }) => {
       });
     }
   };
-
   return (
-    <>
-      <div className="w-full max-w-2xl mx-auto block sm:hidden" id="carousel">
-        <div className="relative aspect-16/14 mb-2 rounded-lg overflow-hidden">
-          <img
-            src={urls[currentIndex]}
-            alt={`Slide ${currentIndex + 1}`}
-            className="w-full h-full object-cover"
-          />
-          <button
-            onClick={prevSlide}
-            className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-all"
-          >
-            <ChevronLeft className="w-6 h-6 text-gray-800" />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition-all"
-          >
-            <ChevronRight className="w-6 h-6 text-gray-800" />
-          </button>
-        </div>
-      </div>
-      <div
-        className="flex justify-center top-8 bg-white sticky z-[999] block sm:hidden scroll-smooth"
-        // on click scroll to top
-      >
+    <div>
+      <div className="flex justify-center bg-white top-0 sticky z-[999]">
         <button
           onClick={() => scrollThumbnails("prev")}
           className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-all"
@@ -106,8 +62,8 @@ const Carousel = ({ urls }) => {
           <ChevronRight className="w-4 h-4 text-gray-800" />
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Carousel;
+export default Thumbnails;

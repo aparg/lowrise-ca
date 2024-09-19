@@ -105,7 +105,7 @@ const PropertyPage = ({ main_data }) => {
 
   return (
     <>
-      <div className="screenshot col-12 mt-4">
+      <div className="screenshot col-12 mt-2">
         <div
           className={`border-0  rounded-md ${
             isMobileView ? "sm:p-4 pt-3 mt-3" : "mt-5"
@@ -116,11 +116,16 @@ const PropertyPage = ({ main_data }) => {
               isMobileView ? "gap-3" : "gap-0"
             }`}
           >
-            <div className="flex flex-col sm:flex-row w-full sm:items-center justify-between">
+            <div className="flex flex-col space-y-2">
               <h3 className="text-5xl font-bold">{price}</h3>
-              <span className="text-dark text-[#CC0B0B] font-bold mt-1 mb-2 sm:my-0">
-                <TimeAgo modificationTimestamp={main_data.TimestampSql} />
-              </span>
+              <div className="space-x-2 block sm:hidden">
+                <button className="bg-[#CC0B0B] p-1 text-white text-xs font-bold mt-1 sm:my-0 w-fit-content rounded-md">
+                  <TimeAgo modificationTimestamp={main_data.TimestampSql} />
+                </button>
+                <button className="bg-[#CC0B0B] p-1 text-white text-xs font-bold mt-1 sm:my-0 w-fit-content rounded-md">
+                  <span>{main_data.TypeOwn1Out}</span>
+                </button>
+              </div>
               {/* <div className="flex items-center">
                         <Image
                           width={20}
