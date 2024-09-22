@@ -86,7 +86,7 @@ const Carousel = ({ urls }) => {
       <div
         ref={stickyRef}
         className={`w-full flex justify-center top-8 bg-white sticky z-[999] block sm:hidden scroll-smooth transition-all duration-300 ${
-          isSticky ? "py-1 shadow-md" : "py-2"
+          isSticky ? "py-1" : "py-2"
         }`}
       >
         <button
