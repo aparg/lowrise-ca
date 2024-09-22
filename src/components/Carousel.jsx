@@ -48,7 +48,7 @@ const Carousel = ({ urls }) => {
 
   return (
     <>
-      <div className="w-full max-w-2xl mx-auto block sm:hidden" id="carousel">
+      <div className="w-full mx-auto block sm:hidden" id="carousel">
         <div className="relative aspect-16/14 mb-2 rounded-lg overflow-hidden">
           <img
             src={urls[currentIndex]}
@@ -70,7 +70,7 @@ const Carousel = ({ urls }) => {
         </div>
       </div>
       <div
-        className="flex justify-center top-8 bg-white sticky z-[999] block sm:hidden scroll-smooth"
+        className="w-full flex justify-center top-8 bg-white sticky z-[999] block sm:hidden scroll-smooth"
         // on click scroll to top
       >
         <button
