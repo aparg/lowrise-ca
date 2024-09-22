@@ -1,14 +1,28 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
 
 const Carousel = ({ urls }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isSticky, setIsSticky] = useState(false);
   const scrollRef = useRef();
+  const stickyRef = useRef();
 
   useEffect(() => {
-    // Scroll to the current thumbnail
+    const handleScroll = () => {
+      if (stickyRef.current) {
+        const rect = stickyRef.current.getBoundingClientRect();
+        setIsSticky(rect.top <= 40);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     if (scrollRef.current) {
       const thumbnail = scrollRef.current.children[currentIndex];
       if (thumbnail) {
@@ -38,7 +52,7 @@ const Carousel = ({ urls }) => {
 
   const scrollThumbnails = (direction) => {
     if (scrollRef.current) {
-      const scrollAmount = 100; // Adjust this value to control scroll distance
+      const scrollAmount = 100;
       scrollRef.current.scrollBy({
         left: direction === "next" ? scrollAmount : -scrollAmount,
         behavior: "smooth",
@@ -70,25 +84,29 @@ const Carousel = ({ urls }) => {
         </div>
       </div>
       <div
-        className="w-full flex justify-center top-8 bg-white sticky z-[999] block sm:hidden scroll-smooth"
-        // on click scroll to top
+        ref={stickyRef}
+        className={`w-full flex justify-center top-8 bg-white sticky z-[999] block sm:hidden scroll-smooth transition-all duration-300 ${
+          isSticky ? "py-1 shadow-md" : "py-2"
+        }`}
       >
         <button
           onClick={() => scrollThumbnails("prev")}
           className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-all"
         >
-          <ChevronLeft className="w-4 h-4 text-gray-800" />
+          <ChevronLeft
+            className={`${isSticky ? "w-3 h-3" : "w-4 h-4"} text-gray-800`}
+          />
         </button>
         <div
-          className="flex space-x-2 max-w-[22rem] overflow-x-auto scrollbar-hide py-2 px-1"
+          className="flex space-x-2 max-w-[22rem] overflow-x-auto scrollbar-hide px-1 py-2"
           ref={scrollRef}
         >
           {urls.map((url, index) => (
             <div
               key={index}
-              className={`w-20 h-20 flex-shrink-0 cursor-pointer rounded-lg overflow-hidden ${
-                currentIndex === index ? "ring-4 ring-blue-500" : ""
-              }`}
+              className={`flex-shrink-0 cursor-pointer rounded-lg overflow-hidden transition-all duration-300 ${
+                currentIndex === index ? "ring-2 ring-blue-500" : ""
+              } ${isSticky ? "w-14 h-14" : "w-20 h-20"}`}
               onClick={() => goToSlide(index)}
             >
               <img
@@ -103,7 +121,9 @@ const Carousel = ({ urls }) => {
           onClick={() => scrollThumbnails("next")}
           className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-all"
         >
-          <ChevronRight className="w-4 h-4 text-gray-800" />
+          <ChevronRight
+            className={`${isSticky ? "w-3 h-3" : "w-4 h-4"} text-gray-800`}
+          />
         </button>
       </div>
     </>
