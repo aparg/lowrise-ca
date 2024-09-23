@@ -49,25 +49,40 @@ const page = async () => {
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Table Section */}
-        <div className="bg-white shadow-md rounded-lg p-4">
-          <table className="min-w-full bg-white">
-            <thead className="bg-gray-200">
-              <tr>
-                <th className="py-2 px-4 text-left">S.N.</th>
-                <th className="py-2 px-4 text-left">Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dataFromThreeMonths.map((data, idx) => (
-                <tr key={idx} className="border-b">
-                  <td className="py-1 px-4 text-sm">{idx + 1}</td>
-                  <td className="py-1 px-4 text-sm">
-                    ${parseFloat(data.ListPrice).toLocaleString()}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="flex flex-row justify-around gap-x-3">
+          {Array(Math.ceil(dataFromThreeMonths.length / 100))
+            .fill()
+            .map((_, columnIndex) => (
+              <div className="basis-1/3" key={columnIndex}>
+                <div className="bg-white shadow-md rounded-lg p-0 h-fit-content">
+                  <table className="min-w-full bg-white">
+                    <thead className="bg-gray-200">
+                      <tr>
+                        <th className="py-2 px-4 text-left">S.N.</th>
+                        <th className="py-2 px-4 text-left">Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {dataFromThreeMonths
+                        .slice(columnIndex * 100, (columnIndex + 1) * 100)
+                        .map((data, idx) => (
+                          <tr
+                            key={idx + columnIndex * 100}
+                            className="border-b"
+                          >
+                            <td className="py-1 px-4 text-sm">
+                              {idx + 1 + columnIndex * 100}
+                            </td>
+                            <td className="py-1 px-4 text-sm">
+                              ${parseFloat(data.ListPrice).toLocaleString()}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ))}
         </div>
 
         {/* Calculation Section */}
@@ -86,7 +101,9 @@ const page = async () => {
                 Average Pricing for townhomes in Brampton
               </h3>
 
-              <p className="text-lg mb-4">Average Price: ${meanPrice}</p>
+              <p className="text-lg mb-4">
+                Average Price: ${parseFloat(meanPrice).toLocaleString()}
+              </p>
               <div className="border-t pt-2 mt-2">
                 <h4 className="text-md font-semibold">Formula</h4>
                 <p className="text-gray-700">
@@ -102,7 +119,9 @@ const page = async () => {
               <h3 className="text-lg font-semibold">
                 Median Price for townhomes in Brampton
               </h3>
-              <p className="text-lg mb-4">Median Price: ${medianPrice}</p>
+              <p className="text-lg mb-4">
+                Median Price: ${parseFloat(medianPrice).toLocaleString()}
+              </p>
               <div className="border-t pt-2 mt-2">
                 <h4 className="text-md font-semibold">Formula</h4>
                 <p className="text-gray-700">
@@ -121,7 +140,8 @@ const page = async () => {
                 Standard Deviation for townhomes in Brampton
               </h3>
               <p className="text-lg mb-4">
-                Standard Deviation: ${standardDeviation}
+                Standard Deviation: $
+                {parseFloat(standardDeviation).toLocaleString()}
               </p>
               <div className="border-t pt-2 mt-2">
                 <h4 className="text-md font-semibold">Formula</h4>
