@@ -137,7 +137,11 @@ const page = async ({ params }) => {
 
               {formattedSlug && newSalesData?.length > 0 && (
                 <section className="additonal__listing w-full mx-auto mt-24">
-                  <PropertyDisplaySection title="You might be interested in">
+                  <PropertyDisplaySection
+                    title={`Similar properties nearby in ${
+                      main_data?.Municipality || "Ontario"
+                    }`}
+                  >
                     <Slider data={newSalesData} type="resale" />
                   </PropertyDisplaySection>
                 </section>

@@ -60,8 +60,8 @@ const page = async () => {
             <tbody>
               {dataFromThreeMonths.map((data, idx) => (
                 <tr key={idx} className="border-b">
-                  <td className="py-1 px-4">{idx + 1}</td>
-                  <td className="py-1 px-4">
+                  <td className="py-1 px-4 text-sm">{idx + 1}</td>
+                  <td className="py-1 px-4 text-sm">
                     ${parseFloat(data.ListPrice).toLocaleString()}
                   </td>
                 </tr>
@@ -74,26 +74,34 @@ const page = async () => {
         <div>
           <div className="bg-gray-50 shadow-md rounded-lg p-6">
             <h2 className="text-xl font-semibold mb-4">Calculations</h2>
-            <p className="text-lg mb-2">Total Properties: {totalProperties}</p>
             <p className="text-lg mb-2">
-              Total Price: ${totalPrice.toLocaleString()}
+              Total Properties: Sample {totalProperties}
             </p>
+            {/* <p className="text-lg mb-2">
+              Total Price: ${totalPrice.toLocaleString()}
+            </p> */}
             {/* Mean Section */}
             <div className="mb-6 bg-slate-200 p-5 rounded-md">
-              <h3 className="text-lg font-semibold">Mean Price</h3>
+              <h3 className="text-lg font-semibold">
+                Average Pricing for townhomes in Brampton
+              </h3>
 
-              <p className="text-lg mb-4">Mean Price: ${meanPrice}</p>
+              <p className="text-lg mb-4">Average Price: ${meanPrice}</p>
               <div className="border-t pt-2 mt-2">
                 <h4 className="text-md font-semibold">Formula</h4>
                 <p className="text-gray-700">
-                  <code>Mean Price = (Total Price) ÷ (Total Properties)</code>
+                  <code>
+                    Average Price = (Total Price) ÷ (Total Properties)
+                  </code>
                 </p>
               </div>
             </div>
 
             {/* Median Section */}
             <div className="mb-6 bg-slate-200 p-5 rounded-md">
-              <h3 className="text-lg font-semibold">Median Price</h3>
+              <h3 className="text-lg font-semibold">
+                Median Price for townhomes in Brampton
+              </h3>
               <p className="text-lg mb-4">Median Price: ${medianPrice}</p>
               <div className="border-t pt-2 mt-2">
                 <h4 className="text-md font-semibold">Formula</h4>
@@ -109,7 +117,9 @@ const page = async () => {
 
             {/* Standard Deviation Section */}
             <div className="mb-6 bg-slate-200 p-5 rounded-md">
-              <h3 className="text-lg font-semibold">Standard Deviation</h3>
+              <h3 className="text-lg font-semibold">
+                Standard Deviation for townhomes in Brampton
+              </h3>
               <p className="text-lg mb-4">
                 Standard Deviation: ${standardDeviation}
               </p>
