@@ -1,3 +1,5 @@
+import { generateURL } from "@/helpers/generateURL";
+import Link from "next/link";
 import React from "react";
 
 // Helper function to calculate the median
@@ -41,39 +43,52 @@ const page = async () => {
 
   const medianPrice = calculateMedian(prices);
   const standardDeviation = calculateStandardDeviation(prices, meanPrice);
+  const basisClass =
+    dataFromThreeMonths.length > 4
+      ? "basis-1/4"
+      : `basis-1/${Math.ceil(dataFromThreeMonths.length / 60)}`;
+  const minPrice = Math.min(...prices);
+  const minPriceIndex = prices.indexOf(minPrice);
+  const maxPrice = Math.max(...prices);
+  const maxPriceIndex = prices.indexOf(maxPrice);
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-4 text-center">
+      <h1 className="text-3xl font-bold mb-4 text-left">
         Statistics for Townhomes in Brampton, ON
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Table Section */}
-        <div className="flex flex-row justify-around gap-x-3">
-          {Array(Math.ceil(dataFromThreeMonths.length / 100))
+        <div className="flex flex-row justify-around rounded-md overflow-hidden">
+          {Array(Math.ceil(dataFromThreeMonths.length / 60))
             .fill()
             .map((_, columnIndex) => (
-              <div className="basis-1/3" key={columnIndex}>
-                <div className="bg-white shadow-md rounded-lg p-0 h-fit-content">
-                  <table className="min-w-full bg-white">
-                    <thead className="bg-gray-200">
+              <div className={basisClass} key={columnIndex}>
+                <div className="bg-white p-0 h-fit-content">
+                  <table
+                    className={`min-w-full ${
+                      columnIndex % 2 == 0 ? "bg-gray-400" : "bg-gray-200"
+                    } overflow-hidden border-0`}
+                  >
+                    <thead className="">
                       <tr>
-                        <th className="py-2 px-4 text-left">S.N.</th>
-                        <th className="py-2 px-4 text-left">Price</th>
+                        <th className="py-[1.5px] px-1 text-left text-md border-b-1 border-black">
+                          S.N.
+                        </th>
+                        <th className="py-[1.5px] px-1 text-left text-md border-b-1 border-black">
+                          Price
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {dataFromThreeMonths
-                        .slice(columnIndex * 100, (columnIndex + 1) * 100)
+                        .slice(columnIndex * 60, (columnIndex + 1) * 60)
                         .map((data, idx) => (
-                          <tr
-                            key={idx + columnIndex * 100}
-                            className="border-b"
-                          >
-                            <td className="py-1 px-4 text-sm">
-                              {idx + 1 + columnIndex * 100}
+                          <tr key={idx + columnIndex * 60} className="border-b">
+                            <td className="py-[1px] px-1 text-xs">
+                              {idx + 1 + columnIndex * 60}
                             </td>
-                            <td className="py-1 px-4 text-sm">
+                            <td className="py-[1px] px-1 text-xs">
                               ${parseFloat(data.ListPrice).toLocaleString()}
                             </td>
                           </tr>
@@ -154,6 +169,79 @@ const page = async () => {
                   deviation.
                 </p>
               </div>
+            </div>
+
+            {/* Cheapest and Most expensive */}
+            <div className="mb-6 bg-slate-200 p-5 rounded-md">
+              <h3 className="text-lg font-semibold">
+                Cheapest and Most expensive townhomes in Brampton
+              </h3>
+              <p className="text-lg mt-4">
+                <span className="font-medium">Cheapest:</span>
+                <br />
+                {dataFromThreeMonths[minPriceIndex].Address},{" "}
+                {dataFromThreeMonths[maxPriceIndex].Municipality}, Ontario{" "}
+                <Link
+                  href={generateURL({
+                    listingIDVal: dataFromThreeMonths[minPriceIndex].MLS,
+                    cityVal: dataFromThreeMonths[minPriceIndex].Municipality,
+                  })}
+                  className="underline text-blue-600 text-sm hover:text-blue-800 inline-flex items-center ml-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Visit Now
+                  <svg
+                    className="w-4 h-4 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </Link>
+                <br />
+                Price: ${minPrice.toLocaleString()}
+              </p>
+              <p className="text-lg mt-4 mb-4">
+                <span className="font-medium">Most Expensive:</span>
+                <br />
+                {dataFromThreeMonths[maxPriceIndex].Address},{" "}
+                {dataFromThreeMonths[maxPriceIndex].Municipality}, Ontario{" "}
+                <Link
+                  href={generateURL({
+                    listingIDVal: dataFromThreeMonths[maxPriceIndex].MLS,
+                    cityVal: dataFromThreeMonths[maxPriceIndex].Municipality,
+                  })}
+                  className="underline text-blue-600 text-sm hover:text-blue-800 inline-flex items-center ml-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Visit Now
+                  <svg
+                    className="w-4 h-4 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </Link>
+                <br />
+                Price: ${maxPrice.toLocaleString()}
+              </p>
             </div>
           </div>
         </div>
