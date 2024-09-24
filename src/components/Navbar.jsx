@@ -69,14 +69,6 @@ const Navbar = (props) => {
     return match ? match[1] : null;
   }
 
-  // function getCityName() {
-  //   if (
-  //     pathname.endsWith("homes-for-sale") ||
-  //     pathname.endsWith("homes-for-lease") || path.endsWith("homes-for-sale")
-  //   )
-  //     return extractCityname(pathname);
-  //   else return undefined;
-  // }
   const cityName = extractCityname(pathname);
   console.log(cityName);
   const inCity = cityName
@@ -184,9 +176,11 @@ const Navbar = (props) => {
     <header
       className={`lg:pb-0 relative bg-white ${showNavbar ? "" : "hidden"} ${
         isSticky
-          ? "bg-white sticky top-0 z-[999]"
-          : "z-[1000] md:bg-transparent"
-      }  container-fluid shadow-shuttle`}
+          ? "bg-white sticky top-0 z-[999] "
+          : "z-[1000] md:bg-transparent "
+      } 
+      ${isPropertyPage ? "xl:max-w-[75%] mx-auto" : ""}
+      container-fluid shadow-shuttle`}
     >
       <div className={`${isSticky && "sticky"}`}>
         <nav
