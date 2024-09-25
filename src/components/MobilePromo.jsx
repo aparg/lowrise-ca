@@ -20,7 +20,7 @@ const MobilePromo = () => {
           or lease across Ontario.
         </p>
       </div>
-      <div className="absolute right-0 w-full max-w-sm md:max-w-md lg:max-w-lg">
+      <div className="absolute right-0 top-0 w-full max-w-sm md:max-w-md lg:max-w-lg h-full flex items-center">
         <Image
           src="/images/lowrise-sc.png"
           alt="Mobile app screenshot"
