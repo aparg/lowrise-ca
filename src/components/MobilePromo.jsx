@@ -17,7 +17,7 @@ const MobilePromo = () => {
         <p className="text-gray-600 mb-6">
           Easy search for homes for sale
           <br />
-          or lease across the Ontario.
+          or lease across Ontario.
         </p>
       </div>
       <div className="absolute right-0 w-full max-w-sm md:max-w-md lg:max-w-lg">
