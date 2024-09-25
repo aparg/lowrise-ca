@@ -204,7 +204,7 @@ const PropertyPage = ({ main_data }) => {
           <div className="border border-0 rounded-md bg-very-light-gray p-3 sm:p-4">
             <h2 className="font-extrabold text-2xl sm:text-4xl">
               Property Description <br />
-              <h2 className="font-medium text-xl sm:text-2xl sm:mt-2">
+              <h2 className="font-normal text-xl sm:text-2xl sm:mt-2 mb-3">
                 {main_data.Street} {main_data.StreetName}{" "}
                 {main_data.StreetAbbreviation}, {main_data.Municipality},{" "}
                 {main_data.Province}

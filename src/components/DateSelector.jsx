@@ -115,12 +115,12 @@ const DateSelector = () => {
   };
   return (
     <div>
-      <div className="flex justify-center">
+      <div className="flex justify-center items-center">
         <span className="tour-type rounded-full bg-light-lime px-1 py-1 mt-2 mb-6">
           <BookingType handleChange={handleChange} />
         </span>
       </div>
-      <div className="max-w-[300px]">
+      <div className="max-w-[300px] flex flex-col justify-center">
         <div className="relative my-2">
           <button
             className="absolute w-6 h-6 left-0 border-gray-200 border-2 rounded-full z-[999] translate-y-[-50%] left-[-10px] sm:left-[-20px] top-[50%] flex justify-center items-center bg-white z-10"
@@ -203,7 +203,7 @@ const DateSelector = () => {
         <input
           type="submit"
           value="Schedule Tour"
-          className="px-4 py-2 bg-primary-green text-white px-4 md:py-2 w-full mb-3 rounded-full hover:cursor-pointer"
+          className="px-4 py-2 bg-primary-green text-white px-4 md:py-2 w-40 mb-3 rounded-full hover:cursor-pointer mx-auto text-lg"
           id="subbtn"
           onClick={submitData}
         />

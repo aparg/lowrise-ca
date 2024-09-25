@@ -146,8 +146,8 @@ export default function CompactMortgageCalculator({
             />
           </div>
 
-          <div className="mt-8 flex justify-center">
-            <svg width="400" height="300">
+          <div className="mt-8">
+            <svg width="400" height="250">
               {(calculatordata.loanamt > 10 || intrest > 10) && (
                 <>
                   {isMobileView ? (
@@ -207,16 +207,15 @@ export default function CompactMortgageCalculator({
                 </>
               )}
             </svg>
+            <div className="mt-8 text-center">
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                ${calculated} <span className="text-lg text-gray-600">/mo</span>
+              </h3>
+              <p className="text-gray-600">
+                Your Estimated Monthly Mortgage Payment
+              </p>
+            </div>
           </div>
-        </div>
-
-        <div className="mt-8 bg-gray-100 rounded-lg p-6 text-center">
-          <h3 className="text-2xl font-bold text-gray-800 mb-2">
-            ${calculated} <span className="text-lg text-gray-600">/mo</span>
-          </h3>
-          <p className="text-gray-600">
-            Your Estimated Monthly Mortgage Payment
-          </p>
         </div>
       </div>
 
@@ -300,7 +299,7 @@ export default function CompactMortgageCalculator({
       )}
 
       <div
-        className={`bg-gray-100 p-4 ${
+        className={`bg-gray-100 p-4 mt-8 ${
           align === "center" ? "text-center" : ""
         } text-sm text-gray-600`}
       >
