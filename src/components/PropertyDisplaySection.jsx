@@ -11,14 +11,14 @@ const PropertyDisplaySection = ({
     <div className="mt-10 sm:mt-20">
       <div className="my-4">
         <div className="flex flex-row items-center justify-between">
-          <h3 className="text-2xl font-bold w-[70%] sm:w-auto">{title}</h3>
+          <h3 className="text-3xl font-bold w-[70%] sm:w-auto">{title}</h3>
           <Link href={exploreAllLink || "#"}>
             <button className="border-black font-bold border-2 inline px-1 sm:px-3 py-2 rounded-md text-sm sm:text-md">
               Explore All
             </button>
           </Link>
         </div>
-        {subtitle && <h5 className="font-md text-md mt-2">{subtitle}</h5>}
+        {subtitle && <h5 className="font-md text-md mt-1">{subtitle}</h5>}
       </div>
       {children}
     </div>
