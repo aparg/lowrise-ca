@@ -4,7 +4,7 @@ import { MapPin } from "lucide-react";
 
 const MobilePromo = () => {
   return (
-    <div className="bg-gray-100 rounded-md p-8 md:p-12 lg:p-16 flex flex-col md:flex-row items-center justify-between relative my-60">
+    <div className="bg-gray-100 rounded-md p-8 md:p-12 lg:p-16 flex flex-col md:flex-row items-center justify-between relative my-60 hidden sm:block">
       <div className="mb-8 md:mb-0 md:mr-8 lg:mr-16">
         <h2 className="text-sm font-semibold text-gray-600 mb-2">
           MOBILE VERSION
