@@ -8,6 +8,7 @@ import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
 import ContactForm from "@/components/ContactForm";
 import PropertiesDisplayer from "@/components/PropertiesDisplayer";
 import { cache } from "sharp";
+import MobilePromo from "@/components/MobilePromo";
 
 export const metadata = {
   title: "Lowrise.ca | Resale Properties in Ontario",
@@ -126,6 +127,8 @@ export default async function Home() {
         >
           <Slider data={MISSISAUGAHOMES} type="resale" />
         </PropertyDisplaySection>
+        <MobilePromo></MobilePromo>
+
         <PropertyDisplaySection
           title="Explore homes in Oakville"
           subtitle=""

@@ -82,7 +82,7 @@ const page = async ({ params }) => {
     .join(" ");
   return (
     <>
-      <div className="flex justify-center xl:max-w-[75%] mx-auto">
+      <div className="flex justify-center min-[1600px]:max-w-[68%] mx-auto">
         <div>
           <script
             key={main_data.MLS}

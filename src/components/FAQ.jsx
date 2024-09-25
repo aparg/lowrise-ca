@@ -6,7 +6,7 @@ const FAQ = ({ main_data }) => {
   return (
     <>
       <h2 className="font-extrabold pb-3 text-lg sm:text-4xl mb-4">
-        Frequently Asked Questions about this property
+        Frequently Asked Questions about {main_data.Address}
       </h2>
       <Accordion variant="splitted" className="px-0">
         <AccordionItem
