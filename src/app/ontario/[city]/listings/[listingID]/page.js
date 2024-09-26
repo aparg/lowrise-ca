@@ -4,7 +4,11 @@ import Link from "next/link";
 import { residential } from "../../../../../api/routes/fetchRoutes";
 import { generateImageURLs } from "@/helpers/generateImageURLs";
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
-import { getSalesData } from "../../../../../api/getSalesData";
+import {
+  fetchDataFromMLS,
+  fetchStatsFromMLS,
+  getSalesData,
+} from "../../../../../api/getSalesData";
 import BookShowingForm from "@/components/BookShowingForm";
 const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 import PropertyPage from "@/components/PropertyPage";
@@ -49,7 +53,7 @@ const page = async ({ params }) => {
   const parts = params.listingID.split("-");
   const lastPart = parts[parts.length - 1];
   const listingID = lastPart;
-  const main_data = await fetchData(listingID); //always a single object inside the array
+  let main_data = await fetchData(listingID); //always a single object inside the array
   const newSalesData = await getSalesData(
     INITIAL_OFFSET,
     INITIAL_LIMIT,
@@ -57,6 +61,13 @@ const page = async ({ params }) => {
     main_data?.TypeOwnSrch
   );
 
+  const statsValue = await fetchStatsFromMLS({
+    listingType: main_data?.TypeOwnSrch,
+    municipality: main_data?.Municipality,
+    saleLease: main_data?.SaleLease,
+  });
+  main_data.avg = parseFloat(statsValue.avg.toFixed(0)).toLocaleString();
+  console.log(main_data.avg);
   const imageURLs = generateImageURLs(
     listingID,
     parseInt(main_data?.PhotoCount)
@@ -80,6 +91,7 @@ const page = async ({ params }) => {
   ]
     .filter(Boolean)
     .join(" ");
+
   return (
     <>
       <div className="flex justify-center min-[1600px]:max-w-[68%] mx-auto">

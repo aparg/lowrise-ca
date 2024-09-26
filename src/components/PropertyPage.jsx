@@ -118,6 +118,7 @@ const PropertyPage = ({ main_data }) => {
           >
             <div className="flex flex-col space-y-2">
               <h3 className="text-5xl font-bold">{price}</h3>
+
               <div className="space-x-2 block sm:hidden">
                 <button className="bg-[#CC0B0B] p-1 text-white text-xs font-bold mt-1 sm:my-0 w-fit-content rounded-md">
                   <TimeAgo modificationTimestamp={main_data.TimestampSql} />
@@ -144,7 +145,15 @@ const PropertyPage = ({ main_data }) => {
                         </span>
                       </div> */}
             </div>
-            <h1 className="fs-6 mt-2 mb-1 text-lg">
+            <div>
+              <button className="bg-[#53bb4f] mt-4 py-1 px-2 text-white text-xs font-bold mb-1 w-fit-content rounded-md">
+                <span>
+                  Average price for similar properties in{" "}
+                  {main_data.Municipality}: ${main_data.avg.toLocaleString()}
+                </span>
+              </button>
+            </div>
+            <h1 className="fs-6 mt-0 mb-1 text-lg">
               {main_data.Street} {main_data.StreetName}{" "}
               {main_data.StreetAbbreviation}, {main_data.Municipality},{" "}
               {main_data.Province}, {main_data.PostalCode}

@@ -1,6 +1,6 @@
 "use server";
 import { commercial, residential } from "./routes/fetchRoutes";
-import { houseType } from "@/constant";
+import { houseType, saleLease } from "@/constant";
 
 export const getSalesData = async (offset, limit, city, listingType) => {
   try {
@@ -8,9 +8,16 @@ export const getSalesData = async (offset, limit, city, listingType) => {
       city && `Municipality=${city || ""},`
     }SaleLease='Sale'`;
     const lowriseOnly = `TypeOwnSrch='.S.',TypeOwnSrch='.D.',TypeOwnSrch='.A.',TypeOwnSrch='.J.',TypeOwnSrch='.K.'`;
+    const queriesArray = [
+      `$select=${selectQuery}`,
+      `$skip=${offset}`,
+      `$limit=${limit}`,
+      `$selectOr=${lowriseOnly}`,
+    ];
+
     const url = residential.properties.replace(
       "$query",
-      `?$select=${selectQuery}&$skip=${offset}&$limit=${limit}&$selectOr=${lowriseOnly}`
+      `?${queriesArray.join("&")}`
     );
     const options = {
       method: "GET",
@@ -157,7 +164,6 @@ export const getFilteredRetsData = async (queryParams) => {
       method: "GET",
       // cache: "no-store",
     };
-    console.log(url);
     const res = await fetch(url, options);
     const data = await res.json();
     return data.results;
@@ -166,16 +172,44 @@ export const getFilteredRetsData = async (queryParams) => {
   }
 };
 
-export const fetchDataFromMLS = async (listingID) => {
+export const fetchDataFromMLS = async (listingID, statsOnly = false) => {
   const options = {
     method: "GET",
   };
+  const queriesArray = [`$select=MLS=${listingID}`];
   const urlToFetchMLSDetail = residential.properties.replace(
     "$query",
-    `?$select=MLS='${listingID}'`
+    `?${queriesArray.join("&")}`
   );
+
   const resMLSDetail = await fetch(urlToFetchMLSDetail, options);
   const data = await resMLSDetail.json();
 
   return data.results[0];
+};
+
+export const fetchStatsFromMLS = async ({
+  listingType,
+  municipality,
+  saleLease,
+}) => {
+  const options = {
+    method: "GET",
+  };
+  const queriesArray = [
+    `$select=Municipality=${municipality},TypeOwnSrch=${listingType},SaleLease=${saleLease}`,
+    `$metrics=avg,median,sd`,
+  ];
+  const urlToFetchMLSDetail = residential.statistics.replace(
+    "$query",
+    `?${queriesArray.join("&")}`
+  );
+  console.log("stats");
+  console.log(urlToFetchMLSDetail);
+  const resMLSDetail = await fetch(urlToFetchMLSDetail, options);
+  const data = await resMLSDetail.json();
+  console.log("returning this");
+  console.log(data.results);
+
+  return data.results;
 };
