@@ -148,7 +148,7 @@ const PropertyPage = ({ main_data }) => {
             <div>
               <button className="bg-[#53bb4f] mt-4 py-1 px-2 text-white text-xs font-bold mb-1 w-fit-content rounded-md">
                 <span>
-                  Average price for similar properties in{" "}
+                  Average price for {main_data?.TypeOwn1Out} properties in{" "}
                   {main_data.Municipality}: ${main_data.avg.toLocaleString()}
                 </span>
               </button>

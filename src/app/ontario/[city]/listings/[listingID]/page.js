@@ -28,6 +28,7 @@ import { generateURL } from "@/helpers/generateURL";
 import MobileGallery from "@/components/MobileGallery";
 import Thumbnails from "@/components/Thumbnails";
 import TimeAgo from "@/helpers/TimeAgo";
+import { houseType } from "@/constant";
 // import { Button } from "@nextui-org/react";
 
 const INITIAL_OFFSET = 0;
@@ -146,7 +147,11 @@ const page = async ({ params }) => {
                   </div>
                 </div>
               </div>
-
+              {console.log(
+                Object.keys(houseType).find(
+                  (key) => houseType[key].value == main_data?.TypeOwnSrch
+                )
+              )}
               {formattedSlug && newSalesData?.length > 0 && (
                 <section className="additonal__listing w-full mx-auto mt-24">
                   <PropertyDisplaySection
@@ -154,6 +159,17 @@ const page = async ({ params }) => {
                       main_data?.Municipality || "Ontario"
                     }`}
                     subtitle={`Check out 100+ listings near this property. Listings updated daily`}
+                    exploreAllLink={generateURL({
+                      houseTypeVal:
+                        houseType[
+                          Object.keys(houseType).find(
+                            (key) =>
+                              houseType[key].value == main_data?.TypeOwnSrch
+                          )
+                        ].name,
+                      saleLeaseVal: main_data?.SaleLease,
+                      cityVal: city,
+                    })}
                   >
                     <Slider data={newSalesData} type="resale" />
                   </PropertyDisplaySection>
