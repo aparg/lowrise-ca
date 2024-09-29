@@ -280,7 +280,6 @@ export default function MortgageCalculator({
           decisions.
         </p>
       </div>
-      <div className="mb-20"></div>
     </div>
   );
 }

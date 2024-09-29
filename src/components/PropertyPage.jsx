@@ -145,6 +145,11 @@ const PropertyPage = ({ main_data }) => {
                         </span>
                       </div> */}
             </div>
+            <h1 className="fs-6 mt-0 mb-1 text-lg">
+              {main_data.Street} {main_data.StreetName}{" "}
+              {main_data.StreetAbbreviation}, {main_data.Municipality},{" "}
+              {main_data.Province}, {main_data.PostalCode}
+            </h1>
             <div>
               <button className="bg-gray-400 mt-4 sm:py-1 px-2 text-white sm:text-xs font-bold mb-1 w-fit-content rounded-md text-left py-[0.5px] text-[0.65rem]">
                 <span>
@@ -153,11 +158,7 @@ const PropertyPage = ({ main_data }) => {
                 </span>
               </button>
             </div>
-            <h1 className="fs-6 mt-0 mb-1 text-lg">
-              {main_data.Street} {main_data.StreetName}{" "}
-              {main_data.StreetAbbreviation}, {main_data.Municipality},{" "}
-              {main_data.Province}, {main_data.PostalCode}
-            </h1>
+
             <div className="rounded-md flex items-center">
               <div className="flex justify-content-center align-items-center gap-1 text-lg">
                 <img

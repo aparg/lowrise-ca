@@ -24,7 +24,7 @@ const BookShowingForm = ({ address }) => {
             Book a Showing
           </h1>
           <DateSelector showBookingType={false} />
-          <span>{address}</span>
+          <span className="my-4">{address}</span>
         </div>
       </div>
     </div>

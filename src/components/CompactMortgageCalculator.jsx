@@ -83,7 +83,7 @@ export default function CompactMortgageCalculator({
     <div
       className={`max-w-3xl ${
         align == "center" ? "mx-auto" : ""
-      }  bg-white rounded-lg overflow-hidden mb-20`}
+      }  bg-white rounded-lg overflow-hidden sm:mb-20`}
     >
       <div className="">
         <h2 className={`font-extrabold pb-3 text-2xl sm:text-4xl`}>
@@ -309,7 +309,6 @@ export default function CompactMortgageCalculator({
           decisions.
         </p>
       </div>
-      <div className="mb-20"></div>
     </div>
   );
 }
