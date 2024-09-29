@@ -95,7 +95,7 @@ const page = async ({ params }) => {
 
   return (
     <>
-      <div className="flex justify-center min-[1600px]:max-w-[68%] mx-auto">
+      <div className="flex justify-center min-[2000px]:max-w-[68%] mx-auto">
         <div>
           <script
             key={main_data.MLS}
@@ -129,7 +129,7 @@ const page = async ({ params }) => {
                     <PropertyPage {...{ main_data }} />
                     <BookingDate bannerImage={imageURLs[0]} />
                     <div className="z-20 relative mt-8 sm:mt-24">
-                      <h2 className="font-extrabold pb-3 text-lg sm:text-4xl">
+                      <h2 className="font-extrabold text-2xl sm:text-4xl">
                         Map View
                       </h2>
                       <Map main_data={main_data} />
@@ -140,7 +140,11 @@ const page = async ({ params }) => {
                     className="sm:col-span-2 col-span-2 relative"
                     id="contact"
                   >
-                    <BookShowingForm address={address}></BookShowingForm>
+                    <BookShowingForm
+                      address={
+                        address + `, ${main_data?.Municipality}, Ontario`
+                      }
+                    ></BookShowingForm>
                   </div>
                   <div className="mt-24 mb-10 col-span-4">
                     <FAQ main_data={main_data} />

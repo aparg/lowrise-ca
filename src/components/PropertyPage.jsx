@@ -146,7 +146,7 @@ const PropertyPage = ({ main_data }) => {
                       </div> */}
             </div>
             <div>
-              <button className="bg-[#53bb4f] mt-4 py-1 px-2 text-white text-xs font-bold mb-1 w-fit-content rounded-md">
+              <button className="bg-gray-400 mt-4 sm:py-1 px-2 text-white sm:text-xs font-bold mb-1 w-fit-content rounded-md text-left py-[0.5px] text-[0.65rem]">
                 <span>
                   Average price for {main_data?.TypeOwn1Out} properties in{" "}
                   {main_data.Municipality}: ${main_data.avg.toLocaleString()}
@@ -210,10 +210,10 @@ const PropertyPage = ({ main_data }) => {
         {/* <div className="border-b border-[0.5px] border-gray-200 mt-2 sm:mt-0 sm:ml-4"></div> */}
         {/* Description */}
         <div className={`${isMobileView ? "pt-4 mt-8" : "mt-8 pt-4"}`}>
-          <div className="border border-0 rounded-md bg-very-light-gray p-3 sm:p-4">
+          <div className="border-0 rounded-md bg-very-light-gray p-3 sm:p-4">
             <h2 className="font-extrabold text-2xl sm:text-4xl">
               Property Description <br />
-              <h2 className="font-normal text-xl sm:text-2xl sm:mt-2 mb-3">
+              <h2 className="font-normal text-lg sm:text-2xl sm:mt-2 mb-1 sm:mb-3">
                 {main_data.Street} {main_data.StreetName}{" "}
                 {main_data.StreetAbbreviation}, {main_data.Municipality},{" "}
                 {main_data.Province}
@@ -223,7 +223,7 @@ const PropertyPage = ({ main_data }) => {
               {main_data.RemarksForClients}
             </p> */}
             <p
-              className={`text-lg pty-description pt-2 leading-8 ${
+              className={`text-lg pty-description pt-2 sm:leading-8 ${
                 showMoreDesc ? "" : "line-clamp-4 sm:line-clamp-6"
               }`}
               ref={contentRef}

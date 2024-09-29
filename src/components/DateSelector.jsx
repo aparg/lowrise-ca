@@ -4,7 +4,7 @@ import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import BookingDateOption from "./BookingDateOption";
 import TimingList from "./TimingList";
 
-const DateSelector = () => {
+const DateSelector = ({ showBookingType = true }) => {
   // const [scrollPosition, setScrollPosition] = useState(0);
   // const [maxScroll, setMaxScroll] = useState(0);
   const cardRef = useRef(null);
@@ -41,11 +41,11 @@ const DateSelector = () => {
     return new Date(year, month + 1, 0).getDate();
   }
 
-  function getFiveDaysStartingTomorrow() {
+  function getSevenDaysStartingTomorrow() {
     const today = new Date();
     const daysArray = [];
 
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 7; i++) {
       const date = new Date(
         today.getFullYear(),
         today.getMonth(),
@@ -71,20 +71,20 @@ const DateSelector = () => {
       });
     }
 
-    daysArray.unshift({
-      day: "Any",
-      month: "",
-      dayName: "",
-      selected: false,
-      time: "",
-    });
+    // daysArray.unshift({
+    //   day: "Any",
+    //   month: "",
+    //   dayName: "",
+    //   selected: false,
+    //   time: "",
+    // });
 
     return daysArray;
   }
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
   const [daysArray, setDaysArray] = useState(
-    getFiveDaysStartingTomorrow(year, month)
+    getSevenDaysStartingTomorrow(year, month)
   );
   const selectOption = (e, data) => {
     const updatedDaysArray = daysArray.map((day) => {
@@ -115,11 +115,13 @@ const DateSelector = () => {
   };
   return (
     <div>
-      <div className="flex justify-center items-center">
-        <span className="tour-type rounded-full bg-light-lime px-1 py-1 mt-2 mb-6">
-          <BookingType handleChange={handleChange} />
-        </span>
-      </div>
+      {showBookingType && (
+        <div className="flex justify-center items-center">
+          <span className="tour-type rounded-full bg-light-lime px-1 py-1 mt-2 mb-6">
+            <BookingType handleChange={handleChange} />
+          </span>
+        </div>
+      )}
       <div className="max-w-[300px] flex flex-col justify-center">
         <div className="relative my-2">
           <button
@@ -203,7 +205,7 @@ const DateSelector = () => {
         <input
           type="submit"
           value="Schedule Tour"
-          className="px-4 py-2 bg-primary-green text-white px-4 md:py-2 w-40 mb-3 rounded-full hover:cursor-pointer mx-auto text-lg"
+          className="px-4 py-2 bg-black text-white md:py-2 w-40 mb-3 rounded-full hover:cursor-pointer mx-auto text-lg"
           id="subbtn"
           onClick={submitData}
         />

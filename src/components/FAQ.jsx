@@ -5,8 +5,8 @@ import { Accordion, AccordionItem } from "@nextui-org/accordion";
 const FAQ = ({ main_data }) => {
   return (
     <>
-      <h2 className="font-extrabold pb-3 text-lg sm:text-4xl mb-4">
-        Frequently Asked Questions about {main_data.Address}
+      <h2 className="font-extrabold pb-3 text-2xl sm:text-4xl mb-4">
+        Some information about this property - {main_data.Address}
       </h2>
       <Accordion variant="splitted" className="px-0">
         <AccordionItem

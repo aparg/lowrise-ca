@@ -42,11 +42,11 @@ const BookingDate = ({ bannerImage }) => {
     return new Date(year, month + 1, 0).getDate();
   }
 
-  function getFiveDaysStartingTomorrow() {
+  function getSevenDaysStartingTomorrow() {
     const today = new Date();
     const daysArray = [];
 
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 7; i++) {
       const date = new Date(
         today.getFullYear(),
         today.getMonth(),
@@ -72,21 +72,22 @@ const BookingDate = ({ bannerImage }) => {
       });
     }
 
-    daysArray.unshift({
-      day: "Any",
-      month: "",
-      dayName: "",
-      selected: false,
-      time: "",
-    });
+    // select option for any date
+    // daysArray.unshift({
+    //   day: "Any",
+    //   month: "",
+    //   dayName: "",
+    //   selected: false,
+    //   time: "",
+    // });
 
     return daysArray;
   }
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
-  console.log(getFiveDaysStartingTomorrow(year, month));
+  console.log(getSevenDaysStartingTomorrow(year, month));
   const [daysArray, setDaysArray] = useState(
-    getFiveDaysStartingTomorrow(year, month)
+    getSevenDaysStartingTomorrow(year, month)
   );
   const selectOption = (e, data) => {
     const updatedDaysArray = daysArray.map((day) => {

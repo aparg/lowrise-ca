@@ -179,7 +179,7 @@ const Navbar = (props) => {
           ? "bg-white sticky top-0 z-[999] "
           : "z-[1000] md:bg-transparent "
       } 
-      ${isPropertyPage ? "min-[1600px]:max-w-[68%] mx-auto" : ""}
+      ${isPropertyPage ? "min-[2000px]:max-w-[68%] mx-auto" : ""}
       container-fluid shadow-shuttle`}
     >
       <div className={`${isSticky && "sticky"}`}>

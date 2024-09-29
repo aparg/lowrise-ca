@@ -79,7 +79,6 @@ const Map = ({ main_data }) => {
             height: "400px",
             width: "100%",
             borderRadius: "5px",
-            marginTop: "1rem",
           }}
           attributionControl={false}
           scrollWheelZoom={false}

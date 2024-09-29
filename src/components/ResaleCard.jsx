@@ -100,7 +100,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
   };
 
   return (
-    <section className="relative transition-all duration-200 transform bg-white shadow group rounded-2xl p-0 hover:shadow-lg hover:rounded-t-2xl  hover:-translate-y-1 overflow-hidden">
+    <section className="relative transition-all duration-200 transform bg-white group rounded-2xl p-0 hover:shadow-lg hover:rounded-t-2xl  hover:-translate-y-1 overflow-hidden">
       <Link
         href={generateURL({
           cityVal: curElem.Municipality,
