@@ -199,7 +199,7 @@ const FiltersWithSalesList = ({
       {
         <div className="">
           <h1
-            className={`font-extrabold text-2xl ${
+            className={`font-extrabold text-2xl text-center sm:text-left ${
               isMobileView ? "pt-2" : "pt-2"
             }`}
           >
@@ -223,7 +223,7 @@ const FiltersWithSalesList = ({
             {city ? ` | ${capitalizeFirstLetter(city)}` : ""} | Lowrise.ca
           </h1>
           <h2
-            className="text-sm mb-5 mt-1"
+            className="text-sm mb-5 mt-1 text-center sm:text-left"
             style={isMobileView ? { fontSize: "0.9rem" } : {}}
           >
             500+ {capitalizeFirstLetter(city)}{" "}
