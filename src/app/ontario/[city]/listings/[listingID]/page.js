@@ -129,7 +129,7 @@ const page = async ({ params }) => {
                     <PropertyPage {...{ main_data }} />
                     <BookingDate bannerImage={imageURLs[0]} />
                     <div className="z-20 relative mt-8 sm:mt-24">
-                      <h2 className="font-extrabold text-2xl sm:text-4xl">
+                      <h2 className="font-extrabold text-2xl sm:text-4xl mb-2">
                         Map View
                       </h2>
                       <Map main_data={main_data} />

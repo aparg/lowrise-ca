@@ -31,7 +31,7 @@ const HotListings = ({ salesData }) => {
   return salesData?.length > 0 ? (
     <div
       className={`relative rounded-xl px-2 z-10 ${
-        isMobileView ? "mt-3" : "mt-4"
+        isMobileView ? "mt-3 mb-4" : "mt-4"
       }`}
       style={{
         backgroundColor: "#FEF7E7",
@@ -40,7 +40,7 @@ const HotListings = ({ salesData }) => {
     >
       <div className="w-full flex flex-row justify-between">
         <h3
-          className={`text-2xl font-bold mb-1 ${
+          className={`text-2xl font-bold mb-1 text-center sm:text-left ${
             isMobileView ? "pt-3" : "pt-3"
           }`}
         >

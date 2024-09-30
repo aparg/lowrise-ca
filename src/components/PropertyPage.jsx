@@ -16,6 +16,7 @@ import Link from "next/link";
 import MortgageCalculator from "./MortgageCalculator";
 import formatCurrency from "@/helpers/formatCurrency";
 import CompactMortgageCalculator from "./CompactMortgageCalculator";
+import { houseType } from "@/constant";
 
 const PropertyPage = ({ main_data }) => {
   const [navbar, setNavbar] = useState(false);
@@ -94,6 +95,11 @@ const PropertyPage = ({ main_data }) => {
     }
   }, []);
 
+  const typeOwnSrchToName = {};
+  Object.values(houseType).forEach(
+    (item) => (typeOwnSrchToName[item.value] = item.name)
+  );
+
   useEffect(() => {
     // Check if content is overflowing
     if (contentRef.current) {
@@ -151,10 +157,11 @@ const PropertyPage = ({ main_data }) => {
               {main_data.Province}, {main_data.PostalCode}
             </h1>
             <div>
-              <button className="bg-gray-400 mt-4 sm:py-1 px-2 text-white sm:text-xs font-bold mb-1 w-fit-content rounded-md text-left py-[0.5px] text-[0.65rem]">
+              <button className="bg-gray-400 mt-4 sm:py-1 px-2 text-white sm:text-xs font-semibold mb-1 w-fit-content rounded-md text-left py-[0.5px] text-[0.65rem]">
                 <span>
-                  Average price for {main_data?.TypeOwn1Out} properties in{" "}
-                  {main_data.Municipality}: ${main_data.avg.toLocaleString()}
+                  Average price for {typeOwnSrchToName[main_data?.TypeOwnSrch]}{" "}
+                  properties in {main_data.Municipality}: $
+                  {main_data.avg.toLocaleString()}
                 </span>
               </button>
             </div>
@@ -802,7 +809,7 @@ const PropertyPage = ({ main_data }) => {
         </div>
 
         {main_data.ListBrokerage && (
-          <div className="flex flex-grid text-lg font-medium py-1 leading-8 text-xs text-gray-700">
+          <div className="flex flex-grid text-xs font-medium py-1 text-gray-700">
             Listed by {main_data?.ListBrokerage}
           </div>
         )}
@@ -815,7 +822,7 @@ const PropertyPage = ({ main_data }) => {
         />
       </div>
       <div className={isMobileView ? `mt-8 col-12` : `mt-24 col-12`}>
-        <h2 className="font-bold pb-3 text-lg sm:text-2xl">
+        <h2 className="font-bold pb-3 text-lg sm:text-2xl pt-3">
           <Image
             width={50}
             height={50}
