@@ -29,6 +29,7 @@ module.exports = {
         autosuggest:
           "0px 5px 5px rgba(238, 66, 102, 0.2), 5px 0 5px rgba(238, 66, 102, 0.2), -5px 0 5px rgba(238, 66, 102, 0.2)",
         "black-box-shadow": "rgba(0, 0, 0, 0.12) 20px 20px 20px",
+        btn: "0 0 0.7em #EE4266",
       },
       aspectRatio: {
         "16/14": "16/14",
