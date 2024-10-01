@@ -45,7 +45,7 @@ const DateSelector = ({ showBookingType = true }) => {
     const today = new Date();
     const daysArray = [];
 
-    for (let i = 1; i <= 7; i++) {
+    for (let i = 1; i <= 8; i++) {
       const date = new Date(
         today.getFullYear(),
         today.getMonth(),
@@ -122,26 +122,27 @@ const DateSelector = ({ showBookingType = true }) => {
           </span>
         </div>
       )}
-      <div className="max-w-[300px] flex flex-col justify-center">
+      <div className="flex flex-col justify-center items-center">
         <div className="relative my-2">
-          <button
-            className="absolute w-6 h-6 left-0 border-gray-200 border-2 rounded-full z-[999] translate-y-[-50%] left-[-10px] sm:left-[-20px] top-[50%] flex justify-center items-center bg-white z-10"
+          {/* <button
+            className="absolute w-6 h-6 left-0 border-gray-200 border-2 rounded-full z-[999] translate-y-[-50%] sm:left-[-20px] top-[50%] flex justify-center items-center bg-white"
             title="scroll left"
             onClick={slideLeft}
           >
             <SlArrowLeft size={8} />
           </button>
           <button
-            className="absolute w-6 h-6 right-0 border-gray-200 border-2 rounded-full z-[999] translate-y-[-50%] right-[-10px] sm:right-[-20px] top-[50%] flex justify-center items-center bg-white z-10 flex justify-center"
+            className="absolute w-6 h-6 right-0 border-gray-200 border-2 rounded-full z-[999] translate-y-[-50%] sm:right-[-20px] top-[50%] items-center bg-white flex justify-center"
             title="scroll right"
             onClick={slideRight}
           >
             <SlArrowRight size={8} />
-          </button>
+          </button> */}
           <div className="flex flex-col items-center">
             <div
-              className="flex z-0 scroll-container relative w-full overflow-x-scroll overscroll-x-none no-scrollbar"
-              style={{ transform: `translateX(${scrollPosition}px) z-0` }}
+              // className="flex z-0 scroll-container relative w-full overflow-x-scroll overscroll-x-none no-scrollbar"
+              className="grid grid-rows-2 grid-cols-4 gap-x-2 gap-y-2 justify-center items-center"
+              // style={{ transform: `translateX(${scrollPosition}px) z-0` }}
               id=""
               ref={scrollRef}
             >
@@ -164,7 +165,7 @@ const DateSelector = ({ showBookingType = true }) => {
         {/* <div className="text-md text-center my-2 text-gray-700">
               No obligation or purchase necessary, cancel at any time
             </div> */}
-        <div className="relative mb-1 mt-4">
+        <div className="relative mb-1 mt-4 w-full">
           <input
             type="text"
             name="name"
@@ -182,7 +183,7 @@ const DateSelector = ({ showBookingType = true }) => {
             Name
           </label>
         </div>
-        <div className="relative mb-3">
+        <div className="relative mb-3 w-full">
           <input
             type="text"
             inputMode="numeric"

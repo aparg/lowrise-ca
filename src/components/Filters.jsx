@@ -773,10 +773,8 @@ const IndividualFilterButtonNoLink = ({
   };
 
   return (
-    <div className="inline-flex sm:mr-4 flex-wrap gap-y-2">
+    <div className="inline-flex sm:mr-4 flex-wrap gap-y-2 py-2 sm:py-0">
       {options.map((option, index) => {
-        console.log(activeFilter);
-        console.log(option);
         return (
           <div
             key={index}

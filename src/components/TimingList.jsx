@@ -19,7 +19,7 @@ const timings = [
 const TimingList = ({ handleChange }) => {
   const [selected, setSelected] = useState();
   return (
-    <div className="w-full flex justify-between">
+    <div className="max-w-[90%] flex space-x-2 justify-between mt-4">
       {timings.map((timing) => (
         <TimingOption
           selected={selected == timing.name}

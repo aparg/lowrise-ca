@@ -4,7 +4,7 @@ import React from "react";
 const BookingDateOption = React.forwardRef(
   ({ data, handleChange, selected, year }, ref) => {
     return (
-      <div className=" h-[100px] min-w-[100px] p-2">
+      <div className=" h-[75px] min-w-[75px]">
         <button
           className={`flex flex-col w-full h-full justify-center  items-center mr-1 rounded-md cursor-pointer overflow-clip ${
             selected
