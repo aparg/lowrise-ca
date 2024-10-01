@@ -104,9 +104,9 @@ const SearchBar = ({
   ];
 
   return (
-    <div className={`flex flex-col relative`}>
+    <div className={`flex flex-col relative rounded-[28px]`}>
       <div
-        className={`w-full h-full flex overflow-hidden border-[1px] border-[#dfe1e5] shadow-none! focus-within:border-3 focus-within:border-primary-green focus-within:shadow-custom-primary ${
+        className={`w-full h-full flex overflow-hidden border-[1px] border-[#dfe1e5] shadow-none! focus-within:shadow-custom-primary ${
           displaySuggestions ? "rounded-t-[28px]" : "rounded-[28px]"
         }`}
       >

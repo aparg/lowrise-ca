@@ -101,6 +101,7 @@ export const getSalesData = async (offset, limit, city, listingType) => {
 
 //for portfolio
 export const getFilteredRetsData = async (queryParams) => {
+  console.log(queryParams);
   const lowriseOnly = `TypeOwnSrch='.S.',TypeOwnSrch='.D.',TypeOwnSrch='.A.',TypeOwnSrch='.J.',TypeOwnSrch='.K.'`;
   try {
     //all the necessary queries possible
@@ -164,6 +165,7 @@ export const getFilteredRetsData = async (queryParams) => {
       method: "GET",
       // cache: "no-store",
     };
+    console.log(url);
     const res = await fetch(url, options);
     const data = await res.json();
     return data.results;

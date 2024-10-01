@@ -29,6 +29,13 @@ import { useRouter } from "next/router";
 import { generateURL } from "@/helpers/generateURL";
 // import Dropdown from "./Dropdown";
 
+const priceRanges = ["$0 - 500k", "$500k-$999k", "1mil - 1.5mil"];
+const getPriceValue = (priceRange) => {
+  if (priceRange === "$0 - 500k") return { min: 0, max: 500000 };
+  if (priceRange === "$500k-$999k") return { min: 500000, max: 999000 };
+  if (priceRange === "1mil - 1.5mil") return { min: 1000000, max: 1500000 };
+};
+
 const bgColor = {
   saleLease: "bg-primary-green",
   priceDecreased: "bg-primary-green",
@@ -92,7 +99,18 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
       };
     }
     setFilterState({ ...newFilterState });
+    fetchFilteredData(newFilterState);
+  };
 
+  const handlePriceChange = (name, value) => {
+    const newFilterState = { ...filterState };
+    const priceRange = getPriceValue(value);
+    console.log(priceRange);
+    newFilterState[name] = {
+      min: priceRange.min,
+      max: priceRange.max,
+    };
+    setFilterState({ ...newFilterState });
     fetchFilteredData(newFilterState);
   };
 
@@ -143,7 +161,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           type={filterState.type}
         />
 
-        <div className="rounded-full overflow-hidden mr-4 ">
+        <div className="rounded-full overflow-hidden mr-4 hover:shadow-lg ">
           <IndividualFilter
             options={bedCountOptions}
             defaultValue={bedCountOptions[0]}
@@ -155,7 +173,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           />
         </div>
 
-        <div className="rounded-full overflow-hidden mr-4 ">
+        <div className="rounded-full overflow-hidden mr-4 hover:shadow-lg ">
           <IndividualFilter
             options={houseTypeOptions}
             defaultValue={houseTypeOptions[0]}
@@ -180,7 +198,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
             />
           </div>
         ) : null} */}
-        <div className="rounded-full overflow-hidden">
+        <div className="rounded-full">
           <MoreFilter
             {...{ washroomCountOptions, additonalFilterChange, filterState }}
           />
@@ -192,7 +210,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           value={filterState.priceDecreased}
           handleFilterChange={handleFilterChange}
         /> */}
-        {!isMobileView ? (
+        {/* {!isMobileView ? (
           <div className="price-range__filter ml-2 h-[34px] pb-14 px-10 w-[25vw]">
             <div
               className={
@@ -223,10 +241,10 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
               />
             </div>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
 
-      {isMobileView ? (
+      {/* {isMobileView ? (
         <div className="container-fluid w-[90%] sm:w-auto">
           <PriceRangeFilterBottom
             name="priceRange"
@@ -236,7 +254,16 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
             minMaxPrice={minMaxPrice}
           />
         </div>
-      ) : null}
+      ) : null} */}
+
+      <IndividualFilterButtonNoLink
+        options={priceRanges}
+        name="priceRange"
+        value={null}
+        handleFilterChange={handlePriceChange}
+        city={filterState.city}
+        type={filterState.type}
+      />
     </>
   );
 };
@@ -317,86 +344,87 @@ const IndividualFilter = ({
   );
 };
 
-const PriceRangeFilter = ({ name, value, handleFilterChange, minMaxPrice }) => {
-  const [price, setPrice] = useState({
-    min: 0,
-    max: 0,
-  });
+//slider for price
+// const PriceRangeFilter = ({ name, value, handleFilterChange, minMaxPrice }) => {
+//   const [price, setPrice] = useState({
+//     min: 0,
+//     max: 0,
+//   });
 
-  const handlePriceChange = (inputName, value) => {
-    const newPrice = {
-      ...price,
-      [inputName]: Number(value),
-    };
+//   const handlePriceChange = (inputName, value) => {
+//     const newPrice = {
+//       ...price,
+//       [inputName]: Number(value),
+//     };
 
-    setPrice(newPrice);
-    handleFilterChange(name, newPrice);
-  };
+//     setPrice(newPrice);
+//     handleFilterChange(name, newPrice);
+//   };
 
-  const valueToDisplay = useMemo(() => {
-    if (price.min && !price.max) {
-      return `Over $${price.min}`;
-    } else if (price.min && price.max) {
-      return `$${price.min} - $${price.max}`;
-    } else {
-      return "Price";
-    }
-  }, [price]);
+//   const valueToDisplay = useMemo(() => {
+//     if (price.min && !price.max) {
+//       return `Over $${price.min}`;
+//     } else if (price.min && price.max) {
+//       return `$${price.min} - $${price.max}`;
+//     } else {
+//       return "Price";
+//     }
+//   }, [price]);
 
-  const handleRangeChange = ([min, max]) => {
-    const newPrice = { min, max };
-    setPrice(newPrice);
-    handleFilterChange(name, newPrice);
-  };
+//   const handleRangeChange = ([min, max]) => {
+//     const newPrice = { min, max };
+//     setPrice(newPrice);
+//     handleFilterChange(name, newPrice);
+//   };
 
-  useEffect(() => {
-    const newPrice = {
-      min: value?.min ?? 0,
-      max: value?.max ?? 0,
-    };
-    setPrice(newPrice);
-  }, [value]);
+//   useEffect(() => {
+//     const newPrice = {
+//       min: value?.min ?? 0,
+//       max: value?.max ?? 0,
+//     };
+//     setPrice(newPrice);
+//   }, [value]);
 
-  return (
-    <div className="price-range__slider">
-      <Slider
-        label="Price Range"
-        step={50}
-        minValue={minMaxPrice.min}
-        maxValue={minMaxPrice.max}
-        onChangeEnd={handleRangeChange}
-        defaultValue={[minMaxPrice.min, minMaxPrice.max]}
-        formatOptions={{
-          style: "currency",
-          currency: "CAD",
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0,
-        }}
-        classNames={{
-          filler: "bg-primary-green",
-        }}
-        renderThumb={(props) => (
-          <div
-            {...props}
-            className="bg-primary-green group p-1 top-1/2 shadow-medium rounded-full cursor-grab data-[dragging=true]:cursor-grabbing"
-          >
-            <span className="transition-transform shadow-small rounded-full w-3 h-3 block group-data-[dragging=true]:scale-80"></span>
-          </div>
-        )}
-      />
-      {(props) => {
-        return (
-          <div
-            {...props}
-            className="p-1 top-50 bg-primary-green border border-secondary rounded-circle shadow cursor-grab"
-          >
-            <span className="bg-primary-green shadow rounded-circle w-5 h-5 block" />
-          </div>
-        );
-      }}
-    </div>
-  );
-};
+//   return (
+//     <div className="price-range__slider">
+//       <Slider
+//         label="Price Range"
+//         step={50}
+//         minValue={minMaxPrice.min}
+//         maxValue={minMaxPrice.max}
+//         onChangeEnd={handleRangeChange}
+//         defaultValue={[minMaxPrice.min, minMaxPrice.max]}
+//         formatOptions={{
+//           style: "currency",
+//           currency: "CAD",
+//           minimumFractionDigits: 0,
+//           maximumFractionDigits: 0,
+//         }}
+//         classNames={{
+//           filler: "bg-primary-green",
+//         }}
+//         renderThumb={(props) => (
+//           <div
+//             {...props}
+//             className="bg-primary-green group p-1 top-1/2 shadow-medium rounded-full cursor-grab data-[dragging=true]:cursor-grabbing"
+//           >
+//             <span className="transition-transform shadow-small rounded-full w-3 h-3 block group-data-[dragging=true]:scale-80"></span>
+//           </div>
+//         )}
+//       />
+//       {(props) => {
+//         return (
+//           <div
+//             {...props}
+//             className="p-1 top-50 bg-primary-green border border-secondary rounded-circle shadow cursor-grab"
+//           >
+//             <span className="bg-primary-green shadow rounded-circle w-5 h-5 block" />
+//           </div>
+//         );
+//       }}
+//     </div>
+//   );
+// };
 
 const MoreFilter = ({
   washroomCountOptions,
@@ -440,7 +468,7 @@ const MoreFilter = ({
       <Button
         onPress={onOpen}
         variant="faded"
-        className="capitalize h-[34px] bg-white rounded-full "
+        className="capitalize h-[34px] bg-white rounded-full hover:shadow-md"
         size="md"
       >
         More Filter
@@ -705,10 +733,10 @@ const IndividualFilterButton = ({
         return (
           <div
             key={index}
-            className={`mx-[2px] px-3 py-1 h-[34px] cursor-pointer text-nowrap text-small h-[34px] flex justify-content-center align-items-center rounded-full border-2
+            className={`mx-[2px] px-3 py-1 cursor-pointer text-nowrap text-small h-[34px] flex justify-content-center align-items-center rounded-full hover:shadow-lg
             ${
               isActive(option)
-                ? `border-primary-green text-white ${bgColor[name]}`
+                ? `border-primary-green text-white bg-primary-green`
                 : "border-black"
             }`}
             // onClick={() => handleClick(name, option)}
@@ -723,6 +751,45 @@ const IndividualFilterButton = ({
             >
               {option}
             </Link>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+const IndividualFilterButtonNoLink = ({
+  options,
+  name,
+  value,
+  handleFilterChange,
+  city,
+  type,
+}) => {
+  const [activeFilter, setActiveFilter] = useState(value);
+
+  const handleClick = (name, option) => {
+    setActiveFilter(option);
+    handleFilterChange(name, option);
+  };
+
+  return (
+    <div className="inline-flex sm:mr-4 flex-wrap gap-y-2">
+      {options.map((option, index) => {
+        console.log(activeFilter);
+        console.log(option);
+        return (
+          <div
+            key={index}
+            className={`mx-[2px] px-3 py-1 cursor-pointer text-nowrap text-small h-[34px] flex justify-content-center align-items-center rounded-full hover:shadow-lg
+            ${
+              activeFilter == option
+                ? `border-primary-green bg-primary-green text-white`
+                : "border-black"
+            }`}
+            onClick={() => handleClick(name, option)}
+            style={{ border: "2px solid #e5e7eb" }}
+          >
+            {option}
           </div>
         );
       })}
@@ -745,7 +812,7 @@ const IndividualFilterNoOptions = ({
 
   return (
     <div
-      className={`px-3 py-1 h-[34px] cursor-pointer text-nowrap text-small h-[34px] flex justify-content-center align-items-center rounded-full border-2 ${
+      className={`px-3 py-1 cursor-pointer text-nowrap text-small h-[34px] flex justify-content-center align-items-center rounded-full border-2 ${
         isActive
           ? "bg-primary-green text-white border-primary-green"
           : "border-black"

@@ -59,7 +59,7 @@ export async function generateMetadata({ params }, parent) {
     },
     title: `100+ ${formattedCity} ${capitalizeFirstLetter(
       type
-    )} for Sale | New Listings | Lowrise.ca `,
+    )} homes for Sale | New Listings | Lowrise.ca `,
     description: `500+ ${formattedCity} ${type} homes for sale. Book a showing for affordable homes with pools, finished basements, walkouts. Prices from $1 to $5,000,000. Open houses available.`,
   };
 }

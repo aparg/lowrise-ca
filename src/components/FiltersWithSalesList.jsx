@@ -132,7 +132,7 @@ const FiltersWithSalesList = ({
       city: capitalizeFirstLetter(city),
       ...payload,
     };
-    // setLoading(true);
+    setLoading(true);
     // console.log(payload);
     const filteredSalesData = await getFilteredRetsData(queryParams);
     if (!filteredSalesData?.length == 0) {

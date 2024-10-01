@@ -122,11 +122,11 @@
   width: 100%;
 }
 
-#hero-section {
+/* #hero-section {
   background: url(/hero-img.png);
   background-repeat: repeat-x;
   background-position: bottom;
-}
+} */
 
 .searchbar-animation-open {
   animation: searchbar-open 0.3s ease-out;
