@@ -22,19 +22,20 @@ const PriceButton = ({ price }) => {
   };
 
   return (
-    <Link
-      href="#contact"
-      className="text-center fixed bottom-3 right-2 mx-auto z-[1000] overflow-hidden block sm:hidden rounded-t-xl rounded-l-xl hover:scale-110 shadow-btn"
-      onClick={handleClick}
-    >
-      {/* <div className="text-primary-green font-bold text-md bg-white rounded-t-xl w-full py-1 shadow-xl">
-        {console.log(price)}
-        Listing Price: {price}
-      </div> */}
-      <div className="bg-black text-white text-xs font-semibold text-md py-2 px-2 w-full shadow-2xl">
-        Tour this home{" "}
-        {/* <img src="/message.svg" alt="message" className="ml-2 inline w-5" /> */}
-      </div>
+    // <Link
+    //   href="#contact"
+    //   className="text-center fixed bottom-3 right-3 mx-auto z-[1000] overflow-hidden block sm:hidden rounded-xl shadow-btn"
+    //   onClick={handleClick}
+    // >
+    //   {/* <div className="text-primary-green font-bold text-md bg-white rounded-t-xl w-full py-1 shadow-xl">
+    //     {console.log(price)}
+    //     Listing Price: {price}
+    //   </div> */}
+    // </Link>
+    <Link href="#contact">
+      <button className="fixed bottom-3 right-3 mx-auto z-[1000] overflow-hidden block sm:hidden rounded-xl shadow-btn bg-black text-white text-xs font-semibold py-2 px-4 transform transition-all duration-300 ease-in-out hover:scale-105 scale-100">
+        Tour this home
+      </button>
     </Link>
   );
 };
