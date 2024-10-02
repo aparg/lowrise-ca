@@ -23,7 +23,7 @@ const Autosuggest = ({
       : [];
   return (
     <div
-      className={`absolute top-0 rounded-b-[28px] border-[1px] border-[#dfe1e5] w-full bg-white p-4 shadow-autosuggest overflow-hidden ${
+      className={`absolute top-0 rounded-b-[28px] border-[1px] border-[#dfe1e5] w-full bg-white p-4 shadow-autosuggest overflow-hidden z-0 ${
         firstRender
           ? "hidden"
           : displaySuggestions

@@ -98,6 +98,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
         max: 0,
       };
     }
+    scrollToFilters();
     setFilterState({ ...newFilterState });
     fetchFilteredData(newFilterState);
   };
@@ -110,8 +111,27 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
       min: priceRange.min,
       max: priceRange.max,
     };
+    console.log("YO");
+    scrollToFilters();
     setFilterState({ ...newFilterState });
     fetchFilteredData(newFilterState);
+  };
+
+  const scrollToFilters = () => {
+    //if window exists scroll to #contact smoothly
+    console.log("here");
+    console.log(window);
+    if (window) {
+      // Check for browser environment
+      const contactElement = document.getElementById("filters");
+      if (contactElement) {
+        console.log("clicked");
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+    }
   };
 
   const additonalFilterChange = (filteredValue) => {
@@ -151,6 +171,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
             ? `filter__scrolled mt-4 pb-2 container-fluid`
             : `top-[0px] items-center`
         }`}
+        id="filters"
       >
         <IndividualFilterButton
           options={saleLeaseOptions}
@@ -173,7 +194,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           />
         </div>
 
-        <div className="rounded-full overflow-hidden mr-4 hover:shadow-lg ">
+        <div className="rounded-full overflow-hidden sm:mr-4 hover:shadow-lg ">
           <IndividualFilter
             options={houseTypeOptions}
             defaultValue={houseTypeOptions[0]}
@@ -255,15 +276,16 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           />
         </div>
       ) : null} */}
-
-      <IndividualFilterButtonNoLink
-        options={priceRanges}
-        name="priceRange"
-        value={null}
-        handleFilterChange={handlePriceChange}
-        city={filterState.city}
-        type={filterState.type}
-      />
+      <div className="flex sm:justify-center justify-start">
+        <IndividualFilterButtonNoLink
+          options={priceRanges}
+          name="priceRange"
+          value={null}
+          handleFilterChange={handlePriceChange}
+          city={filterState.city}
+          type={filterState.type}
+        />
+      </div>
     </>
   );
 };

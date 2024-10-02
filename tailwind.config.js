@@ -25,7 +25,7 @@ module.exports = {
       boxShadow: {
         shuttle: "0 0 1rem 1px rgb(0 0 0 / 3%);",
         "custom-primary":
-          "0 0px 5px rgba(238, 66, 102, 0.2), 0px 0 5px rgba(238, 66, 102, 0.2), -0px 0 5px rgba(238, 66, 102, 0.2)",
+          "0 -5px 5px rgba(238, 66, 102, 0.2), 5px 0 5px rgba(238, 66, 102, 0.2), -5px 0 5px rgba(238, 66, 102, 0.2)",
         autosuggest:
           "0px 5px 5px rgba(238, 66, 102, 0.2), 5px 0 5px rgba(238, 66, 102, 0.2), -5px 0 5px rgba(238, 66, 102, 0.2)",
         "black-box-shadow": "rgba(0, 0, 0, 0.12) 20px 20px 20px",
