@@ -9,7 +9,7 @@ const PropertyDisplaySection = ({
 }) => {
   return (
     <div className="mt-10 sm:mt-20">
-      <div className="my-4">
+      <div className="my-2 sm:my-4">
         <div className="flex flex-row items-center justify-between">
           <h3 className="text-xl sm:text-3xl font-bold w-[100%] sm:w-auto">
             {title}
@@ -21,13 +21,13 @@ const PropertyDisplaySection = ({
           </Link>
         </div>
         {subtitle && (
-          <h5 className="font-md text-xs sm:text-md mt-1">{subtitle}</h5>
+          <h5 className="font-md text-xs sm:text-md sm:mt-1">{subtitle}</h5>
         )}
       </div>
       {children}
       <div className="flex justify-center">
         <Link href={exploreAllLink || "#"} className="sm:hidden">
-          <button className="border-black font-bold border-2 inline px-1 sm:px-3 py-2 rounded-md text-sm sm:text-md">
+          <button className="border-black font-bold border-2 inline px-1 sm:px-3 py-2 rounded-md text-sm mt-1 sm:text-md">
             Explore All
           </button>
         </Link>
