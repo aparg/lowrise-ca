@@ -10,12 +10,21 @@ const PriceButton = ({ price }) => {
     e.preventDefault();
     const contactElement = document.getElementById("contact");
     if (contactElement) {
-      const offsetY = 115; // Adjust this value to change how far above the element it scrolls
+      const offsetY = 100; // Adjust this value to change how far from the element it scrolls
+
+      // Get position relative to viewport
       const elementPosition = contactElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - offsetY;
-      console.log(offsetPosition);
+
+      // Add current scroll position to get absolute position
+      const absoluteElementPosition = elementPosition + window.scrollY;
+
+      // Calculate final scroll position with offset
+      const scrollPosition = absoluteElementPosition - offsetY;
+
+      console.log("Scrolling to:", scrollPosition);
+
       window.scrollTo({
-        top: offsetPosition,
+        top: scrollPosition,
         behavior: "smooth",
       });
     }
@@ -32,11 +41,11 @@ const PriceButton = ({ price }) => {
     //     Listing Price: {price}
     //   </div> */}
     // </Link>
-    <Link href="#contact">
+    <div onClick={handleClick}>
       <button className="fixed bottom-3 right-3 mx-auto z-[1000] overflow-hidden block sm:hidden rounded-xl shadow-btn bg-black text-white text-xs font-semibold py-2 px-4 transform transition-all duration-300 ease-in-out hover:scale-105 scale-100">
         Tour this home
       </button>
-    </Link>
+    </div>
   );
 };
 
