@@ -217,7 +217,7 @@ const PropertyPage = ({ main_data }) => {
         </div>
         {/* <div className="border-b border-[0.5px] border-gray-200 mt-2 sm:mt-0 sm:ml-4"></div> */}
         {/* Description */}
-        <div className={`${isMobileView ? "pt-4 mt-8" : "mt-8 pt-4"}`}>
+        <div className={`${isMobileView ? "pt-4 mt-12" : "mt-12 pt-4"}`}>
           <div className="border-0 rounded-md bg-very-light-gray p-3 sm:p-4">
             <h2 className="font-extrabold text-2xl sm:text-4xl">
               Property Description <br />
@@ -379,7 +379,7 @@ const PropertyPage = ({ main_data }) => {
         )}
         {/*Home Overview  */}
         <div
-          className={`${isMobileView ? "pt-4 pb-4 mt-8" : "mt-8 pt-4 pb-4"}`}
+          className={`${isMobileView ? "pt-4 pb-4 mt-12" : "mt-12 pt-4 pb-4"}`}
         >
           <div className="p-4 rounded-md bg-very-light-gray  border-0">
             <h2 className="font-extrabold pb-3 text-2xl sm:text-4xl">
@@ -814,14 +814,14 @@ const PropertyPage = ({ main_data }) => {
           </div>
         )}
       </div>
-      <div className={isMobileView ? `mt-8 col-12` : `mt-24 col-12`}>
+      <div className={isMobileView ? `mt-12 col-12` : `mt-24 col-12`}>
         <CompactMortgageCalculator
           price={main_data?.ListPrice}
           showDetails={false}
           align="left"
         />
       </div>
-      <div className={isMobileView ? `mt-8 col-12` : `mt-24 col-12`}>
+      <div className={isMobileView ? `mt-14 col-12` : `mt-24 col-12`}>
         <h2 className="font-bold pb-3 text-lg sm:text-2xl pt-3">
           <Image
             width={50}
