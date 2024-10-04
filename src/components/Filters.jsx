@@ -21,7 +21,14 @@ import {
 } from "@nextui-org/react";
 
 //CONSTANT
-import { bedCount, saleLease, houseType, washroomCount } from "@/constant";
+import {
+  bedCount,
+  saleLease,
+  houseType,
+  washroomCount,
+  priceRangesSaleProperties,
+  priceRangesLeaseProperties,
+} from "@/constant";
 import useDeviceView from "@/helpers/useDeviceView";
 import { FaChevronDown } from "react-icons/fa";
 import Link from "next/link";
@@ -29,11 +36,15 @@ import { useRouter } from "next/router";
 import { generateURL } from "@/helpers/generateURL";
 // import Dropdown from "./Dropdown";
 
-const priceRanges = ["$0 - 500k", "$500k-$999k", "1mil - 1.5mil"];
 const getPriceValue = (priceRange) => {
   if (priceRange === "$0 - 500k") return { min: 0, max: 500000 };
   if (priceRange === "$500k-$999k") return { min: 500000, max: 999000 };
   if (priceRange === "1mil - 1.5mil") return { min: 1000000, max: 1500000 };
+  if (priceRange === "$1.5k - $2k") return { min: 1500, max: 2000 };
+  if (priceRange === "$2k - $2.5k") return { min: 2000, max: 2500 };
+  if (priceRange === "$2.5k - $3.5k") return { min: 2500, max: 3500 };
+  if (priceRange === "$3k - $3.5k") return { min: 3000, max: 3500 };
+  return;
 };
 
 const bgColor = {
@@ -72,6 +83,13 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
     (item) => item.name
   );
 
+  const priceRangeOptionsSaleProperties = Object.keys(
+    priceRangesSaleProperties
+  );
+  const priceRangeOptionsLeaseProperties = Object.keys(
+    priceRangesLeaseProperties
+  );
+
   //dynamic price range generator based on sale or lease options
   const minMaxPrice = useMemo(() => {
     if (filterState.saleLease.includes(Object.values(saleLease)[1].name)) {
@@ -91,6 +109,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
   const handleFilterChange = (name, value) => {
     const newFilterState = { ...filterState };
     newFilterState[name] = value;
+    console.log(newFilterState);
     if (name === "saleLease") {
       //reset the price filter
       newFilterState["priceRange"] = {
@@ -105,13 +124,17 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
 
   const handlePriceChange = (name, value) => {
     const newFilterState = { ...filterState };
-    const priceRange = getPriceValue(value);
+    console.log(filterState.saleLease);
+    const priceRange =
+      filterState.saleLease == saleLease.sale.name
+        ? priceRangesSaleProperties[value]
+        : priceRangesLeaseProperties[value];
     console.log(priceRange);
     newFilterState[name] = {
       min: priceRange.min,
       max: priceRange.max,
     };
-    console.log("YO");
+
     scrollToFilters();
     setFilterState({ ...newFilterState });
     fetchFilteredData(newFilterState);
@@ -166,7 +189,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
   return (
     <>
       <div
-        className={`justify-center sm:justify-start gap-2 gap-md-3 my-2 flex flex-wrap bg-white overflow-visible${
+        className={`justify-center sm:justify-start gap-2 gap-md-3 mt-2 sm:my-2 flex flex-wrap bg-white overflow-visible${
           navbar
             ? `filter__scrolled mt-4 pb-2 container-fluid`
             : `top-[0px] items-center`
@@ -182,19 +205,30 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           type={filterState.type}
         />
 
-        <div className="rounded-full overflow-hidden mr-4 hover:shadow-lg ">
-          <IndividualFilter
-            options={bedCountOptions}
-            defaultValue={bedCountOptions[0]}
-            name="bed"
-            value={filterState.bed}
-            setFilterState={setFilterState}
-            handleFilterChange={handleFilterChange}
-            isMobileView={isMobileView}
-          />
+        <div className="rounded-full mr-4">
+          {isMobileView ? (
+            <IndividualFilter
+              options={bedCountOptions}
+              defaultValue={bedCountOptions[0]}
+              name="bed"
+              value={filterState.bed}
+              setFilterState={setFilterState}
+              handleFilterChange={handleFilterChange}
+              isMobileView={isMobileView}
+            />
+          ) : (
+            <IndividualFilterButtonNoLink
+              options={bedCountOptions}
+              defaultValue={null}
+              name="bed"
+              value={filterState.bed}
+              setFilterState={setFilterState}
+              handleFilterChange={handleFilterChange}
+            />
+          )}
         </div>
 
-        <div className="rounded-full overflow-hidden sm:mr-4 hover:shadow-lg ">
+        <div className="rounded-full overflow-hidden sm:mr-4 hover:shadow-lg">
           <IndividualFilter
             options={houseTypeOptions}
             defaultValue={houseTypeOptions[0]}
@@ -276,9 +310,13 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           />
         </div>
       ) : null} */}
-      <div className="flex sm:justify-center justify-start">
+      <div className="flex justify-center sm:justify-start">
         <IndividualFilterButtonNoLink
-          options={priceRanges}
+          options={
+            filterState.saleLease == saleLease.sale.name
+              ? priceRangeOptionsSaleProperties
+              : priceRangeOptionsLeaseProperties
+          }
           name="priceRange"
           value={null}
           handleFilterChange={handlePriceChange}
@@ -306,6 +344,7 @@ const IndividualFilter = ({
   );
 
   const handleKeyChange = (newKey) => {
+    console.log(Array.from(newKey));
     setSelectedKeys(newKey);
     handleFilterChange(name, getSelectedValue(newKey));
   };
@@ -320,7 +359,7 @@ const IndividualFilter = ({
       <DropdownTrigger disableAnimation={true}>
         <Button
           variant="faded"
-          className={`capitalize h-[34px] bg-white rounded-full ${
+          className={`capitalize text-xs sm:text-sm h-[28px] sm:h-[34px] bg-white rounded-full ${
             isMobileView && "px-2 gap-1 min-w-unit-0"
           } ${
             getSelectedValue(selectedKeys) !== defaultValue &&
@@ -490,7 +529,7 @@ const MoreFilter = ({
       <Button
         onPress={onOpen}
         variant="faded"
-        className="capitalize h-[34px] bg-white rounded-full hover:shadow-md"
+        className="capitalize px-2 sm:px-3 py-1 text-xs sm:text-sm h-[28px] sm:h-[34px]  bg-white rounded-full hover:shadow-md"
         size="md"
       >
         More Filter
@@ -755,14 +794,13 @@ const IndividualFilterButton = ({
         return (
           <div
             key={index}
-            className={`mx-[2px] px-3 py-1 cursor-pointer text-nowrap text-small h-[34px] flex justify-content-center align-items-center rounded-full hover:shadow-lg
-            ${
+            className={`mx-[2px] px-3 py-1 cursor-pointer text-nowrap text-xs sm:text-sm h-[28px] sm:h-[34px] flex justify-content-center align-items-center rounded-full hover:shadow-lg ${
               isActive(option)
-                ? `border-primary-green text-white bg-primary-green`
-                : "border-black"
+                ? `border-primary-green! text-white bg-primary-green`
+                : "border-[2px] border-gray-filter"
             }`}
             // onClick={() => handleClick(name, option)}
-            style={{ border: "2px solid #e5e7eb" }}
+            // style={{ border: "2px solid #e5e7eb" }}
           >
             <Link
               href={generateURL({
@@ -795,19 +833,19 @@ const IndividualFilterButtonNoLink = ({
   };
 
   return (
-    <div className="inline-flex sm:mr-4 flex-wrap gap-y-2 py-2 sm:py-0">
+    <div className="inline-flex sm:justify-normal justify-center sm:mr-4 flex-wrap gap-y-2 py-2 sm:py-0">
       {options.map((option, index) => {
         return (
           <div
             key={index}
-            className={`mx-[2px] px-3 py-1 cursor-pointer text-nowrap text-small h-[34px] flex justify-content-center align-items-center rounded-full hover:shadow-lg
+            className={`mx-[2px] px-2 sm:px-3  sm:h-[34px] py-1 cursor-pointer text-nowrap flex justify-content-center align-items-center rounded-full hover:shadow-lg text-xs sm:text-sm
             ${
               activeFilter == option
                 ? `border-primary-green bg-primary-green text-white`
-                : "border-black"
+                : "border-[2px] border-gray-filter"
             }`}
             onClick={() => handleClick(name, option)}
-            style={{ border: "2px solid #e5e7eb" }}
+            // style={{ border: "2px solid #e5e7eb" }}
           >
             {option}
           </div>

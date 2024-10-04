@@ -187,6 +187,19 @@ export const washroomCount = {
   five: { name: "5+", value: 5 },
 };
 
+export const priceRangesSaleProperties = {
+  "$0 - 500k": { min: 0, max: 500000 },
+  "$500k-$999k": { min: 500000, max: 999000 },
+  "1mil - 1.5mil": { min: 1000000, max: 1500000 },
+};
+
+export const priceRangesLeaseProperties = {
+  "$1.5k - $2k": { min: 1500, max: 2000 },
+  "$2k - $2.5k": { min: 2000, max: 2500 },
+  "$2.5k - $3.5k": { min: 2500, max: 3500 },
+  "$3k - $3.5k": { min: 3000, max: 3500 },
+};
+
 export const houseType = {
   all: { name: "House Type", value: null },
   // condo: { name: "Condo", value: "CondoProperty" },

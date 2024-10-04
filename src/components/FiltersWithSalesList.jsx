@@ -135,8 +135,8 @@ const FiltersWithSalesList = ({
     setLoading(true);
     // console.log(payload);
     const filteredSalesData = await getFilteredRetsData(queryParams);
+    setSalesData(filteredSalesData);
     if (!filteredSalesData?.length == 0) {
-      setSalesData(filteredSalesData);
       setOffset(offset);
     }
     setLoading(false);

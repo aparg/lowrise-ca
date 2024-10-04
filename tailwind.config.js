@@ -21,6 +21,7 @@ module.exports = {
         "primary-red": "#eb7e6c",
         "medium-black": "#222222",
         "very-light-gray": "#f9f9f9",
+        "gray-filter": "#e5e7eb",
       },
       boxShadow: {
         shuttle: "0 0 1rem 1px rgb(0 0 0 / 3%);",
@@ -33,6 +34,9 @@ module.exports = {
       },
       aspectRatio: {
         "16/14": "16/14",
+      },
+      border: {
+        filter: "#e5e7eb",
       },
     },
   },
