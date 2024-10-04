@@ -160,7 +160,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                   {" "}
                   MLS® #{curElem.MLS}
                 </p> */}
-              <span className={`text-black text-xs ${small && "hidden"}`}>
+              <span className={`text-black text-xs`}>
                 <div className="flex flex-row justify-start">
                   {curElem.Bedrooms && (
                     <div className="flex items-center mr-3">
