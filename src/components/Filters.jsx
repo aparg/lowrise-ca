@@ -205,7 +205,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           type={filterState.type}
         />
 
-        <div className="rounded-full mr-4">
+        <div className="rounded-full sm:mr-4">
           {isMobileView ? (
             <IndividualFilter
               options={bedCountOptions}
@@ -360,7 +360,7 @@ const IndividualFilter = ({
         <Button
           variant="faded"
           className={`capitalize text-xs sm:text-sm h-[28px] sm:h-[34px] bg-white rounded-full ${
-            isMobileView && "px-2 gap-1 min-w-unit-0"
+            isMobileView && "px-1 gap-1 min-w-unit-0 min-w-10"
           } ${
             getSelectedValue(selectedKeys) !== defaultValue &&
             `${bgColor[name]} ${textColor[name]} border-primary-green`
@@ -529,7 +529,7 @@ const MoreFilter = ({
       <Button
         onPress={onOpen}
         variant="faded"
-        className="capitalize px-2 sm:px-3 py-1 text-xs sm:text-sm h-[28px] sm:h-[34px]  bg-white rounded-full hover:shadow-md"
+        className="capitalize px-1 min-w-10 sm:px-3 py-1 text-xs sm:text-sm h-[28px] sm:h-[34px]  bg-white rounded-full hover:shadow-md"
         size="md"
       >
         More Filter
@@ -794,7 +794,7 @@ const IndividualFilterButton = ({
         return (
           <div
             key={index}
-            className={`mx-[2px] px-3 py-1 cursor-pointer text-nowrap text-xs sm:text-sm h-[28px] sm:h-[34px] flex justify-content-center align-items-center rounded-full hover:shadow-lg ${
+            className={`mx-[2px] px-1 sm:px-3 py-1 cursor-pointer text-nowrap text-xs sm:text-sm h-[28px] sm:h-[34px] flex justify-content-center align-items-center rounded-full hover:shadow-lg ${
               isActive(option)
                 ? `border-primary-green! text-white bg-primary-green`
                 : "border-[2px] border-gray-filter"
@@ -901,4 +901,5 @@ const IndividualFilterWithCancel = ({ name, value, handleFilterChange }) => {
     </Chip>
   );
 };
+
 export default Filters;
