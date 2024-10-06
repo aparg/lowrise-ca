@@ -77,7 +77,6 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
   const toggleFavorite = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log("Favoriting");
     const favoriteValue = window.localStorage.getItem("favorites");
     if (!isFavorite && isLocalStorageAvailable()) {
       const favorites = favoriteValue

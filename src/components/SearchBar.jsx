@@ -39,7 +39,6 @@ const SearchBar = ({
     // const addressArray = filteredProperties.map((property, idx) => {
     //   return property.Address;
     // });
-    console.log("FIltered properties");
     setSuggestions([...filteredCities, ...filteredProperties]);
   };
   const citiesWithProvinces = [
@@ -121,7 +120,6 @@ const SearchBar = ({
             debouncedResults(e.target.value);
           }}
           onFocus={() => {
-            console.log("triggered");
             setDisplaySuggestions(true);
           }}
           onBlur={() => {

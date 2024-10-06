@@ -8,7 +8,6 @@ const prependToLocalStorageArray = (key, value, number = 3) => {
       (item) => item.name === value.name && item.searchType === value.searchType
     )
   ) {
-    console.log("object already exists in array");
     return;
   }
   // Prepend the new value to the array

@@ -70,13 +70,11 @@ const Navbar = (props) => {
   }
 
   const cityName = extractCityname(pathname);
-  console.log(cityName);
   const inCity = cityName
     ? cityName.toLowerCase() !== "homes"
       ? ` in ${decodeURIComponent(capitalizeFirstLetter(cityName))}`
       : " in Ontario"
     : "";
-  console.log(inCity);
   const buyOpts = [
     /* {
       name: "Semi-detached Homes for Sale",

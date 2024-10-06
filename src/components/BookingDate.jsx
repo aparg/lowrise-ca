@@ -85,7 +85,6 @@ const BookingDate = ({ bannerImage }) => {
   }
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
-  console.log(getSevenDaysStartingTomorrow(year, month));
   const [daysArray, setDaysArray] = useState(
     getSevenDaysStartingTomorrow(year, month)
   );

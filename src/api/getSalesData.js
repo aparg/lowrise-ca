@@ -101,7 +101,6 @@ export const getSalesData = async (offset, limit, city, listingType) => {
 
 //for portfolio
 export const getFilteredRetsData = async (queryParams) => {
-  console.log(queryParams);
   const lowriseOnly = `TypeOwnSrch='.S.',TypeOwnSrch='.D.',TypeOwnSrch='.A.',TypeOwnSrch='.J.',TypeOwnSrch='.K.'`;
   try {
     //all the necessary queries possible
@@ -205,12 +204,8 @@ export const fetchStatsFromMLS = async ({
     "$query",
     `?${queriesArray.join("&")}`
   );
-  console.log("stats");
-  console.log(urlToFetchMLSDetail);
   const resMLSDetail = await fetch(urlToFetchMLSDetail, options);
   const data = await resMLSDetail.json();
-  console.log("returning this");
-  console.log(data.results);
 
   return data.results;
 };

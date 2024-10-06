@@ -9,7 +9,6 @@ const houseTypesArray = Object.values(houseType)
   .map((obj) => obj.name);
 const cities = allCities.map((obj) => obj.city);
 const SiteLinks = ({ type }) => {
-  console.log(houseTypesArray);
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4 max-w-[90%] mx-auto">
       {cities.map((city, index) => (

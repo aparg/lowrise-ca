@@ -68,7 +68,6 @@ const page = async ({ params }) => {
     saleLease: main_data?.SaleLease,
   });
   main_data.avg = parseFloat(statsValue.avg.toFixed(0)).toLocaleString();
-  console.log(main_data.avg);
   const imageURLs = generateImageURLs(
     listingID,
     parseInt(main_data?.PhotoCount)
@@ -151,11 +150,6 @@ const page = async ({ params }) => {
                   </div>
                 </div>
               </div>
-              {console.log(
-                Object.keys(houseType).find(
-                  (key) => houseType[key].value == main_data?.TypeOwnSrch
-                )
-              )}
               {formattedSlug && newSalesData?.length > 0 && (
                 <section className="additonal__listing w-full mx-auto mt-24">
                   <PropertyDisplaySection
