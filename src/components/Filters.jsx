@@ -73,7 +73,9 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
   //options for lease or sale
   const saleLeaseOptions = Object.values(saleLease).map((item) => item.name);
   //options for bed count
-  const bedCountOptions = Object.values(bedCount).map((item) => item.name);
+  const bedCountOptions = Object.values(bedCount)
+    .filter((opt) => opt.value > 0)
+    .map((item) => item.name);
   //options for house type
   const houseTypeOptions = Object.values(houseType)
     .filter((item) => item.value)
@@ -109,7 +111,6 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
   const handleFilterChange = (name, value) => {
     const newFilterState = { ...filterState };
     newFilterState[name] = value;
-    console.log(newFilterState);
     if (name === "saleLease") {
       //reset the price filter
       newFilterState["priceRange"] = {
@@ -124,12 +125,10 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
 
   const handlePriceChange = (name, value) => {
     const newFilterState = { ...filterState };
-    console.log(filterState.saleLease);
     const priceRange =
       filterState.saleLease == saleLease.sale.name
         ? priceRangesSaleProperties[value]
         : priceRangesLeaseProperties[value];
-    console.log(priceRange);
     newFilterState[name] = {
       min: priceRange.min,
       max: priceRange.max,
@@ -142,13 +141,10 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
 
   const scrollToFilters = () => {
     //if window exists scroll to #contact smoothly
-    console.log("here");
-    console.log(window);
     if (window) {
       // Check for browser environment
       const contactElement = document.getElementById("filters");
       if (contactElement) {
-        console.log("clicked");
         window.scrollTo({
           top: 0,
           behavior: "smooth",
@@ -253,11 +249,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
             />
           </div>
         ) : null} */}
-        <div className="rounded-full">
-          <MoreFilter
-            {...{ washroomCountOptions, additonalFilterChange, filterState }}
-          />
-        </div>
+
         {/* 
         <IndividualFilterNoOptions
           label="Price Decreased"
@@ -324,6 +316,12 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           type={filterState.type}
         />
       </div>
+
+      <div className="rounded-full">
+        <MoreFilter
+          {...{ washroomCountOptions, additonalFilterChange, filterState }}
+        />
+      </div>
     </>
   );
 };
@@ -344,7 +342,6 @@ const IndividualFilter = ({
   );
 
   const handleKeyChange = (newKey) => {
-    console.log(Array.from(newKey));
     setSelectedKeys(newKey);
     handleFilterChange(name, getSelectedValue(newKey));
   };
@@ -794,10 +791,10 @@ const IndividualFilterButton = ({
         return (
           <div
             key={index}
-            className={`mx-[2px] px-1 sm:px-3 py-1 cursor-pointer text-nowrap text-xs sm:text-sm h-[28px] sm:h-[34px] flex justify-content-center align-items-center rounded-full hover:shadow-lg ${
+            className={`mx-[2px] px-1 sm:px-3 py-1 cursor-pointer text-nowrap text-xs sm:text-sm h-[28px] leading-[1.2rem] sm:leading-normal sm:h-[34px] flex justify-content-center align-items-center rounded-full hover:shadow-lg border-[2px] ${
               isActive(option)
                 ? `border-primary-green! text-white bg-primary-green`
-                : "border-[2px] border-gray-filter"
+                : "border-gray-filter"
             }`}
             // onClick={() => handleClick(name, option)}
             // style={{ border: "2px solid #e5e7eb" }}
