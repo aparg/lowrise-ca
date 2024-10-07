@@ -41,4 +41,29 @@ const page = async ({ params }) => {
   return <></>;
 };
 
+export async function generateMetadata({ params }, parent) {
+  let saleLeaseValue;
+  let type;
+  const splitData = params.slug1.split("-");
+  splitData.forEach((data) => {
+    if (Object.keys(saleLease).includes(data)) {
+      saleLeaseValue = data;
+    } else if (Object.keys(houseType).includes(data) && !type) {
+      type = houseType[data].name;
+    }
+    if (saleLeaseValue && type) return;
+  });
+  return {
+    ...parent,
+    alternates: {
+      canonical: `https://lowrise.ca/ontario/homes/${params.slug1}`,
+    },
+    openGraph: {
+      images: "/favicon.ico",
+    },
+    title: `100+ Ontario homes for Sale | New Listings | Lowrise.ca `,
+    description: `500+ Ontario ${type} for sale. Book a showing for affordable homes with pools, finished basements, walkouts. Prices from $1 to $5,000,000. Open houses available.`,
+  };
+}
+
 export default page;
