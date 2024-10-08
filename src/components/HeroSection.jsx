@@ -72,7 +72,19 @@ const HeroSection = () => {
               <span className="font-bold">
                 low rise homes for sale or lease
               </span>{" "}
-              across Canada!
+              across Ontario!
+            </div>
+            <div className="flex flex-row space-x-4 mt-3">
+              <Link href="/all-homes-in-canada-for-sale">
+                <button className="w-60 py-1 text-white text-semibold bg-[#dc2222] rounded-full text-medium">
+                  Find homes for sale
+                </button>
+              </Link>
+              <Link href="/all-homes-in-canada-for-lease">
+                <button className="w-60 py-1 text-white text-semibold bg-[#dc2222] rounded-full text-medium">
+                  Find homes for lease
+                </button>
+              </Link>
             </div>
           </div>
         </div>
