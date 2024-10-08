@@ -43,23 +43,4 @@ const page = async ({ params }) => {
   );
 };
 
-export async function generateMetadata({ params }, parent) {
-  return {
-    ...parent,
-    alternates: {
-      canonical: `https://lowrise.ca/ontario`,
-    },
-    openGraph: {
-      images: "/favicon.ico",
-    },
-    title: [
-      `100+ Ontario Detached, Semi detached & Townhomes for lease`,
-      ,
-      "New Listings",
-      "Lowrise.ca",
-    ].join(" | "),
-    description: `Find houses for sale in Ontario, ON. Visit Lowrise.ca to see all the ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
-  };
-}
-
 export default page;
