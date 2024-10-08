@@ -60,21 +60,21 @@ const HeroSection = () => {
             <div className="w-[90%] sm:w-[60%] mt-5 hidden sm:block">
               <SearchBar numberOfSuggestions={3} height={60} />
             </div>
-            <div className="w-[90%] sm:w-[60%] mt-10 block sm:hidden">
+            <div className="w-[90%] sm:w-[60%] mt-2 sm:mt-10 block sm:hidden">
               <SearchBar
                 numberOfSuggestions={3}
                 height={60}
                 placeholder="City, Neighbourhood, Postal Code"
               />
             </div>
-            <div className="text-xl mt-2">
+            <div className="text-medium sm:text-xl mt-2 text-center ">
               Find{" "}
               <span className="font-bold">
                 low rise homes for sale or lease
               </span>{" "}
               across Ontario!
             </div>
-            <div className="flex flex-row space-x-4 mt-3">
+            <div className="flex flex-col sm:space-y-0 space-y-2 sm:flex-row sm:space-x-4 mt-3">
               <Link href="/all-homes-in-canada-for-sale">
                 <button className="w-60 py-1 text-white text-semibold bg-[#dc2222] rounded-full text-medium">
                   Find homes for sale
