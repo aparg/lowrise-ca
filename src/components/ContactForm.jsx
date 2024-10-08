@@ -57,8 +57,8 @@ const ContactForm = () => {
         />
 
         <p className="text-xs text-gray-500 text-center">
-          Lowrise is an online resale homes database for properties in Canada.
-          Lowrise curates the list of homes that are publicly available on the
+          Low rise is an online resale homes database for properties in Canada.
+          Low rise curates the list of homes that are publicly available on the
           internet and does not take part in any real estate transactions. Be
           advised the information provided on this page could be outdated or
           inaccurate. By submitting the above form, you consent to real estate

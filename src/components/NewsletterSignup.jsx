@@ -6,7 +6,7 @@ const NewsletterSignup = () => {
       <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-6xl">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-semibold text-black sm:text-4xl lg:text-5xl mb-4 text-center">
-            Lowrise homes for sale in Canada updated hourly
+            Low rise homes for sale in Canada updated hourly
           </h2>
           <p className="text-base font-normal leading-7 text-gray-700 lg:text-lg max-w-2xl mx-auto">
             Subscribe to our free weekly newsletter for the latest

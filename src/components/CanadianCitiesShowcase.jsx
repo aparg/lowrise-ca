@@ -37,7 +37,7 @@ const CanadianCitiesShowcase = () => {
     <div className="my-[5rem] sm:my-[10rem]">
       <div className="mx-auto">
         <h2 className="text-4xl font-bold text-center mb-2 mt-10">
-          Lowrise homes for sale in{" "}
+          Low rise homes for sale in{" "}
           <span className="text-primary-green">your city </span>
           <span className="text-primary-green relative">
             <span className="absolute bottom-0 left-0 w-full h-1 bg-primary-gretext-primary-green rounded"></span>

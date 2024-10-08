@@ -4,6 +4,7 @@ import { CgSearch } from "react-icons/cg";
 import { searchProperties } from "../api/searchProperties";
 import debounce from "lodash.debounce";
 import Autosuggest from "./Autosuggest";
+import { Button } from "@nextui-org/react";
 
 const SearchBar = ({
   numberOfSuggestions = 10,
@@ -102,12 +103,25 @@ const SearchBar = ({
     { city: "Bradford", province: "Ontario" },
   ];
 
+  //style for input box
+  let inputBoxClass = [];
+  if (!small) {
+    inputBoxClass.push("border-3 border-[#dc2222]");
+  } else if (!displaySuggestions) {
+    inputBoxClass.push("border-2 border-gray-300");
+  }
+  if (displaySuggestions) {
+    inputBoxClass.push("rounded-t-[28px]");
+  } else {
+    inputBoxClass.push("rounded-[28px]");
+  }
+
   return (
     <div className={`flex flex-col relative rounded-[28px]`}>
       <div
-        className={`w-full h-full flex overflow-hidden border-[1px] border-[#dfe1e5] shadow-none! focus-within:shadow-custom-primary z-10 ${
-          displaySuggestions ? "rounded-t-[28px]" : "rounded-[28px]"
-        }`}
+        className={`w-full h-full flex overflow-hidden ${inputBoxClass.join(
+          " "
+        )} shadow-none! focus-within:shadow-custom-primary z-10`}
       >
         <input
           className={`w-full ${
@@ -127,8 +141,18 @@ const SearchBar = ({
           }}
           value={searchTerm}
         />
-        <div className="flex items-center pr-4 pl-0 justify-center bg-white">
-          <CgSearch size="1.25rem" />
+        <div className="flex items-center pr-1 pl-0 justify-center bg-white">
+          {/* <CgSearch size="1.25rem" /> */}
+          {!small ? (
+            <Button
+              className={`bg-[#dc2222] rounded-full text-white font-medium`}
+            >
+              {" "}
+              Search{" "}
+            </Button>
+          ) : (
+            <CgSearch size="1.25rem" className="mr-2" />
+          )}
         </div>
       </div>
       <div className="relative">

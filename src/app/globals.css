@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -122,11 +123,28 @@
   width: 100%;
 }
 
-/* #hero-section {
-  background: url(/hero-img.png);
+#hero-section {
+  position: relative;
+}
+
+#hero-section::before {
+  content: "";
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url(/hero.jpg);
   background-repeat: repeat-x;
-  background-position: bottom;
-} */
+  background-position: center;
+  opacity: 0.5; /* Adjust this value between 0 and 1 */
+  z-index: -1;
+}
+
+/* Remove the background from the main element */
+#hero-section {
+  background: none;
+}
 
 .searchbar-animation-open {
   animation: searchbar-open 0.3s ease-out;
@@ -165,4 +183,11 @@
 .embla__slide {
   flex: 0 0 100%;
   min-width: 0;
+}
+
+.dm-sans {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  /* font-weight: 700; */
+  font-style: normal;
 }
