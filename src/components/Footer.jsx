@@ -27,7 +27,7 @@ const Footer = ({ cities }) => {
             {/* New homes section */}
             <div>
               <h3 className="text-2xl sm:text-5xl font-extrabold text-center mb-12 font-family2 ">
-                Explore Lowrise Homes For Sale In Canada
+                Explore Low rise Homes For Sale In Canada
               </h3>
               <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 text-sm">
                 {allCities.map((val, idx) => (

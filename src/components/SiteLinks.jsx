@@ -24,6 +24,7 @@ const SiteLinks = ({ type }) => {
                       saleLeaseVal: type,
                       cityVal: city,
                     })}
+                    className="hover:text-primary-green"
                   >
                     {value} Homes in {city} for {type}
                   </Link>
