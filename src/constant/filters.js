@@ -170,7 +170,7 @@ export const numberOfDays = {
 };
 
 export const bedCount = {
-  any: { name: "Beds", value: 0 },
+  any: { name: "", value: 0 },
   one: { name: "1 Beds", value: 1 },
   two: { name: "2 Beds", value: 2 },
   three: { name: "3 Beds", value: 3 },

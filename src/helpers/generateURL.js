@@ -10,8 +10,10 @@ export const generateURL = ({
   listingIDVal = null,
   embeddedSite = false,
 }) => {
+  const filterState = JSON.parse(localStorage.getItem("filterState"));
   const city = cityVal?.toLowerCase().replaceAll(" ", "-");
-  let houseType = houseTypeVal?.toLowerCase() || null;
+  let houseType =
+    houseTypeVal?.toLowerCase() || filterState?.type?.toLowerCase() || null;
   if (houseType == "house type") {
     houseType = null; //edge case for housetype object where housetype option represents nothing
   }
@@ -20,7 +22,10 @@ export const generateURL = ({
     Object.keys(saleLease)
       .find((key) => saleLease[key].name == saleLeaseVal)
       ?.toLowerCase() ||
-    null;
+    Object.keys(saleLease)
+      .find((key) => saleLease[key].name == filterState?.saleLease)
+      ?.toLowerCase();
+  null;
   if (listingIDVal && city)
     return `${
       embeddedSite ? "/embedded-site" : ""

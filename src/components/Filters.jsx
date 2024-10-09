@@ -36,17 +36,6 @@ import { useRouter } from "next/router";
 import { generateURL } from "@/helpers/generateURL";
 // import Dropdown from "./Dropdown";
 
-const getPriceValue = (priceRange) => {
-  if (priceRange === "$0 - 500k") return { min: 0, max: 500000 };
-  if (priceRange === "$500k-$999k") return { min: 500000, max: 999000 };
-  if (priceRange === "1mil - 1.5mil") return { min: 1000000, max: 1500000 };
-  if (priceRange === "$1.5k - $2k") return { min: 1500, max: 2000 };
-  if (priceRange === "$2k - $2.5k") return { min: 2000, max: 2500 };
-  if (priceRange === "$2.5k - $3.5k") return { min: 2500, max: 3500 };
-  if (priceRange === "$3k - $3.5k") return { min: 3000, max: 3500 };
-  return;
-};
-
 const bgColor = {
   saleLease: "bg-primary-green",
   priceDecreased: "bg-primary-green",
@@ -93,20 +82,20 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
   );
 
   //dynamic price range generator based on sale or lease options
-  const minMaxPrice = useMemo(() => {
-    if (filterState.saleLease.includes(Object.values(saleLease)[1].name)) {
-      //i.e for lease, display different min and max value
-      return {
-        min: 1500,
-        max: 8000,
-      };
-    } else {
-      return {
-        min: 300000,
-        max: 1500000,
-      };
-    }
-  }, [filterState]);
+  // const minMaxPrice = useMemo(() => {
+  //   if (filterState.saleLease.includes(Object.values(saleLease)[1].name)) {
+  //     //i.e for lease, display different min and max value
+  //     return {
+  //       min: 1500,
+  //       max: 8000,
+  //     };
+  //   } else {
+  //     return {
+  //       min: 300000,
+  //       max: 1500000,
+  //     };
+  //   }
+  // }, [filterState]);
 
   const handleFilterChange = (name, value) => {
     const newFilterState = { ...filterState };
@@ -182,6 +171,11 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
     }
   }, []);
 
+  const allPriceRanges =
+    filterState.saleLease == saleLease.sale.name
+      ? priceRangesSaleProperties
+      : priceRangesLeaseProperties;
+
   return (
     <>
       <div
@@ -215,7 +209,7 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           ) : (
             <IndividualFilterButtonNoLink
               options={bedCountOptions}
-              defaultValue={null}
+              defaultValue={filterState.bed}
               name="bed"
               value={filterState.bed}
               setFilterState={setFilterState}
@@ -227,7 +221,9 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
         <div className="rounded-full overflow-hidden sm:mr-4 hover:shadow-lg">
           <IndividualFilter
             options={houseTypeOptions}
-            defaultValue={houseTypeOptions[0]}
+            defaultValue={
+              Object.values(houseType).find((val) => val.value == null).name
+            }
             name="type"
             value={filterState.type}
             setFilterState={setFilterState}
@@ -302,6 +298,13 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           />
         </div>
       ) : null} */}
+      {console.log(
+        Object.keys(allPriceRanges).find(
+          (opt) =>
+            allPriceRanges[opt].min == filterState?.priceRange?.min &&
+            allPriceRanges[opt].max == filterState?.priceRange?.max
+        )
+      )}
       <div className="flex justify-center sm:justify-start">
         <IndividualFilterButtonNoLink
           options={
@@ -310,7 +313,11 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
               : priceRangeOptionsLeaseProperties
           }
           name="priceRange"
-          value={null}
+          value={Object.keys(allPriceRanges).find(
+            (opt) =>
+              allPriceRanges[opt].min == filterState?.priceRange?.min &&
+              allPriceRanges[opt].max == filterState?.priceRange?.max
+          )}
           handleFilterChange={handlePriceChange}
           city={filterState.city}
           type={filterState.type}
@@ -336,6 +343,7 @@ const IndividualFilter = ({
   isMulti = false,
   defaultValue,
   saleLease,
+  unselectedValue = null,
 }) => {
   const [selectedKeys, setSelectedKeys] = useState(() =>
     isMulti ? [...value] : [value]
@@ -353,6 +361,8 @@ const IndividualFilter = ({
 
   return (
     <Dropdown>
+      {console.log(getSelectedValue(selectedKeys))}
+      {console.log(defaultValue)}
       <DropdownTrigger disableAnimation={true}>
         <Button
           variant="faded"
@@ -831,6 +841,7 @@ const IndividualFilterButtonNoLink = ({
 
   return (
     <div className="inline-flex sm:justify-normal justify-center sm:mr-4 flex-wrap gap-y-2 py-2 sm:py-0">
+      {console.log(activeFilter)}
       {options.map((option, index) => {
         return (
           <div

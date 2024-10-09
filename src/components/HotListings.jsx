@@ -13,7 +13,6 @@ const plural = {
 };
 const HotListings = ({ salesData }) => {
   const scrollRef = useRef(null); //used to hold scroll value
-  const cardRef = useRef(null); //used to hold card width value
   // const formattedCity = city ? city.toLowerCase() : undefined;
   // const [salesData, setSalesData] = useState([]);
   // const [offset, setOffset] = useState(0);
@@ -68,7 +67,6 @@ const HotListings = ({ salesData }) => {
                 // city={formattedCity}
                 key={index}
                 curElem={curElem}
-                ref={cardRef}
                 small={true}
               />
             );

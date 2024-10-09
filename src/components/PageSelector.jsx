@@ -26,13 +26,13 @@ const PageSelector = ({ numberOfPages, batchSize, selected, setSelected }) => {
       {Array(batchSize)
         .fill(0)
         .map((x, idx) => (
-          <>
+          <div key={idx}>
             <PageSelectorElement
               selected={selected === startsFrom + idx}
               value={startsFrom + idx}
               setSelected={() => selectPage(startsFrom + idx)}
             />
-          </>
+          </div>
         ))}
       <button
         className={`rounded-md mr-1 border-grey-200 border-2 w-8 h-8`}

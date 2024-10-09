@@ -27,28 +27,37 @@ const FiltersWithSalesList = ({
   saleLeaseVal = undefined,
 }) => {
   // const leadEmail = user?.emailAddresses[0].emailAddress;
+  const saleLeaseFilterVal =
+    saleLease[
+      Object.keys(saleLease).find((val) => val === saleLeaseVal) || "sale"
+    ]?.name || saleLease.sale.name;
+
+  const houseTypeFilterVal =
+    Object.values(houseType).find((val) => val.name === requiredType)?.name ||
+    houseType.all.name;
 
   const initialState = {
-    saleLease:
-      saleLease[
-        Object.keys(saleLease).find((val) => val === saleLeaseVal) || "sale"
-      ]?.name || saleLease.sale.name,
+    saleLease: saleLeaseFilterVal,
     bed: bedCount.any.name,
     priceRange: {
       min: 0,
       max: 0,
     },
-    type:
-      Object.values(houseType).find((val) => val.name === requiredType)?.name ||
-      houseType.all.name,
-    hasBasement: false,
-    sepEntrance: false,
+    type: houseTypeFilterVal,
+    hasBasement: null,
+    sepEntrance: null,
     washroom: washroomCount.any.value,
-    priceDecreased: false,
+    priceDecreased: null,
     city: city,
   };
 
-  const [filterState, setFilterState] = useState(initialState);
+  const storedState = JSON.parse(localStorage.getItem("filterState"));
+  //if parameters are passed for house type or sale/lease rewrite property values for storedState
+  if (storedState) {
+    if (saleLeaseFilterVal) storedState.type = houseTypeFilterVal;
+    if (saleLeaseFilterVal) storedState.saleLease = saleLeaseFilterVal;
+  }
+  const [filterState, setFilterState] = useState(storedState || initialState);
   const [salesData, setSalesData] = useState(salesListData);
   const [offset, setOffset] = useState(0);
   const { isMobileView } = useDeviceView();
@@ -143,6 +152,7 @@ const FiltersWithSalesList = ({
   };
 
   useEffect(() => {
+    console.log(filterState);
     // store data in session storage whenever it changes
     if (isLocalStorageAvailable() && filterState) {
       localStorage.setItem("filterState", JSON.stringify(filterState));
@@ -156,33 +166,23 @@ const FiltersWithSalesList = ({
 
   useEffect(() => {
     //component can be loaded in three ways, either it is provided a pre-defined filter, have a stored state or
-    const storedState = localStorage.getItem("filterState");
-    if (city || saleLeaseVal || requiredType) {
-      fetchFilteredData(initialState);
-      setFilterState(initialState);
-    } else if (storedState) {
-      const newFilterState = JSON.parse(storedState);
-      setFilterState(newFilterState);
-      fetchFilteredData(newFilterState);
-    } else {
-      setFilterState(initialState);
-    }
 
-    // fetchFilteredData(initialState);
-  }, []);
-
-  useEffect(() => {
-    async function getUpdatedData() {
-      await fetchFilteredData(
-        {
-          ...initialState,
-        },
-        20,
-        selected * 20 - 20
-      );
-    }
-    getUpdatedData();
+    fetchFilteredData(initialState, 20, selected * 20 - 20);
   }, [selected]);
+
+  // useEffect(() => {
+  //   console.log("executed");
+  //   async function getUpdatedData() {
+  //     await fetchFilteredData(
+  //       {
+  //         ...initialState,
+  //       },
+  //       20,
+  //       selected * 20 - 20
+  //     );
+  //   }
+  //   getUpdatedData();
+  // }, [selected]);
 
   const formattedCityName = capitalizeFirstLetter(decodeURIComponent(city));
   const homeText = !requiredType
