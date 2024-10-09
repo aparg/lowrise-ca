@@ -51,7 +51,9 @@ const FiltersWithSalesList = ({
     city: city,
   };
 
-  const storedState = JSON.parse(localStorage.getItem("filterState"));
+  const storedState = isLocalStorageAvailable()
+    ? JSON.parse(localStorage.getItem("filterState"))
+    : null;
   //if parameters are passed for house type or sale/lease rewrite property values for storedState
   if (storedState) {
     if (saleLeaseFilterVal) storedState.type = houseTypeFilterVal;
