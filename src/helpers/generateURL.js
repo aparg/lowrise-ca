@@ -1,4 +1,5 @@
 import { houseType, saleLease } from "@/constant";
+import { isLocalStorageAvailable } from "./checkLocalStorageAvailable";
 const houseTypeLinkObj = {};
 Object.values(houseType).forEach((elem) => {
   houseTypeLinkObj[elem.name.toLowerCase()] = elem.slug;
@@ -10,7 +11,9 @@ export const generateURL = ({
   listingIDVal = null,
   embeddedSite = false,
 }) => {
-  const filterState = JSON.parse(localStorage.getItem("filterState"));
+  const filterState =
+    isLocalStorageAvailable() &&
+    JSON.parse(localStorage.getItem("filterState"));
   const city = cityVal?.toLowerCase().replaceAll(" ", "-");
   let houseType =
     houseTypeVal?.toLowerCase() || filterState?.type?.toLowerCase() || null;
