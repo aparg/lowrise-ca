@@ -67,7 +67,6 @@ const HotListings = ({ salesData }) => {
                 // city={formattedCity}
                 key={index}
                 curElem={curElem}
-                small={true}
               />
             );
             // }

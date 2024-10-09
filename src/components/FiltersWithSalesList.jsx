@@ -52,7 +52,7 @@ const FiltersWithSalesList = ({
   };
 
   const storedState = isLocalStorageAvailable()
-    ? JSON.parse(localStorage.getItem("filterState"))
+    ? JSON.parse(window.localStorage.getItem("filterState"))
     : null;
   //if parameters are passed for house type or sale/lease rewrite property values for storedState
   if (storedState) {
@@ -89,7 +89,7 @@ const FiltersWithSalesList = ({
       const hotSales = [];
       const remainingSales = [];
       salesData?.forEach((data) => {
-        if (is24HoursAgo(data.TimestampSql) && hotSales.length < 5) {
+        if (is24HoursAgo(data.TimestampSql) && hotSales.length < 4) {
           hotSales.push(data);
         } else {
           remainingSales.push(data);
@@ -157,8 +157,8 @@ const FiltersWithSalesList = ({
     console.log(filterState);
     // store data in session storage whenever it changes
     if (isLocalStorageAvailable() && filterState) {
-      localStorage.setItem("filterState", JSON.stringify(filterState));
-      localStorage.setItem("selectedCity", capitalizeFirstLetter(city));
+      window.localStorage.setItem("filterState", JSON.stringify(filterState));
+      window.localStorage.setItem("selectedCity", capitalizeFirstLetter(city));
     }
 
     if (window !== undefined) {
