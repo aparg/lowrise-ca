@@ -164,7 +164,7 @@ const page = async ({ params }) => {
                             (key) =>
                               houseType[key].value == main_data?.TypeOwnSrch
                           )
-                        ].name,
+                        ]?.name,
                       saleLeaseVal: main_data?.SaleLease,
                       cityVal: city,
                     })}
