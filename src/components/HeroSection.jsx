@@ -76,12 +76,12 @@ const HeroSection = () => {
             </div>
             <div className="flex flex-col sm:space-y-0 space-y-2 sm:flex-row sm:space-x-4 mt-3">
               <Link href="/all-homes-in-canada-for-sale">
-                <button className="w-60 py-1 text-white text-semibold bg-[#dc2222] rounded-full text-medium hover:shadow-lg">
+                <button className="w-60 py-1 text-white text-semibold bg-black rounded-full text-medium hover:shadow-lg">
                   Find homes for sale
                 </button>
               </Link>
               <Link href="/all-homes-in-canada-for-lease">
-                <button className="w-60 py-1 text-white text-semibold bg-[#dc2222] rounded-full text-medium hover:shadow-lg">
+                <button className="w-60 py-1 text-white text-semibold bg-black rounded-full text-medium hover:shadow-lg">
                   Find homes for lease
                 </button>
               </Link>

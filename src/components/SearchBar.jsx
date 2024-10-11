@@ -106,7 +106,7 @@ const SearchBar = ({
   //style for input box
   let inputBoxClass = [];
   if (!small) {
-    inputBoxClass.push("border-3 border-[#dc2222]");
+    inputBoxClass.push("border-3 border-black");
   } else if (!displaySuggestions) {
     inputBoxClass.push("border-2 border-gray-300");
   }
@@ -121,7 +121,7 @@ const SearchBar = ({
       <div
         className={`w-full h-full flex overflow-hidden ${inputBoxClass.join(
           " "
-        )} shadow-none! focus-within:shadow-custom-primary z-10`}
+        )} shadow-none! z-10`}
       >
         <input
           className={`w-full ${
@@ -145,7 +145,7 @@ const SearchBar = ({
           {/* <CgSearch size="1.25rem" /> */}
           {!small ? (
             <Button
-              className={`bg-[#dc2222] rounded-full text-white font-medium`}
+              className={`bg-black rounded-full text-white font-medium`}
             >
               {" "}
               Search{" "}
