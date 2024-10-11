@@ -109,13 +109,11 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
       >
         <div className="lg:px-0 h-full w-full">
           <div
-            className={`${
-              small ? "h-[22rem]" : "h-auto sm:h-[29rem]"
-            } flex flex-col overflow-hidden relative`}
+            className={`flex flex-col overflow-hidden relative`}
           >
             <div
               className={`${
-                small ? "h-44" : "h-52 sm:h-80"
+                "h-52 sm:h-80"
               } overflow-hidden relative`}
             >
               <div
@@ -139,6 +137,16 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                 <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
                   {curElem.TypeOwn1Out}{" "}
                 </div>
+                {curElem.ApproxSquareFootage && (
+                    <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
+                      <img
+                        src="/resale-card-img/ruler.svg"
+                        className="w-3 mr-[2px] inline"
+                        alt="washrooms"
+                      />
+                      <span>{curElem.ApproxSquareFootage} Sq.Ft.</span>
+                    </div>
+                  )}
                 {/* <div className="text-black text-[0.7rem] p-[3px] px-2 shadow-2xl rounded-md mx-1 bg-white flex items-center">
                 </div> */}
               </div>
@@ -200,16 +208,7 @@ const ResaleCard = ({ curElem, small = false, showDecreasedPrice = false }) => {
                       </span>
                     </div>
                   )}
-                  {curElem.ApproxSquareFootage && (
-                    <div className="flex items-center mr-3 hidden sm:block">
-                      <img
-                        src="/resale-card-img/ruler.svg"
-                        className="w-3 mr-[2px] inline"
-                        alt="washrooms"
-                      />
-                      <span>{curElem.ApproxSquareFootage} Sq.Ft.</span>
-                    </div>
-                  )}
+                  
                 </div>
               </span>
               <div className="flex flex-row justify-between my-1">
