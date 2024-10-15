@@ -24,7 +24,7 @@ const HeroSection = () => {
     <div className="">
       <div className="mx-auto">
         <div
-          className="relative flex h-[100vh] flex-col lg:flex-row items-center justify-center pt-10 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0 px-2 sm:px-0 bg-bottom bg-no-repeat"
+          className="relative flex h-[90vh] sm:h-[100vh] flex-col lg:flex-row items-center justify-center pt-10 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0 px-2 sm:px-0 bg-bottom bg-no-repeat"
           id="hero-section"
         >
           <div className="w-full z-10 pb-20 sm:w-screen flex flex-col items-center mb-10 lg:mb-0 order-2 sm:order-1 cover">
@@ -42,7 +42,7 @@ const HeroSection = () => {
               src="/hero-img.jpg"
               className="absolute z-[-1] object-cover w-full h-full top-0 left-0 opacity-65"
             ></img> */}
-            <h2 className="text-[3rem]/[3.5rem] sm:text-[4rem] font-bold text-center drop-shadow-md dm-sans">
+            <h2 className="text-[2.5rem]/[3rem] sm:text-[4rem] font-bold text-center drop-shadow-md dm-sans">
               {/* Low rise home for <span className="text-[#dc2222]">everyone</span> */}
               Low rise home for everyone
             </h2>
@@ -65,7 +65,7 @@ const HeroSection = () => {
               <SearchBar
                 numberOfSuggestions={3}
                 height={60}
-                placeholder="City, Neighbourhood, Postal Code"
+                placeholder="Search"
               />
             </div>
             <div className="text-medium sm:text-xl mt-2 text-center ">
@@ -75,14 +75,14 @@ const HeroSection = () => {
               </span>{" "}
               across Ontario!
             </div>
-            <div className="flex flex-col sm:space-y-0 space-y-2 sm:flex-row sm:space-x-4 mt-3">
+            <div className="flex space-y-0 sm:flex-row space-x-4 mt-3">
               <Link href="/all-homes-in-canada-for-sale">
-                <button className="w-60 py-1 text-white text-semibold bg-black rounded-full text-medium hover:shadow-lg">
+                <button className="px-4 sm:px-6 py-1 text-white text-semibold bg-black rounded-full text-medium hover:shadow-lg">
                   Find homes for sale
                 </button>
               </Link>
               <Link href="/all-homes-in-canada-for-lease">
-                <button className="w-60 py-1 text-white text-semibold bg-black rounded-full text-medium hover:shadow-lg">
+                <button className="px-4 sm:px-6 py-1 text-white text-semibold bg-black rounded-full text-medium hover:shadow-lg">
                   Find homes for lease
                 </button>
               </Link>

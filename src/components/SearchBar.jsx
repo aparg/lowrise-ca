@@ -5,6 +5,7 @@ import { searchProperties } from "../api/searchProperties";
 import debounce from "lodash.debounce";
 import Autosuggest from "./Autosuggest";
 import { Button } from "@nextui-org/react";
+import useDeviceView from "@/helpers/useDeviceView";
 
 const SearchBar = ({
   numberOfSuggestions = 10,
@@ -14,7 +15,7 @@ const SearchBar = ({
   const [displaySuggestions, setDisplaySuggestions] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-
+  const {isMobileView} = useDeviceView()
   // Debouncing
   const handleChange = async (value) => {
     await getSuggestions(value);
@@ -126,7 +127,7 @@ const SearchBar = ({
         <input
           className={`w-full ${
             small ? "py-1" : "py-3"
-          } px-2 focus:outline-none text-center placeholder:text-center sm:placeholder:text-sm`}
+          } px-2 focus:outline-none focus:shadow-2xl text-center placeholder:text-center sm:placeholder:text-medium`}
           placeholder={displaySuggestions ? "" : placeholder}
           onChange={(e) => {
             setDisplaySuggestions(true);
@@ -143,7 +144,7 @@ const SearchBar = ({
         />
         <div className="flex items-center pr-1 pl-0 justify-center bg-white">
           {/* <CgSearch size="1.25rem" /> */}
-          {!small ? (
+          {!small && !isMobileView ? (
             <Button
               className={`bg-black rounded-full text-white font-medium`}
             >
@@ -151,7 +152,9 @@ const SearchBar = ({
               Search{" "}
             </Button>
           ) : (
-            <CgSearch size="1.25rem" className="mr-2" />
+            small?
+            <CgSearch size="1.25rem" className="mr-2" />:
+            <CgSearch size="1.75rem" className="mr-2"/>
           )}
         </div>
       </div>
