@@ -105,13 +105,13 @@ const SearchBar = ({
 
   //style for input box
   let inputBoxClass = [];
-  if (!small) {
+  if (!small && !displaySuggestions) {
     inputBoxClass.push("border-3 border-black");
   } else if (!displaySuggestions) {
     inputBoxClass.push("border-2 border-gray-300");
   }
   if (displaySuggestions) {
-    inputBoxClass.push("rounded-t-[28px]");
+    inputBoxClass.push("border-1 border-black rounded-t-[28px]");
   } else {
     inputBoxClass.push("rounded-[28px]");
   }
