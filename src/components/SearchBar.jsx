@@ -107,9 +107,9 @@ const SearchBar = ({
   //style for input box
   let inputBoxClass = [];
   if (!small && !displaySuggestions) {
-    inputBoxClass.push("border-3 border-black");
+    inputBoxClass.push("border-2 border-black");
   } else if (!displaySuggestions) {
-    inputBoxClass.push("border-2 border-gray-300");
+    inputBoxClass.push("border-1 border-gray-300");
   }
   if (displaySuggestions) {
     inputBoxClass.push("border-1 border-black rounded-t-[28px]");

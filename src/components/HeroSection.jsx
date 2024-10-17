@@ -75,7 +75,7 @@ const HeroSection = () => {
               </span>{" "}
               across Ontario!
             </div>
-            <div className="flex space-y-0 sm:flex-row space-x-4 mt-3">
+            {/* <div className="flex space-y-0 sm:flex-row space-x-4 mt-3">
               <Link href="/all-homes-in-canada-for-sale">
                 <button className="px-4 sm:px-6 py-1 text-white text-semibold bg-black rounded-full text-medium hover:shadow-lg">
                   Find homes for sale
@@ -86,7 +86,7 @@ const HeroSection = () => {
                   Find homes for lease
                 </button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
