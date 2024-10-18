@@ -24,7 +24,7 @@ const HeroSection = () => {
     <div className="">
       <div className="mx-auto">
         <div
-          className="relative flex h-[90vh] sm:h-[100vh] flex-col lg:flex-row items-center justify-center pt-10 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0 px-2 sm:px-0 bg-bottom bg-no-repeat"
+          className="relative flex h-[50vh] sm:h-[100vh] flex-col lg:flex-row items-center justify-center pt-10 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0 px-2 sm:px-0 bg-bottom bg-no-repeat"
           id="hero-section"
         >
           <div className="w-full z-10 pb-20 sm:w-screen flex flex-col items-center mb-10 lg:mb-0 order-2 sm:order-1 cover">
@@ -44,8 +44,12 @@ const HeroSection = () => {
             ></img> */}
             <h2 className="text-[2.5rem]/[3rem] sm:text-[4rem] font-bold text-center drop-shadow-md dm-sans">
               {/* Low rise home for <span className="text-[#dc2222]">everyone</span> */}
-              Low rise home for everyone
+              {/* Search for your low rise home🏠 */}
+              {/* Find your <span className="text-primary-green uppercase">low rise</span> home 🏠 */}
+              <span className="text-primary-green uppercase">low rise</span> home for everyone
+              {/* Find <span className="text-primary-green uppercase">low rise</span> home */}
             </h2>
+
             {/* <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-12">
               {houseTypes.map((house, index) => (
                 <HouseTypeCard

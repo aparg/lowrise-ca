@@ -88,6 +88,7 @@ export default async function Home() {
   return (
     <>
       <HeroSection />
+
       <MobilePromo></MobilePromo>
       <section className="mx-auto max-w-[90%]">
         <PropertyDisplaySection
