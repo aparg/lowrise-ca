@@ -9,6 +9,7 @@ import ContactForm from "@/components/ContactForm";
 import PropertiesDisplayer from "@/components/PropertiesDisplayer";
 import { cache } from "sharp";
 import MobilePromo from "@/components/MobilePromo";
+import SeeListings from "@/components/SeeListings";
 
 export const metadata = {
   title: "Lowrise.ca | Resale Properties in Ontario",
@@ -88,7 +89,7 @@ export default async function Home() {
   return (
     <>
       <HeroSection />
-
+      <SeeListings/>
       <MobilePromo></MobilePromo>
       <section className="mx-auto max-w-[90%]">
         <PropertyDisplaySection

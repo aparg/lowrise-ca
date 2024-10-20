@@ -24,7 +24,7 @@ const HeroSection = () => {
     <div className="">
       <div className="mx-auto">
         <div
-          className="relative flex h-[50vh] sm:h-[100vh] flex-col lg:flex-row items-center justify-center pt-10 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0 px-2 sm:px-0 bg-bottom bg-no-repeat"
+          className="relative flex h-[50vh] sm:h-[70vh] flex-col lg:flex-row items-center justify-center pt-10 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0 px-2 sm:px-0 bg-bottom bg-no-repeat"
           id="hero-section"
         >
           <div className="w-full z-10 pb-20 sm:w-screen flex flex-col items-center mb-10 lg:mb-0 order-2 sm:order-1 cover">
@@ -46,7 +46,8 @@ const HeroSection = () => {
               {/* Low rise home for <span className="text-[#dc2222]">everyone</span> */}
               {/* Search for your low rise home🏠 */}
               {/* Find your <span className="text-primary-green uppercase">low rise</span> home 🏠 */}
-              <span className="text-primary-green uppercase">low rise</span> home for everyone
+              <span className="text-primary-green">Low rise</span> home for
+              everyone
               {/* Find <span className="text-primary-green uppercase">low rise</span> home */}
             </h2>
 
@@ -72,25 +73,13 @@ const HeroSection = () => {
                 placeholder="Search"
               />
             </div>
-            <div className="text-medium sm:text-xl mt-2 text-center ">
+            <div className="text-medium sm:text-xl mt-2 text-center">
               Find{" "}
               <span className="font-bold">
                 low rise homes for sale or lease
               </span>{" "}
               across Ontario!
             </div>
-            {/* <div className="flex space-y-0 sm:flex-row space-x-4 mt-3">
-              <Link href="/all-homes-in-canada-for-sale">
-                <button className="px-4 sm:px-6 py-1 text-white text-semibold bg-black rounded-full text-medium hover:shadow-lg">
-                  Find homes for sale
-                </button>
-              </Link>
-              <Link href="/all-homes-in-canada-for-lease">
-                <button className="px-4 sm:px-6 py-1 text-white text-semibold bg-black rounded-full text-medium hover:shadow-lg">
-                  Find homes for lease
-                </button>
-              </Link>
-            </div> */}
           </div>
         </div>
       </div>
