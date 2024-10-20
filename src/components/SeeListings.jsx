@@ -12,7 +12,7 @@ const SeeListings = () => {
         <h1 className="text-2xl sm:text-4xl font-bold text-center">
           See listings available with us
         </h1>
-        <section className="w-fit-content mx-auto grid grid-cols-1 sm:grid-cols-3 mt-8 sm:mt-16 sm:gap-x-8 sm:gap-y-0 gap-y-8">
+        <section className="w-fit-content mx-auto grid grid-cols-1 sm:grid-cols-3 mt-8 sm:mt-16 sm:gap-x-40 sm:gap-y-0 gap-y-8">
           <div className="">
             <h2 className="font-bold text-xl mb-2">Popular cities near you</h2>
             <ul>
@@ -97,7 +97,7 @@ const SeeListings = () => {
               </li>
             </ul>
           </div>
-          <div className="">
+          <div className="w-fit">
             <h2 className="font-bold text-xl mb-2">Rent or Buy</h2>
             <ul>
               <li>
