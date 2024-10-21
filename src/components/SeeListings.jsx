@@ -19,7 +19,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ cityVal: "Toronto" })}
-                  className="text-primary-green my-4 sm:font-medium text-sm"
+                  className="my-4 sm:font-medium text-sm"
                 >
                   Toronto Homes for Sale
                 </Link>
@@ -27,7 +27,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ cityVal: "Ottawa" })}
-                  className="text-primary-green my-4 sm:font-medium text-sm"
+                  className="my-4 sm:font-medium text-sm"
                 >
                   Ottawa Homes for Sale
                 </Link>
@@ -35,7 +35,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ cityVal: "Mississauga" })}
-                  className="text-primary-green my-4 sm:font-medium text-sm"
+                  className="my-4 sm:font-medium text-sm"
                 >
                   Mississauga Homes for Sale
                 </Link>
@@ -43,7 +43,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ cityVal: "Ajax" })}
-                  className="text-primary-green my-4 sm:font-medium text-sm"
+                  className="my-4 sm:font-medium text-sm"
                 >
                   Ajax Homes for Sale
                 </Link>
@@ -58,7 +58,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ houseTypeVal: "semi detached" })}
-                  className="text-primary-green my-4 sm:font-medium text-sm"
+                  className="my-4 sm:font-medium text-sm"
                 >
                   Semi detached Homes for Sale
                 </Link>
@@ -66,7 +66,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ houseTypeVal: "detached" })}
-                  className="text-primary-green my-4 sm:font-medium text-sm"
+                  className="my-4 sm:font-medium text-sm"
                 >
                   Detached Homes for Sale
                 </Link>
@@ -74,7 +74,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ houseTypeVal: "duplex" })}
-                  className="text-primary-green my-4 sm:font-medium text-sm"
+                  className="my-4 sm:font-medium text-sm"
                 >
                   Duplex Homes for Sale
                 </Link>
@@ -82,7 +82,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ houseTypeVal: "triplex" })}
-                  className="text-primary-green my-4 sm:font-medium text-sm"
+                  className="my-4 sm:font-medium text-sm"
                 >
                   Triplex Homes for Sale
                 </Link>
@@ -90,7 +90,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ houseTypeVal: "town house" })}
-                  className="text-primary-green my-4 sm:font-medium text-sm"
+                  className="my-4 sm:font-medium text-sm"
                 >
                   Town house for Sale
                 </Link>
@@ -103,7 +103,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ saleLeaseVal: "sale" })}
-                  className="text-primary-green my-4 sm:font-medium text-sm"
+                  className="my-4 sm:font-medium text-sm"
                 >
                   Ontario Homes for Sale
                 </Link>
@@ -111,7 +111,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ saleLeaseVal: "lease" })}
-                  className="text-primary-green my-4 sm:font-medium text-sm"
+                  className="my-4 sm:font-medium text-sm"
                 >
                   Ontario Homes for Lease
                 </Link>
