@@ -25,7 +25,7 @@ const HeroSection = () => {
       <div className="mx-auto">
         <div
           className="relative flex h-[50vh] sm:h-[70vh] flex-col lg:flex-row items-center justify-center pt-10 gap-x-10 lg:pb-20 gap-y-12 sm:gap-y-0 px-2 sm:px-0 bg-bottom bg-no-repeat"
-          id="hero-section"
+          // id="hero-section"
         >
           <div className="w-full z-10 pb-20 sm:w-screen flex flex-col items-center mb-10 lg:mb-0 order-2 sm:order-1 cover">
             {/* <Link href="/">

@@ -11,7 +11,7 @@ const CityCard = ({ name, imageUrl }) => (
         className="object-cover transition-transform duration-300 group-hover:scale-110 h-[250px] w-full"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-      <h3 className="absolute bottom-4 left-4 text-white text-2xl font-bold">
+      <h3 className="absolute flex justify-center w-full bottom-4 text-white text-2xl font-bold text-center">
         {name}
       </h3>
     </div>
