@@ -14,7 +14,7 @@ const Footer = ({ cities }) => {
   let todaysutc = new Date().toUTCString();
   let year_now = new Date().getFullYear();
 
-  if (pathname.startsWith("/Linkdmin")) {
+  if (pathname.startsWith("/admin")) {
     return null;
   }
 
