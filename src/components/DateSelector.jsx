@@ -151,7 +151,7 @@ const DateSelector = ({ showBookingType = true }) => {
                 <BookingDateOption
                   ref={cardRef}
                   data={data}
-                  key={data.day}
+                  key={data.day + data.dayName}
                   handleChange={(e) => {
                     selectOption(e, data);
                   }}

@@ -10,7 +10,8 @@ import {
   getSalesData,
 } from "../../../../../api/getSalesData";
 import BookShowingForm from "@/components/BookShowingForm";
-const Map = dynamic(() => import("@/components/Map"), { ssr: false });
+// const Map = dynamic(() => import("@/components/Map"), { ssr: false });
+// import Map from "@/components/Map";
 import PropertyPage from "@/components/PropertyPage";
 import BookingDate from "@/components/BookingDate";
 import FAQ from "@/components/FAQ";
@@ -29,6 +30,7 @@ import MobileGallery from "@/components/MobileGallery";
 import Thumbnails from "@/components/Thumbnails";
 import TimeAgo from "@/helpers/TimeAgo";
 import { houseType } from "@/constant";
+// import { getNotes } from "@/helpers/getNotes";
 // import { Button } from "@nextui-org/react";
 
 const INITIAL_OFFSET = 0;
@@ -49,12 +51,13 @@ const fetchData = async (listingID) => {
 };
 
 const page = async ({ params }) => {
-  const city = params.city.split("-").join(" ");
-  const formattedSlug = capitalizeFirstLetter(city);
-  const parts = params.listingID.split("-");
+  const { city, listingID } = await params;
+  const cityValue = city.split("-").join(" ");
+  const formattedSlug = capitalizeFirstLetter(cityValue);
+  const parts = listingID.split("-");
   const lastPart = parts[parts.length - 1];
-  const listingID = lastPart;
-  let main_data = await fetchData(listingID); //always a single object inside the array
+  const listingIDValue = lastPart;
+  let main_data = await fetchData(listingIDValue); //always a single object inside the array
   const newSalesData = await getSalesData(
     INITIAL_OFFSET,
     INITIAL_LIMIT,
@@ -75,7 +78,7 @@ const page = async ({ params }) => {
 
   const breadcrumbItems = [
     { label: "Ontario", href: "/ontario" },
-    { label: formattedSlug, href: generateURL({ cityVal: city }) },
+    { label: formattedSlug, href: generateURL({ cityVal: cityValue }) },
     {
       label: `${main_data.Street} ${main_data.StreetName}${" "}
     ${main_data.StreetAbbreviation}`,
@@ -91,6 +94,8 @@ const page = async ({ params }) => {
   ]
     .filter(Boolean)
     .join(" ");
+
+  // const notes = await getNotes();
 
   return (
     <>
@@ -126,12 +131,14 @@ const page = async ({ params }) => {
                 <div className="grid sm:grid-cols-6 grid-cols-1 justify-between sm:justify-between w-full sm:gap-x-6 gap-y-12 sm:gap-y-0 relative">
                   <div className={`sm:col-span-4 col-span-4 col-md-8 `}>
                     <PropertyPage {...{ main_data }} />
+
                     <BookingDate bannerImage={imageURLs[0]} />
+                    {/* <NotesForProperties notes={notes} /> */}
                     <div className="z-20 relative mt-12 sm:mt-24">
                       <h2 className="font-extrabold text-2xl sm:text-4xl mb-2">
                         Map View
                       </h2>
-                      <Map main_data={main_data} />
+                      {/* <Map main_data={main_data} /> */}
                     </div>
                   </div>
 
@@ -186,11 +193,12 @@ const page = async ({ params }) => {
 export default page;
 
 export async function generateMetadata({ params }, parent) {
-  const parts = params.listingID.split("-");
+  const { listingID } = await params;
+  const parts = listingID.split("-");
   const lastPart = parts[parts.length - 1];
-  const listingID = lastPart;
-  const main_data = await fetchData(listingID);
-  const imageURLs = generateImageURLs(listingID);
+  const listingIDValue = lastPart;
+  const main_data = await fetchData(listingIDValue);
+  const imageURLs = generateImageURLs(listingIDValue);
   return {
     ...parent,
     alternates: {

@@ -109,6 +109,21 @@ const PropertyPage = ({ main_data }) => {
     }
   }, [main_data.RemarksForClients]);
 
+  // const sendNotes = async () => {
+  //   const response = await fetch("https://rets.dolphy.ca/notes/residential", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       // Your data here
+  //       message: "new test message",
+  //     }),
+  //   });
+  //   const data = await response.json();
+  //   console.log(data);
+  // };
+
   return (
     <>
       <div className="screenshot col-12 mt-2">
@@ -124,7 +139,7 @@ const PropertyPage = ({ main_data }) => {
           >
             <div className="flex flex-col space-y-2">
               <h3 className="text-5xl font-bold">{price}</h3>
-
+              {/* <button onClick={sendNotes}>Go!</button> */}
               <div className="space-x-2 block sm:hidden">
                 <button className="bg-[#CC0B0B] p-1 text-white text-xs font-bold mt-1 sm:my-0 w-fit-content rounded-md">
                   <TimeAgo modificationTimestamp={main_data.TimestampSql} />

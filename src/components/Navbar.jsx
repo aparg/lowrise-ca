@@ -416,7 +416,7 @@ const Navbar = (props) => {
                 Contact{" "}
               </Link>
               <Link
-                href="#"
+                href="tel:4168458996"
                 title=""
                 className={`text-sm font-normal transition-all duration-200 ${
                   isHomePage &&
@@ -428,13 +428,13 @@ const Navbar = (props) => {
                 }
              ${!isHomePage && "text-black"}`}
               >
-                <Link href="tel:4168458996" className="flex items-center">
+                <div className="flex items-center">
                   <img src="/contact.png" className="w-12"></img>
                   <div className="flex flex-col items-center justify-center">
                     <div className="text-lg font-bold">(416) 845-8996</div>
                     <div className="text-xs">Speak with Lowrise team</div>
                   </div>
-                </Link>
+                </div>
               </Link>
             </div>
           </div>

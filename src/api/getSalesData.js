@@ -1,6 +1,6 @@
 "use server";
 import { commercial, residential } from "./routes/fetchRoutes";
-import { houseType, saleLease } from "@/constant";
+// import { houseType, saleLease } from "@/constant";
 
 export const getSalesData = async (offset, limit, city, listingType) => {
   try {
