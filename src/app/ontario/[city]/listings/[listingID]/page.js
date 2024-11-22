@@ -156,8 +156,8 @@ const page = async ({ params }) => {
                   </div>
                   <div className="sm:col-span-2 col-span-2 fixed right-5 bottom-0 z-20">
                     <NotesForProperties
-                      email={user.primaryEmailAddress.emailAddress}
-                      username={user.fullName}
+                      email={user?.primaryEmailAddress?.emailAddress}
+                      username={user?.fullName}
                       listingId={listingID}
                     />
                   </div>
