@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 
 const LightGallery = dynamic(() => import("lightgallery/react"), {
-  ssr: false,
+  loading: () => <p>Loading gallery...</p>,
 });
 // import styles
 import "lightgallery/css/lightgallery.css";

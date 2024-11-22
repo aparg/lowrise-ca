@@ -90,4 +90,4 @@ const Map = ({ main_data }) => {
   );
 };
 
-export default dynamic(() => import("@/components/Map"), { ssr: false });
+export default Map;

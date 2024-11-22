@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 
 const LightGallery = dynamic(() => import("lightgallery/react"), {
-  ssr: false,
+  loading: () => <p>Loading gallery...</p>,
 });
 // import styles
 import "lightgallery/css/lightgallery.css";
@@ -80,7 +80,6 @@ const MobileGallery = ({ data }) => {
                     } ${index >= 5 ? "hidden" : ""}`}
                   >
                     <Image
-                      loader={() => url}
                       src={url}
                       width={500}
                       height={index === 0 ? 800 : 207}

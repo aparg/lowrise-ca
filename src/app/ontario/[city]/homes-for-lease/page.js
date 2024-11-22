@@ -8,7 +8,6 @@ import { ImSpinner } from "react-icons/im";
 const FiltersWithSalesList = dynamic(
   () => import("@/components/FiltersWithSalesList"),
   {
-    ssr: false,
     loading: () => (
       <div className="flex justify-center align-item-center">
         <ImSpinner size={24} />

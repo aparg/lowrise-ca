@@ -75,10 +75,9 @@ const page = async ({ params }) => {
   });
   main_data.avg = parseFloat(statsValue.avg.toFixed(0)).toLocaleString();
   const imageURLs = generateImageURLs(
-    listingID,
+    listingIDValue,
     parseInt(main_data?.PhotoCount)
   );
-
   const breadcrumbItems = [
     { label: "Ontario", href: "/ontario" },
     { label: formattedSlug, href: generateURL({ cityVal: cityValue }) },

@@ -3,10 +3,13 @@ import React, { useEffect, useState } from "react";
 import { SignInButton } from "@clerk/nextjs";
 import NoteInput from "./NoteInput";
 import { Maximize2, Minimize2 } from "lucide-react";
+import { BASE_URL } from "@/api";
 
 const NotesForProperties = ({ email, username, listingId }) => {
   const [isMaximized, setIsMaximized] = useState(true);
-  const [messages, setMessages] = useState([{}]);
+  const [messages, setMessages] = useState([
+    { message: "Please drop your queries here" },
+  ]);
   if (!email) {
     return (
       <div className="hidden lg:flex h-[300px] w-[300px] items-center justify-center border-2 border-black rounded-md bg-white p-4">

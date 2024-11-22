@@ -16,7 +16,7 @@ import { ImSpinner } from "react-icons/im";
 import HotListings from "./HotListings";
 import PageSelector from "./PageSelector";
 import Image from "next/image";
-import formatCurrency from "@/helpers/formatCurrency";
+// import formatCurrency from "@/helpers/formatCurrency";
 // import FilterSubmit from "../FilterSubmit";
 
 const FiltersWithSalesList = ({
@@ -195,96 +195,83 @@ const FiltersWithSalesList = ({
 
   return (
     <>
-      {
-        <div className="">
-          <h1
-            className={`font-extrabold text-2xl text-center sm:text-left ${
-              isMobileView ? "pt-2" : "pt-2"
-            }`}
-          >
-            {/* {`${
-              requiredType ? requiredType : city ? formattedCityName : "Ontario"
-            }
-            Homes ${filterState.saleLease} ${
-              requiredType ? "in " + formattedCityName : ""
-            } ${
-              filterState.priceRange.max
-                ? ` under ${formatCurrency(filterState.priceRange.max)}`
-                : ""
-            } | Real Estate Updated Daily Listings`} */}
-            100+{" "}
-            {[
-              capitalizeFirstLetter(requiredType),
-              homeText,
-              "for " + capitalizeFirstLetter(saleLeaseVal),
-              ,
-            ].join(" ") + " "}{" "}
-            {city ? ` | ${capitalizeFirstLetter(city)}` : ""} | Lowrise.ca
-          </h1>
-          <h2
-            className="text-sm mb-5 mt-1 text-center sm:text-left"
-            style={isMobileView ? { fontSize: "0.9rem" } : {}}
-          >
-            500+ {capitalizeFirstLetter(city)}{" "}
-            {capitalizeFirstLetter(requiredType) || ""} homes for{" "}
-            {saleLeaseVal || "sale"}. Book a showing for affordable homes with
-            pools, finished basements, walkouts. Prices from $1 to $5,000,000.
-            Open houses available.
-          </h2>
+      <div className="">
+        <h1
+          className={`font-extrabold text-2xl text-center sm:text-left ${
+            isMobileView ? "pt-2" : "pt-2"
+          }`}
+        >
+          100+{" "}
+          {[
+            capitalizeFirstLetter(requiredType),
+            homeText,
+            "for " + capitalizeFirstLetter(saleLeaseVal),
+          ].join(" ") + " "}{" "}
+          {city ? ` | ${capitalizeFirstLetter(city)}` : ""} | Lowrise.ca
+        </h1>
+        <h2
+          className="text-sm mb-5 mt-1 text-center sm:text-left"
+          style={isMobileView ? { fontSize: "0.9rem" } : {}}
+        >
+          500+ {capitalizeFirstLetter(city)}{" "}
+          {capitalizeFirstLetter(requiredType) || ""} homes for{" "}
+          {saleLeaseVal || "sale"}. Book a showing for affordable homes with
+          pools, finished basements, walkouts. Prices from $1 to $5,000,000.
+          Open houses available.
+        </h2>
 
-          <div
-            className="flex sticky top-0 z-[998] bg-white items-center w-full flex-wrap overflow-visible justify-center sm:justify-normal"
-            id="filter"
-          >
-            <Filters {...{ filterState, setFilterState, fetchFilteredData }} />
-          </div>
-
-          {loading ? (
-            <div className="w-[20px] mx-auto">
-              <ImSpinner size="sm" />
-            </div>
-          ) : salesData.length > 0 ? (
-            <>
-              {selected === 1 && <HotListings salesData={hotSales} />}
-              <div
-                className={`${
-                  isMobileView ? "pt-1" : "pt-3"
-                } grid grid-cols-2 md:grid-cols-4 xs:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 xl:grid-cols-4 gap-0 gap-x-2 gap-y-4 md:gap-x-2 sm:gap-y-[40px]`}
-              >
-                <SalesList
-                  {...{
-                    city,
-                    INITIAL_LIMIT,
-                    salesData: remainingSales,
-                    setSalesData,
-                    offset,
-                    setOffset,
-                    filterState,
-                  }}
-                />
-              </div>
-              <div className="flex justify-center mt-10">
-                <PageSelector
-                  numberOfPages={40}
-                  batchSize={3}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-              </div>
-            </>
-          ) : (
-            <div className="fs-4 text-center flex w-100 flex-col items-center">
-              <Image
-                src="/no-record-found.jpg"
-                width="500"
-                height="500"
-                alt="no record found"
-              />
-              <p>No Records Found</p>
-            </div>
-          )}
+        <div
+          className="flex sticky top-0 z-[998] bg-white items-center w-full flex-wrap overflow-visible justify-center sm:justify-normal"
+          id="filter"
+        >
+          <Filters {...{ filterState, setFilterState, fetchFilteredData }} />
         </div>
-      }
+
+        {loading ? (
+          <div className="w-[20px] mx-auto">
+            <ImSpinner size="sm" />
+          </div>
+        ) : salesData.length > 0 ? (
+          <>
+            {selected === 1 && <HotListings salesData={hotSales} />}
+            <div
+              className={`${
+                isMobileView ? "pt-1" : "pt-3"
+              } grid grid-cols-2 md:grid-cols-4 xs:grid-cols-2 sm:grid-cols-1 lg:grid-cols-4 xl:grid-cols-4 gap-0 gap-x-2 gap-y-4 md:gap-x-2 sm:gap-y-[40px]`}
+            >
+              <SalesList
+                {...{
+                  city,
+                  INITIAL_LIMIT,
+                  salesData: remainingSales,
+                  setSalesData,
+                  offset,
+                  setOffset,
+                  filterState,
+                }}
+              />
+            </div>
+            <div className="flex justify-center mt-10">
+              <PageSelector
+                numberOfPages={40}
+                batchSize={3}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </div>
+          </>
+        ) : (
+          <div className="fs-4 text-center flex w-100 flex-col items-center">
+            <Image
+              src="/no-record-found.jpg"
+              width="500"
+              height="500"
+              alt="no record found"
+            />
+            <p>No Records Found</p>
+          </div>
+        )}
+      </div>
     </>
   );
 };

@@ -286,25 +286,6 @@ const Filters = ({ filterState, setFilterState, fetchFilteredData }) => {
           </div>
         ) : null} */}
       </div>
-
-      {/* {isMobileView ? (
-        <div className="container-fluid w-[90%] sm:w-auto">
-          <PriceRangeFilterBottom
-            name="priceRange"
-            value={filterState.priceRange}
-            setFilterState={setFilterState}
-            handleFilterChange={handleFilterChange}
-            minMaxPrice={minMaxPrice}
-          />
-        </div>
-      ) : null} */}
-      {console.log(
-        Object.keys(allPriceRanges).find(
-          (opt) =>
-            allPriceRanges[opt].min == filterState?.priceRange?.min &&
-            allPriceRanges[opt].max == filterState?.priceRange?.max
-        )
-      )}
       <div className="flex justify-center sm:justify-start">
         <IndividualFilterButtonNoLink
           options={
@@ -360,51 +341,53 @@ const IndividualFilter = ({
   );
 
   return (
-    <Dropdown>
-      {console.log(getSelectedValue(selectedKeys))}
-      {console.log(defaultValue)}
-      <DropdownTrigger disableAnimation={true}>
-        <Button
-          variant="faded"
-          className={`capitalize text-xs sm:text-sm h-[28px] sm:h-[34px] bg-white rounded-full ${
-            isMobileView && "px-1 gap-1 min-w-unit-0 min-w-10"
-          } ${
-            getSelectedValue(selectedKeys) !== defaultValue &&
-            `${bgColor[name]} ${textColor[name]} border-primary-green`
-          }`}
+    <div>
+      <Dropdown>
+        <DropdownTrigger>
+          <Button
+            variant="faded"
+            className={`capitalize text-xs sm:text-sm h-[28px] sm:h-[34px] bg-white rounded-full ${
+              isMobileView && "px-1 gap-1 min-w-unit-0 min-w-10"
+            } ${
+              getSelectedValue(selectedKeys) !== defaultValue &&
+              `${bgColor[name]} ${textColor[name]} border-primary-green`
+            }`}
+          >
+            {/* <i className="bi bi-chevron-down" style={{ fontSize: "0.7rem" }}></i> */}
+            <span className="mt-1 flex items-center" color="#111111">
+              {getSelectedValue(selectedKeys)}
+
+              <FaChevronDown size={10} />
+            </span>
+          </Button>
+        </DropdownTrigger>
+        <DropdownMenu
+          aria-label={name}
+          disallowEmptySelection
+          selectionMode={isMulti ? "multiple" : "single"}
+          selectedKeys={selectedKeys}
+          onSelectionChange={handleKeyChange}
         >
-          {getSelectedValue(selectedKeys)}
-          {/* <i className="bi bi-chevron-down" style={{ fontSize: "0.7rem" }}></i> */}
-          <span className="mt-1" color="#111111">
-            <FaChevronDown size={10} />
-          </span>
-        </Button>
-      </DropdownTrigger>
-      <DropdownMenu
-        aria-label={name}
-        disallowEmptySelection
-        selectionMode={isMulti ? "multiple" : "single"}
-        selectedKeys={selectedKeys}
-        onSelectionChange={handleKeyChange}
-      >
-        {options.map((option) => {
-          if (name == "type") {
-            return (
-              <DropdownItem
-                key={option}
-                href={generateURL({
-                  cityVal: city,
-                  houseTypeVal: option,
-                  saleLeaseVal: saleLease,
-                })}
-              >
-                {option}
-              </DropdownItem>
-            );
-          } else return <DropdownItem key={option}>{option}</DropdownItem>;
-        })}
-      </DropdownMenu>
-    </Dropdown>
+          {options.map((option) => {
+            if (name === "type") {
+              const url = generateURL({
+                cityVal: city,
+                houseTypeVal: option,
+                saleLeaseVal: saleLease,
+              });
+              return (
+                <DropdownItem key={option}>
+                  <Link href={url} className="w-full">
+                    {option}
+                  </Link>
+                </DropdownItem>
+              );
+            }
+            return <DropdownItem key={option}>{option}</DropdownItem>;
+          })}
+        </DropdownMenu>
+      </Dropdown>
+    </div>
     // <Dropdown
     //   name="House Type"
     //   options={[{ name: "test", link: "/text" }]}

@@ -3,19 +3,7 @@ import dynamic from "next/dynamic";
 
 import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
 import { getSalesData } from "../../../../api/getSalesData";
-import { ImSpinner } from "react-icons/im";
-
-const FiltersWithSalesList = dynamic(
-  () => import("@/components/FiltersWithSalesList"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex justify-center align-item-center">
-        <ImSpinner size={24} />
-      </div>
-    ),
-  }
-);
+import FiltersWithSalesList from "@/components/FiltersWithSalesList";
 
 const INITIAL_LIMIT = 30;
 const page = async ({ params }) => {
@@ -48,9 +36,9 @@ export async function generateMetadata({ params }, parent) {
     openGraph: {
       images: "/favicon.ico",
     },
+    // Fix: Remove the extra comma after formattedCity string
     title: [
       `100+ ${formattedCity} Detached, Semi detached & Townhomes for sale`,
-      ,
       "New Listings",
       "Lowrise.ca",
     ].join("|"),

@@ -6,7 +6,6 @@ import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
 const FiltersWithSalesList = dynamic(
   () => import("@/components/FiltersWithSalesList"),
   {
-    ssr: false,
     loading: () => (
       <div className="flex justify-center align-item-center">
         <ImSpinner size={24} />
