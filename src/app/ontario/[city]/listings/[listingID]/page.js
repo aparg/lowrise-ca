@@ -73,7 +73,8 @@ const page = async ({ params }) => {
     municipality: main_data?.Municipality,
     saleLease: main_data?.SaleLease,
   });
-  main_data.avg = parseFloat(statsValue.avg.toFixed(0)).toLocaleString();
+  main_data.avg =
+    parseFloat(statsValue?.avg?.toFixed(0)).toLocaleString() || null;
   const imageURLs = generateImageURLs(
     listingIDValue,
     parseInt(main_data?.PhotoCount)
