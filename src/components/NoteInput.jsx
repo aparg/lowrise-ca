@@ -21,43 +21,28 @@ const NoteInput = ({ onSubmit }) => {
   };
 
   return (
-    <div className="border-t-2 border-black p-3 bg-gray-50">
-      <div className="space-y-2">
-        <textarea
+    <div className="border-t border-gray-200 p-3 bg-white">
+      <form onSubmit={handleSubmit} className="flex items-center gap-2">
+        <input
+          type="text"
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          placeholder="Add your note here..."
-          className="w-full px-3 py-2 border-2 border-gray-200 rounded-md focus:border-black focus:ring-0 resize-none h-[80px] text-sm"
+          placeholder="Send seller a message"
+          className="flex-1 px-4 py-2.5 bg-gray-100 rounded-full focus:outline-none focus:ring-0 text-sm"
           disabled={isSubmitting}
         />
         <button
-          onClick={handleSubmit}
+          type="submit"
           disabled={isSubmitting || !note.trim()}
-          className="w-full px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm font-medium flex items-center justify-center gap-2 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium disabled:bg-gray-300 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
           ) : (
-            <>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                />
-              </svg>
-              Add Note
-            </>
+            "Send"
           )}
         </button>
-      </div>
+      </form>
     </div>
   );
 };

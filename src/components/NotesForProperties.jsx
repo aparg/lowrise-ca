@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { SignInButton } from "@clerk/nextjs";
 import NoteInput from "./NoteInput";
-import { Maximize2, Minimize2 } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { BASE_URL } from "@/api";
 
 const NotesForProperties = ({ email, username, listingId }) => {
-  const [isMaximized, setIsMaximized] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   const onSubmit = async (value) => {
     console.log(email, listingId, value);
@@ -24,10 +24,15 @@ const NotesForProperties = ({ email, username, listingId }) => {
       }),
     });
     const response = await rawResponse.json();
+    console.log(rawResponse.status);
+    if (rawResponse.status == 200) {
+      setMessages([...messages, { message: value, email: email }]);
+    }
     console.log(response);
   };
 
   const fetchMessages = async () => {
+    console.log(email, listingId);
     try {
       setIsLoading(true);
       const response = await fetch(
@@ -64,69 +69,77 @@ const NotesForProperties = ({ email, username, listingId }) => {
   }, [email]);
 
   return (
-    <div
-      className={`hidden lg:flex flex-col border-l-2 border-r-2 border-t-2 rounded-md rounded-b-none border-black bg-white transition-all duration-300
-        ${
-          isMaximized ? "h-[400px] w-[300px]" : "h-[40px] w-[300px] border-b-0"
-        }`}
-    >
-      {/* Header */}
-      {!email ? (
-        <div className="hidden lg:flex h-[300px] w-[300px] items-center justify-center border-2 border-black rounded-md bg-white p-4">
-          <SignInButton mode="modal">
-            <button className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors">
-              Sign in to view notes
-            </button>
-          </SignInButton>
-        </div>
-      ) : (
-        <>
-          <div className="border-b-2 border-black p-3 flex justify-between items-center hover:bg-gray-50">
-            <h2 className="text-lg font-bold">Your Notes</h2>
-            <button
-              onClick={() => setIsMaximized(!isMaximized)}
-              className="p-1 hover:bg-gray-200 rounded-full transition-colors"
-              aria-label={isMaximized ? "Minimize" : "Maximize"}
-            >
-              {isMaximized ? (
-                <Minimize2 className="w-4 h-4" />
-              ) : (
-                <Maximize2 className="w-4 h-4" />
-              )}
-            </button>
-          </div>
-          {/* Collapsible Content */}
-          {isMaximized && (
-            <>
-              {/* Notes List */}
-              <div className="flex-1 p-4 space-y-4 overflow-y-auto">
-                {isLoading ? (
-                  <div className="text-center text-gray-500">Loading...</div>
-                ) : messages.length === 0 ? (
-                  <div className="text-center text-gray-500">No notes yet</div>
-                ) : (
-                  messages.map((note, index) => (
-                    <></>
-                    // <div
-                    //   key={`${note.id || index}-${note.message}`}
-                    //   className="bg-gray-50 p-3 rounded-lg shadow-sm"
-                    // >
-                    //   <p className="text-gray-800 mb-2">{note.message}</p>
-                    //   <p className="text-right text-sm text-gray-600 italic">
-                    //     From: {note.email === email ? username : "admin"}
-                    //   </p>
-                    // </div>
-                  ))
-                )}
-              </div>
+    <>
+      {/* Message Button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="fixed bottom-4 right-4 p-4 bg-black text-white rounded-full shadow-lg hover:bg-black transition-colors"
+        aria-label="Open Messages"
+      >
+        <MessageCircle className="w-6 h-6" />
+      </button>
 
-              {/* Input Section */}
-              <NoteInput onSubmit={onSubmit} />
-            </>
-          )}
-        </>
+      {/* Backdrop Dialog */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={() => setIsOpen(false)}
+        >
+          <div
+            className="bg-white rounded-lg w-full max-w-md mx-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {!email ? (
+              <div className="p-6 text-center">
+                <SignInButton mode="modal">
+                  <button className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors">
+                    Sign in to view notes
+                  </button>
+                </SignInButton>
+              </div>
+            ) : (
+              <>
+                <div className="border-b p-4 flex justify-between items-center">
+                  <h2 className="text-lg font-bold">Your Notes</h2>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="p-2 hover:bg-gray-100 rounded-full"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="max-h-[60vh] overflow-y-auto p-4 space-y-4">
+                  {isLoading ? (
+                    <div className="text-center text-gray-500">Loading...</div>
+                  ) : messages.length === 0 ? (
+                    <div className="text-center text-gray-500">
+                      No notes yet
+                    </div>
+                  ) : (
+                    messages.map((note, index) => (
+                      <div
+                        key={`${note.id || index}-${note.message}`}
+                        className="bg-gray-50 p-3 rounded-lg shadow-sm"
+                      >
+                        <p className="text-gray-800 mb-2">{note.message}</p>
+                        <p className="text-right text-sm text-gray-600 italic">
+                          From: {note.email === email ? username : "admin"}
+                        </p>
+                      </div>
+                    ))
+                  )}
+                </div>
+
+                <div className="border-t p-4">
+                  <NoteInput onSubmit={onSubmit} />
+                </div>
+              </>
+            )}
+          </div>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
