@@ -9,3 +9,5 @@ export const commercial = {
   properties: `${BASE_URL}/commercial/Properties/$query`,
   photos: `${BASE_URL}/commercialPhotos/MLS-index.jpeg`,
 };
+
+export const baseURL = `${BASE_URL}`;

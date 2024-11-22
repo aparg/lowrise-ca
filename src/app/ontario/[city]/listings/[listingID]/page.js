@@ -12,6 +12,7 @@ import {
 import BookShowingForm from "@/components/BookShowingForm";
 // const Map = dynamic(() => import("@/components/Map"), { ssr: false });
 // import Map from "@/components/Map";
+
 import PropertyPage from "@/components/PropertyPage";
 import BookingDate from "@/components/BookingDate";
 import FAQ from "@/components/FAQ";
@@ -30,6 +31,8 @@ import MobileGallery from "@/components/MobileGallery";
 import Thumbnails from "@/components/Thumbnails";
 import TimeAgo from "@/helpers/TimeAgo";
 import { houseType } from "@/constant";
+import NotesForProperties from "@/components/NotesForProperties";
+import { currentUser } from "@clerk/nextjs/server";
 // import { getNotes } from "@/helpers/getNotes";
 // import { Button } from "@nextui-org/react";
 
@@ -96,7 +99,7 @@ const page = async ({ params }) => {
     .join(" ");
 
   // const notes = await getNotes();
-
+  const user = await currentUser();
   return (
     <>
       <div className="flex justify-center min-[2000px]:max-w-[68%] mx-auto">
@@ -134,12 +137,12 @@ const page = async ({ params }) => {
 
                     <BookingDate bannerImage={imageURLs[0]} />
                     {/* <NotesForProperties notes={notes} /> */}
-                    <div className="z-20 relative mt-12 sm:mt-24">
+                    {/* <div className="z-20 relative mt-12 sm:mt-24">
                       <h2 className="font-extrabold text-2xl sm:text-4xl mb-2">
                         Map View
                       </h2>
-                      {/* <Map main_data={main_data} /> */}
-                    </div>
+                      <Map main_data={main_data} />
+                    </div> */}
                   </div>
 
                   <div
@@ -151,6 +154,13 @@ const page = async ({ params }) => {
                         address + `, ${main_data?.Municipality}, Ontario`
                       }
                     ></BookShowingForm>
+                  </div>
+                  <div className="sm:col-span-2 col-span-2 fixed right-5 bottom-0 z-20">
+                    <NotesForProperties
+                      email={user.primaryEmailAddress.emailAddress}
+                      username={user.fullName}
+                      listingId={listingID}
+                    />
                   </div>
                   <div className="mt-24 mb-10 col-span-4">
                     <FAQ main_data={main_data} />

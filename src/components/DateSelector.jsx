@@ -4,6 +4,7 @@ import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import BookingDateOption from "./BookingDateOption";
 import TimingList from "./TimingList";
 import { sendEmail } from "@/api/resend";
+import { randomUUID } from "crypto";
 
 const DateSelector = ({ showBookingType = true }) => {
   // const [scrollPosition, setScrollPosition] = useState(0);
@@ -147,11 +148,11 @@ const DateSelector = ({ showBookingType = true }) => {
               id=""
               ref={scrollRef}
             >
-              {daysArray.map((data) => (
+              {daysArray.map((data, idx) => (
                 <BookingDateOption
                   ref={cardRef}
                   data={data}
-                  key={data.day + data.dayName}
+                  key={idx}
                   handleChange={(e) => {
                     selectOption(e, data);
                   }}

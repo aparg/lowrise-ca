@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
-
 const BookingType = ({ handleChange }) => {
   const [selected, setSelected] = useState();
-  return ["In Person", "Video Tour"].map((opt) => (
+  return ["In Person", "Video Tour"].map((opt, idx) => (
     <BookingTypeOption
       selected={selected == opt}
       opt={opt}
       handleChange={handleChange}
       setSelected={setSelected}
+      key={idx}
     />
   ));
 };

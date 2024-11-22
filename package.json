@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.4.1",
     "@nextui-org/react": "^2.4.6",
     "dayjs": "^1.11.12",
     "lightgallery": "^2.7.2",
