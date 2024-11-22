@@ -47,20 +47,20 @@ export async function POST(req) {
 
   // Do something with the payload
   // For this guide, you simply log the payload to the console
-  const eventType = evt.type;
-  if (eventType == "user.created") {
-    try {
-      await db.user.create({
-        data: {
-          username: payload.data.username,
-          imageUrl: payload.data.image_url,
-          externalUserId: payload.data.id,
-        },
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // const eventType = evt.type;
+  // if (eventType == "user.created") {
+  //   try {
+  //     await db.user.create({
+  //       data: {
+  //         username: payload.data.username,
+  //         imageUrl: payload.data.image_url,
+  //         externalUserId: payload.data.id,
+  //       },
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
   //   console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
   //   console.log("Webhook body:", body);
 
