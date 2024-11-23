@@ -198,6 +198,7 @@ export default function NotesDashboard() {
                   listingId={listingId}
                   messages={messages}
                   handleDeleteListingMessages={handleDeleteListingMessages}
+                  handleSubmit={handleSubmit}
                 />
               );
             })}
