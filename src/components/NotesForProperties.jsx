@@ -73,7 +73,7 @@ const NotesForProperties = ({ email, username, listingId }) => {
       <div className="flex justify-center">
         <button
           onClick={() => setIsOpen(true)}
-          className="rounded-3xl p-4 bg-black text-white shadow-lg hover:bg-black transition-colors "
+          className="rounded-full px-10 py-2 mb-4 bg-black text-white shadow-lg hover:bg-black transition-colors text-lg font-semibold hover:shadow-2xl"
           aria-label="Open Messages"
         >
           Add a note
