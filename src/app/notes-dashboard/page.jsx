@@ -128,6 +128,36 @@ export default function NotesDashboard() {
     }
   };
 
+  const handleDeleteListingMessages = async (email, listingId) => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/notes/residential/delete-messages`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, listingId }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete listing messages");
+      }
+
+      // Remove messages for this specific email and listingId from local state
+      setChats((prev) => {
+        const newChats = { ...prev };
+        const key = `${email}*${listingId}`;
+        delete newChats[key];
+        return newChats;
+      });
+    } catch (err) {
+      console.error("Failed to delete listing messages:", err);
+      alert("Failed to delete listing messages");
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -176,10 +206,18 @@ export default function NotesDashboard() {
               const [email, listingId] = key.split("*");
               return (
                 <div key={key} className="border rounded-lg overflow-hidden">
-                  <div className="bg-gray-100 p-3 border-b">
+                  <div className="bg-gray-100 p-3 border-b flex justify-between items-center">
                     <p className="text-sm text-gray-600">
                       Listing ID: {listingId}
                     </p>
+                    <button
+                      onClick={() =>
+                        handleDeleteListingMessages(email, listingId)
+                      }
+                      className="p-2 text-red-500 hover:bg-red-50 rounded"
+                    >
+                      <Trash2Icon className="w-4 h-4" />
+                    </button>
                   </div>
                   <div className="p-4 space-y-3">
                     {messages.map((msg, idx) => (
