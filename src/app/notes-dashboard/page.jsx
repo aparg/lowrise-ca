@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import NoteInput from "@/components/NoteInput";
 import { BASE_URL } from "@/api";
-import { Trash2Icon, TrashIcon } from "lucide-react";
+import ChatUserEmail from "@/components/ChatUserEmail";
+import ChatTab from "@/components/ChatTab";
 
 export default function NotesDashboard() {
   const [chats, setChats] = useState({});
@@ -176,24 +176,12 @@ export default function NotesDashboard() {
           <h2 className="text-lg font-semibold mb-4">Conversations</h2>
           <div className="space-y-2">
             {uniqueEmails.map((email) => (
-              <div key={email} className="flex items-center gap-2">
-                <button
-                  onClick={() => setActiveEmail(email)}
-                  className={`flex-1 text-left px-4 py-2 rounded ${
-                    activeEmail === email
-                      ? "bg-blue-500 text-white"
-                      : "hover:bg-gray-100"
-                  }`}
-                >
-                  {email}
-                </button>
-                <button
-                  onClick={() => handleDeleteMessages(email)}
-                  className="p-2 text-red-500 hover:bg-red-50 rounded"
-                >
-                  <Trash2Icon className="w-4 h-4" />
-                </button>
-              </div>
+              <ChatUserEmail
+                email={email}
+                handleDeleteMessages={handleDeleteMessages}
+                activeEmail={activeEmail}
+                setActiveEmail={setActiveEmail}
+              />
             ))}
           </div>
         </div>
@@ -205,43 +193,12 @@ export default function NotesDashboard() {
             .map(([key, messages]) => {
               const [email, listingId] = key.split("*");
               return (
-                <div key={key} className="border rounded-lg overflow-hidden">
-                  <div className="bg-gray-100 p-3 border-b flex justify-between items-center">
-                    <p className="text-sm text-gray-600">
-                      Listing ID: {listingId}
-                    </p>
-                    <button
-                      onClick={() =>
-                        handleDeleteListingMessages(email, listingId)
-                      }
-                      className="p-2 text-red-500 hover:bg-red-50 rounded"
-                    >
-                      <Trash2Icon className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <div className="p-4 space-y-3">
-                    {messages.map((msg, idx) => (
-                      <div
-                        key={idx}
-                        className={`p-2 rounded-lg ${
-                          msg.email === "milan@homebaba.ca"
-                            ? "bg-blue-100 ml-auto"
-                            : "bg-gray-100"
-                        } max-w-[80%]`}
-                      >
-                        <div>{msg.message}</div>
-                        <div className="text-xs text-gray-500 mt-1">
-                          From Listing ID: {listingId}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <NoteInput
-                    onSubmit={(message) =>
-                      handleSubmit(message, email, listingId)
-                    }
-                  />
-                </div>
+                <ChatTab
+                  key={key}
+                  listingId={listingId}
+                  messages={messages}
+                  handleDeleteListingMessages={handleDeleteListingMessages}
+                />
               );
             })}
         </div>
