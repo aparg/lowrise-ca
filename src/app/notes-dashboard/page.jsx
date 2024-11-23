@@ -9,7 +9,7 @@ export default function NotesDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeEmail, setActiveEmail] = useState(null);
-
+  const adminEmail = "milan@homebaba.ca";
   // Fetch messages for all emails
   useEffect(() => {
     const fetchMessages = async () => {
@@ -26,17 +26,22 @@ export default function NotesDashboard() {
 
         const data = await response.json();
         console.log(data);
-        // Group messages by email
+        // Modified grouping logic to handle admin messages differently
         const groupedChats = data.reduce((acc, message) => {
           if (!message.email || !message.listingId) return acc;
-          const key = `${message.email}*${message.listingId}`;
+
+          // For admin messages, use receiver's email for grouping
+          const emailKey =
+            message.email === adminEmail ? message.receiver : message.email;
+          const key = `${emailKey}*${message.listingId}`;
+
           if (!acc[key]) {
             acc[key] = [];
           }
           acc[key].push(message);
           return acc;
         }, {});
-
+        console.log(groupedChats);
         setChats(groupedChats);
         // After setting chats, set the first email as active
         const firstEmail = Object.keys(groupedChats)[0]?.split("*")[0];
@@ -53,6 +58,7 @@ export default function NotesDashboard() {
 
   const handleSubmit = async (message, receiver, listingId) => {
     try {
+      const timestamp = new Date().toISOString();
       const response = await fetch(
         `${BASE_URL}/notes/residential/admin-message`,
         {
@@ -64,10 +70,11 @@ export default function NotesDashboard() {
             message,
             receiver,
             listingId,
+            timestamp: timestamp,
           }),
         }
       );
-
+      console.log(response);
       if (!response.ok) {
         throw new Error("Failed to send message");
       }
@@ -80,7 +87,7 @@ export default function NotesDashboard() {
           ...prev,
           [key]: [
             ...(prev[key] || []),
-            { message, email: "milan@homebaba.ca" },
+            { message, timestamp, email: "milan@homebaba.ca" },
           ],
         };
       });
@@ -177,6 +184,7 @@ export default function NotesDashboard() {
           <div className="space-y-2">
             {uniqueEmails.map((email) => (
               <ChatUserEmail
+                key={email}
                 email={email}
                 handleDeleteMessages={handleDeleteMessages}
                 activeEmail={activeEmail}
@@ -199,6 +207,7 @@ export default function NotesDashboard() {
                   messages={messages}
                   handleDeleteListingMessages={handleDeleteListingMessages}
                   handleSubmit={handleSubmit}
+                  email={email}
                 />
               );
             })}

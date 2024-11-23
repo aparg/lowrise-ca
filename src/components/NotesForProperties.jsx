@@ -6,28 +6,31 @@ import { MessageCircle } from "lucide-react";
 import { BASE_URL } from "@/api";
 import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
 
-const NotesForProperties = ({ username, listingId, city }) => {
-  const [email, setEmail] = useState("");
+const NotesForProperties = ({ listingId }) => {
+  const [email, setEmail] = useState(() => {
+    if (typeof window !== "undefined" && isLocalStorageAvailable()) {
+      return localStorage.getItem("notes-email") || "";
+    }
+    return "";
+  });
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const onSubmit = async (value) => {
-    const rawResponse = await fetch(
-      `${BASE_URL}/notes/residential/admin-message`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: value,
-          email: email,
-          listingId: listingId,
-          timestamp: new Date().toISOString(), // Adding timestamp
-        }),
-      }
-    );
+    console.log(email);
+    const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: value,
+        email: email,
+        listingId: listingId,
+        timestamp: new Date().toISOString(), // Adding timestamp
+      }),
+    });
     const response = await rawResponse.json();
     if (rawResponse.status == 200) {
       setMessages([
@@ -79,16 +82,13 @@ const NotesForProperties = ({ username, listingId, city }) => {
   };
 
   useEffect(() => {
-    // if (email) {
-    //   const loadMessages = async () => {
-    //     await fetchMessages();
-    //   };
-    //   loadMessages();
-    // }
-    if (localStorage.getItem("notes-email")) {
-      setEmail(localStorage.getItem("notes-email"));
-    }
-  }, []);
+    const loadMessages = async () => {
+      if (email) {
+        await fetchMessages();
+      }
+    };
+    loadMessages();
+  }, [email, listingId]);
 
   return (
     <>
@@ -157,7 +157,7 @@ const NotesForProperties = ({ username, listingId, city }) => {
                       >
                         <p className="text-gray-800 mb-2">{note.message}</p>
                         <p className="text-right text-sm text-gray-600 italic">
-                          From: {note.email === email ? username : "admin"}
+                          From: {note.email}
                         </p>
                       </div>
                     ))

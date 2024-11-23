@@ -4,13 +4,13 @@ import { Trash2Icon } from "lucide-react";
 import ChatMessage from "./ChatMessage";
 
 const ChatTab = ({
-  key,
   listingId,
   messages,
   handleDeleteListingMessages,
   handleSubmit,
+  email,
 }) => {
-  const email = messages[0]?.email;
+  console.log(email);
 
   return (
     <div className="border rounded-lg overflow-hidden">

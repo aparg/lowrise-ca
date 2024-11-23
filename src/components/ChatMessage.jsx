@@ -11,7 +11,11 @@ const ChatMessage = ({ msg, listingId }) => {
     >
       <div>{msg.message}</div>
       <div className="text-xs text-gray-500 mt-1">
-        From Listing ID: {listingId}
+        {msg.timestamp &&
+          new Date(msg.timestamp).toLocaleString("en-US", {
+            dateStyle: "medium",
+            timeStyle: "short",
+          })}
       </div>
     </div>
   );
