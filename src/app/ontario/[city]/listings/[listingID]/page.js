@@ -150,18 +150,18 @@ const page = async ({ params }) => {
                     className="sm:col-span-2 col-span-2 relative"
                     id="contact"
                   >
+                    <div className="sm:col-span-2 col-span-2">
+                      <NotesForProperties
+                        email={user?.primaryEmailAddress?.emailAddress}
+                        username={user?.fullName}
+                        listingId={listingID}
+                      />
+                    </div>
                     <BookShowingForm
                       address={
                         address + `, ${main_data?.Municipality}, Ontario`
                       }
                     ></BookShowingForm>
-                  </div>
-                  <div className="sm:col-span-2 col-span-2 fixed right-5 bottom-0 z-20">
-                    <NotesForProperties
-                      email={user?.primaryEmailAddress?.emailAddress}
-                      username={user?.fullName}
-                      listingId={listingID}
-                    />
                   </div>
                   <div className="mt-24 mb-10 col-span-4">
                     <FAQ main_data={main_data} />

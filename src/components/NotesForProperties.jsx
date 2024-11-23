@@ -70,14 +70,16 @@ const NotesForProperties = ({ email, username, listingId }) => {
 
   return (
     <>
+      <div className="flex justify-center">
+        <button
+          onClick={() => setIsOpen(true)}
+          className="rounded-3xl p-4 bg-black text-white shadow-lg hover:bg-black transition-colors "
+          aria-label="Open Messages"
+        >
+          Add a note
+        </button>
+      </div>
       {/* Message Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 right-4 p-4 bg-black text-white rounded-full shadow-lg hover:bg-black transition-colors"
-        aria-label="Open Messages"
-      >
-        <MessageCircle className="w-6 h-6" />
-      </button>
 
       {/* Backdrop Dialog */}
       {isOpen && (
