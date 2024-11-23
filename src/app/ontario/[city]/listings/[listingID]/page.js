@@ -155,6 +155,7 @@ const page = async ({ params }) => {
                         email={user?.primaryEmailAddress?.emailAddress}
                         username={user?.fullName}
                         listingId={listingID}
+                        city={city}
                       />
                     </div>
                     <BookShowingForm

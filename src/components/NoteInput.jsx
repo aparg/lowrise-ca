@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const NoteInput = ({ onSubmit }) => {
+const NoteInput = ({ onSubmit, placeholder, type }) => {
   const [note, setNote] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -24,13 +24,14 @@ const NoteInput = ({ onSubmit }) => {
     <div className="border-t border-gray-200 p-3 bg-white">
       <form onSubmit={handleSubmit} className="flex items-center gap-2">
         <input
-          type="text"
+          type={type || "text"}
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          placeholder="Send seller a message"
+          placeholder={placeholder}
           className="flex-1 px-4 py-2.5 bg-gray-100 rounded-full focus:outline-none focus:ring-0 text-sm"
           disabled={isSubmitting}
         />
+
         <button
           type="submit"
           disabled={isSubmitting || !note.trim()}

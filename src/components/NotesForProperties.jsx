@@ -4,8 +4,10 @@ import { SignInButton } from "@clerk/nextjs";
 import NoteInput from "./NoteInput";
 import { MessageCircle } from "lucide-react";
 import { BASE_URL } from "@/api";
+import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
 
-const NotesForProperties = ({ email, username, listingId }) => {
+const NotesForProperties = ({ username, listingId, city }) => {
+  const [email, setEmail] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,6 +33,14 @@ const NotesForProperties = ({ email, username, listingId }) => {
     console.log(response);
   };
 
+  const onSubmitEmail = async (value) => {
+    if (isLocalStorageAvailable()) {
+      localStorage.setItem("notes-email", value);
+    }
+    setEmail(value);
+    await fetchMessages();
+  };
+
   const fetchMessages = async () => {
     console.log(email, listingId);
     try {
@@ -50,7 +60,6 @@ const NotesForProperties = ({ email, username, listingId }) => {
       );
 
       const messages = await response.json();
-      console.log(messages);
       setMessages(messages);
     } catch (error) {
       console.error("Failed to fetch messages:", error);
@@ -60,13 +69,16 @@ const NotesForProperties = ({ email, username, listingId }) => {
   };
 
   useEffect(() => {
-    if (email) {
-      const loadMessages = async () => {
-        await fetchMessages();
-      };
-      loadMessages();
+    // if (email) {
+    //   const loadMessages = async () => {
+    //     await fetchMessages();
+    //   };
+    //   loadMessages();
+    // }
+    if (localStorage.getItem("notes-email")) {
+      setEmail(localStorage.getItem("notes-email"));
     }
-  }, [email]);
+  }, []);
 
   return (
     <>
@@ -91,13 +103,22 @@ const NotesForProperties = ({ email, username, listingId }) => {
             className="bg-white rounded-lg w-full max-w-md mx-4"
             onClick={(e) => e.stopPropagation()}
           >
-            {!email ? (
+            {email.length == 0 ? (
               <div className="p-6 text-center">
-                <SignInButton mode="modal">
+                {/* <SignInButton
+                  mode="modal"
+                  forceRedirectUrl={`/ontario/${city}/listings/${listingId}`}
+                >
                   <button className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors">
                     Sign in to view notes
                   </button>
-                </SignInButton>
+                </SignInButton> */}
+                {console.log(email)}
+                <NoteInput
+                  onSubmit={onSubmitEmail}
+                  placeholder="Enter an email to start a chat"
+                  type="email"
+                />
               </div>
             ) : (
               <>
@@ -134,7 +155,10 @@ const NotesForProperties = ({ email, username, listingId }) => {
                 </div>
 
                 <div className="border-t p-4">
-                  <NoteInput onSubmit={onSubmit} />
+                  <NoteInput
+                    onSubmit={onSubmit}
+                    placeholder="Send seller a message"
+                  />
                 </div>
               </>
             )}
