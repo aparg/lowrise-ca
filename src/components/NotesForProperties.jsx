@@ -13,22 +13,32 @@ const NotesForProperties = ({ username, listingId, city }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const onSubmit = async (value) => {
-    console.log(email, listingId, value);
-    const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // Add this header
-      },
-      body: JSON.stringify({
-        message: value,
-        email: email,
-        listingId: listingId,
-      }),
-    });
+    const rawResponse = await fetch(
+      `${BASE_URL}/notes/residential/admin-message`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: value,
+          email: email,
+          listingId: listingId,
+          timestamp: new Date().toISOString(), // Adding timestamp
+        }),
+      }
+    );
     const response = await rawResponse.json();
-    console.log(rawResponse.status);
     if (rawResponse.status == 200) {
-      setMessages([...messages, { message: value, email: email }]);
+      setMessages([
+        ...messages,
+        {
+          message: value,
+          email: email,
+          timestamp: new Date().toISOString(),
+          listingId: listingId,
+        },
+      ]);
     }
     console.log(response);
   };

@@ -1,9 +1,8 @@
 import React from "react";
 
-const ChatMessage = ({ msg, listingId, idx }) => {
+const ChatMessage = ({ msg, listingId }) => {
   return (
     <div
-      key={idx}
       className={`p-2 rounded-lg ${
         msg.email === "milan@homebaba.ca"
           ? "bg-blue-100 ml-auto"

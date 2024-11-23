@@ -10,8 +10,10 @@ const ChatTab = ({
   handleDeleteListingMessages,
   handleSubmit,
 }) => {
+  const email = messages[0]?.email;
+
   return (
-    <div key={key} className="border rounded-lg overflow-hidden">
+    <div className="border rounded-lg overflow-hidden">
       <div className="bg-gray-100 p-3 border-b flex justify-between items-center">
         <p className="text-sm text-gray-600">Listing ID: {listingId}</p>
         <button
@@ -23,7 +25,7 @@ const ChatTab = ({
       </div>
       <div className="p-4 space-y-3">
         {messages.map((msg, idx) => (
-          <ChatMessage msg={msg} listingId={listingId} idx={idx} />
+          <ChatMessage key={idx} msg={msg} listingId={listingId} />
         ))}
       </div>
       <NoteInput
