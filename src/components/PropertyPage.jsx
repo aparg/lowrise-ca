@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef, useContext } from "react";
 
 import TimeAgo from "@/components/TimeAgo";
 
@@ -17,6 +17,7 @@ import MortgageCalculator from "./MortgageCalculator";
 import formatCurrency from "@/helpers/formatCurrency";
 import CompactMortgageCalculator from "./CompactMortgageCalculator";
 import { houseType } from "@/constant";
+import { ChatBarContext } from "@/app/context/ChatbarContext";
 
 const PropertyPage = ({ main_data }) => {
   const [navbar, setNavbar] = useState(false);
@@ -24,6 +25,7 @@ const PropertyPage = ({ main_data }) => {
   const { isMobileView } = useDeviceView();
   const [showMoreDesc, setShowMoreDesc] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
+  const { setPropertyData } = useContext(ChatBarContext);
   const contentRef = useRef(null);
 
   const toggleShowMore = () => {
@@ -108,6 +110,14 @@ const PropertyPage = ({ main_data }) => {
       setIsOverflowing(element.scrollHeight > element.clientHeight);
     }
   }, [main_data.RemarksForClients]);
+
+  //useeffect to set propertyda ta when main_data changes
+  useEffect(() => {
+    setPropertyData({
+      listingId: `${main_data.Street} ${main_data.StreetName} ${main_data.StreetAbbreviation},${main_data.Municipality},${main_data.PostalCode}`,
+      price: main_data.ListPrice,
+    });
+  }, [main_data]);
 
   // const sendNotes = async () => {
   //   const response = await fetch("https://rets.dolphy.ca/notes/residential", {

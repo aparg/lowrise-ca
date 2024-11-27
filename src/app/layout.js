@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import Head from "next/head";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { ClerkProvider } from "@clerk/nextjs";
+import NotesForProperties from "@/components/NotesForProperties";
+import { ChatBarContextProvider } from "@/app/context/ChatbarContext";
 
 export const metadata = {
   title: "Lowrise.ca",
@@ -34,25 +36,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* <Head>
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-EXF0Z8ZNFH"
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-EXF0Z8ZNFH');
-          `,
-          }}
-        />
-      </Head> */}
-
       <body className="bg-white text-black ">
-        <ClerkProvider>
+        <ChatBarContextProvider>
           <NextTopLoader
             color="#FF0000"
             initialPosition={0.08}
@@ -68,7 +53,10 @@ export default function RootLayout({ children }) {
           <GoogleAnalytics />
           <main className="">{children}</main>
           <Footer />
-        </ClerkProvider>
+          <div className="sm:col-span-2 col-span-2">
+            <NotesForProperties />
+          </div>
+        </ChatBarContextProvider>
       </body>
     </html>
   );

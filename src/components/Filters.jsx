@@ -356,7 +356,6 @@ const IndividualFilter = ({
             {/* <i className="bi bi-chevron-down" style={{ fontSize: "0.7rem" }}></i> */}
             <span className="mt-1 flex items-center" color="#111111">
               {getSelectedValue(selectedKeys)}
-
               <FaChevronDown size={10} />
             </span>
           </Button>

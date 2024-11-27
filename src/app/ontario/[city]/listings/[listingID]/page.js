@@ -150,14 +150,6 @@ const page = async ({ params }) => {
                     className="sm:col-span-2 col-span-2 relative"
                     id="contact"
                   >
-                    <div className="sm:col-span-2 col-span-2">
-                      <NotesForProperties
-                        email={user?.primaryEmailAddress?.emailAddress}
-                        username={user?.fullName}
-                        listingId={listingID}
-                        city={city}
-                      />
-                    </div>
                     <BookShowingForm
                       address={
                         address + `, ${main_data?.Municipality}, Ontario`

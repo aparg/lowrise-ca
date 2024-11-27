@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { Send } from "lucide-react";
 
 const NoteInput = ({ onSubmit, placeholder, type }) => {
   const [note, setNote] = useState("");
@@ -21,26 +22,27 @@ const NoteInput = ({ onSubmit, placeholder, type }) => {
   };
 
   return (
-    <div className="border-t border-gray-200 p-3 bg-white">
+    <div className="bg-white">
       <form onSubmit={handleSubmit} className="flex items-center gap-2">
         <input
           type={type || "text"}
           value={note}
           onChange={(e) => setNote(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 px-4 py-2.5 bg-gray-100 rounded-full focus:outline-none focus:ring-0 text-sm"
+          className="flex-1 px-4 py-2 bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
           disabled={isSubmitting}
         />
 
         <button
           type="submit"
           disabled={isSubmitting || !note.trim()}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium disabled:bg-gray-300 disabled:cursor-not-allowed"
+          className="p-2 text-blue-600 rounded-full hover:bg-blue-50 transition-colors disabled:text-gray-300 disabled:hover:bg-transparent"
+          aria-label="Send message"
         >
           {isSubmitting ? (
-            <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+            <div className="animate-spin h-5 w-5 border-2 border-blue-600 border-t-transparent rounded-full" />
           ) : (
-            "Send"
+            <Send size={20} />
           )}
         </button>
       </form>

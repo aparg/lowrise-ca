@@ -1,12 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { SignInButton } from "@clerk/nextjs";
 import NoteInput from "./NoteInput";
-import { MessageCircle } from "lucide-react";
+import { HouseIcon, MessageCircle } from "lucide-react";
 import { BASE_URL } from "@/api";
 import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
+import { ChatBarContext } from "@/app/context/ChatbarContext";
+import ChatMessage from "./ChatMessage";
 
-const NotesForProperties = ({ listingId }) => {
+const NotesForProperties = () => {
   const [email, setEmail] = useState(() => {
     if (typeof window !== "undefined" && isLocalStorageAvailable()) {
       return localStorage.getItem("notes-email") || "";
@@ -16,34 +18,42 @@ const NotesForProperties = ({ listingId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { isMinimized, setIsMinimized, setPropertyData, propertyData } =
+    useContext(ChatBarContext);
+  const { listingId, price } = propertyData;
+  const [replyingTo, setReplyingTo] = useState(null);
+  const messagesContainerRef = useRef(null);
 
   const onSubmit = async (value) => {
-    console.log(email);
-    const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    if (replyingTo) {
+      await handleReply(value, replyingTo.id);
+      setReplyingTo(null);
+    } else {
+      const newMessage = {
         message: value,
         email: email,
-        listingId: listingId,
-        timestamp: new Date().toISOString(), // Adding timestamp
-      }),
-    });
-    const response = await rawResponse.json();
-    if (rawResponse.status == 200) {
-      setMessages([
-        ...messages,
+        listingId: listingId || null,
+        timestamp: new Date().toISOString(),
+        replies: [],
+      };
+      console.log(newMessage);
+      const rawResponse = await fetch(
+        `http://localhost:3000/notes/residential`,
         {
-          message: value,
-          email: email,
-          timestamp: new Date().toISOString(),
-          listingId: listingId,
-        },
-      ]);
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newMessage),
+        }
+      );
+
+      const response = await rawResponse.json();
+      if (rawResponse.status == 200) {
+        setMessages([...messages, newMessage]);
+      }
+      console.log(response);
     }
-    console.log(response);
   };
 
   const onSubmitEmail = async (value) => {
@@ -59,7 +69,7 @@ const NotesForProperties = ({ listingId }) => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `${BASE_URL}/notes/residential/getmessages`,
+        `http://localhost:3000/notes/residential/getmessages`,
         {
           method: "POST",
           headers: {
@@ -67,17 +77,49 @@ const NotesForProperties = ({ listingId }) => {
           },
           body: JSON.stringify({
             email: email,
-            listingId: listingId,
+            listingId: listingId || null,
           }),
         }
       );
-
       const messages = await response.json();
+      console.log(messages);
       setMessages(messages);
     } catch (error) {
       console.error("Failed to fetch messages:", error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleReply = async (message, replyToId) => {
+    const newReply = {
+      message: message,
+      email: email,
+      listingId: listingId || null,
+      timestamp: new Date().toISOString(),
+      replyTo: replyToId,
+    };
+    console.log(newReply);
+    const rawResponse = await fetch(`http://localhost:3000/notes/residential`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newReply),
+    });
+
+    const response = await rawResponse.json();
+    if (rawResponse.status === 200) {
+      const updatedMessages = messages.map((msg) => {
+        if (msg.id === replyToId) {
+          return {
+            ...msg,
+            replies: [...(msg.replies || []), newReply],
+          };
+        }
+        return msg;
+      });
+      setMessages(updatedMessages);
     }
   };
 
@@ -90,40 +132,49 @@ const NotesForProperties = ({ listingId }) => {
     loadMessages();
   }, [email, listingId]);
 
+  const scrollToMessage = (messageId) => {
+    const element = document.getElementById(`message-${messageId}`);
+    if (element && messagesContainerRef.current) {
+      const container = messagesContainerRef.current;
+      const elementPosition = element.offsetTop;
+      const containerHeight = container.clientHeight;
+      const scrollPosition = elementPosition - containerHeight;
+
+      container.scrollTo({
+        top: scrollPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <>
-      <div className="flex justify-center">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="rounded-full px-10 py-2 mb-4 bg-black text-white shadow-lg hover:bg-black transition-colors text-lg font-semibold hover:shadow-2xl"
-          aria-label="Open Messages"
-        >
-          Add a note
-        </button>
-      </div>
-      {/* Message Button */}
-
-      {/* Backdrop Dialog */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-          onClick={() => setIsOpen(false)}
-        >
-          <div
-            className="bg-white rounded-lg w-full max-w-md mx-4"
-            onClick={(e) => e.stopPropagation()}
+      <div className="fixed bottom-0 right-4 z-50">
+        {isMinimized ? (
+          <button
+            onClick={() => setIsMinimized(false)}
+            className="flex items-center gap-2 rounded-t-lg px-6 py-3 bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-colors"
+            aria-label="Open Chat"
           >
-            {email.length == 0 ? (
-              <div className="p-6 text-center">
-                {/* <SignInButton
-                  mode="modal"
-                  forceRedirectUrl={`/ontario/${city}/listings/${listingId}`}
+            <MessageCircle size={20} />
+            <span>Property Notes</span>
+          </button>
+        ) : (
+          <div className="bg-white rounded-t-lg shadow-lg w-[400px]">
+            <div className="border-b p-3 flex justify-between items-center bg-blue-600 text-white rounded-t-lg">
+              <h2 className="font-semibold">Property Notes</h2>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setIsMinimized(true)}
+                  className="p-1 hover:bg-blue-700 rounded-full px-3"
                 >
-                  <button className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors">
-                    Sign in to view notes
-                  </button>
-                </SignInButton> */}
-                {console.log(email)}
+                  −
+                </button>
+              </div>
+            </div>
+
+            {email.length == 0 ? (
+              <div className="p-4">
                 <NoteInput
                   onSubmit={onSubmitEmail}
                   placeholder="Enter an email to start a chat"
@@ -132,49 +183,68 @@ const NotesForProperties = ({ listingId }) => {
               </div>
             ) : (
               <>
-                <div className="border-b p-4 flex justify-between items-center">
-                  <h2 className="text-lg font-bold">Your Notes</h2>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="p-2 hover:bg-gray-100 rounded-full"
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                <div className="max-h-[60vh] overflow-y-auto p-4 space-y-4">
+                {
+                  <div className="sticky top-0 bg-gray-100 p-3 border shadow-sm">
+                    <h3 className="font-medium flex items-center gap-2">
+                      <HouseIcon size={20} />
+                      {listingId}
+                    </h3>
+                    <p className="text-gray-600">${price}</p>
+                  </div>
+                }
+                {console.log(messages)}
+                <div
+                  ref={messagesContainerRef}
+                  className="h-[300px] overflow-y-auto p-4 space-y-4"
+                >
                   {isLoading ? (
                     <div className="text-center text-gray-500">Loading...</div>
                   ) : messages.length === 0 ? (
                     <div className="text-center text-gray-500">
-                      No notes yet
+                      No messages yet
                     </div>
                   ) : (
                     messages.map((note, index) => (
-                      <div
-                        key={`${note.id || index}-${note.message}`}
-                        className="bg-gray-50 p-3 rounded-lg shadow-sm"
-                      >
-                        <p className="text-gray-800 mb-2">{note.message}</p>
-                        <p className="text-right text-sm text-gray-600 italic">
-                          From: {note.email}
-                        </p>
-                      </div>
+                      <ChatMessage
+                        key={index}
+                        msg={note}
+                        onReplyClick={(msg) => setReplyingTo(msg)}
+                        onScrollToMessage={scrollToMessage}
+                      />
                     ))
                   )}
                 </div>
-
-                <div className="border-t p-4">
+                <div className="border-t p-3">
+                  {replyingTo && (
+                    <div className="mb-2 p-2 bg-gray-50 rounded-lg text-sm">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600">Replying to:</span>
+                        <button
+                          onClick={() => setReplyingTo(null)}
+                          className="text-gray-500 hover:text-gray-700"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                      <div className="mt-1 text-gray-700">
+                        {replyingTo.message}
+                      </div>
+                    </div>
+                  )}
                   <NoteInput
                     onSubmit={onSubmit}
-                    placeholder="Send seller a message"
+                    placeholder={
+                      replyingTo
+                        ? "Write your reply..."
+                        : "Send seller a message"
+                    }
                   />
                 </div>
               </>
             )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };

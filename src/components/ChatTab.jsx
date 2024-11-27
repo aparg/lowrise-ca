@@ -28,9 +28,11 @@ const ChatTab = ({
           <ChatMessage key={idx} msg={msg} listingId={listingId} />
         ))}
       </div>
-      <NoteInput
-        onSubmit={(message) => handleSubmit(message, email, listingId)}
-      />
+      <div className="pb-4 px-4">
+        <NoteInput
+          onSubmit={(message) => handleSubmit(message, email, listingId)}
+        />
+      </div>
     </div>
   );
 };

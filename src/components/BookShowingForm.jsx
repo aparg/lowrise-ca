@@ -23,7 +23,7 @@ const BookShowingForm = ({ address }) => {
           <h1 className="font-bold text-2xl sm:text-3xl my-2 text-center">
             Book a Showing
           </h1>
-          <DateSelector showBookingType={false} />
+          <DateSelector showBookingType={false} address={address} />
           <span className="my-4">{address}</span>
         </div>
       </div>
