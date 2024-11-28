@@ -4,7 +4,7 @@ import { Resend } from "resend";
 import swal from "sweetalert";
 
 // const resend = new Resend("re_EwHkJKn7_BqC3Jj57KVoFXeELa5b74Qhd");
-const resend = new Resend("re_gt6Vfafr_KrsNXdvLfEcPzcfLnQrBMNxf");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendEmail = async ({ content, page = null, title = null }) => {
   const contentArray = [];
