@@ -16,7 +16,7 @@ export default function NotesDashboard() {
     const fetchMessages = async () => {
       try {
         const response = await fetch(
-          `${BASE_URL}/notes/residential/all-notes`,
+          `http://localhost:3000/notes/residential/all-notes`,
           {
             method: "GET",
             headers: {
@@ -63,7 +63,7 @@ export default function NotesDashboard() {
       try {
         const timestamp = new Date().toISOString();
         const response = await fetch(
-          `${BASE_URL}/notes/residential/admin-message`,
+          `http://localhost:3000/notes/residential/admin-message`,
           {
             method: "POST",
             headers: {
@@ -116,7 +116,7 @@ export default function NotesDashboard() {
       replyTo: replyToId,
     };
     console.log(newReply);
-    const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
+    const rawResponse = await fetch(`http://localhost:3000/notes/residential`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -143,7 +143,7 @@ export default function NotesDashboard() {
   const handleDeleteMessages = async (email) => {
     try {
       const response = await fetch(
-        `${BASE_URL}/notes/residential/delete-messages`,
+        `http://localhost:3000/notes/residential/delete-messages`,
         {
           method: "DELETE",
           headers: {
