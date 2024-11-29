@@ -78,7 +78,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
           },
           body: JSON.stringify({
             email: email,
-            listingId: listingId || null,
+            // listingId: listingId || null,
           }),
         }
       );
