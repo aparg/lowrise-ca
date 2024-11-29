@@ -40,8 +40,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
         replies: [],
         isMainMessage: true,
       };
-      console.log(newMessage);
-      console.log(isAdminPortal);
+
       const rawResponse = await fetch(
         isAdminPortal
           ? `${BASE_URL}/notes/residential/admin-message`
@@ -56,7 +55,6 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
       );
 
       const response = await rawResponse.json();
-      console.log(response);
       if (rawResponse.status == 200) {
         const updatedMessages = [...messages, newMessage].sort(
           (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
@@ -91,7 +89,6 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
         }
       );
       const messages = await response.json();
-      console.log(messages);
       // Create a map of original messages for quick lookup
       const messageMap = messages.reduce((acc, msg) => {
         acc[msg.id] = msg;
@@ -217,7 +214,6 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
                 <p className="text-gray-600">${price}</p>
               </div>
             )}
-            {console.log(messages)}
             <div
               ref={messagesContainerRef}
               className={`${

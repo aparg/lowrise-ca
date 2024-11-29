@@ -28,13 +28,15 @@ export default function NotesDashboard() {
         const data = await response.json();
         // Modified grouping logic to only use email
         const groupedChats = data.reduce((acc, message) => {
-          if (!message.email) return acc;
+          if (!message?.email) return acc;
 
           // For admin messages, use receiver's email for grouping
           const emailKey =
             message.email === adminEmail
-              ? message.replies[0]?.email || message.receiver
+              ? message.replies[0]?.email || message.receiver || message.email
               : message.email;
+
+          if (!emailKey) return acc;
 
           if (!acc[emailKey]) {
             acc[emailKey] = [];
@@ -42,7 +44,6 @@ export default function NotesDashboard() {
           acc[emailKey].push(message);
           return acc;
         }, {});
-
         setChats(groupedChats);
         const firstEmail = Object.keys(groupedChats)[0];
         setActiveEmail(firstEmail);
@@ -115,7 +116,6 @@ export default function NotesDashboard() {
       timestamp: new Date().toISOString(),
       replyTo: replyToId,
     };
-    console.log(newReply);
     const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
       method: "POST",
       headers: {
@@ -135,7 +135,6 @@ export default function NotesDashboard() {
         }
         return msg;
       });
-      console.log(updatedMessages);
       setMessages(updatedMessages);
     }
   };
@@ -186,15 +185,17 @@ export default function NotesDashboard() {
         <div className="w-80 border-r pr-4 mr-4">
           <h2 className="text-lg font-semibold mb-4">Conversations</h2>
           <div className="space-y-2">
-            {Object.keys(chats).map((email) => (
-              <ChatUserEmail
-                key={email}
-                email={email}
-                handleDeleteMessages={handleDeleteMessages}
-                activeEmail={activeEmail}
-                setActiveEmail={setActiveEmail}
-              />
-            ))}
+            {Object.keys(chats)
+              .filter((email) => email != adminEmail)
+              .map((email) => (
+                <ChatUserEmail
+                  key={email}
+                  email={email}
+                  handleDeleteMessages={handleDeleteMessages}
+                  activeEmail={activeEmail}
+                  setActiveEmail={setActiveEmail}
+                />
+              ))}
           </div>
         </div>
 
