@@ -44,8 +44,8 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
       console.log(isAdminPortal);
       const rawResponse = await fetch(
         isAdminPortal
-          ? `http://localhost:3000/notes/residential/admin-message`
-          : `http://localhost:3000/notes/residential`,
+          ? `${BASE_URL}/notes/residential/admin-message`
+          : `${BASE_URL}/notes/residential`,
         {
           method: "POST",
           headers: {
@@ -78,7 +78,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `http://localhost:3000/notes/residential/getmessages`,
+        `${BASE_URL}/notes/residential/getmessages`,
         {
           method: "POST",
           headers: {
@@ -152,7 +152,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
       },
     };
 
-    const rawResponse = await fetch(`http://localhost:3000/notes/residential`, {
+    const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
