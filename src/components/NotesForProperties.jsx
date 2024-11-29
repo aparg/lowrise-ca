@@ -40,16 +40,13 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
         isMainMessage: true,
       };
 
-      const rawResponse = await fetch(
-        `http://localhost:3000/notes/residential`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newMessage),
-        }
-      );
+      const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMessage),
+      });
 
       const response = await rawResponse.json();
       if (rawResponse.status == 200) {
@@ -73,7 +70,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `http://localhost:3000/notes/residential/getmessages`,
+        `${BASE_URL}/notes/residential/getmessages`,
         {
           method: "POST",
           headers: {
@@ -147,7 +144,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
       },
     };
 
-    const rawResponse = await fetch(`http://localhost:3000/notes/residential`, {
+    const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
