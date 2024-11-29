@@ -7,6 +7,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { ClerkProvider } from "@clerk/nextjs";
 import NotesForProperties from "@/components/NotesForProperties";
 import { ChatBarContextProvider } from "@/app/context/ChatbarContext";
+import ChatContainer from "@/components/ChatContainer";
 
 export const metadata = {
   title: "Lowrise.ca",
@@ -54,7 +55,9 @@ export default function RootLayout({ children }) {
           <main className="">{children}</main>
           <Footer />
           <div className="sm:col-span-2 col-span-2">
-            <NotesForProperties />
+            <ChatContainer>
+              <NotesForProperties />
+            </ChatContainer>
           </div>
         </ChatBarContextProvider>
       </body>

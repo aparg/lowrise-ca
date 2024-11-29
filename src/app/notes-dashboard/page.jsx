@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { BASE_URL } from "@/api";
 import ChatUserEmail from "@/components/ChatUserEmail";
 import ChatTab from "@/components/ChatTab";
+import NotesForProperties from "@/components/NotesForProperties";
 
 export default function NotesDashboard() {
   const [chats, setChats] = useState({});
@@ -25,26 +26,25 @@ export default function NotesDashboard() {
         );
 
         const data = await response.json();
-        console.log(data);
-        // Modified grouping logic to handle admin messages differently
+        // Modified grouping logic to only use email
         const groupedChats = data.reduce((acc, message) => {
-          if (!message.email || !message.listingId) return acc;
+          if (!message.email) return acc;
 
           // For admin messages, use receiver's email for grouping
           const emailKey =
-            message.email === adminEmail ? message.receiver : message.email;
-          const key = `${emailKey}*${message.listingId}`;
+            message.email === adminEmail
+              ? message.replies[0]?.email || message.receiver
+              : message.email;
 
-          if (!acc[key]) {
-            acc[key] = [];
+          if (!acc[emailKey]) {
+            acc[emailKey] = [];
           }
-          acc[key].push(message);
+          acc[emailKey].push(message);
           return acc;
         }, {});
-        console.log(groupedChats);
+
         setChats(groupedChats);
-        // After setting chats, set the first email as active
-        const firstEmail = Object.keys(groupedChats)[0]?.split("*")[0];
+        const firstEmail = Object.keys(groupedChats)[0];
         setActiveEmail(firstEmail);
       } catch (err) {
         setError(err.message);
@@ -56,44 +56,87 @@ export default function NotesDashboard() {
     fetchMessages();
   }, []);
 
-  const handleSubmit = async (message, receiver, listingId) => {
-    try {
-      const timestamp = new Date().toISOString();
-      const response = await fetch(
-        `http://localhost:3000/notes/residential/admin-message`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            message,
-            receiver,
-            listingId,
-            timestamp: timestamp,
-          }),
-        }
-      );
-      console.log(response);
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
+  const handleSubmit = async (message, receiver, listingId, replyTo) => {
+    if (replyTo) {
+      handleReply(message, replyTo);
+    } else {
+      try {
+        const timestamp = new Date().toISOString();
+        const response = await fetch(
+          `http://localhost:3000/notes/residential/admin-message`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              message,
+              receiver,
+              listingId,
+              replyTo,
+              timestamp,
+            }),
+          }
+        );
 
-      // Update local state with new message
-      //find the chat with the email and listingId and add the message to it
-      setChats((prev) => {
-        const key = `${receiver}*${listingId}`;
-        return {
+        if (!response.ok) {
+          throw new Error("Failed to send message");
+        }
+
+        // Update local state with new message
+        setChats((prev) => ({
           ...prev,
-          [key]: [
-            ...(prev[key] || []),
-            { message, timestamp, email: "milan@homebaba.ca" },
+          [receiver]: [
+            ...(prev[receiver] || []),
+            {
+              id: `msg_${Date.now()}_${Math.random()
+                .toString(36)
+                .substr(2, 9)}`,
+              message,
+              timestamp,
+              email: adminEmail,
+              replyTo,
+              replies: [],
+            },
           ],
-        };
+        }));
+      } catch (err) {
+        console.error("Failed to send message:", err);
+        throw err;
+      }
+    }
+  };
+
+  const handleReply = async (message, replyToId) => {
+    const newReply = {
+      message: message,
+      email: email,
+      listingId: listingId || null,
+      timestamp: new Date().toISOString(),
+      replyTo: replyToId,
+    };
+    console.log(newReply);
+    const rawResponse = await fetch(`http://localhost:3000/notes/residential`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newReply),
+    });
+
+    const response = await rawResponse.json();
+    if (rawResponse.status === 200) {
+      const updatedMessages = messages.map((msg) => {
+        if (msg.id === replyToId) {
+          return {
+            ...msg,
+            replies: [...(msg.replies || []), newReply],
+          };
+        }
+        return msg;
       });
-    } catch (err) {
-      console.error("Failed to send message:", err);
-      throw err;
+      console.log(updatedMessages);
+      setMessages(updatedMessages);
     }
   };
 
@@ -114,14 +157,10 @@ export default function NotesDashboard() {
         throw new Error("Failed to delete messages");
       }
 
-      // Remove all messages for this email from local state
+      // Remove messages for this email from local state
       setChats((prev) => {
         const newChats = { ...prev };
-        Object.keys(newChats).forEach((key) => {
-          if (key.split("*")[0] === email) {
-            delete newChats[key];
-          }
-        });
+        delete newChats[email];
         return newChats;
       });
 
@@ -135,43 +174,8 @@ export default function NotesDashboard() {
     }
   };
 
-  const handleDeleteListingMessages = async (email, listingId) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/notes/residential/delete-messages`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, listingId }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to delete listing messages");
-      }
-
-      // Remove messages for this specific email and listingId from local state
-      setChats((prev) => {
-        const newChats = { ...prev };
-        const key = `${email}*${listingId}`;
-        delete newChats[key];
-        return newChats;
-      });
-    } catch (err) {
-      console.error("Failed to delete listing messages:", err);
-      alert("Failed to delete listing messages");
-    }
-  };
-
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-
-  // Get unique emails from chat keys
-  const uniqueEmails = [
-    ...new Set(Object.keys(chats).map((key) => key.split("*")[0])),
-  ];
 
   return (
     <div className="max-w-6xl mx-auto p-4">
@@ -182,7 +186,7 @@ export default function NotesDashboard() {
         <div className="w-80 border-r pr-4 mr-4">
           <h2 className="text-lg font-semibold mb-4">Conversations</h2>
           <div className="space-y-2">
-            {uniqueEmails.map((email) => (
+            {Object.keys(chats).map((email) => (
               <ChatUserEmail
                 key={email}
                 email={email}
@@ -194,23 +198,21 @@ export default function NotesDashboard() {
           </div>
         </div>
 
-        {/* Chat Messages */}
-        <div className="flex-1 space-y-6">
-          {Object.entries(chats)
-            .filter(([key]) => key.split("*")[0] === activeEmail)
-            .map(([key, messages]) => {
-              const [email, listingId] = key.split("*");
-              return (
-                <ChatTab
-                  key={key}
-                  listingId={listingId}
-                  messages={messages}
-                  handleDeleteListingMessages={handleDeleteListingMessages}
-                  handleSubmit={handleSubmit}
-                  email={email}
-                />
-              );
-            })}
+        {/* Single Chat Box */}
+        <div className="flex-1">
+          {activeEmail && (
+            // <ChatTab
+            //   messages={chats[activeEmail] || []}
+            //   handleSubmit={(message) => handleSubmit(message, activeEmail)}
+            //   email={activeEmail}
+            // />
+            <>
+              <div className="border-b p-3 flex justify-between items-center bg-blue-600 text-white rounded-t-lg">
+                <h2 className="font-semibold">{activeEmail}</h2>
+              </div>
+              <NotesForProperties forEmail={activeEmail} isAdminPortal={true} />
+            </>
+          )}
         </div>
       </div>
     </div>

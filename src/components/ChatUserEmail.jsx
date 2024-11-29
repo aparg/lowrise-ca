@@ -17,12 +17,12 @@ const ChatUserEmail = ({
       >
         {email}
       </button>
-      <button
+      {/* <button
         onClick={() => handleDeleteMessages(email)}
         className="p-2 text-red-500 hover:bg-red-50 rounded"
       >
         <Trash2Icon className="w-4 h-4" />
-      </button>
+      </button> */}
     </div>
   );
 };
