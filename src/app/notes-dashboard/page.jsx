@@ -201,6 +201,7 @@ export default function NotesDashboard() {
 
         {/* Single Chat Box */}
         <div className="flex-1">
+          {console.log(activeEmail)}
           {activeEmail && (
             // <ChatTab
             //   messages={chats[activeEmail] || []}

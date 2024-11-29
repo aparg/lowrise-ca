@@ -83,7 +83,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email,
+            email: forEmail || email,
             // listingId: listingId || null,
           }),
         }
@@ -173,7 +173,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
       }
     };
     loadMessages();
-  }, [email, listingId]);
+  }, [email, listingId, forEmail]);
 
   const scrollToMessage = (messageId) => {
     const element = document.getElementById(`message-${messageId}`);
