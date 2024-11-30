@@ -4,6 +4,7 @@ import { BASE_URL } from "@/api";
 import ChatUserEmail from "@/components/ChatUserEmail";
 import ChatTab from "@/components/ChatTab";
 import NotesForProperties from "@/components/NotesForProperties";
+import { Plus } from "lucide-react";
 
 export default function NotesDashboard() {
   const [chats, setChats] = useState({});
@@ -11,6 +12,9 @@ export default function NotesDashboard() {
   const [error, setError] = useState(null);
   const [activeEmail, setActiveEmail] = useState(null);
   const adminEmail = "milan@homebaba.ca";
+  const [showNewEmailInput, setShowNewEmailInput] = useState(false);
+  const [newEmail, setNewEmail] = useState("");
+
   // Fetch messages for all emails
   useEffect(() => {
     const fetchMessages = async () => {
@@ -174,6 +178,19 @@ export default function NotesDashboard() {
     }
   };
 
+  const handleAddNewEmail = (e) => {
+    e.preventDefault();
+    if (newEmail && !chats[newEmail]) {
+      setChats((prev) => ({
+        ...prev,
+        [newEmail]: [],
+      }));
+      setActiveEmail(newEmail);
+      setNewEmail("");
+      setShowNewEmailInput(false);
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -184,7 +201,29 @@ export default function NotesDashboard() {
       <div className="flex">
         {/* Email Sidebar */}
         <div className="w-80 border-r pr-4 mr-4">
-          <h2 className="text-lg font-semibold mb-4">Conversations</h2>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold">Conversations</h2>
+            <button
+              onClick={() => setShowNewEmailInput(!showNewEmailInput)}
+              className="p-1 hover:bg-gray-100 rounded-full"
+            >
+              <Plus size={20} />
+            </button>
+          </div>
+
+          {showNewEmailInput && (
+            <form onSubmit={handleAddNewEmail} className="mb-4">
+              <input
+                type="email"
+                value={newEmail}
+                onChange={(e) => setNewEmail(e.target.value)}
+                placeholder="Enter email address"
+                className="w-full p-2 border rounded-lg text-sm"
+                required
+              />
+            </form>
+          )}
+
           <div className="space-y-2">
             {Object.keys(chats)
               .filter((email) => email != adminEmail)
