@@ -28,7 +28,7 @@ export default function NotesDashboard() {
         const data = await response.json();
         // Modified grouping logic to only use email
         const groupedChats = data.reduce((acc, message) => {
-          if (!message?.email) return acc;
+          if (!message?.email || message?.email == adminEmail) return acc;
 
           // For admin messages, use receiver's email for grouping
           const emailKey =
@@ -44,6 +44,7 @@ export default function NotesDashboard() {
           acc[emailKey].push(message);
           return acc;
         }, {});
+        console.log(groupedChats);
         setChats(groupedChats);
         const firstEmail = Object.keys(groupedChats)[0];
         setActiveEmail(firstEmail);
