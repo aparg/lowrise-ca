@@ -215,9 +215,9 @@ const FiltersWithSalesList = ({
         >
           500+ {capitalizeFirstLetter(city)}{" "}
           {capitalizeFirstLetter(requiredType) || ""} homes for{" "}
-          {saleLeaseVal || "sale"}. Book a showing for affordable homes with
-          pools, finished basements, walkouts. Prices from $1 to $5,000,000.
-          Open houses available.
+          {saleLeaseVal?.toLowerCase() == "lease" ? "Rent or Lease" : "sale"}.
+          Book a showing for affordable homes with pools, finished basements,
+          walkouts. Prices from $1 to $5,000,000. Open houses available.
         </h2>
 
         <div
