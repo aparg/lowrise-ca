@@ -239,7 +239,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
                 ))
               )}
             </div>
-            <div className="border-t p-3">
+            <div className="border-t p-3 rounded-md">
               {replyingTo && (
                 <div className="mb-2 p-2 bg-gray-50 rounded-lg text-sm">
                   <div className="flex justify-between items-center">

@@ -191,69 +191,95 @@ export default function NotesDashboard() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="flex items-center justify-center min-h-screen text-red-600">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold mb-2">Error</h2>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
 
   return (
-    <div className="max-w-6xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Notes Dashboard</h1>
+    <div className="max-w-7xl mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-8 text-gray-800">Notes Dashboard</h1>
 
-      <div className="flex">
+      <div className="flex bg-gray-50 rounded-lg shadow-lg">
         {/* Email Sidebar */}
-        <div className="w-80 border-r pr-4 mr-4">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-semibold">Conversations</h2>
+        <div className="w-96 border-r border-gray-200 p-4">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold text-gray-700">
+              Conversations
+            </h2>
             <button
               onClick={() => setShowNewEmailInput(!showNewEmailInput)}
-              className="p-1 hover:bg-gray-100 rounded-full"
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+              title="Add new conversation"
             >
-              <Plus size={20} />
+              <Plus size={24} className="text-blue-600" />
             </button>
           </div>
 
           {showNewEmailInput && (
-            <form onSubmit={handleAddNewEmail} className="mb-4">
+            <form onSubmit={handleAddNewEmail} className="mb-6">
               <input
                 type="email"
                 value={newEmail}
                 onChange={(e) => setNewEmail(e.target.value)}
                 placeholder="Enter email address"
-                className="w-full p-2 border rounded-lg text-sm"
+                className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 required
               />
             </form>
           )}
 
-          <div className="space-y-2">
+          <div className="overflow-y-auto max-h-[calc(100vh-250px)]">
             {Object.keys(chats)
               .filter((email) => email != adminEmail)
               .map((email) => (
-                <ChatUserEmail
-                  key={email}
-                  email={email}
-                  handleDeleteMessages={handleDeleteMessages}
-                  activeEmail={activeEmail}
-                  setActiveEmail={setActiveEmail}
-                />
+                <>
+                  <ChatUserEmail
+                    key={email}
+                    email={email}
+                    handleDeleteMessages={handleDeleteMessages}
+                    activeEmail={activeEmail}
+                    setActiveEmail={setActiveEmail}
+                  />
+                  <hr className="border-gray-200" />
+                </>
               ))}
           </div>
         </div>
 
-        {/* Single Chat Box */}
-        <div className="flex-1">
-          {console.log(activeEmail)}
-          {activeEmail && (
-            // <ChatTab
-            //   messages={chats[activeEmail] || []}
-            //   handleSubmit={(message) => handleSubmit(message, activeEmail)}
-            //   email={activeEmail}
-            // />
+        {/* Chat Content Area */}
+        <div className="flex-1 flex flex-col">
+          {activeEmail ? (
             <>
-              <div className="border-b p-3 flex justify-between items-center bg-blue-600 text-white rounded-t-lg">
-                <h2 className="font-semibold">{activeEmail}</h2>
+              <div className="border-b p-4 flex justify-between items-center bg-blue-600 text-white rounded-tr-lg">
+                <h2 className="text-lg font-semibold flex items-center gap-2">
+                  {/* <span className="w-2 h-2 bg-green-400 rounded-full"></span> */}
+                  {activeEmail}
+                </h2>
               </div>
-              <NotesForProperties forEmail={activeEmail} isAdminPortal={true} />
+              <div className="flex-1 overflow-hidden bg-white rounded-br-lg ">
+                <NotesForProperties
+                  forEmail={activeEmail}
+                  isAdminPortal={true}
+                />
+              </div>
             </>
+          ) : (
+            <div className="flex items-center justify-center h-full text-gray-500">
+              <p>Select a conversation to start chatting</p>
+            </div>
           )}
         </div>
       </div>
