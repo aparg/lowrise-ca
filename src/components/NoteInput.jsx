@@ -1,10 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Send } from "lucide-react";
 
-const NoteInput = ({ onSubmit, placeholder, type }) => {
+const NoteInput = ({ onSubmit, placeholder, type, autoFocus }) => {
   const [note, setNote] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (autoFocus && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [autoFocus]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +32,7 @@ const NoteInput = ({ onSubmit, placeholder, type }) => {
     <div className="bg-white">
       <form onSubmit={handleSubmit} className="flex items-center gap-2">
         <input
+          ref={inputRef}
           type={type || "text"}
           value={note}
           onChange={(e) => setNote(e.target.value)}

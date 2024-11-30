@@ -259,6 +259,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
                 placeholder={
                   replyingTo ? "Write your reply..." : "Send seller a message"
                 }
+                autoFocus={!!replyingTo}
               />
             </div>
           </>
