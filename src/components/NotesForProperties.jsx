@@ -35,7 +35,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
         message: value,
         email: isAdminPortal ? adminEmail : email,
         timestamp: new Date().toISOString(),
-        receiver: email,
+        receiver: forEmail || email,
         listingId: propertyData.listingId || null,
         replies: [],
         isMainMessage: true,
@@ -89,6 +89,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
         }
       );
       const messages = await response.json();
+
       // Create a map of original messages for quick lookup
       const messageMap = messages.reduce((acc, msg) => {
         acc[msg.id] = msg;
@@ -194,6 +195,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
 
   return (
     <>
+      {console.log(messages)}
       <div className="bg-white rounded-t-lg shadow-lg w-full">
         {email.length == 0 ? (
           <div className="p-4">
