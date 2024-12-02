@@ -10,10 +10,33 @@ export function ChatBarContextProvider({ children }) {
   const [propertyData, setPropertyData] = useState({
     listingId: null,
     price: null,
+    filters: null,
   });
+  const [isAdminChatbox, setIsAdminChatbox] = useState(false);
 
   useEffect(() => {
-    if (!pathname?.includes("/listings")) {
+    // Check for admin email in localStorage
+    const notesEmail = localStorage.getItem("notes-email");
+    console.log(notesEmail === "milan@homebaba.ca");
+    setIsAdminChatbox(notesEmail === "milan@homebaba.ca");
+
+    if (pathname?.includes("/ontario")) {
+      const filterState = localStorage.getItem("filterState");
+      if (filterState) {
+        const parsedFilters = JSON.parse(filterState);
+        const activeFilters = Object.entries(parsedFilters).reduce(
+          (acc, [key, value]) => {
+            if (value !== null || value !== undefined || value !== 0) {
+              acc[key] = value;
+            }
+            return acc;
+          },
+          {}
+        );
+
+        setPropertyData({ ...propertyData, filters: activeFilters });
+      }
+    } else if (!pathname?.includes("/listings")) {
       setPropertyData({
         listingId: null,
         price: null,
@@ -23,7 +46,13 @@ export function ChatBarContextProvider({ children }) {
 
   return (
     <ChatBarContext.Provider
-      value={{ isMinimized, setIsMinimized, propertyData, setPropertyData }}
+      value={{
+        isMinimized,
+        setIsMinimized,
+        propertyData,
+        setPropertyData,
+        isAdminChatbox,
+      }}
     >
       {children}
     </ChatBarContext.Provider>

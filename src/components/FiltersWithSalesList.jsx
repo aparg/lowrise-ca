@@ -27,6 +27,7 @@ const FiltersWithSalesList = ({
   saleLeaseVal = undefined,
 }) => {
   // const leadEmail = user?.emailAddresses[0].emailAddress;
+  console.log(city);
   const saleLeaseFilterVal =
     saleLease[
       Object.keys(saleLease).find((val) => val === saleLeaseVal) || "sale"
@@ -56,8 +57,9 @@ const FiltersWithSalesList = ({
     : null;
   //if parameters are passed for house type or sale/lease rewrite property values for storedState
   if (storedState) {
-    if (saleLeaseFilterVal) storedState.type = houseTypeFilterVal;
+    if (houseTypeFilterVal) storedState.type = houseTypeFilterVal;
     if (saleLeaseFilterVal) storedState.saleLease = saleLeaseFilterVal;
+    if (city) storedState.city = city;
   }
   const [filterState, setFilterState] = useState(storedState || initialState);
   const [salesData, setSalesData] = useState(salesListData);

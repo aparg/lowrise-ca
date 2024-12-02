@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { useState, useEffect } from "react";
 import { BASE_URL } from "@/api";
 import ChatUserEmail from "@/components/ChatUserEmail";
@@ -8,58 +9,48 @@ import { Plus } from "lucide-react";
 
 export default function NotesDashboard() {
   const [chats, setChats] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [activeEmail, setActiveEmail] = useState(null);
   const adminEmail = "milan@homebaba.ca";
   const [showNewEmailInput, setShowNewEmailInput] = useState(false);
   const [newEmail, setNewEmail] = useState("");
+  const [users, setUsers] = useState([]);
 
   // Fetch messages for all emails
   useEffect(() => {
-    const fetchMessages = async () => {
+    const fetchEmails = async () => {
       try {
+        setLoading(true);
         const response = await fetch(
-          `${BASE_URL}/notes/residential/all-notes`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
+          `http://localhost:3000/notes/residential/all-users`
         );
-
         const data = await response.json();
-        // Modified grouping logic to only use email
-        const groupedChats = data.reduce((acc, message) => {
-          if (!message?.email || message?.email == adminEmail) return acc;
+        console.log(data);
+        // Filter out admin from users list
+        const filteredUsers = data.filter((user) => user.email !== adminEmail);
+        setUsers(filteredUsers);
 
-          // For admin messages, use receiver's email for grouping
-          const emailKey =
-            message.email === adminEmail
-              ? message.replies[0]?.email || message.receiver || message.email
-              : message.email;
-
-          if (!emailKey) return acc;
-
-          if (!acc[emailKey]) {
-            acc[emailKey] = [];
-          }
-          acc[emailKey].push(message);
+        // Initialize empty chats for each user
+        const initialChats = filteredUsers.reduce((acc, user) => {
+          acc[user.email] = [];
           return acc;
         }, {});
-        console.log(groupedChats);
-        setChats(groupedChats);
-        const firstEmail = Object.keys(groupedChats)[0];
-        setActiveEmail(firstEmail);
+        setChats(initialChats);
+
+        // Set first user as active if there is one
+        console.log(filteredUsers);
+        if (filteredUsers.length > 0) {
+          setActiveEmail(filteredUsers[0].email);
+        }
       } catch (err) {
+        console.log("yeta");
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchMessages();
+    fetchEmails();
   }, []);
 
   const handleSubmit = async (message, receiver, listingId, replyTo) => {
@@ -69,7 +60,7 @@ export default function NotesDashboard() {
       try {
         const timestamp = new Date().toISOString();
         const response = await fetch(
-          `${BASE_URL}/notes/residential/admin-message`,
+          `http://localhost:3000/notes/residential/admin-message`,
           {
             method: "POST",
             headers: {
@@ -116,12 +107,12 @@ export default function NotesDashboard() {
   const handleReply = async (message, replyToId) => {
     const newReply = {
       message: message,
-      email: email,
+      sender_email: email,
       listingId: listingId || null,
       timestamp: new Date().toISOString(),
       replyTo: replyToId,
     };
-    const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
+    const rawResponse = await fetch(`http://localhost:3000/notes/residential`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -147,7 +138,7 @@ export default function NotesDashboard() {
   const handleDeleteMessages = async (email) => {
     try {
       const response = await fetch(
-        `${BASE_URL}/notes/residential/delete-messages`,
+        `http://localhost:3000/notes/residential/delete-messages`,
         {
           method: "DELETE",
           headers: {
@@ -178,16 +169,57 @@ export default function NotesDashboard() {
     }
   };
 
-  const handleAddNewEmail = (e) => {
+  const handleAddNewEmail = async (e) => {
     e.preventDefault();
-    if (newEmail && !chats[newEmail]) {
-      setChats((prev) => ({
-        ...prev,
-        [newEmail]: [],
-      }));
-      setActiveEmail(newEmail);
-      setNewEmail("");
-      setShowNewEmailInput(false);
+
+    if (newEmail && !users.find((user) => user.email === newEmail)) {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/notes/residential/add-user`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: newEmail,
+              username: newEmail.split("@")[0], // Default username from email
+              phone: null, // Optional phone number
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || "Failed to add user");
+        }
+
+        const { userId, email } = await response.json();
+
+        // Add new user to users list
+        const newUser = {
+          id: userId,
+          email: email,
+          username: email.split("@")[0],
+          created_at: new Date().toISOString(),
+          last_activity: null,
+        };
+
+        setUsers((prev) => [...prev, newUser]);
+
+        // Initialize empty chat for new user
+        setChats((prev) => ({
+          ...prev,
+          [email]: [],
+        }));
+
+        setActiveEmail(email);
+        setNewEmail("");
+        setShowNewEmailInput(false);
+      } catch (error) {
+        console.error("Failed to add user:", error);
+        alert(error.message || "Failed to add user. Please try again.");
+      }
     }
   };
 
@@ -242,20 +274,20 @@ export default function NotesDashboard() {
           )}
 
           <div className="overflow-y-auto max-h-[calc(100vh-250px)]">
-            {Object.keys(chats)
-              .filter((email) => email != adminEmail)
-              .map((email) => (
-                <>
-                  <ChatUserEmail
-                    key={email}
-                    email={email}
-                    handleDeleteMessages={handleDeleteMessages}
-                    activeEmail={activeEmail}
-                    setActiveEmail={setActiveEmail}
-                  />
-                  <hr className="border-gray-200" />
-                </>
-              ))}
+            {users.map((user) => (
+              <React.Fragment key={user.id}>
+                <ChatUserEmail
+                  email={user.email}
+                  username={user.username}
+                  lastActivity={user.last_activity}
+                  handleDeleteMessages={handleDeleteMessages}
+                  activeEmail={activeEmail}
+                  setActiveEmail={setActiveEmail}
+                  isActive={activeEmail === user.email}
+                />
+                <hr className="border-gray-200" />
+              </React.Fragment>
+            ))}
           </div>
         </div>
 

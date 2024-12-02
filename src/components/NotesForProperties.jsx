@@ -7,6 +7,7 @@ import { BASE_URL } from "@/api";
 import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
 import { ChatBarContext } from "@/app/context/ChatbarContext";
 import ChatMessage from "./ChatMessage";
+import useSWR, { mutate } from "swr";
 
 const NotesForProperties = ({ forEmail, isAdminPortal }) => {
   const [email, setEmail] = useState(() => {
@@ -18,90 +19,35 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
   });
   const adminEmail = "milan@homebaba.ca";
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { isMinimized, setIsMinimized, setPropertyData, propertyData } =
-    useContext(ChatBarContext);
+  const {
+    isMinimized,
+    setIsMinimized,
+    setPropertyData,
+    propertyData,
+    isAdminChatbox,
+  } = useContext(ChatBarContext);
   const { listingId, price } = propertyData;
   const [replyingTo, setReplyingTo] = useState(null);
   const messagesContainerRef = useRef(null);
 
-  const onSubmit = async (value) => {
-    if (replyingTo) {
-      await handleReply(value, replyingTo.id);
-      setReplyingTo(null);
-    } else {
-      const newMessage = {
-        message: value,
-        email: isAdminPortal ? adminEmail : email,
-        timestamp: new Date().toISOString(),
-        receiver: forEmail || email,
-        listingId: propertyData.listingId || null,
-        replies: [],
-        isMainMessage: true,
-      };
-
-      const rawResponse = await fetch(
-        isAdminPortal
-          ? `${BASE_URL}/notes/residential/admin-message`
-          : `${BASE_URL}/notes/residential`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newMessage),
-        }
-      );
-
-      const response = await rawResponse.json();
-      if (rawResponse.status == 200) {
-        const updatedMessages = [...messages, newMessage].sort(
-          (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
-        );
-        setMessages(updatedMessages);
-      }
-    }
-  };
-
-  const onSubmitEmail = async (value) => {
-    if (isLocalStorageAvailable()) {
-      localStorage.setItem("notes-email", value);
-    }
-    setEmail(value);
-    await fetchMessages();
-  };
-
-  const fetchMessages = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        `${BASE_URL}/notes/residential/getmessages`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: forEmail || email,
-            // listingId: listingId || null,
-          }),
-        }
-      );
+  const { data: messagesData, error } = useSWR(
+    email ? [`notes/residential/getmessages`, email, forEmail] : null,
+    async ([url, email, forEmail]) => {
+      const response = await fetch(`http://localhost:3000/${url}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: forEmail || email,
+        }),
+      });
       const messages = await response.json();
-
-      // Create a map of original messages for quick lookup
-      const messageMap = messages.reduce((acc, msg) => {
-        acc[msg.id] = msg;
-        return acc;
-      }, {});
-
-      // Flatten messages and replies into a single array
+      console.log(messages);
+      // Process messages (keeping your existing logic)
       const allMessages = messages.reduce((acc, msg) => {
-        // Add the main message
         acc.push({ ...msg, replies: [], isMainMessage: true });
-
-        // Add replies with their original message reference
         if (msg.replies) {
           msg.replies.forEach((reply) => {
             acc.push({
@@ -112,6 +58,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
                 message: msg.message,
                 email: msg.email,
                 timestamp: msg.timestamp,
+                filters: msg.filters,
               },
             });
           });
@@ -119,25 +66,82 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
         return acc;
       }, []);
 
-      // Sort all messages by timestamp
-      const sortedMessages = allMessages.sort(
+      return allMessages.sort(
         (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
       );
+    }
+  );
+  // Add this useEffect to scroll to bottom when messages change
+  useEffect(() => {
+    if (messagesContainerRef.current && messagesData?.length > 0) {
+      const container = messagesContainerRef.current;
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [messagesData]);
 
-      setMessages(sortedMessages);
-    } catch (error) {
-      console.error("Failed to fetch messages:", error);
-    } finally {
-      setIsLoading(false);
+  const onSubmit = async (value) => {
+    if (replyingTo) {
+      await handleReply(value, replyingTo.id);
+      setReplyingTo(null);
+    } else {
+      const newMessage = {
+        message: value,
+        sender_email: isAdminPortal ? adminEmail : email,
+        timestamp: new Date().toISOString(),
+        receiver_email: forEmail || email,
+        listingId: propertyData.listingId || null,
+        replies: [],
+        isMainMessage: true,
+        filters: propertyData.filters || null,
+      };
+      console.log(newMessage);
+
+      // Update the key to match the one used in the SWR hook
+      const key = [`notes/residential/getmessages`, email, forEmail];
+
+      // Optimistically update the UI with the correct data structure
+      mutate(
+        key,
+        [...(messagesData || []), { ...newMessage, id: Date.now() }],
+        { revalidate: false }
+      );
+
+      const rawResponse = await fetch(
+        isAdminPortal
+          ? `http://localhost:3000/notes/residential/admin-message`
+          : `http://localhost:3000/notes/residential`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newMessage),
+        }
+      );
+      console.log(rawResponse);
+      const response = await rawResponse.json();
+      if (rawResponse.status === 200) {
+        // Revalidate with the correct key
+        mutate(key);
+      }
     }
   };
 
+  const onSubmitEmail = async (value) => {
+    if (isLocalStorageAvailable()) {
+      localStorage.setItem("notes-email", value);
+    }
+    setEmail(value);
+    // await fetchMessages();
+  };
+
   const handleReply = async (message, replyToId) => {
-    const originalMessage = messages.find((msg) => msg.id === replyToId);
+    const originalMessage = messagesData.find((msg) => msg.id === replyToId);
 
     const newReply = {
       message: message,
-      email: isAdminPortal ? adminEmail : email,
+      sender_email: isAdminPortal ? adminEmail : email,
+      receiver_email: forEmail || email,
       listingId: listingId || null,
       timestamp: new Date().toISOString(),
       replyTo: replyToId,
@@ -145,12 +149,17 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
       originalMessage: {
         id: originalMessage.id,
         message: originalMessage.message,
-        email: originalMessage.email,
-        timestamp: originalMessage.timestamp,
       },
     };
 
-    const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
+    // Update the key to match the one used in the SWR hook
+    const key = [`notes/residential/getmessages`, email, forEmail];
+
+    // Optimistically update the UI with the correct data structure
+    mutate(key, [...(messagesData || []), { ...newReply, id: Date.now() }], {
+      revalidate: false,
+    });
+    const rawResponse = await fetch(`http://localhost:3000/notes/residential`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -159,22 +168,12 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
     });
 
     const response = await rawResponse.json();
+    console.log(response);
     if (rawResponse.status === 200) {
-      const updatedMessages = [...messages, newReply].sort(
-        (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
-      );
-      setMessages(updatedMessages);
+      // Revalidate with the correct key
+      mutate(key);
     }
   };
-
-  useEffect(() => {
-    const loadMessages = async () => {
-      if (email) {
-        await fetchMessages();
-      }
-    };
-    loadMessages();
-  }, [email, listingId, forEmail]);
 
   const scrollToMessage = (messageId) => {
     const element = document.getElementById(`message-${messageId}`);
@@ -195,7 +194,6 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
 
   return (
     <>
-      {console.log(messages)}
       <div className="bg-white rounded-t-lg shadow-lg w-full">
         {email.length == 0 ? (
           <div className="p-4">
@@ -222,12 +220,13 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
                 isAdminPortal ? "h-[600px]" : "h-[300px]"
               } overflow-y-auto p-4 space-y-4`}
             >
-              {isLoading ? (
+              {console.log(messagesData)}
+              {!messagesData ? (
                 <div className="text-center text-gray-500">Loading...</div>
-              ) : messages.length === 0 ? (
+              ) : messagesData.length === 0 ? (
                 <div className="text-center text-gray-500">No messages yet</div>
               ) : (
-                messages.map((note, index) => (
+                messagesData.map((note, index) => (
                   <ChatMessage
                     key={index}
                     msg={note}

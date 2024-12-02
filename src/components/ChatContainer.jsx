@@ -20,7 +20,7 @@ const ChatContainer = ({ children }) => {
           aria-label="Open Chat"
         >
           <MessageCircle size={20} />
-          <span>Property Notes</span>
+          <span>Message</span>
         </button>
       ) : (
         <div className="w-[400px]">

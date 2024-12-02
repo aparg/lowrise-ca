@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ReplyIcon } from "lucide-react";
-import NoteInput from "./NoteInput";
 
 const ChatMessage = ({
   msg,
@@ -9,22 +8,43 @@ const ChatMessage = ({
   listingId,
   isAdminPortal = false,
 }) => {
-  const adminMessage = msg.email === "milan@homebaba.ca";
+  const adminMessage = msg.sender_email === "milan@homebaba.ca";
   const sender = isAdminPortal
-    ? msg.email === "milan@homebaba.ca"
-    : msg.email !== "milan@homebaba.ca";
+    ? msg.sender_email === "milan@homebaba.ca"
+    : msg.sender_email !== "milan@homebaba.ca";
 
   const formatPropertyMessage = () => {
     return (
       <>
-        <div
-          class={`flex items-center gap-2 ${
-            sender ? "bg-blue-700/50" : "bg-gray-700/50"
-          } py-2 px-2 rounded-lg`}
-        >
-          <span class="text-xl">🏠</span>
-          <h2 class="text-sm">{msg.listingId}</h2>
-        </div>
+        {console.log(msg)}
+        {msg.listingId && (
+          <div
+            className={`flex items-center gap-2 ${
+              sender ? "bg-blue-700/50" : "bg-gray-700/50"
+            } py-2 px-2 rounded-lg`}
+          >
+            <span className="text-xl">🏠</span>
+            <h2 className="text-sm">{msg.listingId}</h2>
+          </div>
+        )}
+
+        {msg.filters && isAdminPortal && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            {/* {console.log(Object.entries(JSON.parse(msg.filters)))} */}
+            {Object.entries(JSON.parse(msg.filters)).map(([key, value]) => (
+              <div
+                key={key}
+                className={`text-xs px-2 py-1 rounded-lg ${
+                  sender ? "bg-blue-700/50" : "bg-gray-300/50"
+                }`}
+              >
+                {`${key}: ${
+                  typeof value === "object" ? JSON.stringify(value) : value
+                }`}
+              </div>
+            ))}
+          </div>
+        )}
       </>
     );
   };
@@ -79,7 +99,7 @@ const ChatMessage = ({
               sender ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-800"
             }`}
           >
-            <div>{listingId && formatPropertyMessage()}</div>
+            <div>{(listingId || msg.filters) && formatPropertyMessage()}</div>
             <div>{msg.message}</div>
             <div className="flex justify-between items-center mt-1">
               <div
