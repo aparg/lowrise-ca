@@ -34,7 +34,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
   const { data: messagesData, error } = useSWR(
     email ? [`notes/residential/getmessages`, email, forEmail] : null,
     async ([url, email, forEmail]) => {
-      const response = await fetch(`http://localhost:3000/${url}`, {
+      const response = await fetch(`{BASE_URL}/${url}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,8 +108,8 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
 
       const rawResponse = await fetch(
         isAdminPortal
-          ? `http://localhost:3000/notes/residential/admin-message`
-          : `http://localhost:3000/notes/residential`,
+          ? `{BASE_URL}/notes/residential/admin-message`
+          : `{BASE_URL}/notes/residential`,
         {
           method: "POST",
           headers: {
@@ -159,7 +159,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
     mutate(key, [...(messagesData || []), { ...newReply, id: Date.now() }], {
       revalidate: false,
     });
-    const rawResponse = await fetch(`http://localhost:3000/notes/residential`, {
+    const rawResponse = await fetch(`{BASE_URL}/notes/residential`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

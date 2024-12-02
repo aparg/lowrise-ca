@@ -22,9 +22,7 @@ export default function NotesDashboard() {
     const fetchEmails = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          `http://localhost:3000/notes/residential/all-users`
-        );
+        const response = await fetch(`{BASE_URL}/notes/residential/all-users`);
         const data = await response.json();
         console.log(data);
         // Filter out admin from users list
@@ -60,7 +58,7 @@ export default function NotesDashboard() {
       try {
         const timestamp = new Date().toISOString();
         const response = await fetch(
-          `http://localhost:3000/notes/residential/admin-message`,
+          `{BASE_URL}/notes/residential/admin-message`,
           {
             method: "POST",
             headers: {
@@ -112,7 +110,7 @@ export default function NotesDashboard() {
       timestamp: new Date().toISOString(),
       replyTo: replyToId,
     };
-    const rawResponse = await fetch(`http://localhost:3000/notes/residential`, {
+    const rawResponse = await fetch(`{BASE_URL}/notes/residential`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -138,7 +136,7 @@ export default function NotesDashboard() {
   const handleDeleteMessages = async (email) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/notes/residential/delete-messages`,
+        `{BASE_URL}/notes/residential/delete-messages`,
         {
           method: "DELETE",
           headers: {
@@ -174,20 +172,17 @@ export default function NotesDashboard() {
 
     if (newEmail && !users.find((user) => user.email === newEmail)) {
       try {
-        const response = await fetch(
-          `http://localhost:3000/notes/residential/add-user`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: newEmail,
-              username: newEmail.split("@")[0], // Default username from email
-              phone: null, // Optional phone number
-            }),
-          }
-        );
+        const response = await fetch(`{BASE_URL}/notes/residential/add-user`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: newEmail,
+            username: newEmail.split("@")[0], // Default username from email
+            phone: null, // Optional phone number
+          }),
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
