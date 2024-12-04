@@ -16,15 +16,14 @@ const ChatMessage = ({
   const formatPropertyMessage = () => {
     return (
       <>
-        {console.log(msg)}
         {msg.listingId && (
           <div
-            className={`flex items-center gap-2 ${
+            className={`flex md:text-md text-sm items-center gap-2 ${
               sender ? "bg-blue-700/50" : "bg-gray-700/50"
             } py-2 px-2 rounded-lg`}
           >
-            <span className="text-xl">🏠</span>
-            <h2 className="text-sm">{msg.listingId}</h2>
+            <span className="text-lg">🏠</span>
+            <h2 className="text-xs">{msg.listingId}</h2>
           </div>
         )}
 
@@ -61,13 +60,13 @@ const ChatMessage = ({
           >
             {/* Original message */}
             <div
-              className={`p-3 text-sm cursor-pointer ${
+              className={`p-3 text-xs cursor-pointer ${
                 sender ? "bg-blue-700/50" : "bg-gray-300/50"
               }`}
               onClick={() => onScrollToMessage(msg.originalMessage.id)}
             >
               <div
-                className={`text-xs mb-1 ${
+                className={`text-[10px] mb-1 ${
                   sender ? "text-blue-100" : "text-gray-600"
                 }`}
               >
@@ -95,7 +94,7 @@ const ChatMessage = ({
         ) : (
           // Main message
           <div
-            className={`p-4 rounded-2xl ${
+            className={`p-4 md:text-md text-sm rounded-2xl ${
               sender ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-800"
             }`}
           >
@@ -103,7 +102,7 @@ const ChatMessage = ({
             <div>{msg.message}</div>
             <div className="flex justify-between items-center mt-1">
               <div
-                className={`text-xs ${
+                className={`text-[10px] ${
                   sender ? "text-blue-100" : "text-gray-500"
                 }`}
               >
@@ -115,11 +114,11 @@ const ChatMessage = ({
               </div>
               <button
                 onClick={() => onReplyClick(msg)}
-                className={`hover:opacity-80 flex items-center gap-1 text-sm ${
+                className={`hover:opacity-80 flex items-center gap-1 text-xs ${
                   sender ? "text-white" : "text-blue-600"
                 }`}
               >
-                <ReplyIcon size={14} />
+                <ReplyIcon size={12} />
                 Reply
               </button>
             </div>

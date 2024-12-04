@@ -12,20 +12,20 @@ const ChatContainer = ({ children }) => {
   if (pathname?.includes("/notes-dashboard")) return null;
 
   return (
-    <div className="fixed bottom-0 right-2 z-50">
+    <div className="fixed bottom-0 right-0 z-50 md:right-2">
       {isMinimized ? (
         <button
           onClick={() => setIsMinimized(false)}
-          className="flex items-center gap-2 rounded-t-lg px-6 py-3 bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-colors"
+          className="flex items-center gap-2 rounded-t-lg px-4 md:px-6 py-2 md:py-3 bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-colors text-xs md:text-sm w-full md:w-auto"
           aria-label="Open Chat"
         >
-          <MessageCircle size={20} />
+          <MessageCircle size={16} />
           <span>Message</span>
         </button>
       ) : (
-        <div className="w-[400px]">
-          <div className="border-b p-3 flex justify-between items-center bg-blue-600 text-white rounded-t-lg">
-            <h2 className="font-semibold">Property Notes</h2>
+        <div className="w-full md:w-[400px]">
+          <div className="border-b p-2 md:p-3 flex justify-between items-center bg-blue-600 text-white rounded-t-lg">
+            <h2 className="font-semibold text-xs md:text-sm">Messages</h2>
             <div className="flex gap-2">
               <button
                 onClick={() => setIsMinimized(true)}
@@ -35,7 +35,9 @@ const ChatContainer = ({ children }) => {
               </button>
             </div>
           </div>
-          {children}
+          <div className="max-h-[80vh] md:max-h-[600px] overflow-y-auto">
+            {children}
+          </div>
         </div>
       )}
     </div>

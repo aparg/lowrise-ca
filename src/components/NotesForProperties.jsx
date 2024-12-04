@@ -194,17 +194,42 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
 
   return (
     <>
-      <div className="bg-white rounded-t-lg shadow-lg w-full">
+      <div className="bg-white shadow-lg w-full">
         {email.length == 0 ? (
-          <div className="p-4">
-            <NoteInput
-              onSubmit={onSubmitEmail}
-              placeholder="Enter an email to start a chat"
-              type="email"
-            />
+          <div className="p-3 md:p-4">
+            {isAdminChatbox ? (
+              <div className="space-y-2">
+                <h3 className="font-medium text-gray-700 mb-2 md:mb-3 text-xs md:text-sm">
+                  Select a user to chat with:
+                </h3>
+                <div className="max-h-[50vh] md:max-h-[300px] overflow-y-auto space-y-2">
+                  {users.map((user) => (
+                    <button
+                      key={user.email}
+                      onClick={() => setEmail(user.email)}
+                      className="w-full text-left p-2 md:p-3 hover:bg-gray-50 rounded-lg transition-colors duration-200 flex items-center justify-between text-xs md:text-sm"
+                    >
+                      <span className="truncate flex-1 mr-2">{user.email}</span>
+                      <span className="text-xs text-gray-500 whitespace-nowrap">
+                        {user.last_activity
+                          ? new Date(user.last_activity).toLocaleDateString()
+                          : "No activity"}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <NoteInput
+                onSubmit={onSubmitEmail}
+                placeholder="Enter an email to start a chat"
+                type="email"
+                className="text-xs md:text-sm"
+              />
+            )}
           </div>
         ) : (
-          <>
+          <div className="max-h-[70vh] md:max-h-[500px] overflow-y-auto">
             {listingId && (
               <div className="sticky top-0 bg-gray-100 p-3 border shadow-sm">
                 <h3 className="font-medium flex items-center gap-2">
@@ -261,7 +286,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
                 autoFocus={!!replyingTo}
               />
             </div>
-          </>
+          </div>
         )}
       </div>
     </>
