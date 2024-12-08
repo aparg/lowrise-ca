@@ -12,11 +12,11 @@ const ChatContainer = ({ children }) => {
   if (pathname?.includes("/notes-dashboard")) return null;
 
   return (
-    <div className="fixed bottom-0 right-0 z-50 md:right-2">
+    <div className="fixed bottom-0 right-0 z-50 md:right-2 md:left-auto md:translate-x-0 md:translate-y-0 left-1/2 transform -translate-x-1/2 w-5/6 md:w-auto flex justify-center">
       {isMinimized ? (
         <button
           onClick={() => setIsMinimized(false)}
-          className="flex items-center gap-2 rounded-t-lg px-4 md:px-6 py-2 md:py-3 bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-colors text-xs md:text-sm w-full md:w-auto"
+          className="flex items-center gap-2 rounded-t-lg px-4 md:px-6 py-2 md:py-3 bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-colors text-xs md:text-sm"
           aria-label="Open Chat"
         >
           <MessageCircle size={16} />
