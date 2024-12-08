@@ -84,11 +84,20 @@ const page = async ({ params }) => {
     { label: "Ontario", href: "/ontario" },
     { label: formattedSlug, href: generateURL({ cityVal: cityValue }) },
     {
+      label: `For ${main_data.SaleLease}`,
+      href: generateURL({
+        cityVal: cityValue,
+        saleLeaseVal: main_data.SaleLease.toLowerCase(),
+      }),
+    },
+    {
       label: `${main_data.Street} ${main_data.StreetName}${" "}
     ${main_data.StreetAbbreviation}`,
       href: "#",
     },
   ];
+  console.log("type$$");
+  console.log(main_data.SaleLease);
 
   // const address = `${main_data?.Street} ${main_data?.StreetName} ${main_data?.StreetAbbreviation}`;
   const address = [
