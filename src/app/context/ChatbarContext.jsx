@@ -6,7 +6,7 @@ export const ChatBarContext = createContext(null);
 
 export function ChatBarContextProvider({ children }) {
   const pathname = usePathname();
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(true);
   const [propertyData, setPropertyData] = useState({
     listingId: null,
     price: null,
