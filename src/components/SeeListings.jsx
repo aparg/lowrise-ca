@@ -99,7 +99,7 @@ const SeeListings = () => {
               </li>
             </ul>
           </div>
-          <div className="w-fit">
+          <div className="">
             <h2 className="font-bold text-xl mb-2 text-center">Rent or Buy</h2>
             <ul className="flex-col justify-center text-center">
               <li>

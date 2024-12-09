@@ -44,7 +44,7 @@ const NoteInput = ({ onSubmit, placeholder, type, autoFocus }) => {
         <button
           type="submit"
           disabled={isSubmitting || !note.trim()}
-          className="p-2 text-blue-600 rounded-full hover:bg-blue-50 transition-colors disabled:text-gray-300 disabled:hover:bg-transparent"
+          className="p-2 text-black rounded-full hover:bg-chat-active-card transition-colors disabled:text-gray-300 disabled:hover:bg-transparent"
           aria-label="Send message"
         >
           {isSubmitting ? (
