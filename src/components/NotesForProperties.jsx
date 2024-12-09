@@ -243,8 +243,8 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
             <div
               ref={messagesContainerRef}
               className={`${
-                isAdminPortal ? "h-[600px]" : "h-[300px]"
-              } overflow-y-auto p-4 space-y-4`}
+                isAdminPortal ? "h-[400px] md:h-[600px]" : "h-[300px]"
+              } overflow-y-auto p-4 space-y-4 mb-4`}
             >
               {console.log(messagesData)}
               {!messagesData ? (

@@ -5,7 +5,8 @@ import { BASE_URL } from "@/api";
 import ChatUserEmail from "@/components/ChatUserEmail";
 import ChatTab from "@/components/ChatTab";
 import NotesForProperties from "@/components/NotesForProperties";
-import { Plus } from "lucide-react";
+import { ArrowBigLeft, ArrowLeft, Plus } from "lucide-react";
+import useDeviceView from "@/helpers/useDeviceView";
 
 export default function NotesDashboard() {
   const [chats, setChats] = useState({});
@@ -16,7 +17,10 @@ export default function NotesDashboard() {
   const [showNewEmailInput, setShowNewEmailInput] = useState(false);
   const [newEmail, setNewEmail] = useState("");
   const [users, setUsers] = useState([]);
-
+  const { isMobileView } = useDeviceView();
+  const [showMessageBox, setShowMessageBox] = useState(true);
+  const isMesssageBoxOpen = showMessageBox && isMobileView;
+  const showBackButton = showMessageBox && isMobileView;
   // Fetch messages for all emails
   useEffect(() => {
     const fetchEmails = async () => {
@@ -235,80 +239,96 @@ export default function NotesDashboard() {
       </div>
     );
 
+  const mobileMessageBox = isMobileView ? showMessageBox : true;
+  const showConversations = !isMobileView ? true : !showMessageBox;
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-8 text-gray-800">Notes Dashboard</h1>
+    <div className="w-full sm:max-w-7xl mx-auto px-2 sm:p-6 h-[100vh] sm:h-auto">
+      {/* <h1 className="text-3xl font-bold mb-8 text-gray-800">Notes Dashboard</h1> */}
 
       <div className="flex bg-gray-50 rounded-lg shadow-lg">
         {/* Email Sidebar */}
-        <div className="w-96 border-r border-gray-200 p-4">
-          <div className="justify-between items-center mb-6 hidden sm:flex">
-            <h2 className="text-xl font-semibold text-gray-700">
-              Conversations
-            </h2>
-            <button
-              onClick={() => setShowNewEmailInput(!showNewEmailInput)}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
-              title="Add new conversation"
-            >
-              <Plus size={24} className="text-blue-600" />
-            </button>
-          </div>
+        {showConversations && (
+          <div className="w-full sm:w-96 border-r border-gray-200 p-4">
+            <div className="justify-between items-center mb-6 flex">
+              <h2 className="text-xl font-semibold text-gray-700">
+                Conversations
+              </h2>
+              <button
+                onClick={() => setShowNewEmailInput(!showNewEmailInput)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-200"
+                title="Add new conversation"
+              >
+                <Plus size={24} className="text-blue-600" />
+              </button>
+            </div>
 
-          {showNewEmailInput && (
-            <form onSubmit={handleAddNewEmail} className="mb-6">
-              <input
-                type="email"
-                value={newEmail}
-                onChange={(e) => setNewEmail(e.target.value)}
-                placeholder="Enter email address"
-                className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                required
-              />
-            </form>
-          )}
-
-          <div className="overflow-y-auto sm:max-h-[calc(100vh-250px)]">
-            {users.map((user) => (
-              <React.Fragment key={user.id}>
-                <ChatUserEmail
-                  email={user.email}
-                  username={user.username}
-                  lastActivity={user.last_activity}
-                  handleDeleteMessages={handleDeleteMessages}
-                  activeEmail={activeEmail}
-                  setActiveEmail={setActiveEmail}
-                  isActive={activeEmail === user.email}
+            {showNewEmailInput && (
+              <form onSubmit={handleAddNewEmail} className="mb-6">
+                <input
+                  type="email"
+                  value={newEmail}
+                  onChange={(e) => setNewEmail(e.target.value)}
+                  placeholder="Enter email address"
+                  className="w-full p-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                  required
                 />
-                <hr className="border-gray-200" />
-              </React.Fragment>
-            ))}
+              </form>
+            )}
+
+            <div className="overflow-y-auto sm:max-h-[calc(100vh-250px)]">
+              {users.map((user) => (
+                <React.Fragment key={user.id}>
+                  <ChatUserEmail
+                    email={user.email}
+                    username={user.username}
+                    lastActivity={user.last_activity}
+                    handleDeleteMessages={handleDeleteMessages}
+                    activeEmail={activeEmail}
+                    setActiveEmail={setActiveEmail}
+                    isActive={activeEmail === user.email}
+                    showMobileMessageBox={() => setShowMessageBox(true)}
+                  />
+                  <hr className="border-gray-200" />
+                </React.Fragment>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Chat Content Area */}
-        <div className="flex-1 flex flex-col">
-          {activeEmail ? (
-            <>
-              <div className="border-b p-4 flex justify-between items-center bg-blue-600 text-white rounded-tr-lg">
-                <h2 className="text-sm sm:text-lg font-semibold flex items-center gap-2">
-                  {/* <span className="w-2 h-2 bg-green-400 rounded-full"></span> */}
-                  {activeEmail}
-                </h2>
+        {mobileMessageBox && (
+          <div className="flex-1 flex flex-col">
+            {activeEmail ? (
+              <>
+                <div className="border-b py-2 sm:p-4 flex items-center bg-blue-600 text-white rounded-t-lg sm:rounded-tl-none">
+                  {isMobileView && (
+                    <button
+                      className="sm:hidden p-2 rounded-full text-white hover:bg-blue-700"
+                      onClick={() => setShowMessageBox(false)} // Adjust this function as needed
+                      title="Back"
+                    >
+                      <ArrowLeft className="w-5 h-5" />
+                    </button>
+                  )}
+                  <h2 className="text-sm sm:text-lg font-semibold flex items-center gap-2">
+                    {/* <span className="w-2 h-2 bg-green-400 rounded-full"></span> */}
+                    {activeEmail}
+                  </h2>
+                </div>
+                <div className="flex-1 overflow-hidden bg-white rounded-br-lg ">
+                  <NotesForProperties
+                    forEmail={activeEmail}
+                    isAdminPortal={true}
+                  />
+                </div>
+              </>
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-500">
+                <p>Select a conversation to start chatting</p>
               </div>
-              <div className="flex-1 overflow-hidden bg-white rounded-br-lg ">
-                <NotesForProperties
-                  forEmail={activeEmail}
-                  isAdminPortal={true}
-                />
-              </div>
-            </>
-          ) : (
-            <div className="flex items-center justify-center h-full text-gray-500">
-              <p>Select a conversation to start chatting</p>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
