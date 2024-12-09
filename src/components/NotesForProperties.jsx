@@ -230,7 +230,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
             )}
           </div>
         ) : (
-          <div className="max-h-[70vh] md:max-h-[500px] overflow-y-auto">
+          <div className=" overflow-y-auto">
             {listingId && (
               <div className="sticky top-0 bg-gray-100 p-3 border shadow-sm">
                 <h3 className="font-medium flex items-center gap-2">
