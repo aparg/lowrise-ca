@@ -69,7 +69,8 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
       return allMessages.sort(
         (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
       );
-    }
+    },
+    { refreshInterval: 5000 }
   );
   // Add this useEffect to scroll to bottom when messages change
   useEffect(() => {
