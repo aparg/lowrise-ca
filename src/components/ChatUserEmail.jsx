@@ -12,7 +12,7 @@ const ChatUserEmail = ({
   return (
     <div
       onClick={() => setActiveEmail(email)}
-      className={`flex items-center gap-4 p-4 cursor-pointer hover:bg-blue-50 transition-colors ${
+      className={`flex items-center gap-4 px-0 sm:px-4 py-4 cursor-pointer hover:bg-blue-50 transition-colors ${
         activeEmail === email ? "bg-blue-100" : ""
       }`}
     >
@@ -39,7 +39,7 @@ const ChatUserEmail = ({
       </div>
 
       {/* User Info */}
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 hidden sm:flex">
         <div className="flex flex-col">
           <h3 className="font-semibold text-gray-900 truncate">
             {name || email}

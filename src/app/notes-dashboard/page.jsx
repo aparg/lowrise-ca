@@ -242,7 +242,7 @@ export default function NotesDashboard() {
       <div className="flex bg-gray-50 rounded-lg shadow-lg">
         {/* Email Sidebar */}
         <div className="w-96 border-r border-gray-200 p-4">
-          <div className="flex justify-between items-center mb-6">
+          <div className="justify-between items-center mb-6 hidden sm:flex">
             <h2 className="text-xl font-semibold text-gray-700">
               Conversations
             </h2>
@@ -268,7 +268,7 @@ export default function NotesDashboard() {
             </form>
           )}
 
-          <div className="overflow-y-auto max-h-[calc(100vh-250px)]">
+          <div className="overflow-y-auto sm:max-h-[calc(100vh-250px)]">
             {users.map((user) => (
               <React.Fragment key={user.id}>
                 <ChatUserEmail
@@ -291,7 +291,7 @@ export default function NotesDashboard() {
           {activeEmail ? (
             <>
               <div className="border-b p-4 flex justify-between items-center bg-blue-600 text-white rounded-tr-lg">
-                <h2 className="text-lg font-semibold flex items-center gap-2">
+                <h2 className="text-sm sm:text-lg font-semibold flex items-center gap-2">
                   {/* <span className="w-2 h-2 bg-green-400 rounded-full"></span> */}
                   {activeEmail}
                 </h2>
