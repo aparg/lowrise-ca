@@ -7,6 +7,7 @@ import ChatTab from "@/components/ChatTab";
 import NotesForProperties from "@/components/NotesForProperties";
 import { ArrowBigLeft, ArrowLeft, Plus } from "lucide-react";
 import useDeviceView from "@/helpers/useDeviceView";
+import { Avatar } from "@nextui-org/react";
 
 export default function NotesDashboard() {
   const [chats, setChats] = useState({});
@@ -242,13 +243,12 @@ export default function NotesDashboard() {
   const mobileMessageBox = isMobileView ? showMessageBox : true;
   const showConversations = !isMobileView ? true : !showMessageBox;
   return (
-    <div className="w-full sm:max-w-7xl mx-auto px-2 sm:p-6 h-[100vh] sm:h-auto">
-      {/* <h1 className="text-3xl font-bold mb-8 text-gray-800">Notes Dashboard</h1> */}
-
-      <div className="flex bg-gray-50 rounded-lg shadow-lg">
+    <div className=" bg-[#f5f5f5] h-full p-4">
+      <div className="h-[88vh] sm:h-[91vh] flex bg-[#f5f5f5] rounded-lg md:flex space-x-4">
+        {/* <h1 className="text-3xl font-bold mb-8 text-gray-800">Notes Dashboard</h1> */}
         {/* Email Sidebar */}
         {showConversations && (
-          <div className="w-full sm:w-96 border-r border-gray-200 p-4">
+          <div className="w-full sm:w-96 p-4 bg-white rounded-lg">
             <div className="justify-between items-center mb-6 flex">
               <h2 className="text-xl font-semibold text-gray-700">
                 Conversations
@@ -288,7 +288,6 @@ export default function NotesDashboard() {
                     isActive={activeEmail === user.email}
                     showMobileMessageBox={() => setShowMessageBox(true)}
                   />
-                  <hr className="border-gray-200" />
                 </React.Fragment>
               ))}
             </div>
@@ -297,25 +296,41 @@ export default function NotesDashboard() {
 
         {/* Chat Content Area */}
         {mobileMessageBox && (
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col h-full rounded-lg overflow-hidden bg-white">
             {activeEmail ? (
               <>
-                <div className="border-b py-2 sm:p-4 flex items-center bg-blue-600 text-white rounded-t-lg sm:rounded-tl-none">
+                <div className="border-b py-2 sm:p-4 flex items-center bg-white  text-black rounded-t-lg sm:rounded-tl-none shadow-md z-10 space-x-2">
                   {isMobileView && (
                     <button
-                      className="sm:hidden p-2 rounded-full text-white hover:bg-blue-700"
+                      className="sm:hidden p-2 rounded-full text-black ml-2 hover:bg-chat-active-card"
                       onClick={() => setShowMessageBox(false)} // Adjust this function as needed
                       title="Back"
                     >
                       <ArrowLeft className="w-5 h-5" />
                     </button>
                   )}
+                  <div className="w-8 h-8 md:w-12 md:h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                    <svg
+                      className="w-4 h-4 md:w-6 md:h-6 text-gray-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                  </div>
                   <h2 className="text-sm sm:text-lg font-semibold flex items-center gap-2">
                     {/* <span className="w-2 h-2 bg-green-400 rounded-full"></span> */}
                     {activeEmail}
+                    {}
                   </h2>
                 </div>
-                <div className="flex-1 overflow-hidden bg-white rounded-br-lg ">
+                <div className="flex-1 overflow-hidden bg-white rounded-br-lg z-0">
                   <NotesForProperties
                     forEmail={activeEmail}
                     isAdminPortal={true}

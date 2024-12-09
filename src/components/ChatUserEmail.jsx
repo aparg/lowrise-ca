@@ -16,8 +16,8 @@ const ChatUserEmail = ({
         setActiveEmail(email);
         showMobileMessageBox();
       }}
-      className={`flex items-center gap-4 px-0 sm:px-4 py-2 sm:py-4 cursor-pointer hover:bg-blue-50 transition-colors ${
-        activeEmail === email ? "bg-blue-100" : ""
+      className={`flex items-center gap-4 px-2 sm:px-4 py-2 my-1 sm:py-4 cursor-pointer hover:bg-chat-hover transition-colors rounded-lg ${
+        activeEmail === email ? "bg-chat-active-card" : ""
       }`}
     >
       {/* Avatar */}

@@ -22,6 +22,8 @@ module.exports = {
         "medium-black": "#222222",
         "very-light-gray": "#f9f9f9",
         "gray-filter": "#e5e7eb",
+        "chat-active-card": "rgba(0, 0, 0, .06)",
+        "chat-hover": "rgba(0,0,0,.04)",
       },
       boxShadow: {
         shuttle: "0 0 1rem 1px rgb(0 0 0 / 3%);",

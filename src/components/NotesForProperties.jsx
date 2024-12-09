@@ -195,7 +195,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
 
   return (
     <>
-      <div className="bg-white shadow-lg w-full">
+      <div className="bg-white shadow-lg w-full h-full">
         {email.length == 0 ? (
           <div className="p-3 md:p-4">
             {isAdminChatbox ? (
@@ -230,7 +230,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
             )}
           </div>
         ) : (
-          <div className=" overflow-y-auto">
+          <div className=" overflow-y-auto flex flex-col h-full">
             {listingId && (
               <div className="sticky top-0 bg-gray-100 p-3 border shadow-sm">
                 <h3 className="font-medium flex items-center gap-2">
@@ -243,8 +243,8 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
             <div
               ref={messagesContainerRef}
               className={`${
-                isAdminPortal ? "h-[400px] md:h-[600px]" : "h-[300px]"
-              } overflow-y-auto p-4 space-y-4 mb-4`}
+                isAdminPortal ? "h-[95%]" : "h-[300px]"
+              } shrink overflow-y-auto p-4 space-y-4 mb-4`}
             >
               {console.log(messagesData)}
               {!messagesData ? (
@@ -264,7 +264,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
                 ))
               )}
             </div>
-            <div className="border-t p-3 rounded-md">
+            <div className="border-t p-3 rounded-md h-[12%] sm:h-[8%]">
               {replyingTo && (
                 <div className="mb-2 p-2 bg-gray-50 rounded-lg text-sm">
                   <div className="flex justify-between items-center">

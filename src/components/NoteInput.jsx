@@ -37,7 +37,7 @@ const NoteInput = ({ onSubmit, placeholder, type, autoFocus }) => {
           value={note}
           onChange={(e) => setNote(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 px-4 py-2 bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm"
+          className="flex-1 px-4 py-2 bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 text-xs sm:text-sm"
           disabled={isSubmitting}
         />
 

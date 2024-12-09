@@ -18,7 +18,7 @@ const ChatMessage = ({
       <>
         {msg.listingId && (
           <div
-            className={`flex md:text-md text-sm items-center gap-2 ${
+            className={`flex md:text-md text-sm items-center gap-2 mb-1 ${
               sender ? "bg-gray-400" : "bg-gray-300"
             } py-2 px-2 rounded-lg`}
           >
@@ -28,7 +28,7 @@ const ChatMessage = ({
         )}
 
         {msg.filters && isAdminPortal && (
-          <div className="flex flex-wrap gap-2 mt-2">
+          <div className="flex flex-wrap gap-2 mt-2 mb-1">
             {/* {console.log(Object.entries(JSON.parse(msg.filters)))} */}
             {Object.entries(JSON.parse(msg.filters)).map(([key, value]) => (
               <div
@@ -56,7 +56,9 @@ const ChatMessage = ({
           <div className={`relative`}>
             {/* Original message */}
             <div
-              className={`p-3 text-xs cursor-pointer border-gray-300 border-1 bg-white rounded-xl opacity-70 -mb-2 relative z-0`}
+              className={`p-3 text-xs cursor-pointer border-1 rounded-xl opacity-70 -mb-2 relative z-0 max-w-fit bg-[#f0f0f0] ${
+                sender && "ml-auto "
+              }`}
               onClick={() => onScrollToMessage(msg.originalMessage.id)}
             >
               <div className={`text-[10px] mb-1 text-gray-600`}>
@@ -68,14 +70,14 @@ const ChatMessage = ({
             {/* Reply message */}
 
             <div
-              className={`relative p-2 z-10 max-w-fit ${
+              className={`relative p-4 z-10 max-w-fit ${
                 sender
-                  ? "bg-gray-300 text-black rounded-t-xl rounded-br-none rounded-bl-xl ml-auto right-0"
-                  : "border-gray-300 border-1 bg-white text-gray-800 rounded-t-xl rounded-br-xl rounded-bl-none"
+                  ? "bg-[#606060] text-white rounded-t-xl rounded-br-none rounded-bl-xl ml-auto right-0"
+                  : "bg-[#f0f0f0] text-gray-800 rounded-t-xl rounded-br-xl rounded-bl-none"
               }`}
             >
               {msg.message}
-              <div className={`text-xs mt-1 text-black`}>
+              <div className={`text-[10px] mt-1`}>
                 {msg.timestamp &&
                   new Date(msg.timestamp).toLocaleString("en-US", {
                     dateStyle: "medium",
@@ -87,20 +89,16 @@ const ChatMessage = ({
         ) : (
           // Main message
           <div
-            className={`mr-2 p-4 md:text-md text-sm rounded-2xl ${
+            className={`mr-2 p-4 md:text-base text-sm rounded-2xl max-w-fit ${
               sender
-                ? "bg-gray-300 text-black rounded-t-xl rounded-br-none rounded-bl-xl"
-                : "border-gray-300 border-1 bg-white text-gray-800 rounded-t-xl rounded-br-xl rounded-bl-none"
+                ? "bg-[#606060] text-white rounded-t-xl rounded-br-none rounded-bl-xl ml-auto"
+                : "bg-[#f0f0f0] text-gray-800 rounded-t-xl rounded-br-xl rounded-bl-none"
             }`}
           >
             <div>{(listingId || msg.filters) && formatPropertyMessage()}</div>
             <div>{msg.message}</div>
-            <div className="flex justify-between items-center mt-1">
-              <div
-                className={`text-[10px] ${
-                  sender ? "text-black" : "text-gray-500"
-                }`}
-              >
+            <div className="flex justify-between items-center space-x-4">
+              <div className={`text-[10px]`}>
                 {msg.timestamp &&
                   new Date(msg.timestamp).toLocaleString("en-US", {
                     dateStyle: "medium",
@@ -109,7 +107,7 @@ const ChatMessage = ({
               </div>
               <button
                 onClick={() => onReplyClick(msg)}
-                className={`hover:opacity-80 flex items-center gap-1 text-xs text-black`}
+                className={`hover:opacity-80 flex items-center gap-1 text-[10px]`}
               >
                 <ReplyIcon size={12} />
                 Reply
