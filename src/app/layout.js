@@ -52,9 +52,9 @@ export default function RootLayout({ children }) {
           />
           <Navbar />
           <GoogleAnalytics />
-          <main className="">{children}</main>
+          <main className="relative z-0">{children}</main>
           <Footer />
-          <div className="sm:col-span-2 col-span-2">
+          <div className="sm:col-span-2 col-span-2 z-10">
             <ChatContainer>
               <NotesForProperties />
             </ChatContainer>

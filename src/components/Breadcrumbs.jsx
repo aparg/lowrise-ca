@@ -6,7 +6,7 @@ const Breadcrumbs = ({ items }) => {
   return (
     <nav aria-label="Breadcrumb" className="py-2 z-[999] bg-white">
       <div>
-        <ol className="flex items-center space-x-2 text-sm">
+        <ol className="flex items-center space-x-0 sm:space-x-2 text-xs sm:text-sm">
           {items.map((item, index) => (
             <li key={index} className="flex items-center">
               {index > 0 && (
