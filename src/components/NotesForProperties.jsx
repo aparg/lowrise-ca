@@ -65,7 +65,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
         }
         return acc;
       }, []);
-
+      console.log(allMessages);
       return allMessages.sort(
         (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
       );

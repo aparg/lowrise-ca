@@ -19,8 +19,12 @@ export function ChatBarContextProvider({ children }) {
     const notesEmail = localStorage.getItem("notes-email");
     console.log(notesEmail === "milan@homebaba.ca");
     setIsAdminChatbox(notesEmail === "milan@homebaba.ca");
-
-    if (pathname?.includes("/ontario")) {
+    if (!pathname?.includes("/listings")) {
+      setPropertyData({
+        listingId: null,
+        price: null,
+      });
+    } else if (pathname?.includes("/ontario")) {
       const filterState = localStorage.getItem("filterState");
       if (filterState) {
         const parsedFilters = JSON.parse(filterState);
@@ -36,11 +40,6 @@ export function ChatBarContextProvider({ children }) {
 
         setPropertyData({ ...propertyData, filters: activeFilters });
       }
-    } else if (!pathname?.includes("/listings")) {
-      setPropertyData({
-        listingId: null,
-        price: null,
-      });
     }
   }, [pathname]);
 
