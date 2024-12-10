@@ -57,14 +57,15 @@ const ChatUserEmail = ({
               }`}
             >
               <p className="text-xs sm:text-sm truncate">{lastMessage}</p>
+              {console.log(lastActivity)}
               <p className={`text-xs sm:text-sm  truncate`}>
-                {new Date(lastActivity).toLocaleString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  hour12: false,
-                })}
+                {new Date(lastActivity.replace(" ", "T") + "Z").toLocaleString(
+                  undefined,
+                  {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  }
+                )}
               </p>
             </div>
           </div>
