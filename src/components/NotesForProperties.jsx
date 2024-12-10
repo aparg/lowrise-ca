@@ -9,7 +9,7 @@ import { ChatBarContext } from "@/app/context/ChatbarContext";
 import ChatMessage from "./ChatMessage";
 import useSWR, { mutate } from "swr";
 
-const NotesForProperties = ({ forEmail, isAdminPortal }) => {
+const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
   const [email, setEmail] = useState(() => {
     if (forEmail) return forEmail;
     else if (isLocalStorageAvailable()) {
@@ -30,10 +30,10 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
   const { listingId, price } = propertyData;
   const [replyingTo, setReplyingTo] = useState(null);
   const messagesContainerRef = useRef(null);
-
   const { data: messagesData, error } = useSWR(
     email ? [`notes/residential/getmessages`, email, forEmail] : null,
     async ([url, email, forEmail]) => {
+      console.log(isAdminPortal);
       const response = await fetch(`${BASE_URL}/${url}`, {
         method: "POST",
         headers: {
@@ -41,6 +41,8 @@ const NotesForProperties = ({ forEmail, isAdminPortal }) => {
         },
         body: JSON.stringify({
           email: forEmail || email,
+          isAdminDashboard: isAdminPortal,
+          yeta: "huhu",
         }),
       });
       const messages = await response.json();

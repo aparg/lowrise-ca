@@ -7,8 +7,10 @@ const ChatUserEmail = ({
   setActiveEmail,
   lastMessage,
   name,
+  unreadCount,
   isOnline,
   showMobileMessageBox,
+  lastActivity,
 }) => {
   return (
     <div
@@ -43,16 +45,35 @@ const ChatUserEmail = ({
       </div>
 
       {/* User Info */}
-      <div className="flex-1 min-w-0 flex">
-        <div className="flex flex-col">
-          <h3 className="font-semibold text-gray-900 truncate">
-            {name || email}
-          </h3>
-          <p className="text-xs sm:text-sm text-gray-500 truncate">{email}</p>
-          <p className="text-xs sm:text-sm text-gray-400 truncate">
-            {lastMessage}
-          </p>
+      <div className="w-full flex items-center justify-between">
+        <div className="flex-1 min-w-0 flex">
+          <div className="flex flex-col">
+            <h3 className="font-semibold text-gray-900 truncate">
+              {name || email}
+            </h3>
+            <div
+              className={`${
+                unreadCount > 0 ? "text-black font-bold" : "text-gray-500"
+              }`}
+            >
+              <p className="text-xs sm:text-sm truncate">{lastMessage}</p>
+              <p className={`text-xs sm:text-sm  truncate`}>
+                {new Date(lastActivity).toLocaleString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: false,
+                })}
+              </p>
+            </div>
+          </div>
         </div>
+        {unreadCount > 0 && (
+          <div className="rounded-[999px] bg-black text-white font-bold h-6 w-6 flex justify-center items-center text-[12px]">
+            {unreadCount}
+          </div>
+        )}
       </div>
     </div>
   );

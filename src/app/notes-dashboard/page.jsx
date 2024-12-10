@@ -8,6 +8,10 @@ import NotesForProperties from "@/components/NotesForProperties";
 import { ArrowBigLeft, ArrowLeft, Plus } from "lucide-react";
 import useDeviceView from "@/helpers/useDeviceView";
 import { Avatar } from "@nextui-org/react";
+import useSWR from "swr";
+
+// Define a fetcher function
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function NotesDashboard() {
   const [chats, setChats] = useState({});
@@ -19,124 +23,36 @@ export default function NotesDashboard() {
   const [newEmail, setNewEmail] = useState("");
   const [users, setUsers] = useState([]);
   const { isMobileView } = useDeviceView();
-  const [showMessageBox, setShowMessageBox] = useState(true);
+  const [showMessageBox, setShowMessageBox] = useState(false);
   const isMesssageBoxOpen = showMessageBox && isMobileView;
   const showBackButton = showMessageBox && isMobileView;
-  // Fetch messages for all emails
+  // Replace useEffect with useSWR for fetching users
+  const { data } = useSWR(
+    `${BASE_URL}/notes/residential/all-users`,
+    fetcher,
+    { refreshInterval: 5000 } // Set refresh interval to 5 seconds
+  );
+
   useEffect(() => {
-    const fetchEmails = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`${BASE_URL}/notes/residential/all-users`);
-        const data = await response.json();
-        console.log(data);
-        // Filter out admin from users list
-        const filteredUsers = data.filter((user) => user.email !== adminEmail);
-        setUsers(filteredUsers);
+    if (data) {
+      console.log(data);
+      // Filter out admin from users list
+      const filteredUsers = data.filter((user) => user.email !== adminEmail);
+      setUsers(filteredUsers);
 
-        // Initialize empty chats for each user
-        const initialChats = filteredUsers.reduce((acc, user) => {
-          acc[user.email] = [];
-          return acc;
-        }, {});
-        setChats(initialChats);
+      // Initialize empty chats for each user
+      const initialChats = filteredUsers.reduce((acc, user) => {
+        acc[user.email] = [];
+        return acc;
+      }, {});
+      setChats(initialChats);
 
-        // Set first user as active if there is one
-        console.log(filteredUsers);
-        if (filteredUsers.length > 0) {
-          setActiveEmail(filteredUsers[0].email);
-        }
-      } catch (err) {
-        console.log("yeta");
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchEmails();
-  }, []);
-
-  const handleSubmit = async (message, receiver, listingId, replyTo) => {
-    if (replyTo) {
-      handleReply(message, replyTo);
-    } else {
-      try {
-        const timestamp = new Date().toISOString();
-        const response = await fetch(
-          `${BASE_URL}/notes/residential/admin-message`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              message,
-              receiver,
-              listingId,
-              replyTo,
-              timestamp,
-            }),
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to send message");
-        }
-
-        // Update local state with new message
-        setChats((prev) => ({
-          ...prev,
-          [receiver]: [
-            ...(prev[receiver] || []),
-            {
-              id: `msg_${Date.now()}_${Math.random()
-                .toString(36)
-                .substr(2, 9)}`,
-              message,
-              timestamp,
-              email: adminEmail,
-              replyTo,
-              replies: [],
-            },
-          ],
-        }));
-      } catch (err) {
-        console.error("Failed to send message:", err);
-        throw err;
-      }
+      // Set first user as active if there is one
+      // if (filteredUsers.length > 0) {
+      //   setActiveEmail(filteredUsers[0].email);
+      // }
     }
-  };
-
-  const handleReply = async (message, replyToId) => {
-    const newReply = {
-      message: message,
-      sender_email: email,
-      listingId: listingId || null,
-      timestamp: new Date().toISOString(),
-      replyTo: replyToId,
-    };
-    const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newReply),
-    });
-
-    const response = await rawResponse.json();
-    if (rawResponse.status === 200) {
-      const updatedMessages = messages.map((msg) => {
-        if (msg.id === replyToId) {
-          return {
-            ...msg,
-            replies: [...(msg.replies || []), newReply],
-          };
-        }
-        return msg;
-      });
-      setMessages(updatedMessages);
-    }
-  };
+  }, [data]); // Add data as a dependency
 
   const handleDeleteMessages = async (email) => {
     try {
@@ -276,6 +192,7 @@ export default function NotesDashboard() {
             )}
 
             <div className="overflow-y-auto sm:max-h-[calc(100vh-250px)]">
+              {console.log(users)}
               {users.map((user) => (
                 <React.Fragment key={user.id}>
                   <ChatUserEmail
@@ -287,6 +204,8 @@ export default function NotesDashboard() {
                     setActiveEmail={setActiveEmail}
                     isActive={activeEmail === user.email}
                     showMobileMessageBox={() => setShowMessageBox(true)}
+                    unreadCount={user.unread_count}
+                    lastMessage={user.last_msg}
                   />
                 </React.Fragment>
               ))}
@@ -331,6 +250,8 @@ export default function NotesDashboard() {
                   </h2>
                 </div>
                 <div className="flex-1 overflow-hidden bg-white rounded-br-lg z-0">
+                  {console.log("***")}
+                  {console.log(activeEmail)}
                   <NotesForProperties
                     forEmail={activeEmail}
                     isAdminPortal={true}
