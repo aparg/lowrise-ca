@@ -27,7 +27,6 @@ const FiltersWithSalesList = ({
   saleLeaseVal = undefined,
 }) => {
   // const leadEmail = user?.emailAddresses[0].emailAddress;
-  console.log(city);
   const saleLeaseFilterVal =
     saleLease[
       Object.keys(saleLease).find((val) => val === saleLeaseVal) || "sale"
@@ -156,7 +155,6 @@ const FiltersWithSalesList = ({
   };
 
   useEffect(() => {
-    console.log(filterState);
     // store data in session storage whenever it changes
     if (isLocalStorageAvailable() && filterState) {
       window.localStorage.setItem("filterState", JSON.stringify(filterState));

@@ -28,14 +28,13 @@ export default function NotesDashboard() {
   const showBackButton = showMessageBox && isMobileView;
   // Replace useEffect with useSWR for fetching users
   const { data } = useSWR(
-    `http://localhost:3000/notes/residential/all-users`,
+    `${BASE_URL}notes/residential/all-users`,
     fetcher,
     { refreshInterval: 5000 } // Set refresh interval to 5 seconds
   );
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       // Filter out admin from users list
       const filteredUsers = data.filter((user) => user.email !== adminEmail);
       setUsers(filteredUsers);
@@ -57,7 +56,7 @@ export default function NotesDashboard() {
   const handleDeleteMessages = async (email) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/notes/residential/delete-messages`,
+        `${BASE_URL}notes/residential/delete-messages`,
         {
           method: "DELETE",
           headers: {
@@ -93,20 +92,17 @@ export default function NotesDashboard() {
 
     if (newEmail && !users.find((user) => user.email === newEmail)) {
       try {
-        const response = await fetch(
-          `http://localhost:3000/notes/residential/add-user`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: newEmail,
-              username: newEmail.split("@")[0], // Default username from email
-              phone: null, // Optional phone number
-            }),
-          }
-        );
+        const response = await fetch(`${BASE_URL}notes/residential/add-user`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: newEmail,
+            username: newEmail.split("@")[0], // Default username from email
+            phone: null, // Optional phone number
+          }),
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -195,7 +191,6 @@ export default function NotesDashboard() {
             )}
 
             <div className="overflow-y-auto sm:max-h-[calc(100vh-250px)]">
-              {console.log(users)}
               {users.map((user) => (
                 <React.Fragment key={user.id}>
                   <ChatUserEmail
@@ -254,8 +249,6 @@ export default function NotesDashboard() {
                   </h2>
                 </div>
                 <div className="flex-1 overflow-hidden bg-white rounded-br-lg z-0">
-                  {console.log("***")}
-                  {console.log(activeEmail)}
                   <NotesForProperties
                     forEmail={activeEmail}
                     isAdminPortal={true}

@@ -6,7 +6,6 @@ import { sendEmail } from "@/api/resend";
 const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.target);
     // Collect form data into credentials object
     const credentials = {
       username: e.target.username.value,

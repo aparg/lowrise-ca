@@ -96,8 +96,6 @@ const page = async ({ params }) => {
       href: "#",
     },
   ];
-  console.log("type$$");
-  console.log(main_data.SaleLease);
 
   // const address = `${main_data?.Street} ${main_data?.StreetName} ${main_data?.StreetAbbreviation}`;
   const address = [

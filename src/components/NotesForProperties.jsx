@@ -35,8 +35,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
   const { data: messagesData, error } = useSWR(
     email ? [`notes/residential/getmessages`, email, forEmail] : null,
     async ([url, email, forEmail]) => {
-      console.log(isAdminPortal);
-      const response = await fetch(`http://localhost:3000/${url}`, {
+      const response = await fetch(`${BASE_URL}${url}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +46,6 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
         }),
       });
       const messages = await response.json();
-      console.log(messages);
       // Process messages
       const allMessages = messages.reduce((acc, msg) => {
         acc.push({ ...msg, replies: [], isMainMessage: true });
@@ -68,7 +66,6 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
         }
         return acc;
       }, []);
-      console.log(allMessages);
       return allMessages.sort(
         (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
       );
@@ -109,16 +106,13 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
         { revalidate: false }
       );
 
-      const rawResponse = await fetch(
-        `http://localhost:3000/notes/residential`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newMessage),
-        }
-      );
+      const rawResponse = await fetch(`${BASE_URL}notes/residential`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMessage),
+      });
       const response = await rawResponse.json();
       if (rawResponse.status === 200) {
         // Revalidate with the correct key
@@ -159,7 +153,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
     mutate(key, [...(messagesData || []), { ...newReply, id: Date.now() }], {
       revalidate: false,
     });
-    const rawResponse = await fetch(`http://localhost:3000/notes/residential`, {
+    const rawResponse = await fetch(`${BASE_URL}notes/residential`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -29,7 +29,6 @@ const ChatMessage = ({
 
         {msg.filters && isAdminPortal && (
           <div className="flex flex-wrap gap-2 mt-2 mb-1">
-            {/* {console.log(Object.entries(JSON.parse(msg.filters)))} */}
             {Object.entries(JSON.parse(msg.filters)).map(([key, value]) => (
               <div
                 key={key}

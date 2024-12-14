@@ -21,8 +21,6 @@ const PriceButton = ({ price }) => {
       // Calculate final scroll position with offset
       const scrollPosition = absoluteElementPosition - offsetY;
 
-      console.log("Scrolling to:", scrollPosition);
-
       window.scrollTo({
         top: scrollPosition,
         behavior: "smooth",

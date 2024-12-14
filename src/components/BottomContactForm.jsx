@@ -39,7 +39,6 @@ export default function BottomContactForm(props) {
       realtor: "No",
       message: props.defaultmessage,
     });
-    console.log("EMAIL SENT");
     // ContactFormSubmit(
     //   credentials,
     //   setSubmitbtn,
