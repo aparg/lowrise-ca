@@ -28,7 +28,7 @@ export default function NotesDashboard() {
   const showBackButton = showMessageBox && isMobileView;
   // Replace useEffect with useSWR for fetching users
   const { data } = useSWR(
-    `${BASE_URL}/notes/residential/all-users`,
+    `http://localhost:3000/notes/residential/all-users`,
     fetcher,
     { refreshInterval: 5000 } // Set refresh interval to 5 seconds
   );
@@ -57,7 +57,7 @@ export default function NotesDashboard() {
   const handleDeleteMessages = async (email) => {
     try {
       const response = await fetch(
-        `${BASE_URL}/notes/residential/delete-messages`,
+        `http://localhost:3000/notes/residential/delete-messages`,
         {
           method: "DELETE",
           headers: {
@@ -93,17 +93,20 @@ export default function NotesDashboard() {
 
     if (newEmail && !users.find((user) => user.email === newEmail)) {
       try {
-        const response = await fetch(`${BASE_URL}/notes/residential/add-user`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: newEmail,
-            username: newEmail.split("@")[0], // Default username from email
-            phone: null, // Optional phone number
-          }),
-        });
+        const response = await fetch(
+          `http://localhost:3000/notes/residential/add-user`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: newEmail,
+              username: newEmail.split("@")[0], // Default username from email
+              phone: null, // Optional phone number
+            }),
+          }
+        );
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -206,6 +209,7 @@ export default function NotesDashboard() {
                     showMobileMessageBox={() => setShowMessageBox(true)}
                     unreadCount={user.unread_count}
                     lastMessage={user.last_msg}
+                    createdAt={user.created_at}
                   />
                 </React.Fragment>
               ))}

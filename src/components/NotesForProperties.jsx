@@ -30,11 +30,13 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
   const { listingId, price } = propertyData;
   const [replyingTo, setReplyingTo] = useState(null);
   const messagesContainerRef = useRef(null);
+  //get data for user chatbox only if it's maximized
+  const canGetData = isMinimized ? isAdminPortal : true;
   const { data: messagesData, error } = useSWR(
     email ? [`notes/residential/getmessages`, email, forEmail] : null,
     async ([url, email, forEmail]) => {
       console.log(isAdminPortal);
-      const response = await fetch(`${BASE_URL}/${url}`, {
+      const response = await fetch(`http://localhost:3000/${url}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,12 +44,11 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
         body: JSON.stringify({
           email: forEmail || email,
           isAdminDashboard: isAdminPortal,
-          yeta: "huhu",
         }),
       });
       const messages = await response.json();
       console.log(messages);
-      // Process messages (keeping your existing logic)
+      // Process messages
       const allMessages = messages.reduce((acc, msg) => {
         acc.push({ ...msg, replies: [], isMainMessage: true });
         if (msg.replies) {
@@ -97,7 +98,6 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
         isMainMessage: true,
         filters: propertyData.filters || null,
       };
-      console.log(newMessage);
 
       // Update the key to match the one used in the SWR hook
       const key = [`notes/residential/getmessages`, email, forEmail];
@@ -110,9 +110,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
       );
 
       const rawResponse = await fetch(
-        isAdminPortal
-          ? `${BASE_URL}/notes/residential/admin-message`
-          : `${BASE_URL}/notes/residential`,
+        `http://localhost:3000/notes/residential`,
         {
           method: "POST",
           headers: {
@@ -121,7 +119,6 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
           body: JSON.stringify(newMessage),
         }
       );
-      console.log(rawResponse);
       const response = await rawResponse.json();
       if (rawResponse.status === 200) {
         // Revalidate with the correct key
@@ -162,7 +159,7 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
     mutate(key, [...(messagesData || []), { ...newReply, id: Date.now() }], {
       revalidate: false,
     });
-    const rawResponse = await fetch(`${BASE_URL}/notes/residential`, {
+    const rawResponse = await fetch(`http://localhost:3000/notes/residential`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -171,7 +168,6 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
     });
 
     const response = await rawResponse.json();
-    console.log(response);
     if (rawResponse.status === 200) {
       // Revalidate with the correct key
       mutate(key);
@@ -248,7 +244,6 @@ const NotesForProperties = ({ forEmail, isAdminPortal = false }) => {
                 isAdminPortal ? "h-[95%]" : "h-[300px]"
               } shrink overflow-y-auto p-4 space-y-4 mb-4`}
             >
-              {console.log(messagesData)}
               {!messagesData ? (
                 <div className="text-center text-gray-500">Loading...</div>
               ) : messagesData.length === 0 ? (

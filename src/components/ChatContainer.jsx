@@ -1,6 +1,7 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import useSWR from "swr";
 
 import {
   LucideMessageCircleDashed,
@@ -8,10 +9,46 @@ import {
   MessageCircleMore,
 } from "lucide-react";
 import { ChatBarContext } from "@/app/context/ChatbarContext";
+import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
 
 const ChatContainer = ({ children }) => {
   const { isMinimized, setIsMinimized } = useContext(ChatBarContext);
+  const [unreadCount, setUnreadCount] = useState(0);
   const pathname = usePathname();
+  const fetcher = async (url) => {
+    console.log(
+      isLocalStorageAvailable() ? localStorage.getItem("notes-email") : ""
+    );
+    try {
+      const rawResponse = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          receiverEmail: isLocalStorageAvailable()
+            ? localStorage.getItem("notes-email")
+            : "",
+        }),
+      });
+      const json = await rawResponse.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error("Fetch error:", error);
+      return null;
+    }
+  };
+  const { data, error } = useSWR(
+    "http://localhost:3000/notes/residential/user-unread-count",
+    fetcher,
+    { refreshInterval: 5 }
+  );
+
+  useEffect(() => {
+    console.log(data);
+    data && setUnreadCount(data[0]?.user_unread_count || 0);
+  }, [data]);
 
   if (pathname?.includes("/notes-dashboard")) return null;
   const isListingPage = pathname?.includes("/listings");
@@ -25,11 +62,17 @@ const ChatContainer = ({ children }) => {
       {isMinimized ? (
         <button
           onClick={() => setIsMinimized(false)}
-          className="flex items-center md:gap-2 rounded-[999px] md:rounded-b-none md:rounded-t-lg p-3 md:px-6 md:py-3 bg-blue-600 text-white shadow-2xl shadow-black hover:bg-blue-700 transition-colors text-xs md:text-sm"
+          className="relative flex items-center md:gap-2 rounded-[999px] md:rounded-b-none md:rounded-t-lg p-3 md:px-6 md:py-3 bg-blue-600 text-white shadow-2xl shadow-black hover:bg-blue-700 transition-colors text-xs md:text-sm"
           aria-label="Open Chat"
         >
           <MessageCircleMore size={16} />
           <span className="hidden md:block">Message</span>
+          {console.log(unreadCount)}
+          {unreadCount > 0 && (
+            <div className="absolute -top-2 -right-1 bg-red-500 w-5 h-5 rounded-full flex items-center justify-center text-xs">
+              {unreadCount}
+            </div>
+          )}
         </button>
       ) : (
         <div className="w-full md:w-[400px]">

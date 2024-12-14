@@ -11,7 +11,9 @@ const ChatUserEmail = ({
   isOnline,
   showMobileMessageBox,
   lastActivity,
+  createdAt,
 }) => {
+  const showDate = lastActivity || createdAt;
   return (
     <div
       onClick={() => {
@@ -57,9 +59,8 @@ const ChatUserEmail = ({
               }`}
             >
               <p className="text-xs sm:text-sm truncate">{lastMessage}</p>
-              {console.log(lastActivity)}
               <p className={`text-xs sm:text-sm  truncate`}>
-                {new Date(lastActivity.replace(" ", "T") + "Z").toLocaleString(
+                {new Date(showDate?.replace(" ", "T") + "Z").toLocaleString(
                   undefined,
                   {
                     dateStyle: "medium",
@@ -70,6 +71,7 @@ const ChatUserEmail = ({
             </div>
           </div>
         </div>
+
         {unreadCount > 0 && (
           <div className="rounded-[999px] bg-black text-white font-bold h-6 w-6 flex justify-center items-center text-[12px]">
             {unreadCount}
