@@ -36,7 +36,7 @@ const ChatContainer = ({ children }) => {
     }
   };
   const { data, error } = useSWR(
-    "${BASE_URL}notes/residential/user-unread-count",
+    "${BASE_URL}/notes/residential/user-unread-count",
     fetcher,
     { refreshInterval: 5 }
   );
