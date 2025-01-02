@@ -148,7 +148,7 @@ const Footer = ({ cities }) => {
                     with the Internet Data Exchange logo and detailed
                     information about those properties will include the name of
                     the listing broker(s) when required by the MLS. Copyright
-                    ©2024 All rights reserved. Last Updated: {todaysutc} UTC
+                    ©2025 All rights reserved. Last Updated: {todaysutc} UTC
                   </p>
                 </div>
                 <div className="flex flex-col items-center space-y-4">
