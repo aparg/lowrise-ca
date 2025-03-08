@@ -1,6 +1,6 @@
 import React from "react";
 import { houseType, saleLease } from "@/constant";
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
+import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
 import CityTitle from "@/components/CityTitle";
 import { fetchOpenHouse } from "@/_resale-api/getSalesData";
 import SalesList from "@/components/SalesList";

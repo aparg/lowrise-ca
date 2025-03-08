@@ -7,7 +7,7 @@ import {
   priceRangesSaleProperties,
   saleLease,
 } from "@/constant";
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
+import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
 import React from "react";
 
 const CityTitle = async ({

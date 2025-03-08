@@ -1,5 +1,5 @@
 import React from "react";
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
+import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
 import { getSalesData } from "@/_resale-api/getSalesData";
 import CityTitle from "@/components/CityTitle";
 import FilterComponent from "@/components/FilterComponent";

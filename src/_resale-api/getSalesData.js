@@ -1,5 +1,5 @@
 "use server";
-import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter";
+import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
 import { commercial, residential } from "./routes/fetchRoutes";
 import { cityRegions, postalCodeCities } from "@/constant/postalCodeCities";
 // import { houseType, saleLease } from "@/constant";

@@ -6,7 +6,7 @@ import {
   priceRangesSaleProperties,
   saleLease,
 } from "@/constant";
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
+import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
 import CityTitle from "@/components/CityTitle";
 import FilterComponent from "@/components/FilterComponent";
 

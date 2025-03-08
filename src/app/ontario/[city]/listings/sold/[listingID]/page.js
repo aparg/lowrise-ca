@@ -1,5 +1,5 @@
 import Gallery from "@/components/Gallery";
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
+import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
 import {
   fetchDataFromMLS,
   fetchRoomInfo,
