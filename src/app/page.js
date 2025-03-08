@@ -6,8 +6,6 @@ import { fetchAllBlogPosts } from "@/api/blogs";
 import HeroSection from "@/components/HeroSection";
 import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
 import ContactForm from "@/components/ContactForm";
-import PropertiesDisplayer from "@/components/PropertiesDisplayer";
-import { cache } from "sharp";
 import MobilePromo from "@/components/MobilePromo";
 import SeeListings from "@/components/SeeListings";
 
@@ -81,7 +79,7 @@ export default async function Home() {
   // const HOUSEWITHFIREPLACES = await fetchFireplacesData();
   // const HOUSEWITHSEPARATEENTRANCE = await fetchSepEntranceData();
   // const BLOGPOSTS = await fetchSomeBlogPosts({ pageSize: 4 });
-  const BLOGPOSTS = await fetchAllBlogPosts();
+  // const BLOGPOSTS = await fetchAllBlogPosts();
   {
     /* pass property propertyType:"commercial" only for commercial card slider, default is residential */
   }
