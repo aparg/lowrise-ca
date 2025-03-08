@@ -27,7 +27,7 @@ export async function generateMetadata({ params }, parent) {
   return {
     ...parent,
     alternates: {
-      canonical: `https://homebaba.ca/resale/ontario/homes-for-sale`,
+      canonical: `https://lowrise.ca/resale/ontario/homes-for-sale`,
     },
     openGraph: {
       images: "/favicon.ico",
