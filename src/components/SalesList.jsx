@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 //HELPERS
-import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
+import capitalizeFirstLetter from "@/helpers/capitalizeLetter";
 import { ImSpinner } from "react-icons/im";
 
 //COMPONENT

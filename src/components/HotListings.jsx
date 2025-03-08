@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect, useRef } from "react";
 //CONSTANT
 import useDeviceView from "@/helpers/useDeviceView";
 import ResaleCard from "./ResaleCard";
-import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
+import capitalizeFirstLetter from "@/helpers/capitalizeLetter";
 
 const plural = {
   Retail: " Businesses",

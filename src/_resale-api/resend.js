@@ -1,5 +1,5 @@
 "use server";
-import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
+import capitalizeFirstLetter from "@/helpers/capitalizeLetter";
 import { Resend } from "resend";
 import swal from "sweetalert";
 

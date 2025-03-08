@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getStatistics } from "@/_resale-api/getStatistics";
-import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
+import capitalizeFirstLetter from "@/helpers/capitalizeLetter";
 import { houseType } from "@/constant";
 import formatCurrency from "@/helpers/formatCurrency";
 import { FadeLoader } from "react-spinners";

@@ -1,7 +1,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
+import capitalizeFirstLetter from "@/helpers/capitalizeLetter";
 import { getSalesData } from "@/_resale-api/getSalesData";
 import FiltersWithSalesList from "@/components/FiltersWithSalesList";
 import CityTitle from "@/components/CityTitle";
