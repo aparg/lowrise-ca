@@ -1,7 +1,4 @@
 import Gallery from "@/components/Gallery";
-import { residential } from "@/_resale-api/routes/fetchRoutes";
-import { generateImageURLs } from "@/helpers/generateImageURLs";
-import ResaleCityGrid from "@/componentsCityGrid";
 import capitalizeFirstLetter from "@/helpers/capitalizeLetter";
 import {
   fetchDataFromMLS,
