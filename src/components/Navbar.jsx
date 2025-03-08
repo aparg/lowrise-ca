@@ -9,7 +9,7 @@ import { generateURL } from "@/helpers/generateURL";
 import Image from "next/image";
 import citiesWithProvinces from "@/constant/cities";
 import { useRouter } from "next/navigation";
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
+import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter";
 import BuyLeaseDropdown from "./BuyLeaseDropdown";
 
 const Navbar = (props) => {
