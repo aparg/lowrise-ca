@@ -13,7 +13,6 @@ export function capitalizeFirstLetter(str) {
   }
   return capitalizer(str);
 }
-
 const capitalizer = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
