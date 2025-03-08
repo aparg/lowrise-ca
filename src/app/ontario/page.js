@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { ImSpinner } from "react-icons/im";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
+import OntarioCitiesGrid from "@/components/OntarioCitiesGrid";
 
 const FiltersWithSalesList = dynamic(
   () => import("@/components/FiltersWithSalesList"),
@@ -15,29 +15,19 @@ const FiltersWithSalesList = dynamic(
 );
 
 export const metadata = {
-  title: "Ontario Properties | Lowrise.ca",
+  title: "Ontario Real Estate - Browse Properties by City | Homebaba",
   description:
-    "Explore resale properties across Ontario. Find your next home or investment opportunity.",
-  keywords: "Ontario real estate, resale properties, low-rise buildings",
+    "Explore real estate listings across Ontario cities. Find detached homes, semi-detached homes, townhouses, and condos for sale in Ontario's major cities.",
+  keywords:
+    "Ontario real estate, Ontario cities, homes for sale, property listings, Ontario housing market",
 };
 
-const page = async ({ params }) => {
-  const INITIAL_LIMIT = 30;
-  const breadcrumbItems = [
-    { label: "Lowrise", href: "/" },
-    { label: "ON", href: null },
-  ];
+const page = async () => {
   return (
-    <div className="">
-      <Breadcrumbs items={breadcrumbItems} />
-      <div className="container-fluid">
-        <FiltersWithSalesList
-          {...{
-            INITIAL_LIMIT,
-          }}
-        />
+    <div className="bg-white">
+      <div className="container mx-auto px-4">
+        <OntarioCitiesGrid />
       </div>
-      <CanadianCitiesShowcase />
     </div>
   );
 };

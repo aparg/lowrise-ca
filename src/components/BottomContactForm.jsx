@@ -3,7 +3,7 @@ import { useState } from "react";
 // import ContactFormSubmit from "./ContactFormSubmit";
 import React from "react";
 // import { useUser } from "@clerk/nextjs";
-import { sendEmail } from "../api/resend";
+import { sendEmail } from "@/_resale-api/resend";
 
 export default function BottomContactForm(props) {
   const [submitbtn, setSubmitbtn] = useState("Contact now");

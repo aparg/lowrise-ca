@@ -54,11 +54,11 @@ export default function RootLayout({ children }) {
           <GoogleAnalytics />
           <main className="relative z-0">{children}</main>
           <Footer />
-          <div className="sm:col-span-2 col-span-2 z-10">
+          {/* <div className="sm:col-span-2 col-span-2 z-10">
             <ChatContainer>
               <NotesForProperties />
             </ChatContainer>
-          </div>
+          </div> */}
         </ChatBarContextProvider>
       </body>
     </html>

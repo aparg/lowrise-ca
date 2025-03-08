@@ -1,3 +1,4 @@
+import { getImageUrls } from "@/_resale-api/getSalesData";
 import { residential } from "@/api/routes/fetchRoutes";
 import { generateURL } from "@/helpers/generateURL";
 import Link from "next/link";
@@ -42,10 +43,10 @@ const PropertiesDisplayer = ({
               if (idx < 2) {
                 return (
                   <DisplayerCard
-                    MLS={property.MLS}
-                    city={property.Municipality}
+                    MLS={property.ListingKey}
+                    city={property.City}
                     address={property.Address}
-                    type={property.TypeOwn1Out}
+                    type={property.PropertySubType}
                     key={idx}
                     imageGradient={imageGradient}
                   />
@@ -59,10 +60,10 @@ const PropertiesDisplayer = ({
               if (idx >= 2) {
                 return (
                   <DisplayerCard
-                    MLS={property.MLS}
-                    city={property.Municipality}
+                    MLS={property.ListingKey}
+                    city={property.City}
                     address={property.Address}
-                    type={property.TypeOwn1Out}
+                    type={property.PropertySubType}
                     key={idx}
                     imageGradient={imageGradient}
                   />
@@ -76,19 +77,19 @@ const PropertiesDisplayer = ({
   );
 };
 
-const DisplayerCard = ({ MLS, city, address, type, imageGradient }) => {
+const DisplayerCard = async ({ MLS, city, address, type, imageGradient }) => {
   const mapObj = {
     MLS: MLS,
     index: 1,
   };
-  const imgSrc = residential.photos.replace(/MLS|index/gi, function (matched) {
-    return mapObj[matched];
-  });
+  console.log(MLS);
+  const image = await getImageUrls({ MLS: MLS, thumbnailOnly: true });
+  console.log(image);
   return (
     <Link href={generateURL({ listingIDVal: MLS, cityVal: city })} key={MLS}>
       <div className="relative overflow-hidden rounded-lg">
         <div className="h-[15rem] sm:h-[30rem]">
-          <img src={imgSrc} className="object-cover w-full h-full" alt="" />
+          <img src={image} className="object-cover w-full h-full" alt="" />
         </div>
         <div
           className="absolute inset-0"

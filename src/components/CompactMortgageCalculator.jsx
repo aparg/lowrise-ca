@@ -3,6 +3,7 @@ import formatCurrency from "@/helpers/formatCurrency";
 import useDeviceView from "@/helpers/useDeviceView";
 import React, { useState, useEffect } from "react";
 import { VictoryPie, VictoryLabel } from "victory";
+import PreApprovalForm from "./PreApprovalForm";
 
 export default function CompactMortgageCalculator({
   price,
@@ -79,6 +80,17 @@ export default function CompactMortgageCalculator({
   const { isMobileView } = useDeviceView();
   const priceNumber = formatCurrency(calculatordata.hvalue).replace("$", "");
 
+  const widthBar = () => {
+    const loanPercent =
+      (parseInt(calculatordata.loanamt) * 100) /
+      (parseInt(calculatordata.loanamt) + parseInt(intrest));
+
+    return {
+      loanPercentage: `${Math.ceil(loanPercent)}%`,
+      interest: `${Math.floor(100 - loanPercent)}%`,
+    };
+  };
+
   return (
     <div
       className={`max-w-3xl ${
@@ -86,19 +98,54 @@ export default function CompactMortgageCalculator({
       }  bg-white rounded-lg overflow-hidden sm:mb-20`}
     >
       <div className="">
-        <h2 className={`font-extrabold pb-3 text-2xl sm:text-4xl`}>
+        <h2 className={`font-semibold pb-0 text-2xl sm:text-3xl`}>
           Mortgage Calculator
         </h2>
         <p
-          className={`text-gray-500 mt-2  ${
+          className={`text-gray-500 mt-0 leading-6 ${
             align === "center" ? "text-center" : ""
           }`}
         >
-          Calculate your monthly mortgage payments based on the home value,
+          Calculate your monthly mortgage payments based on the home value
         </p>
         {/* <div className="mb-10"></div> */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="grid grid-cols-1 gap-4">
+        <div className="mt-2 sm:mt-8">
+          <div className="w-full h-5 sm:h-6 rounded-full flex mt-0 sm:mt-8">
+            <div
+              className="relative bg-[#73cfb8] h-full rounded-l-full"
+              style={{ width: widthBar().loanPercentage }}
+            ></div>
+            <div
+              className="bg-[#eb7360] h-full rounded-r-full relative"
+              style={{ width: widthBar().interest }}
+            ></div>
+          </div>
+          <div className="flex justify-between mt-4">
+            <div className="flex items-center">
+              <div className="w-5 h-5 rounded-full bg-[#73cfb8] mr-2"></div>
+              Mortgage
+            </div>
+            <span>{formatCurrency(calculatordata.loanamt)}</span>
+          </div>
+          <div className="flex justify-between mt-4">
+            <div className="flex items-center">
+              <div className="w-5 h-5 rounded-full bg-[#eb7360] mr-2"></div>
+              Interest
+            </div>
+            <span>{formatCurrency(intrest)}</span>
+          </div>
+
+          <div className="mt-3 text-center">
+            <h3 className="text-2xl font-bold text-gray-800 mb-2">
+              ${calculated} <span className="text-lg text-gray-600">/mo</span>
+            </h3>
+            <p className="text-gray-600">
+              Your Estimated Monthly Mortgage Payment
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-2 ">
             <FloatingLabelInput
               id="hvalue"
               label="Home Value"
@@ -106,20 +153,22 @@ export default function CompactMortgageCalculator({
               onChange={handleChange}
               prefix="$"
             />
-            <div className="flex">
+            <div className="flex w-full">
               <FloatingLabelInput
                 id="dpay"
                 label="Down Payment"
                 value={formatCurrency(calculatordata.dpay).replace("$", "")}
                 onChange={handleChange}
                 prefix="$"
+                className="w-[70%]"
               />
               <FloatingLabelInput
                 id="dper"
-                label="Down Payment %"
+                label="Percentage"
                 value={calculatordata.dper}
                 onChange={handleChange}
                 suffix="%"
+                className="w-[30%]"
               />
             </div>
             <FloatingLabelInput
@@ -143,78 +192,8 @@ export default function CompactMortgageCalculator({
               value={calculatordata.loanterm}
               onChange={handleChange}
               suffix="Yrs"
+              className=""
             />
-          </div>
-
-          <div className="mt-8">
-            <svg width="400" height="250">
-              {(calculatordata.loanamt > 10 || intrest > 10) && (
-                <>
-                  {isMobileView ? (
-                    <VictoryPie
-                      standalone={false}
-                      width={350}
-                      height={200}
-                      data={[
-                        {
-                          x: `Mortgage \n$ ${parseInt(
-                            calculatordata.loanamt
-                          ).toLocaleString()}`,
-                          y: parseInt(calculatordata.loanamt),
-                        },
-                        {
-                          x: `Interest \n $ ${parseInt(
-                            intrest
-                          ).toLocaleString()}`,
-                          y: parseInt(intrest),
-                        },
-                      ]}
-                      innerRadius={68}
-                      labelRadius={80}
-                      colorScale={["rgb(82 170 146)", "rgb(82 130 146)"]}
-                    />
-                  ) : (
-                    <VictoryPie
-                      standalone={false}
-                      width={400}
-                      height={300}
-                      data={[
-                        {
-                          x: `Mortgage \n$ ${parseInt(
-                            calculatordata.loanamt
-                          ).toLocaleString()}`,
-                          y: parseInt(calculatordata.loanamt),
-                        },
-                        {
-                          x: `Interest \n $ ${parseInt(
-                            intrest
-                          ).toLocaleString()}`,
-                          y: parseInt(intrest),
-                        },
-                      ]}
-                      innerRadius={68}
-                      labelRadius={100}
-                      colorScale={["rgb(82 170 146)", "rgb(82 130 146)"]}
-                    />
-                  )}
-                  <VictoryLabel
-                    textAnchor="middle"
-                    style={{ fontSize: 16 }}
-                    x={isMobileView ? 180 : 190}
-                    y={isMobileView ? 100 : 145}
-                    text={"$" + calculated + "/mo"}
-                  />
-                </>
-              )}
-            </svg>
-            <div className="mt-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                ${calculated} <span className="text-lg text-gray-600">/mo</span>
-              </h3>
-              <p className="text-gray-600">
-                Your Estimated Monthly Mortgage Payment
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -297,9 +276,12 @@ export default function CompactMortgageCalculator({
           </div>
         </>
       )}
+      <div className="w-full flex justify-center">
+        <PreApprovalForm />
+      </div>
 
       <div
-        className={`bg-gray-100 p-4 mt-8 ${
+        className={`bg-gray-100 p-2 mt-8 ${
           align === "center" ? "text-center" : ""
         } text-sm text-gray-600`}
       >
@@ -322,8 +304,9 @@ const FloatingLabelInput = ({
   suffix,
   disabled,
   type = "text",
+  className,
 }) => (
-  <div className="relative mt-4">
+  <div className={`relative mt-4 ${className ? className : ""}`}>
     <input
       type={type}
       id={id}
@@ -334,6 +317,7 @@ const FloatingLabelInput = ({
         ${disabled ? "bg-gray-100 cursor-not-allowed" : ""}
         ${prefix ? "pl-8" : ""}
         ${suffix ? "pr-8" : ""}
+        
       `}
       placeholder=" "
       value={value}

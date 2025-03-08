@@ -9,7 +9,8 @@ import { generateURL } from "@/helpers/generateURL";
 import Image from "next/image";
 import citiesWithProvinces from "@/constant/cities";
 import { useRouter } from "next/navigation";
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
+import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
+import BuyLeaseDropdown from "./BuyLeaseDropdown";
 
 const Navbar = (props) => {
   const [isSticky, setIsSticky] = useState(true);
@@ -58,10 +59,6 @@ const Navbar = (props) => {
   const whiteLogoPath = "/lowriselogo.svg";
   const blackLogoPath = "/lowriselogo.svg";
 
-  const cities = citiesWithProvinces.map((obj) => {
-    return { name: obj.city, link: generateURL({ cityVal: obj.city }) };
-  });
-
   function extractCityname(url) {
     const regex =
       /\/ontario\/([^/]+)\/(?:town-house|detached-homes|semi-detached-homes|duplex-homes|triplex-homes|homes)?-(?:for-sale|for-lease)/;
@@ -69,98 +66,130 @@ const Navbar = (props) => {
     return match ? match[1] : null;
   }
 
-  const cityName = extractCityname(pathname);
-  const inCity = cityName
-    ? cityName.toLowerCase() !== "homes"
-      ? ` in ${decodeURIComponent(capitalizeFirstLetter(cityName))}`
-      : " in Ontario"
-    : "";
+  const cities = citiesWithProvinces.map((obj) => obj.city.toLowerCase());
+  const cityName = cities.find((city) => !!pathname?.match(city));
   const buyOpts = [
-    /* {
-      name: "Semi-detached Homes for Sale",
-      link: generateURL({ houseTypeVal: "semiDetached" }),
-    }, */
     {
-      name: "Semi Detached Homes for Sale" + inCity,
+      name:
+        "All homes for Sale" +
+        `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
+      link: generateURL({
+        houseTypeVal: "house type",
+        saleLeaseVal: "sale",
+        cityVal: cityName || null,
+      }),
+    },
+    {
+      name:
+        "Semi Detached Homes for Sale" +
+        `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
       link: generateURL({
         houseTypeVal: "semi detached",
         saleLeaseVal: "sale",
-        cityVal: cityName,
+        cityVal: cityName || null,
       }),
     },
     {
-      name: "Detached Homes for Sale" + inCity,
+      name:
+        "Detached Homes for Sale" +
+        `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
       link: generateURL({
         houseTypeVal: "detached",
         saleLeaseVal: "sale",
-        cityVal: cityName,
+        cityVal: cityName || null,
       }),
     },
     {
-      name: "Townhomes for Sale" + inCity,
+      name:
+        "Townhomes for Sale" +
+        `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
       link: generateURL({
-        houseTypeVal: "town house",
+        houseTypeVal: "townhomes",
         saleLeaseVal: "sale",
-        cityVal: cityName,
+        cityVal: cityName || null,
       }),
     },
     {
-      name: "Duplex  Homes for Sale" + inCity,
+      name:
+        "Condos for Sale" +
+        `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
       link: generateURL({
-        houseTypeVal: "duplex",
+        houseTypeVal: "condo",
         saleLeaseVal: "sale",
-        cityVal: cityName,
-      }),
-    },
-    {
-      name: "Triplex Homes for Sale" + inCity,
-      link: generateURL({
-        houseTypeVal: "triplex",
-        saleLeaseVal: "sale",
-        cityVal: cityName,
+        cityVal: cityName || null,
       }),
     },
   ];
 
   const rentOpts = [
     {
-      name: "Semi Detached Homes for Lease" + inCity,
+      name:
+        "All homes for Lease" +
+        `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
+      link: generateURL({
+        houseTypeVal: "house type",
+        saleLeaseVal: "lease",
+        cityVal: cityName || null,
+      }),
+    },
+    {
+      name:
+        "Semi Detached Homes for Lease" +
+        `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
       link: generateURL({
         houseTypeVal: "semi detached",
         saleLeaseVal: "lease",
-        cityVal: cityName,
+        cityVal: cityName || null,
       }),
     },
     {
-      name: "Detached Homes for Lease" + inCity,
+      name:
+        "Detached Homes for Lease" +
+        `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
       link: generateURL({
         houseTypeVal: "detached",
         saleLeaseVal: "lease",
-        cityVal: cityName,
+        cityVal: cityName || null,
       }),
     },
     {
-      name: "Townhomes for Lease" + inCity,
+      name:
+        "Townhomes for Lease" +
+        `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
       link: generateURL({
-        houseTypeVal: "town house",
+        houseTypeVal: "Townhomes",
         saleLeaseVal: "lease",
-        cityVal: cityName,
+        cityVal: cityName || null,
       }),
     },
+    // {
+    //   name:
+    //     "Duplex Homes for Lease" +
+    //     `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
+    //   link: generateURL({
+    //     houseTypeVal: "duplex",
+    //     saleLeaseVal: "lease",
+    //     cityVal: cityName || null,
+    //   }),
+    // },
+    // {
+    //   name:
+    //     "Triplex Homes for Lease" +
+    //     `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
+    //   link: generateURL({
+    //     houseTypeVal: "triplex",
+    //     saleLeaseVal: "lease",
+    //     cityVal: cityName || null,
+    //   }),
+    // },
     {
-      name: "Duplex  Homes for Lease" + inCity,
+      name:
+        "Condos for Lease" +
+        `${cityName ? ` in ${capitalizeFirstLetter(cityName)}` : ""}`,
       link: generateURL({
-        houseTypeVal: "duplex",
+        houseTypeVal: "condo",
         saleLeaseVal: "lease",
-        cityVal: cityName,
-      }),
-    },
-    {
-      name: "Triplex Homes for Lease" + inCity,
-      link: generateURL({
-        houseTypeVal: "triplex",
-        saleLeaseVal: "lease",
-        cityVal: cityName,
+        cityVal: cityName || null,
       }),
     },
   ];
@@ -182,7 +211,7 @@ const Navbar = (props) => {
     >
       <div className={`${isSticky && "sticky"}`}>
         <nav
-          className={`flex items-center justify-between h-14 sm:h-[3.5rem] max-w-[90%] mx-auto`}
+          className={`flex items-center justify-between h-14 sm:h-[3.5rem] max-w-[98%] mx-auto`}
         >
           <div className="flex-shrink-0 flex h-full items-center mr-2">
             <Link href="/" className="logo d-flex items-center">
@@ -282,19 +311,19 @@ const Navbar = (props) => {
               {" "}
               Buy{" "}
             </Link> */}
-            <Dropdown
-              name="Rent"
-              text={isSticky || !isHomePage ? "black" : "white"}
+            <BuyLeaseDropdown
+              name={`For Lease ${capitalizeFirstLetter(cityName) || ""}`}
+              text={"red"}
               options={rentOpts}
               width="auto"
             />
-            <Dropdown
-              name="Buy"
-              text={isSticky || !isHomePage ? "black" : "white"}
+            <BuyLeaseDropdown
+              name={`For Sale ${capitalizeFirstLetter(cityName) || ""}`}
+              text={"red"}
               options={buyOpts}
               width="auto"
             />
-            <Dropdown
+            {/* <Dropdown
               name="Popular cities"
               text={isSticky || !isHomePage ? "black" : "white"}
               options={cities}
@@ -303,7 +332,7 @@ const Navbar = (props) => {
               name="Calculator"
               text={isSticky || !isHomePage ? "black" : "white"}
               options={calculatorOpts}
-            />
+            /> */}
             <Link
               href="/blogs"
               title=""
@@ -367,13 +396,19 @@ const Navbar = (props) => {
         >
           <div className="flow-root">
             <div className="flex flex-col px-6 space-y-3">
-              <Dropdown
-                name="Buy"
-                text={isSticky || !isHomePage ? "black" : "white"}
+              <BuyLeaseDropdown
+                name={`For Lease ${capitalizeFirstLetter(cityName) || ""}`}
+                text={"red"}
+                options={rentOpts}
+                width="auto"
+              />
+              <BuyLeaseDropdown
+                name={`For Sale ${capitalizeFirstLetter(cityName) || ""}`}
+                text={"red"}
                 options={buyOpts}
                 width="auto"
               />
-              <Dropdown
+              {/* <Dropdown
                 name="Calculator"
                 text={isSticky || !isHomePage ? "black" : "white"}
                 options={calculatorOpts}
@@ -382,7 +417,7 @@ const Navbar = (props) => {
                 name="Popular cities"
                 text={isSticky || !isHomePage ? "black" : "white"}
                 options={cities}
-              />
+              /> */}
               <Link
                 href="/blogs"
                 title=""

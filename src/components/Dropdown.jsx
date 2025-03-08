@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import { FaArrowDown, FaChevronDown } from "react-icons/fa";
 
-const Dropdown = ({ name, options, width = "25rem" }) => {
+const Dropdown = ({ name, options, width = "25rem", text }) => {
   const [shown, setShown] = useState(false);
   const dropdownRef = useRef(null);
   let timeoutId = useRef(null);
@@ -31,35 +31,38 @@ const Dropdown = ({ name, options, width = "25rem" }) => {
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        className={`font-normal text-sm text-black rounded-md bg-transparent hover:text-primary-green ${
-          shown && "bg-white"
-        }`}
+        className={`flex items-center gap-2 text-sm font-medium text-gray-700 bg-white rounded-full`}
         onClick={() => setShown(!shown)}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="flex ">
-          {name}
-          <span className="ml-1 mt-2">
-            <FaChevronDown size={8} />
-          </span>
-        </div>
+        <span className="text-gray-800">{name}</span>
+        <FaChevronDown
+          size={12}
+          className={`text-gray-500 transition-transform duration-200 ${
+            shown ? "rotate-180" : ""
+          }`}
+        />
       </button>
 
       <div
-        className={`absolute left-[-1rem] sm:right-0 mt-6 bg-white rounded-md shadow-2xl border z-10 text-sm h-auto grid ${
-          options.length > 5
-            ? "grid-cols-3 sm:w-[30rem] w-[20rem] "
-            : "grid-cols-1 w-[20rem]"
-        } ${!shown && "hidden"}`}
+        className={`absolute left-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-100 z-30 min-w-[200px] transform origin-top transition-all duration-200 ${
+          options.length > 6
+            ? "grid grid-cols-1 sm:grid-cols-3 sm:min-w-[600px]"
+            : "w-fit"
+        } ${
+          shown
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-2 pointer-events-none"
+        }`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         {options.map((option) => (
           <Link
             href={option.link}
-            className="block sm:px-4 px-2 py-2 text-gray-800 hover:drop-shadow-2xl hover:font-bold hover:shadow-2xl hover:rounded-md text-start text-sm text-nowrap whitespace-nowrap"
             key={option.name}
+            className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 whitespace-nowrap transition-colors first:rounded-t-lg last:rounded-b-lg"
           >
             {option.name}
           </Link>

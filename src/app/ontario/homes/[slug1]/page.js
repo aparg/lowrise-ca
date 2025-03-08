@@ -1,12 +1,20 @@
 import React from "react";
-import { houseType, saleLease } from "@/constant";
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
+import {
+  houseType,
+  priceRangesLeaseProperties,
+  priceRangesSaleProperties,
+  saleLease,
+} from "@/constant";
 import FiltersWithSalesList from "@/components/FiltersWithSalesList";
 import CanadianCitiesShowcase from "@/components/CanadianCitiesShowcase";
+import CityTitle from "@/components/CityTitle";
+import FilterComponent from "@/components/FilterComponent";
 
 const page = async ({ params }) => {
   let saleLeaseValue = undefined;
   let type = undefined;
+  let priceRange = undefined;
+  let bedroomCount = undefined;
   // if (Object.keys(saleLease).includes(params.slug1)) {
   //   saleLeaseValue = params.slug1;
   // }
@@ -14,11 +22,21 @@ const page = async ({ params }) => {
   //   type = houseType[params.slug1].name;
   // }
   const splitData = params.slug1.split("-");
-  splitData.forEach((data) => {
+  splitData.forEach((data, idx) => {
     if (Object.keys(saleLease).includes(data)) {
       saleLeaseValue = data;
     } else if (Object.keys(houseType).includes(data) && !type) {
-      type = houseType[data].name;
+      type = houseType[data]?.name;
+    } else if (data == "price") {
+      const priceSlug = splitData.splice(idx + 1, splitData.length).join("-");
+      const priceRangeObj = Object.values({
+        ...priceRangesSaleProperties,
+        ...priceRangesLeaseProperties,
+      }).find((obj) => obj.slug == priceSlug);
+      if (priceRangeObj)
+        priceRange = { min: priceRangeObj.min, max: priceRangeObj.max };
+    } else if (data == "bedroom") {
+      bedroomCount = splitData[idx - 1];
     }
     if (saleLeaseValue && type) return;
   });
@@ -27,12 +45,20 @@ const page = async ({ params }) => {
   if (isValidSlug)
     return (
       <div className="">
-        <FiltersWithSalesList
+        <CityTitle
+          requiredType={type}
+          saleLeaseVal={saleLeaseValue}
+          bedroomCount={bedroomCount}
+          priceRange={priceRange}
+        />
+        <FilterComponent
           {...{
             INITIAL_LIMIT,
             saleLeaseVal: saleLeaseValue,
             requiredType: type,
             filter: type || "",
+            priceRange: priceRange,
+            bedroomCount: bedroomCount,
           }}
         />
         <CanadianCitiesShowcase />
@@ -49,19 +75,19 @@ export async function generateMetadata({ params }, parent) {
     if (Object.keys(saleLease).includes(data)) {
       saleLeaseValue = data;
     } else if (Object.keys(houseType).includes(data) && !type) {
-      type = houseType[data].name;
+      type = houseType[data]?.name;
     }
     if (saleLeaseValue && type) return;
   });
   return {
     ...parent,
     alternates: {
-      canonical: `https://lowrise.ca/ontario/homes/${params.slug1}`,
+      canonical: `https://homebaba.ca/ontario/homes/${params.slug1}`,
     },
     openGraph: {
       images: "/favicon.ico",
     },
-    title: `100+ Ontario homes for Sale | New Listings | Lowrise.ca `,
+    title: `100+ Ontario homes for Sale | Homebaba `,
     description: `500+ Ontario ${type} for sale. Book a showing for affordable homes with pools, finished basements, walkouts. Prices from $1 to $5,000,000. Open houses available.`,
   };
 }

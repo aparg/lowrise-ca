@@ -170,12 +170,12 @@ export const numberOfDays = {
 };
 
 export const bedCount = {
-  any: { name: "", value: 0 },
-  one: { name: "1 Beds", value: 1 },
-  two: { name: "2 Beds", value: 2 },
-  three: { name: "3 Beds", value: 3 },
-  four: { name: "4 Beds", value: 4 },
-  five: { name: "5 Beds", value: 5 },
+  any: { name: "Beds", value: 0 },
+  one: { name: "1 Beds", value: 1, slug: "one-bedroom" },
+  two: { name: "2 Beds", value: 2, slug: "two-bedroom" },
+  three: { name: "3 Beds", value: 3, slug: "three-bedroom" },
+  four: { name: "4 Beds", value: 4, slug: "four-bedroom" },
+  five: { name: "5 Beds", value: 5, slug: "five-bedroom" },
 };
 
 export const washroomCount = {
@@ -188,24 +188,89 @@ export const washroomCount = {
 };
 
 export const priceRangesSaleProperties = {
-  "$0 - 500k": { min: 0, max: 500000 },
-  "$500k-$999k": { min: 500000, max: 999000 },
-  "1mil - 1.5mil": { min: 1000000, max: 1500000 },
+  "Under $500,000": { min: 0, max: 500000, slug: "under-500000" },
+  "Under $600,000": {
+    min: 0,
+    max: 600000,
+    slug: "under-600000",
+  },
+  "Under $700,000": {
+    min: 0,
+    max: 700000,
+    slug: "under-700000",
+  },
+  "Under $800,000": {
+    min: 0,
+    max: 800000,
+    slug: "under-800000",
+  },
+  "Under $1,000,000": {
+    min: 0,
+    max: 1000000,
+    slug: "under-1000000",
+  },
+  "Under $1,500,000": {
+    min: 0,
+    max: 1500000,
+    slug: "under-1500000",
+  },
+  "Under $2,000,000": {
+    min: 0,
+    max: 2000000,
+    slug: "under-2000000",
+  },
+  "Under $2,500,000": {
+    min: 0,
+    max: 2500000,
+    slug: "under-2500000",
+  },
+  "$2,000,000 and above": {
+    min: 2000000,
+    max: 0,
+    slug: "above-2000000",
+  }, //if max less than min, max is ignored
 };
 
 export const priceRangesLeaseProperties = {
-  "$1.5k - $2k": { min: 1500, max: 2000 },
-  "$2k - $2.5k": { min: 2000, max: 2500 },
-  "$2.5k - $3.5k": { min: 2500, max: 3500 },
-  "$3k - $3.5k": { min: 3000, max: 3500 },
+  "Under $2,000": { min: 0, max: 2000, slug: "under-2000" },
+  "Under $2,500": { min: 0, max: 2500, slug: "under-2500" },
+  "Under $3,500": { min: 0, max: 3500, slug: "under-3500" },
+  "Under $3,500": { min: 0, max: 3500, slug: "under-3500" },
+  "Above $3,500": { min: 3500, max: 0, slug: "above-3500" },
 };
 
 export const houseType = {
-  all: { name: "House Type", value: null },
-  // condo: { name: "Condo", value: "CondoProperty" },
-  semi: { name: "Semi Detached", value: ".S.", slug: "semi-detached-homes" },
-  detached: { name: "Detached", value: ".D.", slug: "detached-homes" },
-  town: { name: "Town House", value: ".A.", slug: "town-house" },
-  duplex: { name: "Duplex", value: ".J.", slug: "duplex-homes" },
-  triplex: { name: "Triplex", value: ".K.", slug: "triplex-homes" },
+  all: { name: "All Properties", value: null },
+  semi: {
+    name: "Semi Detached",
+    value: "Semi-Detached ",
+    slug: "semi-detached-homes",
+  },
+  detached: { name: "Detached", value: "Detached", slug: "detached-homes" },
+  town: { name: "Townhomes", value: "Att/Row/Townhouse", slug: "town-homes" },
+  condo: { name: "Condo", value: "Condo Apartment", slug: "condo" },
+};
+
+export const basementType = {
+  "Separate Entrance": "Separate Entrance",
+  Walkout: "Walk-Out",
+  "Finished Basement": "Finished",
+};
+
+export const roads = {
+  "Public Transit": "Public Transit",
+  Highway: "Highway",
+};
+
+export const openHouse = {
+  "Open House": true,
+};
+
+export const homeText = {
+  "Semi Detached": "Semi Detached Homes",
+  Detached: "Detached Homes",
+  Townhomes: "Townhomes",
+  Condo: "Condos",
+  Triplex: "Triplex Homes",
+  Duplex: "Duplex Homes",
 };

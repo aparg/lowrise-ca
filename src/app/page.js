@@ -1,5 +1,5 @@
 import Slider from "@/components/Slider";
-import { getFilteredRetsData, getSalesData } from "../api/getSalesData";
+import { getSalesData } from "@/_resale-api/getSalesData";
 import PropertyDisplaySection from "@/components/PropertyDisplaySection";
 import { generateURL } from "@/helpers/generateURL";
 import { fetchAllBlogPosts } from "@/api/blogs";
@@ -78,8 +78,8 @@ export default async function Home() {
     return results;
   };
 
-  const HOUSEWITHFIREPLACES = await fetchFireplacesData();
-  const HOUSEWITHSEPARATEENTRANCE = await fetchSepEntranceData();
+  // const HOUSEWITHFIREPLACES = await fetchFireplacesData();
+  // const HOUSEWITHSEPARATEENTRANCE = await fetchSepEntranceData();
   // const BLOGPOSTS = await fetchSomeBlogPosts({ pageSize: 4 });
   const BLOGPOSTS = await fetchAllBlogPosts();
   {
@@ -100,13 +100,13 @@ export default async function Home() {
           <Slider data={TORONTOHOMES} type="resale" />
         </PropertyDisplaySection>
         <CanadianCitiesShowcase />
-        <PropertiesDisplayer
+        {/* <PropertiesDisplayer
           topic={"Fireplaces"}
           subtitle={
             "Where marshmallows meet their toasty fate and cold feet find their cozy soulmates."
           }
           data={HOUSEWITHFIREPLACES}
-        />
+        /> */}
         <PropertyDisplaySection
           title="Explore homes in Brampton"
           subtitle=""
@@ -114,7 +114,7 @@ export default async function Home() {
         >
           <Slider data={BRAMPTONHOMES} type="resale" />
         </PropertyDisplaySection>
-        <PropertiesDisplayer
+        {/* <PropertiesDisplayer
           topic={"Separate Entrance"}
           subtitle={
             "A house with a separate entrance is like a mullet haircut - business in the front, party in the back."
@@ -122,8 +122,8 @@ export default async function Home() {
           bg="#454536"
           imageGradient="#99531b"
           data={HOUSEWITHSEPARATEENTRANCE}
-        />
-        <PropertyDisplaySection
+        /> */}
+        {/* <PropertyDisplaySection
           title="Explore homes in Mississauga"
           subtitle=""
           exploreAllLink={generateURL({ cityVal: "Mississauga" })}
@@ -137,14 +137,14 @@ export default async function Home() {
           exploreAllLink={generateURL({ cityVal: "Oakville" })}
         >
           <Slider data={OAKVILLEHOMES} type="resale" />
-        </PropertyDisplaySection>
-        <PropertyDisplaySection
+        </PropertyDisplaySection> */}
+        {/* <PropertyDisplaySection
           title="The Lowrise Insights"
           subtitle=""
           exploreAllLink="/blogs"
         >
           <Slider data={BLOGPOSTS.slice(0, 4)} type="blog" />
-        </PropertyDisplaySection>
+        </PropertyDisplaySection> */}
         {/* <div className="flex flex-col items-center mt-40 sm:mt-40"></div> */}
         <ContactForm />
       </section>

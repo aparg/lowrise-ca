@@ -85,20 +85,20 @@ const Carousel = ({ urls }) => {
       </div>
       <div
         ref={stickyRef}
-        className={`w-full flex justify-center top-8 bg-white sticky z-[999] block sm:hidden scroll-smooth transition-all duration-300 ${
+        className={`w-full flex justify-start top-[2rem] bg-white sticky z-50 sm:hidden scroll-smooth transition-all duration-300 ${
           isSticky ? "py-1" : "py-2"
         }`}
       >
-        <button
+        {/* <button
           onClick={() => scrollThumbnails("prev")}
           className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 transition-all"
         >
           <ChevronLeft
             className={`${isSticky ? "w-3 h-3" : "w-4 h-4"} text-gray-800`}
           />
-        </button>
+        </button> */}
         <div
-          className="flex space-x-2 max-w-[22rem] overflow-x-auto scrollbar-hide px-1 py-2"
+          className="flex space-x-2 max-w-[97vw] overflow-x-auto scrollbar-hide px-1 py-2"
           ref={scrollRef}
         >
           {urls.map((url, index) => (
@@ -106,7 +106,7 @@ const Carousel = ({ urls }) => {
               key={index}
               className={`flex-shrink-0 cursor-pointer rounded-lg overflow-hidden transition-all duration-300 ${
                 currentIndex === index ? "ring-2 ring-blue-500" : ""
-              } ${isSticky ? "w-14 h-14" : "w-20 h-20"}`}
+              } ${isSticky ? "w-14 h-14" : "w-16 h-16"}`}
               onClick={() => goToSlide(index)}
             >
               <img

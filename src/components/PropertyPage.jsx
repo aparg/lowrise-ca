@@ -1,79 +1,49 @@
 "use client";
 import React, { useState, useEffect, useMemo, useRef, useContext } from "react";
 
-import TimeAgo from "@/components/TimeAgo";
+import TimeAgo from "./TimeAgo";
 
 //CUSTOM HOOKS
 import useDeviceView from "@/helpers/useDeviceView";
 
 //CONSTANT
-import Collapse from "@/components/Collapse";
 import Image from "next/image";
 //ICONS
 
-import { priceFormatter } from "@/helpers/priceFormatter";
-import Link from "next/link";
-import MortgageCalculator from "./MortgageCalculator";
+import WalkScore from "./WalkScore";
 import formatCurrency from "@/helpers/formatCurrency";
 import CompactMortgageCalculator from "./CompactMortgageCalculator";
 import { houseType } from "@/constant";
-import { ChatBarContext } from "@/app/context/ChatbarContext";
+import HomeOverview from "./HomeOverview";
+import PropertyDescription from "./PropertyDescription";
+/* import ResaleMap from "./ResaleMap"; */
+import {
+  Bed,
+  Bath,
+  Home,
+  Car,
+  House,
+  Languages,
+  Building2,
+} from "lucide-react";
+import OtherAmentities from "./OtherAmentities";
+import MaintenanceItem from "./MaintenanceItem";
+/* import MapGoogle from "./MapGoogle"; */
+import NearbyPlacesGoogle from "./StreetViewGoogle";
+import RoomInfo from "./RoomData";
+import GetStatusReport from "./GetStatusReport";
+import Link from "next/link";
+import { generateURL } from "@/helpers/generateResaleURL";
+import MarketComparisonChart from "./MarketComparisonChart";
+import StreetResaleMap from "./ResaleMap";
 
-const PropertyPage = ({ main_data }) => {
+const PropertyPage = ({ main_data, room_data, analyticsData }) => {
   const [navbar, setNavbar] = useState(false);
-  const [collapse, setCollapse] = useState(true);
   const { isMobileView } = useDeviceView();
-  const [showMoreDesc, setShowMoreDesc] = useState(false);
-  const [isOverflowing, setIsOverflowing] = useState(false);
-  const { setPropertyData } = useContext(ChatBarContext);
-  const contentRef = useRef(null);
 
-  const toggleShowMore = () => {
-    setShowMoreDesc(!showMoreDesc);
-  };
-
-  const getCommunityFeatures = () => {
-    const {
-      PropertyFeatures1,
-      PropertyFeatures2,
-      PropertyFeatures3,
-      PropertyFeatures4,
-      PropertyFeatures5,
-      PropertyFeatures6,
-    } = main_data;
-
-    return [
-      PropertyFeatures1,
-      PropertyFeatures2,
-      PropertyFeatures3,
-      PropertyFeatures4,
-      PropertyFeatures5,
-      PropertyFeatures6,
-    ].join(", ");
-  };
-
-  const formatNumber = (value) => {
-    // Check if the value is not null or undefined
-    if (value != null) {
-      return Number(value).toLocaleString("en-US");
-    } else {
-      // Handle the case where the value is null or undefined
-      return "N/A"; // or any default value or message you prefer
-    }
-  };
-
-  const handleScrollToContactAgent = () => {
-    const element = document.getElementById("contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const dashedStreetName = `${main_data.Street}-${main_data.StreetName}-${main_data.StreetAbbreviation}`;
+  const dashedStreetName = `${main_data.StreetNumber}-${main_data.StreetName}-${main_data.StreetSuffix}`;
 
   const price = formatCurrency(main_data?.ListPrice);
-  const TaxAnnualAmount = formatCurrency(main_data?.Taxes);
-  const AssociationFee = formatCurrency(main_data?.AddlMonthlyFees);
 
   const priceDecreased = useMemo(() => {
     if (
@@ -102,298 +72,308 @@ const PropertyPage = ({ main_data }) => {
     (item) => (typeOwnSrchToName[item.value] = item.name)
   );
 
-  useEffect(() => {
-    // Check if content is overflowing
-    if (contentRef.current) {
-      const element = contentRef.current;
-      // Compare the scrollHeight with clientHeight to determine if the text overflows
-      setIsOverflowing(element.scrollHeight > element.clientHeight);
-    }
-  }, [main_data.RemarksForClients]);
+  const fullAddress = [
+    [main_data.StreetNumber, main_data.StreetName, main_data.StreetSuffix]
+      .filter(Boolean)
+      .join(" "),
+    main_data.City,
+    main_data.Province,
+    main_data.PostalCode,
+  ]
+    .filter((data) => !!data)
+    .join(", ");
 
-  //useeffect to set propertyda ta when main_data changes
-  useEffect(() => {
-    setPropertyData({
-      listingId: `${main_data.Street} ${main_data.StreetName} ${main_data.StreetAbbreviation},${main_data.Municipality},${main_data.PostalCode}`,
-      price: main_data.ListPrice,
-    });
-  }, [main_data]);
-
-  // const sendNotes = async () => {
-  //   const response = await fetch("https://rets.dolphy.ca/notes/residential", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       // Your data here
-  //       message: "new test message",
-  //     }),
-  //   });
-  //   const data = await response.json();
-  //   console.log(data);
-  // };
+  const fullAddressGooglSearch = [
+    [main_data.StreetNumber, main_data.StreetName, main_data.StreetSuffix]
+      .filter(Boolean)
+      .join(" "),
+    main_data.City,
+    main_data.Province,
+    "CA",
+  ]
+    .filter((data) => !!data)
+    .join(" ");
 
   return (
     <>
-      <div className="screenshot col-12 mt-2">
+      <div className="col-12 mt-2">
         <div
           className={`border-0  rounded-md ${
             isMobileView ? "sm:p-4 pt-3 mt-3" : "mt-5"
           }`}
         >
           <div
-            className={`flex flex-col flex-wrap${
+            className={`flex flex-row sm:gap-x-28 flex-wrap items-center rounded-md ${
               isMobileView ? "gap-3" : "gap-0"
             }`}
           >
-            <div className="flex flex-col space-y-2">
-              <h3 className="text-5xl font-bold">{price}</h3>
-              {/* <button onClick={sendNotes}>Go!</button> */}
-              <div className="space-x-2 block sm:hidden">
-                <button className="bg-[#CC0B0B] p-1 text-white text-xs font-bold mt-1 sm:my-0 w-fit-content rounded-md">
-                  <TimeAgo modificationTimestamp={main_data.TimestampSql} />
-                </button>
-                <button className="bg-[#CC0B0B] p-1 text-white text-xs font-bold mt-1 sm:my-0 w-fit-content rounded-md">
-                  <span>{main_data.TypeOwn1Out}</span>
-                </button>
-              </div>
-              {/* <div className="flex items-center">
-                        <Image
-                          width={20}
-                          height={20}
-                          className="w-4 h-4 mx-1"
-                          src="/property-page-img/price-reduced.png"
-                          alt="reduced"
-                        ></Image>
-                        <span className=" text-green-700 text-lg font-medium">
-                          C$
-                          {priceDecreased &&
-                            priceFormatter(
-                              parseFloat(main_data.MaxListPrice) -
-                                parseFloat(main_data.ListPrice)
-                            )}
-                        </span>
-                      </div> */}
-            </div>
-            <h1 className="fs-6 mt-0 mb-1 text-lg">
-              {main_data.Street} {main_data.StreetName}{" "}
-              {main_data.StreetAbbreviation}, {main_data.Municipality},{" "}
-              {main_data.Province}, {main_data.PostalCode}
-            </h1>
-            <div>
-              <button className="bg-gray-200 mt-4 sm:py-1 px-2 text-black sm:text-xs font-semibold mb-1 w-fit-content rounded-md text-left py-[0.5px] text-[0.65rem]">
-                <span>
-                  Average price for {typeOwnSrchToName[main_data?.TypeOwnSrch]}{" "}
-                  properties in {main_data.Municipality}: $
-                  {main_data.avg.toLocaleString()}
-                </span>
-              </button>
-            </div>
+            <div className="flex flex-col sm:flex-row space-y-8 sm:space-y-0 md:space-x-20 sm:space-x-28 items-start w-full">
+              <section className="flex justify-between items-start w-full">
+                <div className="w-full">
+                  <h3 className="text-2xl md:text-5xl font-bold">
+                    List Price: {price}{" "}
+                    {Number(main_data.AssociationFee) ? (
+                      <span className="font-normal pb-0 text-xs sm:text-sm my-2">
+                        + {formatCurrency(main_data.AssociationFee)} maint. fee
+                      </span>
+                    ) : (
+                      ""
+                    )}
+                  </h3>
+                  {main_data?.PropertySubType.includes("Condo") && (
+                    <GetStatusReport />
+                  )}
+                  {main_data?.PropertySubType.includes("Condo") && (
+                    <div className="flex flex-grid text-xs sm:text-xs font-medium py-1 text-gray-700">
+                      <Link
+                        href={generateURL({
+                          condoCorp: main_data.AssociationName,
+                          cityVal: main_data.City,
+                          condoCorpNumber: main_data.CondoCorpNumber,
+                        })}
+                        className="hover:text-blue-500"
+                      >
+                        Condo Corporation - {main_data.AssociationName} #
+                        {main_data.CondoCorpNumber}
+                      </Link>
+                    </div>
+                  )}
 
-            <div className="rounded-md flex items-center">
-              <div className="flex justify-content-center align-items-center gap-1 text-lg">
-                <img
-                  src="/property-page-img/bedrooms.svg"
-                  alt="bedrooms"
-                  className="w-4"
-                />{" "}
-                {main_data.Bedrooms} Bedroom
-              </div>
-              <span className="text-lg mx-1">|</span>
-              <div className="flex justify-content-center align-items-center gap-1 text-lg">
-                <img
-                  src="/property-page-img/bathrooms.svg"
-                  alt="washrooms"
-                  className="w-4"
-                />{" "}
-                {main_data.Washrooms} Bathroom
-              </div>
-              {main_data.GarageSpaces && (
-                <>
-                  <span className="text-lg">&nbsp;|&nbsp;</span>
-                  <div className="flex justify-content-center align-items-center gap-1 text-lg ">
-                    <img
-                      src="/property-page-img/garage.svg"
-                      alt="garages"
-                      className="w-3"
-                    />{" "}
-                    {Math.trunc(main_data.GarageSpaces)} Garage
+                  <h1 className="text-[0.9rem] mt-1 sm:text-xl">
+                    {[
+                      main_data.StreetNumber,
+                      main_data.StreetName,
+                      main_data.StreetSuffix,
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    {", "}
+                    <Link
+                      href={generateURL({ cityVal: main_data.City })}
+                      className="hover:text-blue-500"
+                    >
+                      {main_data?.City}
+                      {", "}
+                    </Link>
+                    {[main_data.Province, main_data.PostalCode]
+                      .filter((data) => !!data)
+                      .join(", ")}
+                  </h1>
+                  <div className="flex gap-2 items-center">
+                    {main_data.ListOfficeName &&
+                      main_data?.MlsStatus !== "Sold" && (
+                        <div className="flex flex-grid text-xs sm:text-xs font-medium py-1 text-gray-700">
+                          <TimeAgo
+                            modificationTimestamp={
+                              main_data.OriginalEntryTimestamp
+                            }
+                          />{" "}
+                          - By {main_data?.ListOfficeName}
+                        </div>
+                      )}
                   </div>
-                </>
-              )}
+
+                  <div className="flex gap-2 relative">
+                    <div className="flex items-center gap-2 min-w-max pr-12">
+                      <span className="flex items-center gap-1 text-[0.85rem] sm:text-xs text-black w-fit py-1 tracking-wide rounded-md whitespace-nowrap">
+                        <House className="w-3" strokeWidth={2} />
+                        {main_data.PropertySubType}
+                      </span>
+                      <span>|</span>
+                      <span className="flex items-center gap-1 text-[0.85rem] sm:text-xs text-black w-fit py-1 tracking-wide rounded-md whitespace-nowrap">
+                        MLS - #{main_data.ListingKey}
+                      </span>
+                      <span>|</span>
+                      <span className="flex items-center gap-1 text-[0.85rem] sm:text-xs text-black w-fit py-1 tracking-wide rounded-md whitespace-nowrap">
+                        {main_data.MlsStatus}
+                      </span>
+                    </div>
+
+                    {/* Fade effect for mobile */}
+                    {isMobileView && (
+                      <div
+                        className="absolute right-0 top-0 h-full pointer-events-none"
+                        style={{
+                          width: "60px",
+                          background:
+                            "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,1) 100%)",
+                        }}
+                      />
+                    )}
+                  </div>
+
+                  <div className="flex space-x-6 items-center justify-start mt-2">
+                    <div className="flex justify-center items-center gap-1.5 text-sm text-gray-700 flex-col text-center">
+                      <Bed
+                        className="w-6 h-6 text-gray-700"
+                        strokeWidth={1.5}
+                      />
+                      {main_data.BedroomsTotal} Bed
+                    </div>
+                    <div className="flex justify-center items-center gap-1.5 text-sm text-gray-700 flex-col text-center">
+                      <Bath
+                        className="w-6 h-6 text-gray-700"
+                        strokeWidth={1.5}
+                      />
+                      {main_data.BathroomsTotalInteger} Bath
+                    </div>
+                    {main_data.BuildingAreaTotal && (
+                      <div className="flex justify-center items-center gap-1.5 text-sm text-gray-700 flex-col">
+                        <Scan
+                          className="w-6 h-6 text-gray-700"
+                          strokeWidth={1.5}
+                        />
+                        {main_data.BuildingAreaTotal} Sqft.
+                      </div>
+                    )}
+                    {main_data.GarageType && (
+                      <div className="flex justify-center items-center gap-1.5 text-sm text-gray-700 flex-col text-center">
+                        <Car
+                          className="w-6 h-6 text-gray-700"
+                          strokeWidth={1.5}
+                        />
+                        {main_data.GarageType} Garage
+                      </div>
+                    )}
+                  </div>
+                  {main_data.AssociationFeeIncludes.length > 0 && (
+                    <div className="mt-5">
+                      <MaintenanceItem
+                        data={main_data.AssociationFeeIncludes.map((data) =>
+                          data.replace("Included", "").trim()
+                        )}
+                        fee={main_data.AssociationFee}
+                      />
+                    </div>
+                  )}
+
+                  {analyticsData?.totalSimilar > 0 && (
+                    <div className="mt-14">
+                      <h2 className="font-semibold text-sm sm:text-xl leading-0 mb-4">
+                        Price comparison with similar homes in{" "}
+                        <Link
+                          href={generateURL({
+                            cityVal: main_data.City,
+                            houseTypeVal: main_data.PropertySubType,
+                            saleLeaseVal: main_data.TransactionType,
+                          })}
+                          className="hover:underline underline-offset-4"
+                        >
+                          {main_data.City}
+                        </Link>
+                      </h2>
+
+                      <div className="p-2 bg-white shadow rounded-xl border border-gray-100">
+                        <div className="grid grid-cols-2 items-center gap-6">
+                          <div>
+                            <span className="text-sm text-gray-500">
+                              Compared to {analyticsData?.totalSimilar}
+                              {analyticsData?.totalSimilar > 1
+                                ? " similar homes"
+                                : " similar home"}
+                            </span>
+                            <div
+                              className={`text-xl font-bold mt-1 ${
+                                main_data.ListPrice >
+                                (analyticsData?.avgPrice || 0)
+                                  ? "text-red-600"
+                                  : "text-emerald-600"
+                              }`}
+                            >
+                              {(
+                                ((main_data.ListPrice -
+                                  (analyticsData?.avgPrice || 0)) /
+                                  (analyticsData?.avgPrice || 1)) *
+                                100
+                              ).toFixed(1)}
+                              %
+                              {main_data.ListPrice >
+                              (analyticsData?.avgPrice || 0)
+                                ? " Higher"
+                                : " Lower"}
+                              {main_data.ListPrice >
+                              (analyticsData?.avgPrice || 0)
+                                ? "↑"
+                                : "↓"}
+                            </div>
+                          </div>
+
+                          <div>
+                            <span className="text-sm text-gray-500">
+                              Market Avg. of ({analyticsData?.totalSimilar || 0}{" "}
+                              similar homes)
+                            </span>
+                            <div className="text-2xl font-bold text-gray-900">
+                              $
+                              {analyticsData?.avgPrice.toLocaleString(
+                                "en-CA"
+                              ) || 0}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-white rounded-lg">
+                        <MarketComparisonChart
+                          currentPrice={main_data.ListPrice}
+                          comparisons={[
+                            {
+                              name: `Similar Homes in ${main_data.City}`,
+                              description: `${
+                                analyticsData?.totalSimilar
+                              } homes with ${main_data.BedroomsTotal} beds, ${
+                                (main_data.WashroomsType1Pcs || 0) +
+                                (main_data.WashroomsType2Pcs || 0)
+                              } baths`,
+                              price: analyticsData?.avgPrice || 0,
+                            },
+                            {
+                              name: `${main_data.BedroomsTotal} Bed Homes`,
+                              description: `Average of ${
+                                analyticsData?.bedroomCount || 0
+                              } homes`,
+                              price: analyticsData?.avgPriceBedrooms || 0,
+                            },
+                            {
+                              name: main_data.PropertySubType,
+                              description: `Average of ${
+                                analyticsData?.propertyTypeCount || 0
+                              } ${main_data.PropertySubType} homes in ${
+                                main_data.City
+                              }`,
+                              price: analyticsData?.avgPriceType || 0,
+                            },
+                          ]}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  <RoomInfo data={room_data} />
+                </div>
+              </section>
             </div>
-            <p className="card-subtitle my-1 font-normal text-lg">
-              MLS - #{main_data.MLS}{" "}
-            </p>
-            <h1 className="vmain-title">
-              <div className="uppercase bannerSection text-lg">
-                FOR {main_data.SaleLease}
-              </div>
-            </h1>
-            {/* <CompareButton main_data={main_data} width={8} /> */}
-            {/* <div className="flex flex-col font-md mt-2 text-lg">
-                <p class className="">
-                  {main_data.Municipality}, {main_data.Province},{" "}
-                  {main_data.PostalCode}
-                </p>
-              </div> */}
           </div>
         </div>
-        {/* <div className="border-b border-[0.5px] border-gray-200 mt-2 sm:mt-0 sm:ml-4"></div> */}
         {/* Description */}
-        <div className={`${isMobileView ? "pt-4 mt-12" : "mt-12 pt-4"}`}>
-          <div className="border-0 rounded-md bg-very-light-gray p-3 sm:p-4">
-            <div className="font-extrabold text-2xl sm:text-4xl">
-              Property Description <br />
-              <h2 className="font-normal text-lg sm:text-2xl sm:mt-2 mb-1 sm:mb-3">
-                {main_data.Street} {main_data.StreetName}{" "}
-                {main_data.StreetAbbreviation}, {main_data.Municipality},{" "}
-                {main_data.Province}
-              </h2>
-            </div>
-            {/* <p className="text-lg pty-description pt-2 pb-4 leading-8">
-              {main_data.RemarksForClients}
-            </p> */}
-            <p
-              className={`text-lg pty-description pt-2 sm:leading-8 ${
-                showMoreDesc ? "" : "line-clamp-4 sm:line-clamp-6"
-              }`}
-              ref={contentRef}
-              style={{
-                display: "-webkit-box",
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              {main_data.RemarksForClients}
-            </p>
 
-            {/* <div
-              className={`grid grid-cols-2  grid-cols-md-4 w-100 ${
-                isMobileView ? "flex-wrap" : "flex-nowrap "
-              }`}
-            >
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">
-                  Last check for updates
-                </p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  <TimeAgo modificationTimestamp={main_data.TimestampSql} />
-                </p>
-              </div>
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">
-                  Property type
-                </p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  {main_data.TypeOwn1Out}
-                </p>
-              </div>
-            </div> */}
-
-            <div
-              className={`grid grid-cols-2 md:grid-cols-4 w-full ${
-                isMobileView ? "flex-wrap" : "flex-nowrap"
-              }`}
-            >
-              <div className="col-span-1 md:col-span-1 border-b border-gray-200 py-2 md:py-3 pr-0">
-                <p className="font-bold text-black">Property type</p>
-              </div>
-              <div className="col-span-1 md:col-span-1 border-b border-gray-200 py-2 md:py-3 pl-0">
-                <p className="text-black">{main_data.TypeOwn1Out}</p>
-              </div>
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 border-sm py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Lot size</p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 border-sm py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  {main_data.LotFront} X {main_data.LotDepth} Feet
-                </p>
-              </div>
-            </div>
-            <div
-              className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                isMobileView ? "flex-wrap" : "flex-nowrap "
-              }`}
-            >
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Style </p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">{main_data.Style}</p>
-              </div>
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">
-                  Approx. Area
-                </p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  {main_data.ApproxSquareFootage} Sqft
-                </p>
-              </div>
-            </div>
-            <div
-              className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                isMobileView ? "flex-wrap" : "flex-nowrap "
-              }`}
-            >
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Taxes</p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">{TaxAnnualAmount}</p>
-              </div>
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Tax year</p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">{main_data.TaxYear}</p>
-              </div>
-            </div>
-            <div
-              className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                isMobileView ? "flex-wrap" : "flex-nowrap "
-              }`}
-            >
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">
-                  Garage spaces
-                </p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  {formatNumber(main_data.GarageSpaces)}
-                </p>
-              </div>
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Mls® #</p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">{main_data.MLS}</p>
-              </div>
-            </div>
-            {isOverflowing && (
-              <button
-                className="mt-2 px-2 border-2 border-black py-[3px] text-white font-semibold rounded-lg bg-black hover:text-black hover:bg-gray-200 focus:outline-none transition-colors duration-200 sm:my-2 mt-2 mb-4"
-                onClick={toggleShowMore}
-              >
-                {showMoreDesc ? "See Less ↑" : "See More ↓"}
-              </button>
-            )}
+        <div className="mt-6 sm:mt-8 pt-4">
+          <h2 className="font-semibold text-2xl sm:text-3xl leading-0 mb-2">
+            Client Remarks{" "}
+          </h2>
+          <div className="text-justify text-gray-900 font-thin">
+            {main_data.PublicRemarks}
           </div>
         </div>
+
+        {/* <ListingInformation main_data={main_data} fullAddress={fullAddress} /> */}
+        <PropertyDescription main_data={main_data} fullAddress={fullAddress} />
+
         {/* Extras */}
         {main_data?.Extras && (
           <div className={`${isMobileView ? "pt-4 pb-4" : "pt-4 pb-4"}`}>
             <div className="col-md-12 px-0">
-              <div className="container bg-very-light-gray rounded-md p-4 border-0">
+              <div className="container rounded-md p-4 border-0">
                 <h2 className="font-bold text-xl sm:text-xl">Extras</h2>
                 <div className="flex flex-grid text-lg py-1 leading-8">
                   {main_data.Extras}
@@ -403,441 +383,90 @@ const PropertyPage = ({ main_data }) => {
           </div>
         )}
         {/*Home Overview  */}
-        <div
-          className={`${isMobileView ? "pt-4 pb-4 mt-12" : "mt-12 pt-4 pb-4"}`}
-        >
-          <div className="p-4 rounded-md bg-very-light-gray  border-0">
-            <h2 className="font-extrabold pb-3 text-2xl sm:text-4xl">
-              Home Overview
-            </h2>
-            <div
-              className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                isMobileView ? "flex-wrap" : "flex-nowrap "
-              }`}
-            >
-              <div className="col-span-1 md:col-span-1 border-b border-gray-200 py-2 md:py-3 pr-0">
-                <p className="font-bold text-black">Last check for updates</p>
-              </div>
-              <div className="col-span-1 md:col-span-1 border-b border-gray-200 py-2 md:py-3 pl-0">
-                <p className="text-black">
-                  <TimeAgo modificationTimestamp={main_data.TimestampSql} />
-                </p>
-              </div>
-
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">
-                  Virtual tour
-                </p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  <Link href={main_data.VirtualTourURL || ""} target="_blank">
-                    Tour Now
-                  </Link>
-                </p>
-              </div>
+        <HomeOverview main_data={main_data} />
+        {main_data.AssociationAmenities.length > 0 && (
+          <OtherAmentities amenities={main_data.AssociationAmenities} />
+        )}
+      </div>
+      {main_data.UnparsedAddress && (
+        <div className={isMobileView ? `mt-12 col-12` : `mt-12 col-12`}>
+          <div className="sm:text-2xl py-3 flex items-start">
+            <div>
+              <Image
+                width={50}
+                height={50}
+                alt="satellite view"
+                className="w-8 sm:w-10 inline mr-2"
+                src="/icons/home_address.png"
+              />
             </div>
-
-            <div
-              className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                isMobileView ? "flex-wrap" : "flex-nowrap "
-              }`}
-            >
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">
-                  Basement information
-                </p>
+            <div className="flex flex-col">
+              <div className="font-semibold pb-0 text-2xl sm:text-3xl">
+                Walk around the neighborhood
               </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  {main_data?.Basement1
-                    ? `${main_data?.Basement1}, ${main_data?.Basement2}`
-                    : "None"}
-                </p>
-              </div>
-
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">
-                  Building size
-                </p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  {main_data.ApproxSquareFootage}
-                </p>
-              </div>
+              <span className="text-sm font-medium leading-2">
+                {fullAddress}
+              </span>
             </div>
-
-            <div
-              className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                isMobileView ? "flex-wrap" : "flex-nowrap "
-              }`}
-            >
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Status</p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  {main_data.Status === "A" ? "Active" : "In-Active"}
-                </p>
-              </div>
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">
-                  Property sub type
-                </p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  {/* {main_data.PropertySubType} */}
-                </p>
-              </div>
+          </div>
+          <StreetResaleMap address={fullAddressGooglSearch} />
+        </div>
+      )}
+      <div className={isMobileView ? `mt-12 col-12` : `mt-12 col-12`}>
+        <div className="font-semibold text-2xl sm:text-3xl pb-3">
+          Nearby Places
+        </div>
+        <NearbyPlacesGoogle
+          location={main_data.UnparsedAddress || null}
+          height={400}
+          width={800}
+          zoom={13}
+        />
+      </div>
+      <div className="col-12 mt-6">
+        <div className="bg-white rounded-xl border p-6">
+          <div className="flex flex-col sm:flex-row gap-6 items-start">
+            <div className="flex-shrink-0">
+              <Image
+                src="/shally.jpeg"
+                alt="Sales Representative"
+                width={120}
+                height={120}
+                className="rounded-full object-cover"
+              />
             </div>
-
-            <div
-              className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                isMobileView ? "flex-wrap" : "flex-nowrap "
-              }`}
-            >
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">
-                  Maintenance fee
+            <div className="flex flex-col gap-2">
+              <div>
+                <h3 className="text-xl font-semibold leading-0">Shally Shi</h3>
+                <p className="text-gray-600 leading-0">
+                  Sales Representative, Dolphin Realty Inc
                 </p>
               </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">{AssociationFee}</p>
-              </div>
-              <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                <p className="cardd-subtitle_bg-black font-bold">Year built</p>
-              </div>
-              <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                <p className="cardd-subtitle_bg-black">
-                  {main_data.AssessmentYear || "--"}
-                </p>
-              </div>
-            </div>
 
-            <div
-              className={`block ${collapse ? "hidden" : "block"}`}
-              id="collapseExample"
-            >
-              {/* Interior */}
-              <h5 className="py-2 font-bold pt-5">Interior</h5>
-              <div
-                className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    # total bathrooms
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.Washrooms}
-                  </p>
-                </div>
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    # Full baths
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.Washrooms}
-                  </p>
-                </div>
+              <div className="flex items-center gap-2 text-gray-700">
+                <Languages className="w-5 h-5" />
+                <span className="text-sm leading-0">English, Mandarin</span>
               </div>
 
-              <div
-                className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    # of above grade bedrooms
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.Bedrooms}
-                  </p>
-                </div>
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    # of rooms
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {Number(main_data.Rooms) + Number(main_data.RoomsPlus)}
-                  </p>
-                </div>
-              </div>
-
-              <div
-                className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    Family room available
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {Boolean(Number(main_data.FamilyRoom) > 0) ? "Yes" : "No"}
-                  </p>
-                </div>
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    Laundry information
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.LaundryLevel}
-                  </p>
-                </div>
-              </div>
-
-              {/* Exterior */}
-              <h5 className="py-2 font-bold pt-5">Exterior</h5>
-              <div
-                className={`grid grid-cols-2  grid-cols-md-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    Construction materials
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.Exterior1}
-                  </p>
-                </div>
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    Other structures
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.OtherStructures1}
-                  </p>
-                </div>
-              </div>
-
-              <div
-                className={`grid grid-cols-2  grid-cols-md-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    # garage spaces
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {formatNumber(main_data.GarageSpaces)}
-                  </p>
-                </div>
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    # parking spaces
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.ParkingSpaces}
-                  </p>
-                </div>
-              </div>
-
-              <div
-                className={`grid grid-cols-2  grid-cols-md-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    Garage features
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.GarageType}
-                  </p>
-                </div>
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    Has basement (y/n)
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.Basement1 ? "Yes" : "No"}
-                  </p>
-                </div>
-              </div>
-
-              <div
-                className={`grid grid-cols-2  grid-cols-md-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    Has garage (y/n)
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.GarageType ? "Yes" : "No"}
-                  </p>
-                </div>
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">Drive</p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">{main_data.Drive}</p>
-                </div>
-              </div>
-
-              {/* Amenities / Utilities */}
-              <h5 className="py-2 font-bold pt-5">Amenities / Utilities</h5>
-              <div
-                className={`grid grid-cols-2 md:grid-cols-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">Cooling</p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.AirConditioning}
-                  </p>
-                </div>
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    Heat source
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data?.HeatSource}
-                  </p>
-                </div>
-              </div>
-              <div
-                className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">Heat type</p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data?.HeatType}
-                  </p>
-                </div>
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">Sewers</p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">{main_data?.Sewers}</p>
-                </div>
-              </div>
-
-              {/* Location */}
-              <h5 className="py-2 font-bold pt-5">Location</h5>
-              <div
-                className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    Water source
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">{main_data.Water}</p>
-                </div>
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">Area</p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">{main_data.Area}</p>
-                </div>
-              </div>
-              <div
-                className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">Community</p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.Community}
-                  </p>
-                </div>
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    Community features
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {getCommunityFeatures()}
-                  </p>
-                </div>
-              </div>
-              <div
-                className={`grid grid-cols-2  md:grid-cols-4 w-100 ${
-                  isMobileView ? "flex-wrap" : "flex-nowrap "
-                }`}
-              >
-                <div className="col-7 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pr-0">
-                  <p className="cardd-subtitle_bg-black font-bold">
-                    Directions
-                  </p>
-                </div>
-                <div className="col-5 col-md border-b-[0.1px] border-gray-200 py-2 md:py-3 pl-0">
-                  <p className="cardd-subtitle_bg-black">
-                    {main_data.DirectionsCrossStreets}
-                  </p>
+              <div className="space-y-2">
+                <div className="flex flex-wrap gap-4">
+                  <span className="flex items-center gap-1.5 text-sm rounded-full">
+                    <Home className="w-4 h-4" />
+                    Residential Resale
+                  </span>
+                  <span className="flex items-center gap-1.5 text-sm rounded-full">
+                    <Building2 className="w-4 h-4" />
+                    Property Management
+                  </span>
+                  <span className="flex items-center gap-1.5 text-sm rounded-full">
+                    <Building2 className="w-4 h-4" />
+                    Pre Construction
+                  </span>
                 </div>
               </div>
             </div>
-            {/* see more */}
-
-            {/* <div className="pt-3">
-              <Collapse> </Collapse>
-            </div> */}
-            <button
-              onClick={() => setCollapse(!collapse)}
-              className="bg-black font-bold mt-2 px-2 border-2 border-black py-1 text-white font-semibold rounded-lg hover:text-black hover:bg-gray-200 focus:outline-none transition-colors duration-200 sm:my-2 mt-2 mb-4 "
-            >
-              See {collapse ? "More ↓" : "Less ↑"}
-            </button>
           </div>
         </div>
-
-        {main_data.ListBrokerage && (
-          <div className="flex flex-grid text-xs font-medium py-1 text-gray-700">
-            Listed by {main_data?.ListBrokerage}
-          </div>
-        )}
       </div>
       <div className={isMobileView ? `mt-12 col-12` : `mt-24 col-12`}>
         <CompactMortgageCalculator
@@ -846,6 +475,7 @@ const PropertyPage = ({ main_data }) => {
           align="left"
         />
       </div>
+
       <div className={isMobileView ? `mt-14 col-12` : `mt-24 col-12`}>
         <h2 className="font-bold pb-3 text-lg sm:text-2xl pt-3">
           <Image
@@ -855,29 +485,17 @@ const PropertyPage = ({ main_data }) => {
             className="w-8 sm:w-10 inline mr-2"
             src="/property-page-img/walking.svg"
           />
-          Walk Score for {main_data.Street} {main_data.StreetName}{" "}
-          {main_data.StreetAbbreviation}
+          Walk Score for {main_data.StreetNumber} {main_data.StreetName}{" "}
+          {main_data.StreetSuffix}
         </h2>
 
-        <div className="">
-          <div className="">
-            <div className="walkscore-container mt-2 rounded-mine">
-              <script type="text/javascript"></script>
-              {/* <div id="ws-walkscore-tile" className="ham2 w-full"> */}
-              <iframe
-                height="500px"
-                title="Walk Score"
-                className="ham p-0"
-                width="100%"
-                src={`https://www.walkscore.com/serve-walkscore-tile.php?wsid=&amp&s=${dashedStreetName},${main_data.Municipality}&amp;o=h&amp;c=f&amp;h=500&amp;fh=0&amp;w=737`}
-              ></iframe>
-              {/* </div> */}
-              <script
-                type="text/javascript"
-                src="/property-page-imghttps://www.walkscore.com/tile/show-walkscore-tile.php"
-              ></script>
-            </div>
-          </div>
+        <div>
+          <WalkScore
+            address={`${main_data.StreetNumber} ${main_data.StreetName} ${
+              main_data.StreetSuffix
+            }, ${main_data.City.split(" ")[0]}, ON`}
+            width={isMobileView ? 350 : 600}
+          />
         </div>
       </div>
     </>

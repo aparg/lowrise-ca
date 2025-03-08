@@ -1,20 +1,8 @@
 import React from "react";
-import dynamic from "next/dynamic";
-
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
-import { getSalesData } from "../../../../api/getSalesData";
-import { ImSpinner } from "react-icons/im";
-
-const FiltersWithSalesList = dynamic(
-  () => import("@/components/FiltersWithSalesList"),
-  {
-    loading: () => (
-      <div className="flex justify-center align-item-center">
-        <ImSpinner size={24} />
-      </div>
-    ),
-  }
-);
+import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
+import { getSalesData } from "@/_resale-api/getSalesData";
+import CityTitle from "@/components/CityTitle";
+import FilterComponent from "@/components/FilterComponent";
 
 const INITIAL_LIMIT = 30;
 const page = async ({ params }) => {
@@ -24,10 +12,11 @@ const page = async ({ params }) => {
   const saleLeaseVal = "lease";
   return (
     <>
-      <div className="container-fluid mt-4">
+      <div className="container-fluid">
         <div className="">
           <div className="">
-            <FiltersWithSalesList
+            <CityTitle city={city} saleLeaseVal={saleLeaseVal} />
+            <FilterComponent
               {...{ salesListData, INITIAL_LIMIT, city, saleLeaseVal }}
             />
           </div>
@@ -42,18 +31,13 @@ export async function generateMetadata({ params }, parent) {
   return {
     ...parent,
     alternates: {
-      canonical: `https://lowrise.ca/ontario/${params.city}/homes-for-lease`,
+      canonical: `https://homebaba.ca/resale/ontario/${params.city}/homes-for-lease`,
     },
     openGraph: {
       images: "/favicon.ico",
     },
-    title: [
-      `100+ ${formattedCity} Detached, Semi detached & Townhomes for lease`,
-      ,
-      "New Listings",
-      "Lowrise.ca",
-    ].join(" | "),
-    description: `Find houses for sale in ${formattedCity}, ON. Visit Lowrise.ca to see all the ${params.city}, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
+    title: `100+ ${formattedCity} Homes for lease | Detached, Semis & Towns | Homebaba`,
+    description: `Find houses for lease in ${formattedCity}, ON. Visit homebaba.ca to see all the ${params.city}, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
   };
 }
 

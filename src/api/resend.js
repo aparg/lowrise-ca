@@ -1,5 +1,5 @@
 "use server";
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
+import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
 import { Resend } from "resend";
 import swal from "sweetalert";
 
@@ -31,4 +31,5 @@ export const sendEmail = async ({ content, page = null, title = null }) => {
       "Success"
     );
   }
+  console.log(error);
 };

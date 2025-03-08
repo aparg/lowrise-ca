@@ -6,7 +6,8 @@ import BookingDateOption from "./BookingDateOption";
 import TimingList from "./TimingList";
 import BookingType from "./BookingType";
 import DateSelector from "./DateSelector";
-const BookingDate = ({ bannerImage }) => {
+
+const BookingDate = ({ bannerImage, address, city }) => {
   // const [scrollPosition, setScrollPosition] = useState(0);
   // const [maxScroll, setMaxScroll] = useState(0);
   const cardRef = useRef(null);
@@ -113,7 +114,10 @@ const BookingDate = ({ bannerImage }) => {
   };
 
   return (
-    <div className="relative z-0 w-full rounded-md bg-very-light-gray flex items-center mt-12 sm:mt-24">
+    <div
+      id="bookTour"
+      className="relative z-0 w-full rounded-md bg-very-light-gray flex items-center mt-12 sm:mt-24"
+    >
       <div className="flex sm:flex-row flex-col w-full overflow-hidden">
         <div className="w-full sm:w-1/2">
           <img
@@ -124,10 +128,11 @@ const BookingDate = ({ bannerImage }) => {
         </div>
         <div className="w-full sm:w-1/2 sm:mx-2 p-4 flex flex-col justify-center items-center">
           {/**Schedule a viewing form */}
-          <h1 className="font-bold text-3xl my-2 text-center">
+          <h1 className="font-semibold text-3xl my-2 text-center">
             Schedule a viewing
           </h1>
-          <DateSelector />
+
+          <DateSelector address={address} city={city} />
         </div>
       </div>
     </div>

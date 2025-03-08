@@ -1,9 +1,11 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
-import { getSalesData } from "../../../../api/getSalesData";
+import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
+import { getSalesData } from "@/_resale-api/getSalesData";
 import FiltersWithSalesList from "@/components/FiltersWithSalesList";
+import CityTitle from "@/components/CityTitle";
+import FilterComponent from "@/components/FilterComponent";
 
 const INITIAL_LIMIT = 30;
 const page = async ({ params }) => {
@@ -13,10 +15,11 @@ const page = async ({ params }) => {
   const saleLeaseVal = "sale";
   return (
     <>
-      <div className="container-fluid mt-4">
+      <div className="container-fluid">
         <div className="">
           <div className="">
-            <FiltersWithSalesList
+            <CityTitle city={city} saleLeaseVal={saleLeaseVal} />
+            <FilterComponent
               {...{ salesListData, INITIAL_LIMIT, city, saleLeaseVal }}
             />
           </div>
@@ -31,18 +34,14 @@ export async function generateMetadata({ params }, parent) {
   return {
     ...parent,
     alternates: {
-      canonical: `https://lowrise.ca/ontario/${params.city}/homes-for-sale`,
+      canonical: `https://homebaba.ca/resale/ontario/${params.city}/homes-for-sale`,
     },
     openGraph: {
       images: "/favicon.ico",
     },
     // Fix: Remove the extra comma after formattedCity string
-    title: [
-      `100+ ${formattedCity} Detached, Semi detached & Townhomes for sale`,
-      "New Listings",
-      "Lowrise.ca",
-    ].join("|"),
-    description: `Find houses for sale in ${formattedCity}, ON. Visit Lowrise.ca to see all the ${params.city}, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
+    title: `100+ ${formattedCity} Homes for sale | Detached, Semis & Towns | Homebaba`,
+    description: `Find houses for sale in ${formattedCity}, ON. Visit homebaba.ca to see all the ${params.city}, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
   };
 }
 

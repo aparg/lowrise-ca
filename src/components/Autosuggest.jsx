@@ -1,147 +1,137 @@
-"use client";
-import { generateURL } from "@/helpers/generateURL";
+import { generateURL } from "@/helpers/generateResaleURL";
 import Link from "next/link";
-import React, { useRef } from "react";
-import { CSSTransition, Transition } from "react-transition-group";
-import { CgPin } from "react-icons/cg";
-import useFirstRender from "@/hooks/useFirstRender";
+import React from "react";
+import { MapPin } from "lucide-react"; // Using Lucide icons for consistency
 
 const Autosuggest = ({
   displaySuggestions,
   searchTerm,
   suggestions,
-
+  loadingSuggestions,
   numberOfSuggestions,
   setSearchTerm,
 }) => {
-  //For enter & exit animation
-  // const [inProp, setInProp] = useState(false);
-  const firstRender = useFirstRender();
   const recentSearchArray =
     typeof window !== "undefined"
-      ? JSON.parse(window.localStorage.getItem("searchValue"))
+      ? JSON.parse(localStorage.getItem("searchValue")) || []
       : [];
+
   return (
     <div
-      className={`absolute top-0 border-r-1 border-l-1 border-b-1 border-black rounded-b-[28px] w-full bg-white p-4 overflow-hidden z-0 ${
-        firstRender
-          ? "hidden"
-          : displaySuggestions
-          ? "searchbar-animation-open"
-          : "searchbar-animation-close"
-      }`}
+      className={`
+        absolute z-[999] w-full bg-white
+        rounded-xl shadow-lg border border-gray-100
+        overflow-hidden transition-all duration-200
+        ${
+          displaySuggestions
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-2"
+        }
+      `}
     >
-      {/* <section className="my-1 flex items-center cursor-pointer rounded-lg hover:bg-lime-100 px-2">
-              <CgTrack size="1.25rem" />
-              <div className="ml-2 py-4">Current Location</div>
-            </section> */}
+      {/* Suggestions Section */}
+      <div className="p-4">
+        <div className="text-xs font-semibold text-gray-500 mb-2">
+          SUGGESTIONS
+        </div>
 
-      {/* SUGGESTIONS */}
-      {searchTerm && suggestions.length > 0 && (
-        <section className="my-1">
-          <div className="text-xs text-center text-gray-600 font-bold">
-            SUGGESTIONS
+        {loadingSuggestions ? (
+          <div className="flex items-center justify-center py-8">
+            <div className="w-6 h-6 border-t-transparent rounded-full animate-spin" />
           </div>
-          <div>
-            {suggestions.slice(0, numberOfSuggestions).map((suggestion) => {
-              return (
-                <SearchOption
-                  suggestion={suggestion}
-                  setSearchTerm={setSearchTerm}
-                  key={suggestion?.MLS || suggestion?.city}
-                />
-              );
-            })}
+        ) : searchTerm && suggestions.length > 0 ? (
+          <div className="space-y-1">
+            {suggestions.slice(0, numberOfSuggestions).map((suggestion) => (
+              <SearchOption
+                key={suggestion?.ListingKey || suggestion?.city}
+                suggestion={suggestion}
+                setSearchTerm={setSearchTerm}
+              />
+            ))}
           </div>
-          <span className="text-gray-700"></span>
-        </section>
-      )}
-
-      {/* RECENT SEARCHES */}
-      {typeof window !== "undefined" &&
-        recentSearchArray &&
-        recentSearchArray.length > 0 && (
-          <section
-            className={`my-1 ${
-              suggestions.length > 0 && searchTerm && "border-t-1 mt-2 pt-2"
-            }`}
-          >
-            <div className="text-xs text-gray-600 font-bold text-center">
-              RECENT SEARCHES
-            </div>
-            <div>
-              {[...new Set(recentSearchArray)]?.map((suggestion) => (
-                <SearchOption
-                  suggestion={JSON.parse(suggestion)}
-                  key={suggestion?.MLS || suggestion?.city}
-                />
-              ))}
-            </div>
-          </section>
+        ) : (
+          <div className="text-sm text-gray-400 py-4">
+            No search results found.
+          </div>
         )}
+      </div>
+
+      {/* Recent Searches Section */}
+      {recentSearchArray.length > 0 && (
+        <div
+          className={`p-4 bg-gray-50 ${
+            searchTerm && suggestions.length > 0
+              ? "border-t border-gray-100"
+              : ""
+          }`}
+        >
+          <div className="text-xs font-semibold text-gray-500 mb-2">
+            RECENT SEARCHES
+          </div>
+          <div className="space-y-1">
+            {[...new Set(recentSearchArray)].map((suggestion) => (
+              <SearchOption
+                key={
+                  JSON.parse(suggestion)?.ListingKey ||
+                  JSON.parse(suggestion)?.city
+                }
+                suggestion={JSON.parse(suggestion)}
+                setSearchTerm={setSearchTerm}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 const SearchOption = ({ suggestion, setSearchTerm }) => {
   const addToLocalStorage = () => {
-    if (window) {
-      let searchesArray =
-        JSON.parse(window.localStorage.getItem("searchValue")) || [];
-      if (suggestion?.MLS) {
-        const searchObj = JSON.stringify({
-          Address: suggestion?.Address,
-          Municipality: suggestion?.Municipality,
-          MLS: suggestion?.MLS,
-        });
-        searchesArray.unshift(searchObj);
-        if (searchesArray.length > 3) searchesArray = searchesArray.slice(0, 3);
-        window.localStorage.setItem(
-          "searchValue",
-          JSON.stringify(searchesArray)
-        );
-      } else {
-        const searchObj = JSON.stringify({
+    if (typeof window === "undefined") return;
+
+    const searchesArray = JSON.parse(localStorage.getItem("searchValue")) || [];
+    const searchObj = suggestion?.ListingKey
+      ? {
+          UnparsedAddress: suggestion?.UnparsedAddress,
+          CountyOrParish: suggestion?.City,
+          ListingKey: suggestion?.ListingKey,
+        }
+      : {
           province: suggestion?.province,
           city: suggestion?.city,
-        });
-        searchesArray.unshift(searchObj);
-        if (searchesArray.length > 3) searchesArray = searchesArray.slice(0, 3);
-        window.localStorage.setItem(
-          "searchValue",
-          JSON.stringify(searchesArray)
-        );
-      }
-    }
+        };
+
+    searchesArray.unshift(JSON.stringify(searchObj));
+    if (searchesArray.length > 3) searchesArray.length = 3;
+    localStorage.setItem("searchValue", JSON.stringify(searchesArray));
   };
+
+  const href = suggestion?.ListingKey
+    ? generateURL({
+        listingIDVal: suggestion.ListingKey,
+        cityVal: suggestion?.City,
+      })
+    : generateURL({ cityVal: suggestion?.city });
+
   return (
     <Link
-      href={
-        suggestion?.MLS
-          ? generateURL({
-              listingIDVal: suggestion.MLS,
-              cityVal: suggestion?.Municipality,
-            }) //for a listing
-          : generateURL({ cityVal: suggestion?.city })
-      }
+      href={href}
       onClick={() => {
         setSearchTerm("");
         addToLocalStorage();
       }}
-      className="w-full py-2 flex justify-center items-center cursor-pointer rounded-lg hover:bg-lime-100 px-2"
-      // key={suggestion?.MLS || suggestion?.city}
+      className={`
+        group flex items-center w-full p-3
+        rounded-md transition-colors duration-200
+        hover:bg-gray-100 focus:bg-gray-100
+        focus:outline-none
+      `}
     >
-      <div className="flex justify-between me-3">
-        <div className="flex justify-center items-center">
-          <div>
-            <CgPin className="1.25rem"></CgPin>
-          </div>
-
-          <span className="ml-2 text-center">
-            {suggestion?.Address || suggestion.city}
-          </span>
-        </div>
-      </div>
+      <MapPin size={16} className="text-gray-400" />
+      <span className="ml-3 text-sm text-gray-600 group-hover:text-gray-900">
+        {suggestion?.UnparsedAddress || suggestion.city}
+      </span>
     </Link>
   );
 };

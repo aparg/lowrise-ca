@@ -1,189 +1,210 @@
-import dynamic from "next/dynamic";
 import Gallery from "@/components/Gallery";
-import Link from "next/link";
-import { residential } from "../../../../../api/routes/fetchRoutes";
-import { generateImageURLs } from "@/helpers/generateImageURLs";
-import { capitalizeFirstLetter } from "@/helpers/capitalizeFIrstLetter";
+import { capitalizeFirstLetter } from "@/helpers/capitalizeFirstLetter";
 import {
   fetchDataFromMLS,
-  fetchStatsFromMLS,
+  fetchRoomInfo,
+  getImageUrls,
+  // fetchStatsFromMLS,
   getSalesData,
-} from "../../../../../api/getSalesData";
-import BookShowingForm from "@/components/BookShowingForm";
-// const Map = dynamic(() => import("@/components/Map"), { ssr: false });
-// import Map from "@/components/Map";
+} from "@/_resale-api/getSalesData";
+import {
+  getListingAnalytics,
+  getCommercialAnalytics,
+  getLeaseAnalytics,
+} from "@/lib/analytics";
 
 import PropertyPage from "@/components/PropertyPage";
-import BookingDate from "@/components/BookingDate";
 import FAQ from "@/components/FAQ";
-import MortgageCalculator from "@/components/MortgageCalculator";
-import Image from "next/image";
 import Slider from "@/components/Slider";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CreateSchema from "@/helpers/CreateSchema";
 import { slugGenerator } from "@/helpers/slugGenerator";
 import PropertyDisplaySection from "@/components/PropertyDisplaySection";
-import PriceButton from "@/components/PriceButton";
-import formatCurrency from "@/helpers/formatCurrency";
 import Carousel from "@/components/Carousel";
-import { generateURL } from "@/helpers/generateURL";
-import MobileGallery from "@/components/MobileGallery";
-import Thumbnails from "@/components/Thumbnails";
-import TimeAgo from "@/helpers/TimeAgo";
-import { houseType } from "@/constant";
-import NotesForProperties from "@/components/NotesForProperties";
-import { currentUser } from "@clerk/nextjs/server";
+import { generateURL } from "@/helpers/generateResaleURL";
+import { homeText, houseType } from "@/constant";
+import UnlockableCards from "@/components/UnlockableCards";
+import SideContactForm from "@/components/SideContactForm";
+import PropertyPageLinks from "@/components/PropertyPageLinks";
+import FloatingResaleButton from "@/components/FloatingResaleButton";
+import { cityRegions } from "@/constant/postalCodeCities";
+
 // import { getNotes } from "@/helpers/getNotes";
 // import { Button } from "@nextui-org/react";
 
 const INITIAL_OFFSET = 0;
 const INITIAL_LIMIT = 4;
 
-const fetchData = async (listingID) => {
-  const options = {
-    method: "GET",
-  };
-  const urlToFetchMLSDetail = residential.properties.replace(
-    "$query",
-    `?$select=MLS='${listingID}'`
-  );
-
-  const resMLSDetail = await fetch(urlToFetchMLSDetail, options);
-  const data = await resMLSDetail.json();
-  return data.results[0];
-};
-
 const page = async ({ params }) => {
   const { city, listingID } = await params;
   const cityValue = city.split("-").join(" ");
+
   const formattedSlug = capitalizeFirstLetter(cityValue);
   const parts = listingID.split("-");
   const lastPart = parts[parts.length - 1];
   const listingIDValue = lastPart;
-  let main_data = await fetchData(listingIDValue); //always a single object inside the array
+  let main_data = await fetchDataFromMLS(listingIDValue); //always a single object inside the array
+  main_data.City = capitalizeFirstLetter(cityValue);
   const newSalesData = await getSalesData(
     INITIAL_OFFSET,
     INITIAL_LIMIT,
     formattedSlug,
-    main_data?.TypeOwnSrch
+    main_data?.PropertySubType
   );
-
-  const statsValue = await fetchStatsFromMLS({
-    listingType: main_data?.TypeOwnSrch,
-    municipality: main_data?.Municipality,
-    saleLease: main_data?.SaleLease,
-  });
-  main_data.avg = statsValue?.avg
-    ? parseFloat(statsValue?.avg?.toFixed(0)).toLocaleString()
-    : null;
-  const imageURLs = generateImageURLs(
-    listingIDValue,
-    parseInt(main_data?.PhotoCount)
+  const oldSoldData = await getSalesData(
+    INITIAL_OFFSET,
+    8,
+    formattedSlug,
+    main_data?.PropertySubType,
+    true
   );
+  const roomData = await fetchRoomInfo(listingIDValue);
+  const propertyTypeName = Object.values(houseType).find(
+    (obj) =>
+      obj?.value?.toLowerCase() == main_data?.PropertySubType?.toLowerCase()
+  )?.name;
   const breadcrumbItems = [
-    { label: "Ontario", href: "/ontario" },
+    { label: "Ontario", href: "/resale/ontario/homes-for-sale" },
     { label: formattedSlug, href: generateURL({ cityVal: cityValue }) },
     {
-      label: `For ${main_data.SaleLease}`,
+      label: `${homeText[propertyTypeName] || propertyTypeName || ""} ${
+        main_data?.TransactionType
+      } `,
       href: generateURL({
         cityVal: cityValue,
-        saleLeaseVal: main_data.SaleLease.toLowerCase(),
+        saleLeaseVal: main_data?.TransactionType?.toLowerCase(),
+        houseTypeVal: propertyTypeName?.toLowerCase() || null,
       }),
     },
     {
-      label: `${main_data.Street} ${main_data.StreetName}${" "}
-    ${main_data.StreetAbbreviation}`,
+      label: `${main_data?.StreetNumber} ${main_data?.StreetName}${" "}
+    ${main_data?.StreetSuffix}`,
       href: "#",
     },
   ];
 
-  // const address = `${main_data?.Street} ${main_data?.StreetName} ${main_data?.StreetAbbreviation}`;
+  // const address = `${main_data?.StreetNumber} ${main_data?.StreetName} ${main_data?.StreetSuffix}`;
   const address = [
-    main_data?.Street,
+    main_data?.StreetNumber,
     main_data?.StreetName,
-    main_data?.StreetAbbreviation,
+    main_data?.StreetSuffix,
   ]
     .filter(Boolean)
     .join(" ");
 
-  // const notes = await getNotes();
-  const user = await currentUser();
+  const imageURLs = await getImageUrls({ MLS: main_data?.ListingKey });
+  const region = cityRegions.find((cityRegion) =>
+    cityRegion.regions.includes(main_data?.City)
+  );
+
+  let analyticsData = null;
+
+  if (main_data?.PropertyType === "Commercial") {
+    analyticsData = await getCommercialAnalytics({
+      listing: main_data,
+      city: main_data?.City,
+    });
+  } else if (main_data?.TransactionType === "For Lease") {
+    analyticsData = await getLeaseAnalytics({
+      listing: main_data,
+      city: main_data?.City,
+    });
+  } else {
+    analyticsData = await getListingAnalytics({
+      listing: main_data,
+      city: main_data?.City,
+    });
+  }
+
   return (
     <>
-      <div className="flex justify-center min-[2000px]:max-w-[68%] mx-auto">
+      <div className="flex justify-center sm:max-w-[90%] min-[2000px]:max-w-[65%] mx-auto open-sans">
         <div>
           <script
-            key={main_data.MLS}
+            key={main_data?.ListingKey}
             type="application/ld+json"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify(CreateSchema(main_data)),
             }}
           />
           <div className="pt-md-3 pt-0 ">
-            <div className="sticky top-0 z-[999]">
+            <div className="sticky top-[0rem] z-20 max-w-[100vw] no-scrollbar scrollable-indicator">
               <Breadcrumbs items={breadcrumbItems} />
               {/* <Thumbnails setCurrentImageIndex={setCurrentImageIndex} /> */}
             </div>
             <section className="padding-top w-full text-sm flex flex-col items-center justify-center gy-2 relative">
-              <div className="hidden sm:block relative">
+              <div className="hidden sm:block relative w-full">
                 <Gallery data={imageURLs} />
-                <div className="space-x-2 order-2 sm:order-1 absolute bottom-2 left-2">
-                  <button className="bg-[#CC0B0B] p-1 text-white text-xs font-bold mt-1 mb-2 sm:my-0 w-fit-content rounded-md">
-                    <TimeAgo modificationTimestamp={main_data.TimestampSql} />
-                  </button>
-                  <button className="bg-[#CC0B0B] p-1 text-white text-xs font-bold mt-1 mb-2 sm:my-0 w-fit-content rounded-md">
-                    <span>{main_data.TypeOwn1Out}</span>
-                  </button>
-                </div>
               </div>
               {/* Carousel is only for mobile. */}
               <Carousel urls={imageURLs} />
-              <div className=" w-full flex justify-center pt-0 sm:pt-4 relative">
-                <div className="grid sm:grid-cols-6 grid-cols-1 justify-between sm:justify-between w-full sm:gap-x-6 gap-y-12 sm:gap-y-0 relative">
-                  <div className={`sm:col-span-4 col-span-4 col-md-8 `}>
-                    <PropertyPage {...{ main_data }} />
-
-                    <BookingDate bannerImage={imageURLs[0]} />
-                    {/* <NotesForProperties notes={notes} /> */}
-                    {/* <div className="z-20 relative mt-12 sm:mt-24">
-                      <h2 className="font-extrabold text-2xl sm:text-4xl mb-2">
-                        Map View
-                      </h2>
-                      <Map main_data={main_data} />
-                    </div> */}
+              <div className=" w-full flex justify-start md:justify-center ps-3 md:ps-0 pt-0 sm:pt-4 relative">
+                <div className="grid sm:grid-cols-9 grid-cols-1 justify-between sm:justify-between w-full sm:gap-x-8 gap-y-12 sm:gap-y-0 relative max-w-[97%] sm:max-w-[75%]">
+                  <div className={`sm:col-span-6 col-span-9`}>
+                    <PropertyPage
+                      {...{
+                        main_data,
+                        room_data: roomData,
+                        nearbyHomes: newSalesData,
+                        analyticsData,
+                      }}
+                    />
+                    {/* <BookingDate
+                      bannerImage={imageURLs && imageURLs[0]}
+                      address={address}
+                    /> */}
                   </div>
 
                   <div
-                    className="sm:col-span-2 col-span-2 relative"
-                    id="contact"
+                    className="sm:col-span-3 col-span-9 relative"
+                    id="mycontact"
                   >
-                    <BookShowingForm
+                    <SideContactForm
                       address={
-                        address + `, ${main_data?.Municipality}, Ontario`
+                        address +
+                        `, ${region?.name || main_data?.City}, Ontario`
                       }
-                    ></BookShowingForm>
-                  </div>
-                  <div className="mt-24 mb-10 col-span-4">
-                    <FAQ main_data={main_data} />
+                      city={main_data?.City}
+                    ></SideContactForm>
                   </div>
                 </div>
               </div>
-              {formattedSlug && newSalesData?.length > 0 && (
-                <section className="additonal__listing w-full mx-auto mt-24">
+
+              <div className="mt-24 mb-10 col-span-7 px-3 flex flex-col gap-20 items-center justify-center">
+                <FAQ main_data={main_data} />
+              </div>
+              {
+                <section className="additonal__listing w-full mx-auto mt-10 md:mt-24">
                   <PropertyDisplaySection
-                    title={`Similar Homes nearby in ${
-                      main_data?.Municipality || "Ontario"
+                    title={`Recently Sold Homes in ${
+                      region?.name || main_data?.City || "Ontario"
+                    }`}
+                    subtitle={`Check out recently sold properties. Listings updated daily`}
+                    exploreAllLink={null}
+                  >
+                    <UnlockableCards data={oldSoldData} />
+                    {/* <Slider data={oldSoldData} type="resale" /> */}
+                  </PropertyDisplaySection>
+                </section>
+              }
+              {formattedSlug && newSalesData?.length > 0 && (
+                <section className="additonal__listing w-full mx-auto mt-10 md:mt-24">
+                  <PropertyDisplaySection
+                    title={`Similar ${
+                      homeText[
+                        Object.values(houseType).find(
+                          (data) => data.value == main_data.PropertySubType
+                        )?.name
+                      ]
+                    } nearby in ${
+                      region?.name || main_data?.City || "Ontario"
                     }`}
                     subtitle={`Check out 100+ listings near this property. Listings updated daily`}
                     exploreAllLink={generateURL({
-                      houseTypeVal:
-                        houseType[
-                          Object.keys(houseType).find(
-                            (key) =>
-                              houseType[key].value == main_data?.TypeOwnSrch
-                          )
-                        ]?.name,
-                      saleLeaseVal: main_data?.SaleLease,
+                      houseTypeVal: Object.values(houseType).find(
+                        (obj) => obj.value == main_data?.PropertySubType
+                      )?.name,
+                      saleLeaseVal: main_data?.TransactionType,
                       cityVal: city,
                     })}
                   >
@@ -192,7 +213,17 @@ const page = async ({ params }) => {
                 </section>
               )}
 
-              <PriceButton price={formatCurrency(main_data?.ListPrice)} />
+              <div className="w-full bg-white mt-20 max-w-[90%] mx-auto sm:max-w-full">
+                <div className="text-left mb-8">
+                  <h2 className="text-xl sm:text-3xl font-bold w-[100%] sm:w-auto">
+                    See the Latest Listings by Cities
+                  </h2>
+                  <p className="text-black">1500+ home for sale in Ontario</p>
+                </div>
+                <PropertyPageLinks saleLease={main_data?.TransactionType} />
+              </div>
+              <FloatingResaleButton />
+              {/* <PriceButton price={formatCurrency(main_data?.ListPrice)} /> */}
             </section>
           </div>
         </div>
@@ -208,17 +239,19 @@ export async function generateMetadata({ params }, parent) {
   const parts = listingID.split("-");
   const lastPart = parts[parts.length - 1];
   const listingIDValue = lastPart;
-  const main_data = await fetchData(listingIDValue);
-  const imageURLs = generateImageURLs(listingIDValue);
+  const main_data = await fetchDataFromMLS(listingIDValue);
+  const imageURLs = await getImageUrls({ MLS: main_data?.ListingKey });
   return {
     ...parent,
     alternates: {
-      canonical: `https://lowrise.ca/listings/${slugGenerator(main_data)}`,
+      canonical: `https://homebaba.ca/resale/ontario/${
+        params.city
+      }/listings/${slugGenerator(main_data)}`,
     },
     openGraph: {
-      images: await fetch(imageURLs[0]),
+      images: imageURLs?.length > 0 ? imageURLs[0] : null,
     },
-    title: `${main_data?.Street} ${main_data?.StreetName} ${main_data?.StreetAbbreviation}`,
-    description: `${main_data?.TypeOwn1Out}.${main_data?.Municipality}`,
+    title: `${main_data?.StreetNumber} ${main_data?.StreetName} ${main_data?.StreetSuffix} in ${main_data?.City} MLS # ${main_data?.ListingKey} - Homebaba`,
+    description: `Book a showing for ${main_data?.StreetNumber} ${main_data?.StreetName} ${main_data?.StreetSuffix} with MLS # ${main_data?.ListingKey} in ${main_data?.City} with us - Homebaba`,
   };
 }

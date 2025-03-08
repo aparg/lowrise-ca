@@ -1,4 +1,4 @@
-import { residential } from "../api/routes/fetchRoutes";
+import { residential } from "@/_resale-api/routes/fetchRoutes";
 
 export const generateImageURLs = (id) => {
   const images = [];

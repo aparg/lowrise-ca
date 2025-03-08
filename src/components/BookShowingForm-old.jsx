@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from "react";
 import React from "react";
-import BookingDate from "./BookingDate";
 // import { fetchHostEmail } from "@/actions/fetchHostEmail";
 import { usePathname } from "next/navigation";
 // import { Checkbox } from "@nextui-org/react";
 import Link from "next/link";
-import { sendEmail } from "../api/resend";
+import { sendEmail } from "@/_resale-api/resend";
 export default function BookShowingForm(props) {
   const pathname = usePathname();
   const [submitbtn, setSubmitbtn] = useState("Book now");
@@ -87,7 +86,6 @@ export default function BookShowingForm(props) {
           method="POST"
           className="mb-3 mt-10 flex flex-col items-center"
           onSubmit={(e) => handleFormSubmit(e)}
-          id="contactForm"
         >
           <div className="w-full">
             <div className="relative mb-3">

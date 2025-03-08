@@ -61,11 +61,10 @@ const Footer = ({ cities }) => {
                   </div>
                   <p className="text-sm leading-relaxed mb-8">
                     Lowrise (“Lowrise.ca”) is a real estate marketplace platform
-                    -owned by Homebaba technologies Inc. Lowrise refers
-                    potential buyers to real estate agents that are licensed in
-                    the province where the respective property is located.
-                    Dolphin Realty is licensed as a real estate brokerage in
-                    Ontario.
+                    -owned by Lowrise technologies Inc. Lowrise refers potential
+                    buyers to real estate agents that are licensed in the
+                    province where the respective property is located. Dolphin
+                    Realty is licensed as a real estate brokerage in Ontario.
                     <br />
                     <br />
                     IDX information is provided exclusively for consumers’
@@ -86,10 +85,10 @@ const Footer = ({ cities }) => {
                         <p>
                           Email:{" "}
                           <Link
-                            href="mailto:info@lowrise.ca"
+                            href="mailto:info@homebaba.ca"
                             className="text-blue-600 hover:underline"
                           >
-                            info@lowrise.ca
+                            info@homebaba.ca
                           </Link>
                         </p>
                       </address>
@@ -148,7 +147,7 @@ const Footer = ({ cities }) => {
                     with the Internet Data Exchange logo and detailed
                     information about those properties will include the name of
                     the listing broker(s) when required by the MLS. Copyright
-                    ©2025 All rights reserved. Last Updated: {todaysutc} UTC
+                    ©2024 All rights reserved. Last Updated: {todaysutc} UTC
                   </p>
                 </div>
                 <div className="flex flex-col items-center space-y-4">

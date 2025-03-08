@@ -1,10 +1,10 @@
-import { generateURL } from "@/helpers/generateURL";
+import { generateURL } from "@/helpers/generateResaleURL";
 import Link from "next/link";
 import React from "react";
 
 const CityCard = ({ name, imageUrl }) => (
   <Link href={generateURL({ cityVal: name })}>
-    <div className="relative overflow-hidden rounded-lg shadow-lg group cursor-pointer">
+    <div className="relative overflow-hidden rounded-xl shadow-lg group cursor-pointer">
       <img
         src={imageUrl}
         alt={`${name} cityscape`}
@@ -20,15 +20,15 @@ const CityCard = ({ name, imageUrl }) => (
 
 const CanadianCitiesShowcase = () => {
   const cities = [
-    { name: "Toronto", imageUrl: "/images/toronto.jpg" },
-    { name: "Ottawa", imageUrl: "/images/ottawa.jpg" },
+    { name: "Toronto", imageUrl: "/city-images/toronto.jpg" },
+    { name: "Ottawa", imageUrl: "/city-images/ottawa.jpg" },
     // object for these cities
-    { name: "Mississauga", imageUrl: "/images/mississauga.jpg" },
-    { name: "Ajax", imageUrl: "/images/ajax.jpg" },
-    { name: "Barrie", imageUrl: "/images/barrie.jpg" },
-    { name: "Brampton", imageUrl: "/images/brampton.jpg" },
-    { name: "Pickering", imageUrl: "/images/pickering.jpg" },
-    { name: "Hamilton", imageUrl: "/images/hamilton.jpg" },
+    { name: "Mississauga", imageUrl: "/city-images/mississauga.jpg" },
+    { name: "Ajax", imageUrl: "/city-images/ajax.jpg" },
+    { name: "Barrie", imageUrl: "/city-images/barrie.jpg" },
+    { name: "Brampton", imageUrl: "/city-images/brampton.jpg" },
+    { name: "Pickering", imageUrl: "/city-images/pickering.jpg" },
+    { name: "Hamilton", imageUrl: "/city-images/hamilton.jpg" },
     // { name: "Oakville", imageUrl: "/images/oakville.jpg" },
     // Add more cities as needed
   ];
@@ -37,7 +37,7 @@ const CanadianCitiesShowcase = () => {
     <div className="my-[5rem] sm:my-[10rem]">
       <div className="mx-auto">
         <h2 className="text-4xl font-bold text-center mb-2 mt-10">
-          Commercial Properties for sale in{" "}
+          New Homes for sale in{" "}
           <span className="text-primary-green">your city </span>
           <span className="text-primary-green relative">
             <span className="absolute bottom-0 left-0 w-full h-1 bg-primary-gretext-primary-green rounded"></span>

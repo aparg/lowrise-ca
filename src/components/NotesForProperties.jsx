@@ -1,9 +1,8 @@
 "use client";
 import React, { useContext, useEffect, useState, useRef } from "react";
-import { SignInButton } from "@clerk/nextjs";
 import NoteInput from "./NoteInput";
 import { HouseIcon, MessageCircle } from "lucide-react";
-import { BASE_URL } from "@/api";
+import { BASE_URL } from "@/_resale-api";
 import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
 import { ChatBarContext } from "@/app/context/ChatbarContext";
 import ChatMessage from "./ChatMessage";

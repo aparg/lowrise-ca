@@ -3,9 +3,9 @@ import BookingType from "./BookingType";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import BookingDateOption from "./BookingDateOption";
 import TimingList from "./TimingList";
-import { sendEmail } from "@/api/resend";
+import { sendEmail } from "@/_resale-api/resend";
 
-const DateSelector = ({ showBookingType = true, address }) => {
+const DateSelector = ({ showBookingType = true, address, city }) => {
   // const [scrollPosition, setScrollPosition] = useState(0);
   // const [maxScroll, setMaxScroll] = useState(0);
   const cardRef = useRef(null);
@@ -13,11 +13,10 @@ const DateSelector = ({ showBookingType = true, address }) => {
   //slide right and left code for cardref and containerref
   const containerRef = useRef(null);
   const scrollRef = useRef(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [phone, setPhone] = useState("");
   const [timing, setTiming] = useState({
     type: "",
     date: "",
+    email: "",
     time: "",
     phoneNumber: "",
     name: "",
@@ -113,12 +112,11 @@ const DateSelector = ({ showBookingType = true, address }) => {
   const submitData = async () => {
     setIsSubmitting(true);
     try {
-      await sendEmail({
-        content: timing,
+      const sent = await sendEmail({
+        content: { ...timing, city },
         page: address,
         title: `Inquiry for property ${address}`,
       });
-      setIsSubmitted(true);
     } catch (error) {
       console.error("Failed to send email:", error);
     } finally {
@@ -126,30 +124,16 @@ const DateSelector = ({ showBookingType = true, address }) => {
     }
   };
   return (
-    <div>
+    <div className="w-full">
       {showBookingType && (
         <div className="flex justify-center items-center">
-          <span className="tour-type rounded-full bg-light-lime px-1 py-1 mt-2 mb-6">
+          <span className="tour-type rounded-full bg-light-lime px-1 py-1 mt-2 mb-0">
             <BookingType handleChange={handleChange} />
           </span>
         </div>
       )}
-      <div className="flex flex-col justify-center items-center">
-        <div className="relative my-2">
-          {/* <button
-            className="absolute w-6 h-6 left-0 border-gray-200 border-2 rounded-full z-[999] translate-y-[-50%] sm:left-[-20px] top-[50%] flex justify-center items-center bg-white"
-            title="scroll left"
-            onClick={slideLeft}
-          >
-            <SlArrowLeft size={8} />
-          </button>
-          <button
-            className="absolute w-6 h-6 right-0 border-gray-200 border-2 rounded-full z-[999] translate-y-[-50%] sm:right-[-20px] top-[50%] items-center bg-white flex justify-center"
-            title="scroll right"
-            onClick={slideRight}
-          >
-            <SlArrowRight size={8} />
-          </button> */}
+      <div className="flex flex-col justify-center items-center w-full">
+        {/* <div className="relative my-2">
           <div className="flex flex-col items-center">
             <div
               // className="flex z-0 scroll-container relative w-full overflow-x-scroll overscroll-x-none no-scrollbar"
@@ -172,12 +156,12 @@ const DateSelector = ({ showBookingType = true, address }) => {
               ))}
             </div>
           </div>
-        </div>
-        <TimingList handleChange={handleChange} />
+        </div> */}
+        {/* <TimingList handleChange={handleChange} /> */}
         {/* <div className="text-md text-center my-2 text-gray-700">
               No obligation or purchase necessary, cancel at any time
             </div> */}
-        <div className="relative mb-1 mt-4 w-full">
+        <div className="relative mt-2 w-full">
           <input
             type="text"
             name="name"
@@ -186,7 +170,7 @@ const DateSelector = ({ showBookingType = true, address }) => {
             value={timing.name}
             onChange={(e) => handleChange(e)}
             required={true}
-            className="rounded-full bg-white mt-4 fff w-full px-4 pt-5 pb-1 border-b-2 focus:outline-none peer/bookshowingName placeholder:translate-y-1/2 placeholder:scale-100"
+            className="rounded-full bg-white mt-4 fff w-full px-4 pt-5 pb-1 border-b-2 focus:outline-none peer/bookshowingName placeholder:translate-y-1/2 placeholder:scale-100  border-2"
           />
           <label
             htmlFor="name"
@@ -195,17 +179,35 @@ const DateSelector = ({ showBookingType = true, address }) => {
             Name
           </label>
         </div>
-        <div className="relative mb-3 w-full">
+        <div className="relative mb-1 mt-2 w-full">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder=""
+            value={timing.email}
+            onChange={(e) => handleChange(e)}
+            required={true}
+            className="rounded-full bg-white mt-4 fff w-full px-4 pt-5 pb-1 border-b-2 focus:outline-none peer/bookshowingName placeholder:translate-y-1/2 placeholder:scale-100  border-2"
+          />
+          <label
+            htmlFor="name"
+            className="absolute left-0 top-5 px-4 text-gray-500 transition-all duration-300 peer-focus/bookshowingName:-translate-y-[0.85] peer-focus/bookshowingName:scale-30 peer-placeholder-shown/bookshowingName:translate-y-1/4 peer-placeholder-shown/bookshowingName:scale-100"
+          >
+            Email
+          </label>
+        </div>
+        <div className="relative mb-3 w-full border-gray-600">
           <input
             type="text"
             inputMode="numeric"
-            name="phone"
+            name="phoneNumber"
             id="phoneNumber"
             placeholder=""
             value={timing.phoneNumber}
             onChange={(e) => handleChange(e)}
             required={true}
-            className="rounded-full bg-white mt-4 fff w-full px-4 pt-5 pb-1 border-b-2 focus:outline-none peer/bookshowingPhone placeholder:translate-y-1/2 placeholder:scale-100 "
+            className="rounded-full bg-white mt-4 fff w-full px-4 pt-5 pb-1 border-b-2 focus:outline-none peer/bookshowingPhone placeholder:translate-y-1/2 placeholder:scale-100 border-2"
           />
           <label
             htmlFor="phoneNumber"

@@ -1,4 +1,4 @@
-import { houseType, saleLease } from "@/constant";
+import { houseType } from "@/constant";
 import { allCities } from "@/constant/cities";
 import { generateURL } from "@/helpers/generateURL";
 import Link from "next/link";

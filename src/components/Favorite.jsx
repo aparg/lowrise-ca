@@ -1,23 +1,29 @@
 import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
-import { Heart } from "lucide-react";
 import { useState } from "react";
 
 const Favorite = ({ isFavorite, toggleFavorite, MLS, size = 6 }) => {
   return (
     <button
       onClick={toggleFavorite}
-      className={`p-2 rounded-full transition-colors duration-200 ${
-        isFavorite
-          ? "bg-red-100 hover:bg-red-200"
-          : "bg-gray-100 hover:bg-gray-200"
-      }`}
+      className={`p-0 rounded-full transition-colors duration-200`}
       aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
     >
-      <Heart
-        className={`w-${size} h-${size} ${
-          isFavorite ? "text-red-500 fill-current" : "text-gray-500"
-        }`}
-      />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 32 32"
+        aria-hidden="true"
+        role="presentation"
+        focusable="false"
+        className={`w-${size} h-${size}`}
+        style={{
+          fill: isFavorite ? "#ef4444" : "rgba(0, 0, 0, 0.5)",
+          stroke: "white",
+          strokeWidth: 2,
+          overflow: "visible",
+        }}
+      >
+        <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z" />
+      </svg>
     </button>
   );
 };
