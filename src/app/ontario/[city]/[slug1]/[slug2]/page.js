@@ -61,7 +61,7 @@ export async function generateMetadata({ params }, parent) {
   return {
     ...parent,
     alternates: {
-      canonical: `https://homebaba.ca/resale/ontario/${params.city}/${params.slug1}/${params.slug2}`,
+      canonical: `https://lowrise.ca/resale/ontario/${params.city}/${params.slug1}/${params.slug2}`,
     },
     openGraph: {
       images: "/favicon.ico",

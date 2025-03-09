@@ -33,8 +33,8 @@ export async function generateMetadata({ params }, parent) {
       images: "/favicon.ico",
     },
     // Fix: Remove the extra comma after formattedCity string
-    title: `100+ Ontario Homes for sale | Detached, Semis & Towns | Homebaba`,
-    description: `Find houses for sale in Ontario. Visit Homebaba.ca to see all the Ontario real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
+    title: `100+ Ontario Homes for sale | Detached, Semis & Towns | Lowrise`,
+    description: `Find houses for sale in Ontario. Visit lowrise.ca to see all the Ontario real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
   };
 }
 

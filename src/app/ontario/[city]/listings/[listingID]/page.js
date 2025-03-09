@@ -244,7 +244,7 @@ export async function generateMetadata({ params }, parent) {
   return {
     ...parent,
     alternates: {
-      canonical: `https://homebaba.ca/resale/ontario/${
+      canonical: `https://lowrise.ca/resale/ontario/${
         params.city
       }/listings/${slugGenerator(main_data)}`,
     },

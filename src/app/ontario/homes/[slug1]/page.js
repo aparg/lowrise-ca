@@ -82,12 +82,12 @@ export async function generateMetadata({ params }, parent) {
   return {
     ...parent,
     alternates: {
-      canonical: `https://homebaba.ca/ontario/homes/${params.slug1}`,
+      canonical: `https://lowrise.ca/ontario/homes/${params.slug1}`,
     },
     openGraph: {
       images: "/favicon.ico",
     },
-    title: `100+ Ontario homes for Sale | Homebaba `,
+    title: `100+ Ontario homes for Sale | Lowrise `,
     description: `500+ Ontario ${type} for sale. Book a showing for affordable homes with pools, finished basements, walkouts. Prices from $1 to $5,000,000. Open houses available.`,
   };
 }

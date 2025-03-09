@@ -129,9 +129,9 @@ const PreApprovalForm = () => {
 
           <p className="text-[10px] sm:text-[8px] text-[#6B7280] text-center leading-tight mt-4">
             I agree to receive marketing and customer service calls and text
-            messages from Homebaba Technologies. Consent is not a condition of
-            purchase. Msg/data rates may apply. Msg frequency varies. Reply STOP
-            to unsubscribe. Privacy Policy & Terms of Service.
+            messages from Lowrise. Consent is not a condition of purchase.
+            Msg/data rates may apply. Msg frequency varies. Reply STOP to
+            unsubscribe. Privacy Policy & Terms of Service.
           </p>
         </form>
       </DialogContent>

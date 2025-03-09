@@ -29,7 +29,7 @@ const MarketDataButton = ({ city, propertyType }) => {
             <div className="flex items-center">
               <img src="/canadaleaf.svg" className="w-4 h-4 mr-2"></img>
               <h2 className="tracking-wide font-semibold uppercase text-lg">
-                HOMEBABA DATA INTELLIGENCE
+                LOWRISE DATA INTELLIGENCE
               </h2>
             </div>
           </DialogTitle>

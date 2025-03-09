@@ -22,7 +22,7 @@ export default page;
 export async function generateMetadata({ params }, parent) {
   return {
     ...parent,
-    title: "Open Houses in Ontario | Homebaba",
+    title: "Open Houses in Ontario | Lowrise",
     description:
       "We have a list of open houses in Ontario for you to view. Find the perfect home for you today!",
     alternates: {

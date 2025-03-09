@@ -28,13 +28,13 @@ export async function generateMetadata({ params }, parent) {
   return {
     ...parent,
     alternates: {
-      canonical: `https://homebaba.ca/resale/ontario/homes-for-lease`,
+      canonical: `https://lowrise.ca/resale/ontario/homes-for-lease`,
     },
     openGraph: {
       images: "/favicon.ico",
     },
-    title: `100+ Ontario Homes for lease | Detached, Semis & Towns | Homebaba`,
-    description: `Find houses for lease in Ontario. Visit Homebaba.ca to see all the Ontario real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
+    title: `100+ Ontario Homes for lease | Detached, Semis & Towns | Lowrise`,
+    description: `Find houses for lease in Ontario. Visit lowrise.ca to see all the Ontario real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
   };
 }
 

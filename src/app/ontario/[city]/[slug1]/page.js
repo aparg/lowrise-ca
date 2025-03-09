@@ -112,13 +112,13 @@ export async function generateMetadata({ params }, parent) {
     }
     return `100+ ${formattedCity} ${
       homeText[type] || "homes"
-    } for Sale | Homebaba `;
+    } for Sale | Lowrise `;
   };
   const formattedCity = capitalizeFirstLetter(params.city.replace("-", " "));
   return {
     ...parent,
     alternates: {
-      canonical: `https://homebaba.ca/resale/ontario/${params.city}/${params.slug1}`,
+      canonical: `https://lowrise.ca/resale/ontario/${params.city}/${params.slug1}`,
     },
     openGraph: {
       images: "/favicon.ico",

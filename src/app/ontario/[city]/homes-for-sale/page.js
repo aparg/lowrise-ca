@@ -34,14 +34,14 @@ export async function generateMetadata({ params }, parent) {
   return {
     ...parent,
     alternates: {
-      canonical: `https://homebaba.ca/resale/ontario/${params.city}/homes-for-sale`,
+      canonical: `https://lowrise.ca/resale/ontario/${params.city}/homes-for-sale`,
     },
     openGraph: {
       images: "/favicon.ico",
     },
     // Fix: Remove the extra comma after formattedCity string
-    title: `100+ ${formattedCity} Homes for sale | Detached, Semis & Towns | Homebaba`,
-    description: `Find houses for sale in ${formattedCity}, ON. Visit homebaba.ca to see all the ${params.city}, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
+    title: `100+ ${formattedCity} Homes for sale | Detached, Semis & Towns | Lowrise`,
+    description: `Find houses for sale in ${formattedCity}, ON. Visit lowrise.ca to see all the ${params.city}, ON real estate listings on the MLS® Systems today! Prices starting at $1 💰`,
   };
 }
 
