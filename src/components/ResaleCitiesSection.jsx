@@ -96,7 +96,7 @@ const ResaleCitiesSection = ({ saleLease = "for sale" }) => {
           </Link>
           <p className="text-gray-600">
             1000+ homes for sale on Ontario. Check out affordable homes in
-            Homebaba.{" "}
+            Lowrise.{" "}
           </p>
         </div>
 
