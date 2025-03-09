@@ -48,10 +48,10 @@ export default function ResaleLinks() {
     <div className="max-w-6xl mx-auto px-3 md:px-4 mt-20 bg-gray-100 bg-opacity-50 rounded-xl py-16 my-20">
       <div className="text-center mb-8">
         <p className="uppercase text-gray-500 font-semibold tracking-wider">
-          Homebaba resale listings
+          Lowrise resale listings
         </p>
         <h2 className="text-3xl md:text-4xl font-bold mb-2">
-          Find Resale Homes in Homebaba
+          Find Resale Homes in Lowrise
         </h2>
       </div>
       <div className="max-w-6xl mx-auto">
