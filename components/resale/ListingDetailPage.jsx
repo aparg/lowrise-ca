@@ -1,11 +1,10 @@
 import Gallery from "@/components/resale/Gallery";
 import Breadcrumbs from "@/components/resale/Breadcrumbs";
-import CreateSchema from "@/helpers/CreateSchema";
+import createListingSchema from "@/helpers/createListingSchema";
 import PropertyPage from "@/components/resale/PropertyPage";
 import FAQ from "@/components/resale/FAQ";
 import Carousel from "@/components/resale/Carousel";
 import PropertyDisplaySection from "@/components/resale/PropertyDisplaySection";
-import UnlockableCards from "@/components/resale/UnlockableCards";
 import Slider from "@/components/resale/Slider";
 import SideContactForm from "@/components/resale/SideContactForm";
 import PropertyPageLinks from "@/components/resale/PropertyPageLinks";
@@ -126,7 +125,7 @@ export default async function ListingDetailPage({ slug }) {
           key={main_data?.ListingKey}
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(CreateSchema(main_data)),
+            __html: JSON.stringify(createListingSchema(main_data)),
           }}
         />
         <div className="pt-md-3 pt-0 ">

@@ -3,7 +3,6 @@ import ContactForm from "@/components/ContactForm";
 import Image from "next/image";
 import Testimonial from "@/components/Testimonial";
 import CallToAction from "@/components/CallToAction";
-import Script from "next/script";
 import HomebabaAdvantage from "@/components/HomebabaAdvantage";
 import ResaleCitiesSection from "@/components/resale/ResaleCitiesSection";
 import BestExperience from "@/components/BestExperience";
@@ -61,12 +60,6 @@ const websiteSchema = {
 export default async function Home() {
   return (
     <>
-      <Script
-        id="schema-website"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
-
       <HeroSection />
       <BestExperience />
       <PriceDropSection />
