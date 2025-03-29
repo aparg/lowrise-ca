@@ -8,13 +8,65 @@ import Script from "next/script";
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Lowrise - Canadaian Homes for Sale and Rent",
+  title: "Lowrise - Canadian Homes for Sale and Rent",
   description:
     "Looking for New Homes for Sale and Rent near Greater Toronto Area, Canada? From Townhomes to Detached and Condos Lowrise has all kinds of homes for sale and rent.",
+  keywords:
+    "homes for sale, homes for rent, real estate, GTA, Toronto, Ontario, Alberta, condos, townhouses, detached homes",
+  authors: [{ name: "Lowrise" }],
+  creator: "Lowrise",
+  publisher: "Lowrise",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://lowrise.ca"),
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "https://lowrise.ca/favicon.ico",
     shortcut: "https://lowrise.ca/favicon-16x16.png",
     apple: "https://lowrise.ca/apple-touch-icon.png",
+  },
+  openGraph: {
+    title: "Lowrise - Canadian Homes for Sale and Rent",
+    description:
+      "Looking for New Homes for Sale and Rent near Greater Toronto Area, Canada? From Townhomes to Detached and Condos Lowrise has all kinds of homes for sale and rent.",
+    url: "https://lowrise.ca",
+    siteName: "Lowrise",
+    images: [
+      {
+        url: "https://lowrise.ca/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Lowrise - Canadian Homes for Sale and Rent",
+      },
+    ],
+    locale: "en_CA",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lowrise - Canadian Homes for Sale and Rent",
+    description:
+      "Looking for New Homes for Sale and Rent near Greater Toronto Area, Canada? From Townhomes to Detached and Condos Lowrise has all kinds of homes for sale and rent.",
+    images: ["https://lowrise.ca/twitter-image.jpg"],
+  },
+  verification: {
+    google: "your-google-site-verification",
   },
 };
 
