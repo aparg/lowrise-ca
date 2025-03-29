@@ -8,13 +8,13 @@ import Script from "next/script";
 const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Homebaba - Canada's Leading New Construction Homes Platform",
+  title: "Lowrise - Canadaian Homes for Sale and Rent",
   description:
-    "Looking for New Construction Homes near Greater Toronto Area, Canada? From Townhomes to Detached and Condos Homebaba offer early access to all best New Construction Homes available.",
+    "Looking for New Homes for Sale and Rent near Greater Toronto Area, Canada? From Townhomes to Detached and Condos Lowrise has all kinds of homes for sale and rent.",
   icons: {
-    icon: "https://homebaba.ca/favicon.ico",
-    shortcut: "https://homebaba.ca/favicon-16x16.png",
-    apple: "https://homebaba.ca/apple-touch-icon.png",
+    icon: "https://lowrise.ca/favicon.ico",
+    shortcut: "https://lowrise.ca/favicon-16x16.png",
+    apple: "https://lowrise.ca/apple-touch-icon.png",
   },
 };
 
