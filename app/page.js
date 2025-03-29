@@ -29,34 +29,6 @@ export const metadata = {
   alternates: { canonical: "https://lowrise.ca/" },
 };
 
-// Structured Data for SEO
-const websiteSchema = {
-  "@context": "https://schema.org/",
-  "@type": "WebSite",
-  name: "Lowrise",
-  url: "https://lowrise.ca",
-  description: "Lowrise - Canadian Home for Sale and Rent",
-  image: "https://lowrise.ca/ajax.jpg",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: "https://lowrise.ca/search?q={search_term_string}",
-    "query-input": "required name=search_term_string",
-  },
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+1 647-239-5555",
-    contactType: "customer support",
-  },
-  openingHours: "Mo-Su 09:00-18:00",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "8300 Woodbine Ave",
-    addressLocality: "Markham",
-    addressRegion: "ON",
-    addressCountry: "CA",
-  },
-};
-
 export default async function Home() {
   return (
     <>

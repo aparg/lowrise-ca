@@ -250,24 +250,26 @@ const Footer = () => {
                 height={200}
               />
             </Link>
-            <Link href="https://homebaba.ca" target="_blank">
-              <Link href="/" className="flex items-center md:me-2">
-                <span className="text-sm md:text-2xl font-bold">homebaba</span>
-                <Image
-                  src="/canadaleaf.svg"
-                  alt="Maple Leaf Icon for Logo"
-                  width={20}
-                  height={20}
-                  className="hidden md:block"
-                />
-                <Image
-                  src="/canadaleaf.svg"
-                  alt="Maple Leaf Icon for Logo"
-                  width={15}
-                  height={15}
-                  className="block md:hidden"
-                />
-              </Link>
+            <Link
+              href="https://homebaba.ca"
+              target="_blank"
+              className="flex items-center md:me-2"
+            >
+              <span className="text-sm md:text-2xl font-bold">homebaba</span>
+              <Image
+                src="/canadaleaf.svg"
+                alt="Maple Leaf Icon for Logo"
+                width={20}
+                height={20}
+                className="hidden md:block"
+              />
+              <Image
+                src="/canadaleaf.svg"
+                alt="Maple Leaf Icon for Logo"
+                width={15}
+                height={15}
+                className="block md:hidden"
+              />
             </Link>
           </div>
         </div>
