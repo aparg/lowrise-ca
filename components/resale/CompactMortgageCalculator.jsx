@@ -88,7 +88,7 @@ export default function CompactMortgageCalculator({
           {/* Left Column - Input Fields */}
           <div className="space-y-6">
             <div>
-              <label className="text-sm font-medium text-gray-500 mb-2 block">
+              <label className="text-sm font-normal text-gray-500 mb-2 block">
                 Sale Price
               </label>
               <input
@@ -96,12 +96,12 @@ export default function CompactMortgageCalculator({
                 id="hvalue"
                 value={priceNumber ? `$${priceNumber}` : ""}
                 onChange={handleChange}
-                className="w-full h-12 px-4 bg-gray-50 border-0 rounded-lg text-gray-900 text-lg font-medium focus:ring-0"
+                className="w-full h-12 px-4 bg-gray-50 border-0 rounded-lg text-gray-900 text-lg font-normal focus:ring-0"
               />
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-500 mb-2 block">
+              <label className="text-sm font-normal text-gray-500 mb-2 block">
                 Percent Down Payment
               </label>
               <input
@@ -109,12 +109,12 @@ export default function CompactMortgageCalculator({
                 id="dper"
                 value={`${calculatordata.dper}`}
                 onChange={handleChange}
-                className="w-full h-12 px-4 bg-gray-50 border-0 rounded-lg text-gray-900 text-lg font-medium focus:ring-0"
+                className="w-full h-12 px-4 bg-gray-50 border-0 rounded-lg text-gray-900 text-lg font-normal focus:ring-0"
               />
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-500 mb-2 block">
+              <label className="text-sm font-normal text-gray-500 mb-2 block">
                 Down Payment
               </label>
               <input
@@ -125,12 +125,12 @@ export default function CompactMortgageCalculator({
                   ""
                 )}`}
                 onChange={handleChange}
-                className="w-full h-12 px-4 bg-gray-50 border-0 rounded-lg text-gray-900 text-lg font-medium focus:ring-0"
+                className="w-full h-12 px-4 bg-gray-50 border-0 rounded-lg text-gray-900 text-lg font-normal focus:ring-0"
               />
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-500 mb-2 block">
+              <label className="text-sm font-normal text-gray-500 mb-2 block">
                 Amortization Period (Years)
               </label>
               <input
@@ -138,12 +138,12 @@ export default function CompactMortgageCalculator({
                 id="loanterm"
                 value={calculatordata.loanterm}
                 onChange={handleChange}
-                className="w-full h-12 px-4 bg-gray-50 border-0 rounded-lg text-gray-900 text-lg font-medium focus:ring-0"
+                className="w-full h-12 px-4 bg-gray-50 border-0 rounded-lg text-gray-900 text-lg font-normal focus:ring-0"
               />
             </div>
 
             <div>
-              <label className="text-sm font-medium text-gray-500 mb-2 block">
+              <label className="text-sm font-normal text-gray-500 mb-2 block">
                 Interest Rate
               </label>
               <input
@@ -151,14 +151,14 @@ export default function CompactMortgageCalculator({
                 id="intrate"
                 value={calculatordata.intrate}
                 onChange={handleChange}
-                className="w-full h-12 px-4 bg-gray-50 border-0 rounded-lg text-gray-900 text-lg font-medium focus:ring-0"
+                className="w-full h-12 px-4 bg-gray-50 border-0 rounded-lg text-gray-900 text-lg font-normal focus:ring-0"
               />
             </div>
           </div>
 
           {/* Right Column - Payment Display */}
           <div>
-            <h3 className="text-sm font-medium text-gray-500 mb-6">
+            <h3 className="text-sm font-normal text-gray-500 mb-6">
               Estimated Payment
             </h3>
             <div className="relative">

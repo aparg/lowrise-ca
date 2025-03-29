@@ -104,7 +104,7 @@ const PropertyPage = ({
                 <div className="w-full">
                   {openHouseData && (
                     <div className="inline-flex items-center bg-white border text-xs px-3 py-1 rounded-md">
-                      <span className="font-medium">
+                      <span className="font-normal">
                         OPEN{" "}
                         {format(
                           openHouseData[openHouseData.length - 1]
@@ -172,7 +172,7 @@ const PropertyPage = ({
                           </div>
                         )}
                       </div>
-                      <div className="mt-1 text-xs sm:text-sm font-medium">
+                      <div className="mt-1 text-xs sm:text-sm font-normal">
                         <TimeAgo
                           modificationTimestamp={
                             main_data.ModificationTimestamp
@@ -193,7 +193,7 @@ const PropertyPage = ({
                           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-sm">
                             <span className="text-gray-600">Est. Payment</span>
                             <div className="flex items-center gap-2">
-                              <span className="font-medium text-sm sm:text-base">
+                              <span className="font-normal text-sm sm:text-base">
                                 $
                                 {Math.round(
                                   ((main_data.ListPrice -
@@ -437,7 +437,7 @@ const PropertyPage = ({
               <div className="font-extrabold pb-0 text-2xl sm:text-3xl">
                 Walk around the neighborhood
               </div>
-              <span className="text-sm font-medium leading-2">
+              <span className="text-sm font-normal leading-2">
                 {fullAddress}
               </span>
             </div>

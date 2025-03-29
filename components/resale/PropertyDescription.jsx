@@ -69,7 +69,7 @@ const PropertyDescription = ({ main_data, fullAddress }) => {
         {isOverflowing && (
           <button
             onClick={toggleShowMore}
-            className="mt-4 flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+            className="mt-4 flex items-center gap-1 text-sm font-normal text-gray-600 hover:text-gray-900 transition-colors"
           >
             {showMoreDesc ? (
               <>
@@ -86,10 +86,10 @@ const PropertyDescription = ({ main_data, fullAddress }) => {
         <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4">
           {propertyDetails.map((detail, index) => (
             <div key={index} className="space-y-1">
-              <dt className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <dt className="text-xs font-normal text-gray-500 uppercase tracking-wider">
                 {detail.label}
               </dt>
-              <dd className="text-sm font-medium text-gray-900">
+              <dd className="text-sm font-normal text-gray-900">
                 {detail.value}
               </dd>
             </div>

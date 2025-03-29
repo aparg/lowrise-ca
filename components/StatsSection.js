@@ -26,7 +26,7 @@ const StatsSection = () => {
             <div className="text-[1.75rem] md:text-[2.5rem] font-extrabold text-gray-900 leading-tight mb-3">
               1500+
             </div>
-            <div className="text-xs md:text-sm text-gray-600 font-medium">
+            <div className="text-xs md:text-sm text-gray-600 font-normal">
               Pre-Construction Projects
             </div>
           </div>
@@ -44,7 +44,7 @@ const StatsSection = () => {
             <div className="text-[1.75rem] md:text-[2.5rem] font-extrabold text-gray-900 leading-tight mb-3">
               5+
             </div>
-            <div className="text-xs md:text-sm text-gray-600 font-medium">
+            <div className="text-xs md:text-sm text-gray-600 font-normal">
               Years in Industry
             </div>
           </div>
@@ -62,7 +62,7 @@ const StatsSection = () => {
             <div className="text-[1.75rem] md:text-[2.5rem] font-extrabold text-gray-900 leading-tight mb-3">
               100+
             </div>
-            <div className="text-xs md:text-sm text-gray-600 font-medium">
+            <div className="text-xs md:text-sm text-gray-600 font-normal">
               Currently Selling Projects
             </div>
           </div>
@@ -80,7 +80,7 @@ const StatsSection = () => {
             <div className="text-[1.75rem] md:text-[2.5rem] font-extrabold text-gray-900 leading-tight mb-3">
               1M+
             </div>
-            <div className="text-xs md:text-sm text-gray-600 font-medium">
+            <div className="text-xs md:text-sm text-gray-600 font-normal">
               Annual Website Visitors
             </div>
           </div>

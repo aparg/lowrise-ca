@@ -98,7 +98,7 @@ const DisplayerCard = ({ MLS, city, address, type, imageGradient }) => {
         ></div>
         <div className="absolute inset-x-0 bottom-0 w-full">
           <div className="px-2 sm:px-4 py-2 sm:py-6">
-            <p className="font-sans text-base font-medium text-white">
+            <p className="font-sans text-base font-normal text-white">
               {address}
             </p>
             <p className="mt-1 font-serif text-sm italic text-white test-wrap">

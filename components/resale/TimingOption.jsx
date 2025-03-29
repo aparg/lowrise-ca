@@ -13,7 +13,7 @@ const TimingOption = ({ selected, setSelected, handleChange, timing }) => {
       id="time"
       value={timing.time}
     >
-      <span className="font-medium text-md">{timing.name}</span>
+      <span className="font-normal text-md">{timing.name}</span>
       <span className="font-thin text-xs">{timing.time} </span>
     </button>
   );

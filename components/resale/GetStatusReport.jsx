@@ -121,7 +121,7 @@ const GetStatusReport = () => {
 
           <button
             type="submit"
-            className="w-full bg-black text-white py-3 sm:py-3.5 rounded-xl text-sm sm:text-base font-medium hover:bg-gray-800 transition-all duration-200 hover:shadow-lg"
+            className="w-full bg-black text-white py-3 sm:py-3.5 rounded-xl text-sm sm:text-base font-normal hover:bg-gray-800 transition-all duration-200 hover:shadow-lg"
           >
             {submitbtn}
           </button>

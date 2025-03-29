@@ -141,7 +141,7 @@ const HomeOverview = ({ main_data }) => {
             (section, index) =>
               (!collapse || section.alwaysShow) && (
                 <div key={index} className="space-y-4">
-                  <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider">
+                  <h3 className="text-sm font-normal text-gray-900 uppercase tracking-wider">
                     {section.title}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -151,7 +151,7 @@ const HomeOverview = ({ main_data }) => {
                         className="flex justify-between py-2 border-b border-gray-100"
                       >
                         <dt className="text-sm text-gray-500">{item.label}</dt>
-                        <dd className="text-sm font-medium text-gray-900 text-right">
+                        <dd className="text-sm font-normal text-gray-900 text-right">
                           {item.value}
                         </dd>
                       </div>
@@ -164,7 +164,7 @@ const HomeOverview = ({ main_data }) => {
 
         <button
           onClick={() => setCollapse(!collapse)}
-          className="mt-6 flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+          className="mt-6 flex items-center gap-1 text-sm font-normal text-gray-600 hover:text-gray-900 transition-colors"
         >
           {collapse ? (
             <>

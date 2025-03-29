@@ -33,7 +33,7 @@ const Breadcrumbs = ({ items }) => {
                       {item.label}
                     </Link>
                   ) : (
-                    <span className="text-xs font-medium text-gray-900 whitespace-nowrap">
+                    <span className="text-xs font-normal text-gray-900 whitespace-nowrap">
                       {item.label}
                     </span>
                   )}

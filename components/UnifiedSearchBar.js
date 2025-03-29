@@ -223,7 +223,7 @@ const UnifiedSearchBar = ({
                 {/* Cities Section */}
                 {results.cities.length > 0 && (
                   <div className="mb-2">
-                    <div className="px-3 py-1.5 text-xs font-medium text-gray-500">
+                    <div className="px-3 py-1.5 text-xs font-normal text-gray-500">
                       {searchQuery ? "Cities" : "Popular Cities"}
                     </div>
                     {results.cities.map((city, index) => (
@@ -246,7 +246,7 @@ const UnifiedSearchBar = ({
                 {/* Properties Section */}
                 {results.properties.length > 0 && (
                   <div>
-                    <div className="px-3 py-1.5 text-xs font-medium text-gray-500">
+                    <div className="px-3 py-1.5 text-xs font-normal text-gray-500">
                       Properties
                     </div>
                     {results.properties.map((property, index) => (

@@ -1,7 +1,7 @@
 "use client";
-import { Fragment } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import ResaleMapView from './ResaleMapView';
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import ResaleMapView from "./ResaleMapView";
 
 const ResaleMapModal = ({ isOpen, onClose, properties, city }) => {
   return (
@@ -33,15 +33,25 @@ const ResaleMapModal = ({ isOpen, onClose, properties, city }) => {
               <Dialog.Panel className="w-full max-w-[90vw] h-[80vh] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900 flex justify-between items-center mb-4"
+                  className="text-lg font-normal leading-6 text-gray-900 flex justify-between items-center mb-4"
                 >
                   <span>Properties Map View</span>
                   <button
                     onClick={onClose}
                     className="text-gray-500 hover:text-gray-700 transition-colors"
                   >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
                     </svg>
                   </button>
                 </Dialog.Title>

@@ -122,7 +122,7 @@ const PreApprovalForm = () => {
 
           <button
             type="submit"
-            className="w-full bg-black text-white py-3 sm:py-4 rounded-xl text-[15px] sm:text-[16px] font-medium hover:bg-gray-800 transition duration-200"
+            className="w-full bg-black text-white py-3 sm:py-4 rounded-xl text-[15px] sm:text-[16px] font-normal hover:bg-gray-800 transition duration-200"
           >
             {submitbtn}
           </button>

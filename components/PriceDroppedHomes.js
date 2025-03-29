@@ -71,7 +71,7 @@ const PriceDroppedHomes = () => {
         <div className="mt-16 text-center">
           <Link
             href="/ontario/price-dropped"
-            className="inline-flex items-center px-6 py-3 bg-slate-800 text-white font-medium rounded-xl hover:bg-slate-900 transition-colors"
+            className="inline-flex items-center px-6 py-3 bg-slate-800 text-white font-normal rounded-xl hover:bg-slate-900 transition-colors"
           >
             100+ Price dropped homes in Ontario
             <ArrowRight className="ml-2 h-4 w-4" />

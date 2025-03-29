@@ -184,7 +184,7 @@ const AlbertaResaleCard = ({
                             clipRule="evenodd"
                           />
                         </svg>
-                        <span className="text-sm text-green-500 font-medium">
+                        <span className="text-sm text-green-500 font-normal">
                           {Math.round(
                             ((curElemData.OriginalListPrice -
                               curElemData.ListPrice) /
@@ -214,7 +214,7 @@ const AlbertaResaleCard = ({
                     <span> /mo</span>
                   )}
                 </h2>
-                <div className="text-xs font-medium text-black mb-1 sm:mb-0 flex items-center">
+                <div className="text-xs font-normal text-black mb-1 sm:mb-0 flex items-center">
                   {
                     <>
                       <TimeAgo

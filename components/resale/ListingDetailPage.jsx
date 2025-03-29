@@ -1,6 +1,6 @@
 import Gallery from "@/components/resale/Gallery";
 import Breadcrumbs from "@/components/resale/Breadcrumbs";
-import createListingSchema from "@/helpers/createSchema2";
+import { createListingSchema } from "@/helpers/createSchema2";
 import PropertyPage from "@/components/resale/PropertyPage";
 import FAQ from "@/components/resale/FAQ";
 import Carousel from "@/components/resale/Carousel";

@@ -123,7 +123,7 @@ export default function OntarioCitiesGrid() {
                 city: cityData.city,
                 isOpenHouse: true,
               })}
-              className="text-sm font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+              className="text-sm font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
             >
               Open Houses in {cityData.city}
             </Link>
@@ -141,7 +141,7 @@ export default function OntarioCitiesGrid() {
                         propertyType: type.slug,
                         saleLease: saleLease,
                       })}
-                      className="text-xs font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+                      className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
                     >
                       {`${type.label} for ${saleLease} in ${cityData.city}`}
                     </Link>
@@ -169,7 +169,7 @@ export default function OntarioCitiesGrid() {
                           saleLease: saleLease,
                           bedCount: bedObj.value,
                         })}
-                        className="text-xs font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+                        className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
                       >
                         {`${bedObj.value} bedroom homes for ${saleLease} in ${cityData.city}`}
                       </Link>
@@ -194,7 +194,7 @@ export default function OntarioCitiesGrid() {
                         saleLease: "sale",
                         priceRange: priceRange.path,
                       })}
-                      className="text-xs font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+                      className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
                     >
                       {`${type.label} for sale in ${cityData.city} ${priceRange.label}`}
                     </Link>
@@ -225,7 +225,7 @@ export default function OntarioCitiesGrid() {
                             priceRange: priceRange.path,
                             bedCount: bedObj.value,
                           })}
-                          className="text-xs font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+                          className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
                         >
                           {`${bedObj.value} bedroom ${type.label} for sale in ${cityData.city} ${priceRange.label}`}
                         </Link>

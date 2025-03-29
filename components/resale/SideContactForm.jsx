@@ -256,7 +256,7 @@ const SideContactForm = ({
         {sortedOpenHouses.length > 0 && (
           <div className="mb-0 relative">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-medium text-gray-700">
+              <span className="text-xs font-normal text-gray-700">
                 🏠 Open House Times
               </span>
               <button

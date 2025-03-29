@@ -66,7 +66,7 @@ const BestExperience = () => {
             ))}
           </div>
 
-          <button className="bg-black hover:bg-gray-900 text-white font-medium py-2 px-6 rounded-md transition duration-200 mt-10">
+          <button className="bg-black hover:bg-gray-900 text-white font-normal py-2 px-6 rounded-md transition duration-200 mt-10">
             Explore Homes in Ontario
           </button>
         </div>

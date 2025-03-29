@@ -1,11 +1,14 @@
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Roboto } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import Script from "next/script";
 
-const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"] });
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+});
 
 export const metadata = {
   title: "Lowrise - Canadian Homes for Sale and Rent",
@@ -82,7 +85,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${plusJakartaSans.className}`}>
+      <body className={`${roboto.className}`}>
         <Script id="analytics" strategy="afterInteractive">
           {`
             (function() {

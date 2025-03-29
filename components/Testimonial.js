@@ -13,7 +13,7 @@ const Testimonial = ({
   return (
     <div className="my-20 md:my-[80px] md:mb-[150px] max-w-[1200px] mx-auto px-4 md:px-4 flex justify-center w-full">
       <div className="max-w-[800px] md:max-w-[800px] mx-auto text-center">
-        <p className="text-[15px] md:text-[32px] leading-2 md:leading-10 text-[#1a202c] font-medium mb-6 md:mb-10 text-center px-4 md:px-0">
+        <p className="text-[15px] md:text-[32px] leading-2 md:leading-10 text-[#1a202c] font-normal mb-6 md:mb-10 text-center px-4 md:px-0">
           "{testimonialText}"
         </p>
 

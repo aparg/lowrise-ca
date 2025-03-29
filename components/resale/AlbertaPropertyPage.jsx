@@ -140,7 +140,7 @@ const AlbertaPropertyPage = ({
                               clipRule="evenodd"
                             />
                           </svg>
-                          <span className="text-sm text-black font-medium">
+                          <span className="text-sm text-black font-normal">
                             {Math.round(
                               ((main_data.OriginalListPrice -
                                 main_data.ListPrice) /
@@ -156,7 +156,7 @@ const AlbertaPropertyPage = ({
                     <GetStatusReport />
                   )}
                   {main_data?.PropertySubType.includes("Condo") && (
-                    <div className="flex flex-grid text-xs sm:text-xs font-medium py-1 text-gray-700">
+                    <div className="flex flex-grid text-xs sm:text-xs font-normal py-1 text-gray-700">
                       <Link
                         href={generateURL({
                           condoCorp: main_data.AssociationName,
@@ -194,7 +194,7 @@ const AlbertaPropertyPage = ({
                   <div className="flex gap-2 items-center">
                     {main_data.ListOfficeName &&
                       main_data?.MlsStatus !== "Sold" && (
-                        <div className="flex flex-grid text-xs sm:text-xs font-medium py-1 text-gray-700">
+                        <div className="flex flex-grid text-xs sm:text-xs font-normal py-1 text-gray-700">
                           <TimeAgo
                             modificationTimestamp={
                               main_data.ModificationTimestamp
@@ -451,7 +451,7 @@ const AlbertaPropertyPage = ({
               <div className="font-semibold pb-0 text-2xl sm:text-3xl">
                 Walk around the neighborhood
               </div>
-              <span className="text-sm font-medium leading-2">
+              <span className="text-sm font-normal leading-2">
                 {fullAddress}
               </span>
             </div>

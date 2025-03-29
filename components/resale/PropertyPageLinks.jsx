@@ -57,7 +57,7 @@ const PropertyPageLinks = ({ saleLease = "for sale" }) => {
                         houseTypeVal: type.name,
                         saleLeaseVal: saleLease,
                       })}
-                      className="text-xs font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+                      className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
                     >
                       {homeText[type.name]} in {city}
                     </Link>

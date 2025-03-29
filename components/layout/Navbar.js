@@ -211,7 +211,7 @@ const Navbar = () => {
                       text={"red"}
                       options={buyOpts}
                       width="w-full"
-                      className="!justify-start text-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors py-2"
+                      className="!justify-start text-lg font-normal text-gray-700 hover:bg-gray-50 transition-colors py-2"
                     />
                   </div>
                   <div className="px-6 py-4">
@@ -222,27 +222,27 @@ const Navbar = () => {
                       text={"red"}
                       options={rentOpts}
                       width="w-full"
-                      className="!justify-start text-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors py-2"
+                      className="!justify-start text-lg font-normal text-gray-700 hover:bg-gray-50 transition-colors py-2"
                     />
                   </div>
                   <Link
                     href="/assignment-sale"
                     onClick={() => setIsOpen(false)}
-                    className="px-6 py-4 text-lg font-medium text-gray-700 hover:text-emerald-600 transition-colors"
+                    className="px-6 py-4 text-lg font-normal text-gray-700 hover:text-emerald-600 transition-colors"
                   >
                     Assignment
                   </Link>
                   <Link
                     href="/contact-us"
                     onClick={() => setIsOpen(false)}
-                    className="px-6 py-4 text-lg font-medium text-gray-700 hover:text-emerald-600 transition-colors"
+                    className="px-6 py-4 text-lg font-normal text-gray-700 hover:text-emerald-600 transition-colors"
                   >
                     Contact
                   </Link>
                   <Link
                     href="/blog"
                     onClick={() => setIsOpen(false)}
-                    className="px-6 py-4 text-lg font-medium text-gray-700 hover:text-emerald-600 transition-colors"
+                    className="px-6 py-4 text-lg font-normal text-gray-700 hover:text-emerald-600 transition-colors"
                   >
                     Blog
                   </Link>

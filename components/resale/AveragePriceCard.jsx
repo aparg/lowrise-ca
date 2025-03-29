@@ -52,7 +52,7 @@ export default function AveragePriceCard({ averagePrice }) {
       <div className="flex items-center gap-3 bg-white rounded-full py-1 px-4 shadow-lg border border-gray-200 md:rounded-xl md:py-1.5">
         <div className="flex items-center gap-2 md:gap-3">
           <div>
-            <div className="hidden md:block text-[11px] font-medium text-gray-600 uppercase tracking-wide">
+            <div className="hidden md:block text-[11px] font-normal text-gray-600 uppercase tracking-wide">
               Average Price
             </div>
             <div className="flex items-center gap-2">
@@ -185,7 +185,7 @@ export default function AveragePriceCard({ averagePrice }) {
 
               <button
                 type="submit"
-                className="w-full bg-gray-900 text-white py-3.5 px-4 rounded-xl hover:bg-gray-800 transition-colors font-medium text-base focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 flex items-center justify-center gap-2 mt-2"
+                className="w-full bg-gray-900 text-white py-3.5 px-4 rounded-xl hover:bg-gray-800 transition-colors font-normal text-base focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 flex items-center justify-center gap-2 mt-2"
               >
                 {submitBtn === "Submitting..." ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

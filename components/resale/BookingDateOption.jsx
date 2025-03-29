@@ -25,7 +25,7 @@ const BookingDateOption = React.forwardRef(
           <span className="font-thin uppercase text-sm leading-6">
             {data.dayName}
           </span>
-          <span className="font-medium text-2xl leading-6">{data.day} </span>
+          <span className="font-normal text-2xl leading-6">{data.day} </span>
           <span className="font-thin text-sm leading-6">{data.month} </span>
         </button>
       </div>

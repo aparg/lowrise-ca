@@ -31,7 +31,7 @@ const NewsletterSignup = () => {
             </div>
             <button
               type="submit"
-              className="w-full px-6 py-4 text-base font-medium text-white transition-all duration-200 bg-primary-green border border-transparent rounded-xl hover:bg-primary-green-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-green"
+              className="w-full px-6 py-4 text-base font-normal text-white transition-all duration-200 bg-primary-green border border-transparent rounded-xl hover:bg-primary-green-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-green"
             >
               Subscribe Now
             </button>

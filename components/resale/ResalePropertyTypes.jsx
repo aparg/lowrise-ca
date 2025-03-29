@@ -103,7 +103,7 @@ const ResalePropertyTypes = () => {
                   {property.icon}
                 </div>
               </div>
-              <h3 className="text-sm font-medium text-gray-900 text-center">
+              <h3 className="text-sm font-normal text-gray-900 text-center">
                 {property.title}
               </h3>
             </Link>

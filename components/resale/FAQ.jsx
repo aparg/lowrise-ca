@@ -83,7 +83,7 @@ const FAQ = ({ main_data }) => {
               </p>
               {main_data.AssociationFeeIncludes && (
                 <div>
-                  <p className="font-medium mt-2">This fee includes:</p>
+                  <p className="font-normal mt-2">This fee includes:</p>
                   <ul className="list-disc pl-4 space-y-1">
                     {Array.isArray(main_data.AssociationFeeIncludes) ? (
                       main_data.AssociationFeeIncludes.map((item, index) => (
@@ -210,14 +210,14 @@ const FAQ = ({ main_data }) => {
             This property is currently{" "}
             {main_data.Status === "A" ? "Active" : "Inactive"} on the market.
             Last updated:{" "}
-            <span className="font-medium">
+            <span className="font-normal">
               {new Date(main_data.OriginalEntryTimestamp).toLocaleDateString()}
             </span>
           </p>
           {main_data.ListPrice && (
             <p className="mt-2">
               List Price:{" "}
-              <span className="font-medium">
+              <span className="font-normal">
                 ${formatCurrency(main_data.ListPrice)}
               </span>
             </p>
@@ -242,7 +242,7 @@ const FAQ = ({ main_data }) => {
                 className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50/50 transition-all duration-200 hover:bg-gray-100/50"
               >
                 <AccordionTrigger className="text-left hover:no-underline px-4 sm:px-6 py-4">
-                  <span className="text-base sm:text-lg font-medium text-gray-900 hover:text-gray-600 transition-colors pr-8">
+                  <span className="text-base sm:text-lg font-normal text-gray-900 hover:text-gray-600 transition-colors pr-8">
                     {item.question}
                   </span>
                 </AccordionTrigger>

@@ -21,7 +21,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ cityVal: "Toronto" })}
-                  className="hover:text-primary-green my-4 sm:font-medium text-sm"
+                  className="hover:text-primary-green my-4 sm:font-normal text-sm"
                 >
                   Toronto Homes for Sale
                 </Link>
@@ -29,7 +29,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ cityVal: "Ottawa" })}
-                  className="hover:text-primary-green my-4 sm:font-medium text-sm"
+                  className="hover:text-primary-green my-4 sm:font-normal text-sm"
                 >
                   Ottawa Homes for Sale
                 </Link>
@@ -37,7 +37,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ cityVal: "Mississauga" })}
-                  className="hover:text-primary-green my-4 sm:font-medium text-sm"
+                  className="hover:text-primary-green my-4 sm:font-normal text-sm"
                 >
                   Mississauga Homes for Sale
                 </Link>
@@ -45,7 +45,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ cityVal: "Ajax" })}
-                  className="hover:text-primary-green my-4 sm:font-medium text-sm"
+                  className="hover:text-primary-green my-4 sm:font-normal text-sm"
                 >
                   Ajax Homes for Sale
                 </Link>
@@ -60,7 +60,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ houseTypeVal: "semi detached" })}
-                  className="hover:text-primary-green my-4 sm:font-medium text-sm"
+                  className="hover:text-primary-green my-4 sm:font-normal text-sm"
                 >
                   Semi detached Homes for Sale
                 </Link>
@@ -68,7 +68,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ houseTypeVal: "detached" })}
-                  className="hover:text-primary-green my-4 sm:font-medium text-sm"
+                  className="hover:text-primary-green my-4 sm:font-normal text-sm"
                 >
                   Detached Homes for Sale
                 </Link>
@@ -76,7 +76,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ houseTypeVal: "duplex" })}
-                  className="hover:text-primary-green my-4 sm:font-medium text-sm"
+                  className="hover:text-primary-green my-4 sm:font-normal text-sm"
                 >
                   Duplex Homes for Sale
                 </Link>
@@ -84,7 +84,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ houseTypeVal: "triplex" })}
-                  className="hover:text-primary-green my-4 sm:font-medium text-sm"
+                  className="hover:text-primary-green my-4 sm:font-normal text-sm"
                 >
                   Triplex Homes for Sale
                 </Link>
@@ -92,7 +92,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ houseTypeVal: "town house" })}
-                  className="hover:text-primary-green my-4 sm:font-medium text-sm"
+                  className="hover:text-primary-green my-4 sm:font-normal text-sm"
                 >
                   Town house for Sale
                 </Link>
@@ -105,7 +105,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ saleLeaseVal: "sale" })}
-                  className="hover:text-primary-green my-4 sm:font-medium text-sm"
+                  className="hover:text-primary-green my-4 sm:font-normal text-sm"
                 >
                   Ontario Homes for Sale
                 </Link>
@@ -113,7 +113,7 @@ const SeeListings = () => {
               <li>
                 <Link
                   href={generateURL({ saleLeaseVal: "lease" })}
-                  className="hover:text-primary-green my-4 sm:font-medium text-sm"
+                  className="hover:text-primary-green my-4 sm:font-normal text-sm"
                 >
                   Ontario Homes for Lease
                 </Link>

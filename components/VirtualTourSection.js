@@ -42,7 +42,7 @@ const PriceDropSection = () => {
           {/* Content */}
           <div className="text-black">
             <div className="flex items-center gap-2 mb-6">
-              <span className="text-sm font-medium bg-white shadow-large px-3 py-1 rounded-full flex items-center gap-2">
+              <span className="text-sm font-normal bg-white shadow-large px-3 py-1 rounded-full flex items-center gap-2">
                 <TrendingDown className="w-6 h-6" />
                 Price Dropped Homes
               </span>
@@ -64,7 +64,7 @@ const PriceDropSection = () => {
 
             <Link
               href="/ontario/price-dropped"
-              className="inline-flex items-center gap-2 bg-emerald-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-600 transition-colors group"
+              className="inline-flex items-center gap-2 bg-emerald-500 text-white px-6 py-3 rounded-lg font-normal hover:bg-emerald-600 transition-colors group"
             >
               View all price drops
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -93,7 +93,7 @@ const PriceDropSection = () => {
                   className="absolute z-20 animate-bounce-slow"
                   style={tag}
                 >
-                  <div className="bg-emerald-500 text-white px-3 py-1 rounded-2xl text-sm font-medium shadow-lg flex items-center gap-1">
+                  <div className="bg-emerald-500 text-white px-3 py-1 rounded-2xl text-sm font-normal shadow-lg flex items-center gap-1">
                     <TrendingDown className="w-4 h-4" />
                     {tag.price}
                   </div>

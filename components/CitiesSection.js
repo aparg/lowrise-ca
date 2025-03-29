@@ -69,7 +69,7 @@ const CitiesSection = () => {
                   <h3 className="text-white text-lg md:text-xl font-bold mb-1 md:mb-2">
                     {city.city_name}
                   </h3>
-                  <div className="flex items-center text-white text-sm font-medium">
+                  <div className="flex items-center text-white text-sm font-normal">
                     <span>View all</span>
                     <AiOutlineArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                   </div>

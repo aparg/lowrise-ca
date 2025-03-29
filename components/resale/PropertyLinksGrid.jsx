@@ -80,7 +80,7 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
             {propertyTypes.map((type) => (
               <li
                 key={type.slug}
-                className="text-[13px] font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+                className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
               >
                 <Link href={generatePropertyTypeURL(city, type.slug)}>
                   {type.label} {type.suffix} for sale in {city}
@@ -99,7 +99,7 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
             {priceRanges.map((range) => (
               <li
                 key={range.slug}
-                className="text-[13px] font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+                className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
               >
                 <Link href={generatePriceRangeURL(city, range.slug)}>
                   Homes {range.label} in {city}
@@ -119,7 +119,7 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
               {bedBathOptions.slice(0, 5).map((option) => (
                 <li
                   key={option.slug}
-                  className="text-[13px] font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+                  className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
                 >
                   <Link href={generateBedBathURL(city, option.slug)}>
                     {option.label} homes in {city}
@@ -131,7 +131,7 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
               {bedBathOptions.slice(5).map((option) => (
                 <li
                   key={option.slug}
-                  className="text-[13px] font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+                  className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
                 >
                   <Link href={generateBedBathURL(city, option.slug)}>
                     {option.label} homes in {city}
@@ -150,13 +150,13 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Link
               href={generateOpenHouseURL(city)}
-              className="text-[13px] font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+              className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
             >
               Open houses in {city}
             </Link>
             <Link
               href={generatePriceDroppedURL(city)}
-              className="text-[13px] font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+              className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
             >
               Price dropped homes in {city}
             </Link>
@@ -185,7 +185,7 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
           {propertyTypes.map((type) => (
             <li
               key={type.slug}
-              className="text-xs font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+              className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
             >
               <Link href={generatePropertyTypeURL(city, type.slug)}>
                 {type.label} {type.suffix} for sale in {city}
@@ -200,10 +200,10 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
           Featured
         </h4>
         <ul className="flex flex-col space-y-1.5 list-none p-0 m-0">
-          <li className="text-xs font-medium tracking-wide text-gray-600 hover:text-black transition-colors">
+          <li className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors">
             <Link href={generateOpenHouseURL(city)}>Open houses in {city}</Link>
           </li>
-          <li className="text-xs font-medium tracking-wide text-gray-600 hover:text-black transition-colors">
+          <li className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors">
             <Link href={generatePriceDroppedURL(city)}>
               Price dropped homes in {city}
             </Link>

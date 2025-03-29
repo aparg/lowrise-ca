@@ -60,7 +60,7 @@ const BedroomLinks = ({ propertyType, saleLease }) => {
                   .map((bedCount, linkIndex) => (
                     <li
                       key={`${bedCount}-${linkIndex}`}
-                      className="text-xs font-medium tracking-wide text-gray-600 hover:text-black transition-colors"
+                      className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
                     >
                       <Link
                         href={generateBedroomURL({

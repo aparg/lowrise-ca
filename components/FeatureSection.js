@@ -16,7 +16,7 @@ const FeatureCard = ({
       <p className="text-gray-600 mb-6 text-sm leading-relaxed">
         {description}
       </p>
-      <span className="text-teal-600 font-medium text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+      <span className="text-teal-600 font-normal text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
         Learn more
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -59,7 +59,7 @@ const SignInVOW = ({ setSignedIn }) => {
         className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 
                   bg-black text-white border-2 border-black rounded-full 
                   px-4 py-2 hover:scale-105 transition-all duration-300 
-                  text-xs sm:text-sm font-medium shadow-md"
+                  text-xs sm:text-sm font-normal shadow-md"
       >
         Sign in to view
       </DialogTrigger>
@@ -130,7 +130,7 @@ const SignInVOW = ({ setSignedIn }) => {
             <button
               type="submit"
               disabled={!formValid || isSubmitting}
-              className={`w-full py-3 rounded-lg font-medium text-white transition-all duration-300
+              className={`w-full py-3 rounded-lg font-normal text-white transition-all duration-300
                         ${
                           formValid && !isSubmitting
                             ? "bg-black hover:bg-gray-800 cursor-pointer"

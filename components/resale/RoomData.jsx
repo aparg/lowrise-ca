@@ -21,16 +21,16 @@ const RoomInfo = ({ data }) => {
             <table className="w-full">
               <thead>
                 <tr className="border-b text-gray-500">
-                  <th className="text-left py-3 pr-6 text-xs font-medium uppercase tracking-wider">
+                  <th className="text-left py-3 pr-6 text-xs font-normal uppercase tracking-wider">
                     Room
                   </th>
-                  <th className="text-left py-3 pr-6 text-xs font-medium uppercase tracking-wider hidden sm:table-cell">
+                  <th className="text-left py-3 pr-6 text-xs font-normal uppercase tracking-wider hidden sm:table-cell">
                     Size
                   </th>
-                  <th className="text-left py-3 pr-6 text-xs font-medium uppercase tracking-wider">
+                  <th className="text-left py-3 pr-6 text-xs font-normal uppercase tracking-wider">
                     Features
                   </th>
-                  <th className="text-left py-3 text-xs font-medium uppercase tracking-wider">
+                  <th className="text-left py-3 text-xs font-normal uppercase tracking-wider">
                     Level
                   </th>
                 </tr>
@@ -42,7 +42,7 @@ const RoomInfo = ({ data }) => {
                     className="group hover:bg-gray-50 transition-colors"
                   >
                     <td className="py-3 pr-6">
-                      <div className="font-medium text-sm text-gray-900">
+                      <div className="font-normal text-sm text-gray-900">
                         {room.RoomType}
                       </div>
                       <div className="text-xs text-gray-500 mt-0.5 sm:hidden">
@@ -86,7 +86,7 @@ const RoomInfo = ({ data }) => {
           {data?.length > 6 && (
             <button
               onClick={() => setShowAll(!showAll)}
-              className="mt-4 flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+              className="mt-4 flex items-center gap-1 text-sm font-normal text-gray-600 hover:text-gray-900 transition-colors"
             >
               {showAll ? (
                 <>
