@@ -36,7 +36,7 @@ export default function CreateSchema(listing) {
     offers: {
       "@type": "AggregateOffer",
       url:
-        "https://homebaba.ca/" +
+        "https://lowrise.ca/" +
         generateURL({
           cityVal: listing?.CountyOrParish,
           listingIDVal: slugGenerator(listing),
