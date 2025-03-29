@@ -18,10 +18,10 @@ const CityChip = ({ city, count }) => (
 const PriceDropSection = () => {
   const cities = [
     { name: "Toronto", count: "156" },
-    { name: "Vancouver", count: "89" },
-    { name: "Montreal", count: "124" },
-    { name: "Calgary", count: "67" },
-    { name: "Ottawa", count: "93" },
+    { name: "Mississauga", count: "89" },
+    { name: "Brampton", count: "124" },
+    { name: "Milton", count: "67" },
+    { name: "Oakville", count: "93" },
   ];
 
   return (
