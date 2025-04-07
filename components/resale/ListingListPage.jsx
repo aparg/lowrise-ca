@@ -192,7 +192,11 @@ ListingListPage.generateMetadata = async function ({ params, searchParams }) {
   });
 
   const location = filters.city ? `${filters.city} ON` : "Ontario";
-  const canonicalPath = `/ontario/${params.slug1.join("/")}`;
+  const currentPage = searchParams.page || 1;
+  const canonicalPath =
+    currentPage > 1
+      ? `/ontario/${params.slug1.join("/")}?page=${currentPage}`
+      : `/ontario/${params.slug1.join("/")}`;
 
   // Handle condo corporation metadata
   if (filters.condoCorpNumber) {
