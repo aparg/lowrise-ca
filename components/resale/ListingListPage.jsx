@@ -164,9 +164,7 @@ export default async function ListingListPage({ slug, searchParams }) {
               {citiesWithProvinces.map((city) => (
                 <div key={city.city}>
                   <h4 className="text-xs font-normal text-gray-800 hover:underline underline-offset-2">
-                    <Link
-                      href={`/ontario/${slugify(city.city)}/price-dropped/`}
-                    >
+                    <Link href={`/ontario/${slugify(city.city)}/price-dropped`}>
                       Price Dropped Homes in {city.city}
                     </Link>
                   </h4>

@@ -356,7 +356,7 @@ const FiltersWithSalesList = ({
                           <Link
                             href={`/ontario/${slugify(
                               city.city
-                            )}/price-dropped/`}
+                            )}/price-dropped`}
                           >
                             Price Dropped Homes in {city.city}
                           </Link>
