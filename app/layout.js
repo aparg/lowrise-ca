@@ -86,6 +86,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${roboto.className}`}>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-3QLRJ1MEWZ"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-3QLRJ1MEWZ');
+          `}
+        </Script>
         <Script id="analytics" strategy="afterInteractive">
           {`
             (function() {
