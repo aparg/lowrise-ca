@@ -8,7 +8,7 @@ const HeroSection = () => {
       <div className="absolute z-0 inset-0 rounded-xl">
         <Image
           src="/homes.jpg"
-          alt="Beautiful homes in Canada"
+          alt="lowrise.ca hero image"
           fill
           className="object-cover rounded-xl"
           priority

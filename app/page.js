@@ -14,16 +14,16 @@ export const metadata = {
   metadataBase: new URL("https://lowrise.ca"),
   title: "Lowrise - Canadian Home for Sale and Rent",
   description:
-    "Looking for New Homes for Sale and Rent near Greater Toronto Area, Canada? From Townhomes to Detached and Condos Lowrise has all kinds of homes for sale and rent.",
+    "Lowrise is a Canadian real estate marketplace that allows you to find homes for sale and rent in Canada.",
   authors: [{ name: "Lowrise", email: "info@lowrise.ca" }],
   openGraph: {
     type: "website",
     title: "Lowrise - Canadian Home for Sale and Rent",
     description:
-      "Looking for New Homes for Sale and Rent near Greater Toronto Area, Canada? From Townhomes to Detached and Condos Lowrise has all kinds of homes for sale and rent.",
+      "Lowrise is a Canadian real estate marketplace that allows you to find homes for sale and rent in Canada.",
     url: "https://lowrise.ca",
     siteName: "Lowrise.ca",
-    images: [{ url: "/ajax.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/lowriselogo.svg", width: 1200, height: 630 }],
   },
   robots: { index: true, follow: true },
   alternates: { canonical: "https://lowrise.ca/" },
