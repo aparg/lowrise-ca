@@ -4,29 +4,17 @@ import Link from "next/link";
 
 const HeroSection = () => {
   return (
-    <div className="relative min-h-[92vh] w-full overflow-hidden">
-      <div className="absolute z-0 inset-0 rounded-xl">
-        <Image
-          src="/homes.jpg"
-          alt="lowrise.ca hero image"
-          fill
-          className="object-cover rounded-xl"
-          priority
-          quality={100}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/90" />
-      </div>
-
+    <div className="relative min-h-[92vh] w-full overflow-hidden bg-gradient-to-b from-red-100 to-gray-100">
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[90vh] px-4 md:px-6 py-20">
         <div className="text-center max-w-5xl mx-auto">
           <div className="mb-6 animate-fade-in-down">
             <span className="bg-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold inline-block shadow-lg transform hover:scale-105 transition-transform">
-              Updated Daily
+              Lowrise Homes Canada
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-7 leading-tight tracking-tight animate-fade-in">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-black mb-7 leading-tight tracking-tight animate-fade-in">
             Canadian Home
             <br />
             you'll love to live
@@ -76,15 +64,15 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <div className="mt-8 text-white/80 text-sm flex justify-center gap-8 animate-fade-in">
-              <span className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer">
+            <div className="mt-8 text-black/80 text-sm flex justify-center gap-8 animate-fade-in">
+              <span className="flex items-center gap-1 hover:text-black transition-colors cursor-pointer">
                 <span className="text-emerald-400 font-bold">50,000+</span>{" "}
                 Properties
               </span>
-              <span className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer">
+              <span className="flex items-center gap-1 hover:text-black transition-colors cursor-pointer">
                 <span className="text-emerald-400 font-bold">100+</span> Cities
               </span>
-              <span className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer">
+              <span className="flex items-center gap-1 hover:text-black transition-colors cursor-pointer">
                 <span className="text-emerald-400 font-bold">24/7</span> Support
               </span>
             </div>
