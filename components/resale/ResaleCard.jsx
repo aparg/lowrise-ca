@@ -1,13 +1,9 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TimeAgo from "./TimeAgo";
 import { saleLease } from "@/constant";
 import { generateURL } from "@/helpers/generateResaleURL";
-import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
-import { getImageUrls } from "@/app/_resale-api/getSalesData";
-import { Skeleton } from "../ui/skeleton";
-import SignInVOW from "./SignInVOW";
 import { cityRegions } from "@/constant/postalCodeCities";
 
 const ResaleCard = ({
@@ -18,8 +14,6 @@ const ResaleCard = ({
   soldData,
   openHouse = false,
 }) => {
-  const [loadingImage, setLoadingImage] = useState(false);
-  const [imgUrl, setImgUrl] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
 
   const price = Number(
@@ -29,14 +23,6 @@ const ResaleCard = ({
     currency: "USD",
     maximumFractionDigits: 0,
   });
-
-  const originalPrice = curElem.OriginalListPrice
-    ? Number(curElem.OriginalListPrice).toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 0,
-      })
-    : null;
 
   // Calculate price drop info
   const priceDropInfo = React.useMemo(() => {
@@ -56,11 +42,6 @@ const ResaleCard = ({
     };
   }, [curElem.ListPrice, curElem.OriginalListPrice]);
 
-  const handleImageError = (e) => {
-    e.target.onerror = null;
-    e.target.src = `/noimage.webp`;
-  };
-
   const streetAndMLS = (() => {
     const parts = [];
     if (curElem.StreetNumber) {
@@ -78,49 +59,6 @@ const ResaleCard = ({
     }
     return parts.filter(Boolean).join("-");
   })();
-
-  useEffect(() => {
-    if (
-      window.localStorage.getItem("favorites") &&
-      JSON.parse(window.localStorage.getItem("favorites")).includes(
-        curElem.ListingKey
-      )
-    ) {
-      setIsFavorite(true);
-    }
-    setLoadingImage(true);
-    getImageUrls({
-      MLS: curElem.ListingKey,
-      thumbnailOnly: true,
-      soldData: true,
-    }).then((urls) => {
-      setImgUrl(urls[0]);
-      setLoadingImage(false);
-    });
-  }, []);
-
-  const toggleFavorite = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    const favoriteValue = window.localStorage.getItem("favorites");
-    if (!isFavorite && isLocalStorageAvailable()) {
-      const favorites = favoriteValue
-        ? JSON.parse(window.localStorage.getItem("favorites"))
-        : [];
-      favorites.push(curElem.ListingKey);
-      const value = JSON.stringify(favorites);
-      window.localStorage.setItem("favorites", value);
-    } else if (isFavorite && isLocalStorageAvailable()) {
-      const favorites = favoriteValue
-        ? JSON.parse(window.localStorage.getItem("favorites"))
-        : [];
-      const value = JSON.stringify(
-        favorites.filter((val) => val !== curElem.ListingKey)
-      );
-      window.localStorage.setItem("favorites", value);
-    }
-    setIsFavorite(!isFavorite);
-  };
 
   const region = cityRegions.find((cityRegion) =>
     cityRegion.regions.includes(curElem.City)
@@ -140,25 +78,14 @@ const ResaleCard = ({
         <div className="lg:px-0 h-full w-full">
           <div className="flex flex-col overflow-hidden relative">
             {/* Image Container */}
+
             <div className={`h-64 sm:h-64 overflow-hidden relative`}>
               <div className="h-64 relative z-10 rounded-t-2xl rounded-b-2xl overflow-hidden">
-                {loadingImage ? (
-                  <Skeleton className="object-cover w-full h-full rounded-t-2xl rounded-b-2xl bg-gray-200" />
-                ) : imgUrl ? (
-                  <img
-                    className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110 rounded-b-2xl hover:rounded-b-2xl rounded-t-2xl"
-                    src={imgUrl}
-                    alt="property image"
-                    onError={handleImageError}
-                  />
-                ) : (
-                  <img
-                    className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110 rounded-b-2xl hover:rounded-b-2xl rounded-t-2xl"
-                    src="/noimage.webp"
-                    alt="property image"
-                    onError={handleImageError}
-                  />
-                )}
+                <img
+                  className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110 rounded-b-2xl hover:rounded-b-2xl rounded-t-2xl"
+                  src={curElem?.imageUrl?.medium || "/noimage.webp"}
+                  alt={`${curElem.StreetNumber} ${curElem.StreetName} ${curElem.StreetSuffix}`}
+                />
               </div>
 
               {/* Property Type Badge */}
@@ -280,116 +207,8 @@ const ResaleCard = ({
           </div>
         </div>
       </Link>
-
-      {/* Favorite Button */}
-      <button
-        onClick={toggleFavorite}
-        className={`absolute top-[0.5rem] right-2 z-10 ${
-          isFavorite ? "text-red-500" : "text-gray-500"
-        }`}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 32 32"
-          aria-hidden="true"
-          role="presentation"
-          focusable="false"
-          className="w-6 h-6"
-          style={{
-            fill: isFavorite ? "currentColor" : "rgba(0, 0, 0, 0.5)",
-            stroke: "white",
-            strokeWidth: "2",
-            overflow: "visible",
-          }}
-        >
-          <path d="M16 28c7-4.73 14-10 14-17a6.98 6.98 0 0 0-7-7c-1.8 0-3.58.68-4.95 2.05L16 8.1l-2.05-2.05a6.98 6.98 0 0 0-9.9 0A6.98 6.98 0 0 0 2 11c0 7 7 12.27 14 17z"></path>
-        </svg>
-      </button>
     </section>
   );
 };
 
 export default ResaleCard;
-
-export const LockedResaleCard = ({ curElem, setSignedIn }) => {
-  const [loadingImage, setLoadingImage] = useState(false);
-  const [imgUrl, setImgUrl] = useState(null);
-
-  const handleImageError = (e) => {
-    e.target.onerror = null;
-    e.target.src = `/noimage.webp`;
-  };
-
-  const streetAndMLS = (() => {
-    const parts = [];
-
-    if (curElem.StreetNumber) {
-      parts.push(curElem.StreetNumber.replace("/", "-"));
-    }
-
-    if (curElem.StreetName) {
-      const streetName = curElem.StreetName.trim().replace(/ /g, "-");
-      parts.push(streetName);
-    }
-
-    if (curElem.StreetSuffix) {
-      parts.push(curElem.StreetSuffix);
-    }
-
-    if (curElem.ListingKey) {
-      parts.push(curElem.ListingKey);
-    }
-    return parts.filter(Boolean).join("-");
-  })();
-  useEffect(() => {
-    setLoadingImage(true);
-    getImageUrls({ MLS: curElem.ListingKey, thumbnailOnly: true }).then(
-      (urls) => {
-        setImgUrl(urls[0]);
-        setLoadingImage(false);
-      }
-    );
-  }, []);
-  return (
-    <div className="lg:px-0 h-full w-full">
-      <div className={`flex flex-col overflow-hidden relative`}>
-        <div className={`${"h-52 sm:h-80"} overflow-hidden relative`}>
-          <div
-            className={`${"h-52 sm:h-80"} sm:h-80 relative z-10 rounded-t-2xl`}
-          >
-            {loadingImage ? (
-              <Skeleton className="object-cover w-full h-full rounded-t-2xl" />
-            ) : imgUrl ? (
-              <img
-                className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110 rounded-t-2xl blur-[2px]"
-                src={imgUrl}
-                width="900"
-                height="800"
-                alt="property image"
-                onError={(e) => {
-                  console.log("Trigerring error");
-                  handleImageError(e);
-                }}
-              />
-            ) : (
-              <div className="w-full h-full flex flex-col justify-center items-center">
-                <img src="/icons/no-photo.png" className="w-10 h-10" />
-                <p>No Image Found</p>
-              </div>
-            )}
-            <SignInVOW setSignedIn={setSignedIn} />
-            <div className="bg-white text-black absolute bottom-2 mx-2 rounded-md p-1 border-2 border-black text-xs sm:text-md">
-              Local MLS®️ rules require you to log in and accept their terms of
-              use to view certain listing data.
-            </div>
-            {/* <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-50"></div> */}
-          </div>
-        </div>
-      </div>
-      <Skeleton className={`w-36 h-4 mt-2 bg-gray-100`}></Skeleton>
-      <Skeleton className={`sm:w-56 h-4 mt-2 bg-gray-100`}></Skeleton>
-      <Skeleton className={`w-18 h-4 mt-2 bg-gray-100`}></Skeleton>
-      <Skeleton className={`w-18 h-4 mt-2 bg-gray-100`}></Skeleton>
-    </div>
-  );
-};

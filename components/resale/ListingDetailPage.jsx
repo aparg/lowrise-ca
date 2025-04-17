@@ -5,7 +5,6 @@ import PropertyPage from "@/components/resale/PropertyPage";
 import FAQ from "@/components/resale/FAQ";
 import Carousel from "@/components/resale/Carousel";
 import PropertyDisplaySection from "@/components/resale/PropertyDisplaySection";
-import Slider from "@/components/resale/Slider";
 import SideContactForm from "@/components/resale/SideContactForm";
 import PropertyPageLinks from "@/components/resale/PropertyPageLinks";
 import FloatingResaleButton from "@/components/resale/FloatingResaleButton";
@@ -171,29 +170,6 @@ export default async function ListingDetailPage({ slug }) {
                 <FAQ main_data={main_data} />
               </div>
             </div>
-            {formattedSlug && newSalesData?.length > 0 && (
-              <section className="additonal__listing w-full mx-auto mt-10 md:mt-24">
-                <PropertyDisplaySection
-                  title={`Similar ${
-                    homeText[
-                      Object.values(houseType).find(
-                        (data) => data.value == main_data.PropertySubType
-                      )?.name
-                    ]
-                  } nearby in ${region?.name || main_data?.City || "Ontario"}`}
-                  subtitle={`Check out 100+ listings near this property. Listings updated daily`}
-                  exploreAllLink={generateURL({
-                    houseTypeVal: Object.values(houseType).find(
-                      (obj) => obj.value == main_data?.PropertySubType
-                    )?.name,
-                    saleLeaseVal: main_data?.TransactionType,
-                    cityVal: city,
-                  })}
-                >
-                  <Slider data={newSalesData} type="resale" />
-                </PropertyDisplaySection>
-              </section>
-            )}
 
             <div className="w-full bg-white mt-20 max-w-[90%] mx-auto sm:max-w-full">
               <div className="text-left mb-8">
