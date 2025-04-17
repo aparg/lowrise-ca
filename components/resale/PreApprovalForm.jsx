@@ -4,7 +4,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTrigger,
-} from "../ui/dialog";
+} from "@/components/ui/dialog";
 
 const PreApprovalForm = () => {
   const [submitbtn, setSubmitbtn] = useState("Check now");

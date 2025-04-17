@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Menu } from "lucide-react";
-import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
 import Dropdown from "@/components/resale/Dropdown";

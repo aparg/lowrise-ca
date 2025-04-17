@@ -4,7 +4,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTrigger,
-} from "../ui/dialog";
+} from "@/components/ui/dialog";
 import { ChevronRight, File } from "lucide-react";
 
 const GetStatusReport = () => {

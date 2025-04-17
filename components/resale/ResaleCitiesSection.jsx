@@ -102,43 +102,44 @@ const ResaleCitiesSection = ({ saleLease = "for sale" }) => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 max-w-[1200px] mx-auto">
           {citiesData.map((city, index) => (
-            <Link
-              href={`${generateURL({ cityVal: city.city_name })}`}
-              key={index}
-              className="no-underline group mb-10"
-            >
+            <div key={index} className="mb-10">
               <div className="relative h-[180px] md:h-[220px] rounded-xl overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                  style={{ backgroundImage: `url(${city.imgLink})` }}
-                ></div>
+                <Link
+                  href={`${generateURL({ cityVal: city.city_name })}`}
+                  className="no-underline group block h-full"
+                >
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                    style={{ backgroundImage: `url(${city.imgLink})` }}
+                  />
+                </Link>
               </div>
               <h3 className="text-black text-lg md:text-xl font-bold mt-2 hover:underline hover:underline-offset-1 transition-all duration-3000">
-                {city.city_name}, ON
+                <Link
+                  href={`${generateURL({ cityVal: city.city_name })}`}
+                  className="no-underline"
+                >
+                  {city.city_name}, ON
+                </Link>
               </h3>
-              <div
-                key={`${city.city_name_small}-${index}`}
-                className="flex flex-col space-y-2"
-              >
-                <div className="flex flex-col space-y-1 mt-2">
-                  {Object.values(houseType)
-                    .filter((val) => val.value != null)
-                    .map((type, linkIndex) => (
-                      <Link
-                        key={`${type}-${linkIndex}`}
-                        href={generateURL({
-                          cityVal: city.city_name,
-                          houseTypeVal: type.name,
-                          saleLeaseVal: saleLease,
-                        })}
-                        className="text-[12px] font-normal tracking-normal text-gray-500 hover:text-black transition-colors"
-                      >
-                        {homeText[type.name]} in {city.city_name}
-                      </Link>
-                    ))}
-                </div>
+              <div className="flex flex-col space-y-1 mt-2">
+                {Object.values(houseType)
+                  .filter((val) => val.value != null)
+                  .map((type, linkIndex) => (
+                    <Link
+                      key={`${type.name}-${linkIndex}`}
+                      href={generateURL({
+                        cityVal: city.city_name,
+                        houseTypeVal: type.name,
+                        saleLeaseVal: saleLease,
+                      })}
+                      className="text-[12px] font-normal tracking-normal text-gray-500 hover:text-black transition-colors"
+                    >
+                      {homeText[type.name]} in {city.city_name}
+                    </Link>
+                  ))}
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>

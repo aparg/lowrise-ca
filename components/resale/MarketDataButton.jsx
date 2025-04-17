@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
+} from "@/components/ui/dialog";
 import Statistics from "./Statistics";
 
 const MarketDataButton = ({ city, propertyType }) => {

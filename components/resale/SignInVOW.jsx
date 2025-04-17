@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogFooter,
-} from "../ui/dialog";
+} from "@/components/ui/dialog";
 import { isLocalStorageAvailable } from "@/helpers/checkLocalStorageAvailable";
 
 const SignInVOW = ({ setSignedIn }) => {

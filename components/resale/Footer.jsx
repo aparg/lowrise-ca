@@ -50,11 +50,10 @@ const Footer = ({ cities }) => {
                   <div className="flex justify-center">
                     <Link href="/">
                       <div className="flex justify-center mb-5">
-                        <Image
+                        <img
                           src="/lowriselogo.svg"
                           alt="Lowrise Logo"
-                          width={200}
-                          height={200}
+                          className="w-24"
                         />
                       </div>
                     </Link>

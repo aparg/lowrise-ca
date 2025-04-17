@@ -75,10 +75,9 @@ const PriceDropSection = () => {
           <div className="relative">
             <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 rounded-2xl" />
-              <Image
+              <img
                 src="/priced.avif"
                 alt="Price dropped home preview"
-                fill
                 className="object-cover rounded-2xl"
               />
 

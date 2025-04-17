@@ -56,13 +56,7 @@ const Footer = () => {
           {/* Column 1: Company Info */}
           <div className="my-3">
             <Link href="/" className="inline-flex items-center">
-              <Image
-                src="/lowriselogo.svg"
-                alt="lowrise logo"
-                width={200}
-                height={200}
-                className="ml-1"
-              />
+              <img src="/lowriselogo.svg" alt="lowrise logo" className="ml-1" />
             </Link>
             <p className="mt-3 text-sm text-gray-600 text-justify">
               Lowrise is the online Database for new homes for sale in Canada.

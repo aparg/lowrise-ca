@@ -6,9 +6,7 @@ import { usePathname } from "next/navigation";
 import SearchBar from "./SearchBar";
 import Dropdown from "./Dropdown";
 import { generateURL } from "@/helpers/generateURL";
-import Image from "next/image";
 import citiesWithProvinces from "@/constant/cities";
-import { useRouter } from "next/navigation";
 import capitalizeFirstLetter from "@/helpers/capitalizeFirstLetter";
 
 const Navbar = (props) => {
@@ -186,11 +184,9 @@ const Navbar = (props) => {
         >
           <div className="flex-shrink-0 flex h-full items-center mr-2">
             <Link href="/" className="logo d-flex items-center">
-              <Image
+              <img
                 src={isSticky ? blackLogoPath : whiteLogoPath}
                 alt="logo"
-                width={100}
-                height={5}
                 className="w-20 sm:w-30"
               />
             </Link>

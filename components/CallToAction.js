@@ -12,12 +12,10 @@ export default function CallToAction() {
               {/* Left Side - Image */}
               <div className="w-[40%] md:w-1/2 relative">
                 <div className="relative h-[180px] md:h-[400px]">
-                  <Image
+                  <img
                     src="/tower.png"
                     alt="condo in calgary"
-                    fill
                     className="object-contain object-bottom"
-                    priority
                   />
                 </div>
               </div>
@@ -25,11 +23,9 @@ export default function CallToAction() {
               {/* Right Side - Content */}
               <div className="w-[60%] md:w-1/2 py-6 md:py-12 pl-4 md:pl-8">
                 <div className="flex items-center gap-2 mb-2 md:mb-4">
-                  <Image
+                  <img
                     src="/lowriselogo.svg"
                     alt="lowrise logo"
-                    width={100}
-                    height={100}
                     className="mt-1"
                   />
                 </div>

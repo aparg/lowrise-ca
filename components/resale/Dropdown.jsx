@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
-import { FaArrowDown, FaChevronDown } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 
 const Dropdown = ({ name, options, width = "25rem", text }) => {
   const [shown, setShown] = useState(false);
