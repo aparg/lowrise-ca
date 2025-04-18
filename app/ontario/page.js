@@ -1,7 +1,7 @@
 import OntarioCitiesGrid from "@/components/resale/OntarioCitiesGrid";
 
 export const metadata = {
-  title: "Ontario Real Estate - Browse Properties by City | Homebaba",
+  title: "Ontario Real Estate - Browse Properties by City | Lowrise",
   description:
     "Explore real estate listings across Ontario cities. Find detached homes, semi-detached homes, townhouses, and condos for sale in Ontario's major cities.",
   keywords:

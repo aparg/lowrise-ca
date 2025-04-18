@@ -84,34 +84,6 @@ const Footer = () => {
                 >
                   Privacy Policy
                 </Link>
-                <Link
-                  href="https://condomonk.ca"
-                  target="_blank"
-                  className="text-black"
-                >
-                  Condomonk
-                </Link>
-                <Link
-                  href="https://homepapa.ca"
-                  target="_blank"
-                  className="text-black"
-                >
-                  Homepapa
-                </Link>
-                <Link
-                  href="https://dolphy.ca"
-                  target="_blank"
-                  className="text-black"
-                >
-                  Dolphy
-                </Link>
-                <Link
-                  href="https://homebaba.ca"
-                  target="_blank"
-                  className="text-black"
-                >
-                  Homebaba
-                </Link>
                 <p>Address : 8300 Woodbine Ave Markham, ON L3R 9Y7, Canada</p>
               </div>
             </div>
@@ -218,53 +190,6 @@ const Footer = () => {
                 updated on {todaysutc} UTC
               </p>
             </div>
-          </div>
-        </div>
-        <div>
-          <h6 className="text-center mt-10 font-black  text-2xl md:text-4xl border-b border-gray-200 inline-block w-full pb-3">
-            Our Trusted <span className="text-red-600">Platform Network</span>
-          </h6>
-          <div className="flex justify-center items-center gap-10 mb-10 mt-3">
-            <Link href="https://condomonk.ca" target="_blank">
-              <Image
-                src="/condomonk.png"
-                alt="condomonk"
-                width={200}
-                height={200}
-              />
-            </Link>
-            <Link href="https://dolphy.ca" target="_blank">
-              <Image src="/dolphy.png" alt="dolphy" width={200} height={200} />
-            </Link>
-            <Link href="https://homepapa.ca" target="_blank">
-              <Image
-                src="/homepapa.png"
-                alt="homepapa"
-                width={200}
-                height={200}
-              />
-            </Link>
-            <Link
-              href="https://homebaba.ca"
-              target="_blank"
-              className="flex items-center md:me-2"
-            >
-              <span className="text-sm md:text-2xl font-bold">homebaba</span>
-              <Image
-                src="/canadaleaf.svg"
-                alt="Maple Leaf Icon for Logo"
-                width={20}
-                height={20}
-                className="hidden md:block"
-              />
-              <Image
-                src="/canadaleaf.svg"
-                alt="Maple Leaf Icon for Logo"
-                width={15}
-                height={15}
-                className="block md:hidden"
-              />
-            </Link>
           </div>
         </div>
 
