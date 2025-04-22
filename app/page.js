@@ -11,7 +11,7 @@ import PriceDropSection from "@/components/VirtualTourSection";
 
 // Metadata configuration
 export const metadata = {
-  metadataBase: new URL("https://lowrise.ca"),
+  metadataBase: new URL("https://lowrise.ca/"),
   title: "Lowrise - Canadian Home for Sale and Rent",
   description:
     "Lowrise is a Canadian real estate marketplace that allows you to find homes for sale and rent in Canada.",
@@ -21,7 +21,7 @@ export const metadata = {
     title: "Lowrise - Canadian Home for Sale and Rent",
     description:
       "Lowrise is a Canadian real estate marketplace that allows you to find homes for sale and rent in Canada.",
-    url: "https://lowrise.ca",
+    url: "https://lowrise.ca/",
     siteName: "Lowrise.ca",
     images: [{ url: "/lowriselogo.svg", width: 1200, height: 630 }],
   },
