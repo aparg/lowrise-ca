@@ -62,7 +62,11 @@ const getPropertyTypes = (province) => {
       path: "condo-townhomes",
       subtypes: ["Condo Townhome"],
     },
-    { label: "Condos", path: "condos", subtypes: ["Condos"] },
+    {
+      label: "Condo Apartment",
+      path: "condos",
+      subtypes: ["Condo Apartment"],
+    },
   ];
 };
 

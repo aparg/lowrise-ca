@@ -165,9 +165,9 @@ export function parseSlug(slug, province = "ontario") {
   } else {
     // Check if the URL contains "homes-for-lease" or "homes-for-sale"
     const fullPath = parts.join("-");
-    if (fullPath.includes("homes-for-lease")) {
+    if (fullPath.includes("for-lease")) {
       filters.transactionType = "For Lease";
-    } else if (fullPath.includes("homes-for-sale")) {
+    } else if (fullPath.includes("for-sale")) {
       filters.transactionType = "For Sale";
     } else {
       console.log("No transaction type found in URL parts:", parts);

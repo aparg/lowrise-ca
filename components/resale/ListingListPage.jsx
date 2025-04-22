@@ -6,7 +6,6 @@ import Link from "next/link";
 import { getProperties } from "@/lib/properties";
 import FilterStateManager from "./FilterStateManager";
 import { parseSlug } from "@/helpers/parseResaleFilter";
-import { getPropertiesCounts } from "@/lib/properties";
 
 const slugify = (str) => {
   return str
@@ -83,15 +82,6 @@ export default async function ListingListPage({ slug, searchParams }) {
   if (!filters) {
     notFound();
   }
-
-  const {
-    total: totalProperties,
-    minPrice,
-    maxPrice,
-    averagePrice,
-  } = await getPropertiesCounts({
-    ...filters,
-  });
 
   const {
     properties: allProperties,

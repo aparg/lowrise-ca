@@ -15,14 +15,14 @@ export default function Pagination({ currentPage, totalPages }) {
 
   return (
     <div className="flex justify-center gap-2 mt-8 md:text-sm text-xs ">
-      <Link
-        href={`${pathname}?${createQueryString(currentPage - 1)}`}
-        className={`md:px-4 px-2 py-2 border rounded ${
-          currentPage <= 1 ? "pointer-events-none opacity-50" : ""
-        }`}
-      >
-        Previous
-      </Link>
+      {currentPage > 1 && (
+        <Link
+          href={`${pathname}?${createQueryString(currentPage - 1)}`}
+          className="md:px-4 px-2 py-2 border rounded hover:bg-gray-100"
+        >
+          Previous
+        </Link>
+      )}
 
       {[...Array(totalPages)].map((_, i) => {
         const page = i + 1;
