@@ -10,5 +10,3 @@ Allow: /alberta/
 Allow: /contact-us/
 Allow: /about/
 Allow: /blog/ 
-
-Disallow: /*?page=0
