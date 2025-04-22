@@ -4,7 +4,6 @@ import { createListingSchema } from "@/helpers/createSchema2";
 import PropertyPage from "@/components/resale/PropertyPage";
 import FAQ from "@/components/resale/FAQ";
 import Carousel from "@/components/resale/Carousel";
-import PropertyDisplaySection from "@/components/resale/PropertyDisplaySection";
 import SideContactForm from "@/components/resale/SideContactForm";
 import PropertyPageLinks from "@/components/resale/PropertyPageLinks";
 import FloatingResaleButton from "@/components/resale/FloatingResaleButton";

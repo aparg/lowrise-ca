@@ -62,6 +62,7 @@ const Gallery = ({ data }) => {
                     loader={() => url}
                     src={url}
                     width={500}
+                    unoptimized={true}
                     height={index === 0 ? 800 : 207}
                     className={`w-full h-full object-cover object-center transform duration-200 hover:scale-110`}
                     alt={`Image ${index + 1}`}
