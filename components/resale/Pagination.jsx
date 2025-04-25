@@ -9,7 +9,11 @@ export default function Pagination({ currentPage, totalPages }) {
 
   const createQueryString = (page) => {
     const params = new URLSearchParams(searchParams);
-    params.set("page", page);
+    if (page === 1) {
+      params.delete("page");
+    } else {
+      params.set("page", page);
+    }
     return params.toString();
   };
 
@@ -17,7 +21,11 @@ export default function Pagination({ currentPage, totalPages }) {
     <div className="flex justify-center gap-2 mt-8 md:text-sm text-xs ">
       {currentPage > 1 && (
         <Link
-          href={`${pathname}?${createQueryString(currentPage - 1)}`}
+          href={`${pathname}${
+            createQueryString(currentPage - 1)
+              ? `?${createQueryString(currentPage - 1)}`
+              : ""
+          }`}
           className="md:px-4 px-2 py-2 border rounded hover:bg-gray-100"
         >
           Previous
@@ -34,9 +42,13 @@ export default function Pagination({ currentPage, totalPages }) {
           return (
             <Link
               key={page}
-              href={`${pathname}?${createQueryString(
-                page === 1 || page === totalPages ? 1 : page
-              )}`}
+              href={`${pathname}${
+                createQueryString(page === 1 || page === totalPages ? 1 : page)
+                  ? `?${createQueryString(
+                      page === 1 || page === totalPages ? 1 : page
+                    )}`
+                  : ""
+              }`}
               className={`md:px-4 px-2 py-2 border rounded ${
                 currentPage === page
                   ? "bg-black text-white"
@@ -58,7 +70,11 @@ export default function Pagination({ currentPage, totalPages }) {
       })}
 
       <Link
-        href={`${pathname}?${createQueryString(currentPage + 1)}`}
+        href={`${pathname}${
+          createQueryString(currentPage + 1)
+            ? `?${createQueryString(currentPage + 1)}`
+            : ""
+        }`}
         className={`md:px-4 px-2 py-2 border rounded ${
           currentPage >= totalPages ? "pointer-events-none opacity-50" : ""
         }`}
