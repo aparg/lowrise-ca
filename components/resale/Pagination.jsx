@@ -34,7 +34,9 @@ export default function Pagination({ currentPage, totalPages }) {
           return (
             <Link
               key={page}
-              href={`${pathname}?${createQueryString(page)}`}
+              href={`${pathname}?${createQueryString(
+                page === 1 || page === totalPages ? 1 : page
+              )}`}
               className={`md:px-4 px-2 py-2 border rounded ${
                 currentPage === page
                   ? "bg-black text-white"
