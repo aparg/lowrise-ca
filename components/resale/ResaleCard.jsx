@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import TimeAgo from "./TimeAgo";
 import { saleLease } from "@/constant";
 import { generateURL } from "@/helpers/generateResaleURL";
@@ -14,8 +14,6 @@ const ResaleCard = ({
   soldData,
   openHouse = false,
 }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
   const price = Number(
     !soldData ? curElem.ListPrice : curElem.ClosePrice
   ).toLocaleString("en-US", {

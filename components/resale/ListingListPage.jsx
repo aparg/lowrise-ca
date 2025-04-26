@@ -50,17 +50,17 @@ function generateSubtitle(filters, total) {
 
   // Handle condo corporation case
   if (filters.condoCorpNumber) {
-    return `Lowrise has ${total} condos for sale in ${filters.condoCorpNumber} located in ${location}. View listing photos, review sales history, and use our detailed real estate filters to find the perfect place.`;
+    return `Lowrise has ${total} condos for sale in ${filters.condoCorpNumber} located in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
   }
 
   // Handle open house case
   if (filters.isOpenHouse) {
-    return `Lowrise has open houses available in ${location}. View listing photos, review sales history, and use our detailed real estate filters to find the perfect place.`;
+    return `Lowrise has open houses available in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
   }
 
   // Handle price dropped case
   if (filters.mlsStatus === "Price Change") {
-    return `Lowrise has ${total.toLocaleString()} price-reduced homes for sale in ${location}. View listing photos, review sales history, and use our detailed real estate filters to find the perfect place.`;
+    return `Lowrise has ${total.toLocaleString()} price-reduced homes for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
   }
 
   // Handle property type specific cases
@@ -69,11 +69,11 @@ function generateSubtitle(filters, total) {
       filters.propertyType === "Condo Townhome"
         ? "Townhomes"
         : filters.propertyType;
-    return `Lowrise has ${total.toLocaleString()} ${propertyType.toLowerCase()} for sale in ${location}. View listing photos, review sales history, and use our detailed real estate filters to find the perfect place.`;
+    return `Lowrise has ${total.toLocaleString()} ${propertyType.toLowerCase()} for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
   }
 
   // Default case
-  return `Lowrise has ${total.toLocaleString()} homes for sale in ${location}. View listing photos, review sales history, and use our detailed real estate filters to find the perfect place.`;
+  return `Lowrise has ${total.toLocaleString()} homes for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
 }
 
 export default async function ListingListPage({ slug, searchParams }) {
@@ -188,10 +188,10 @@ ListingListPage.generateMetadata = async function ({ params, searchParams }) {
 
   // Handle condo corporation metadata
   if (filters.condoCorpNumber) {
-    const title = `${location} Real Estate - ${filters.condoCorpNumber} Condos For Sale`;
+    const title = `Condos For Sale by ${filters.condoCorpNumber} in ${location} | Lowrise`;
     const description = `Lowrise has ${total.toLocaleString()} condos for sale in ${
       filters.condoCorpNumber
-    } located in ${location}. View listing photos, review sales history, and use our detailed real estate filters to find the perfect place.`;
+    } located in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
 
     return {
       title,
@@ -248,8 +248,8 @@ ListingListPage.generateMetadata = async function ({ params, searchParams }) {
 
   // Handle open house metadata
   if (filters.isOpenHouse) {
-    const title = `${location} Real Estate - Open Houses`;
-    const description = `Lowrise has open houses available in ${location}. View listing photos, review sales history, and use our detailed real estate filters to find the perfect place.`;
+    const title = `Open Houses for sale in ${location} | Lowrise`;
+    const description = `Lowrise has open houses available in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
 
     return {
       title,
@@ -294,8 +294,8 @@ ListingListPage.generateMetadata = async function ({ params, searchParams }) {
 
   // Handle price dropped metadata
   if (filters.mlsStatus === "Price Change") {
-    const title = `${location} Real Estate - Price Dropped Homes`;
-    const description = `Lowrise has ${actualTotal} price-reduced homes for sale in ${location}. View listing photos, review sales history, and use our detailed real estate filters to find the perfect place.`;
+    const title = `Price Dropped Homes for sale in ${location} | Lowrise`;
+    const description = `Lowrise has ${actualTotal} price-reduced homes for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
 
     return {
       title,
@@ -344,8 +344,8 @@ ListingListPage.generateMetadata = async function ({ params, searchParams }) {
       filters.propertyType === "Condo Townhome"
         ? "Townhomes"
         : filters.propertyType;
-    const title = `${location} Real Estate - ${propertyType} For Sale`;
-    const description = `Lowrise has ${total} ${propertyType.toLowerCase()} for sale in ${location}. View listing photos, review sales history, and use our detailed real estate filters to find the perfect place.`;
+    const title = `${propertyType} For Sale in ${location} | Lowrise`;
+    const description = `Lowrise has ${total} ${propertyType.toLowerCase()} for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
 
     return {
       title,
@@ -389,8 +389,8 @@ ListingListPage.generateMetadata = async function ({ params, searchParams }) {
   }
 
   // Default case
-  const title = `${location} Real Estate - Homes For Sale`;
-  const description = `Lowrise has ${total} homes for sale in ${location}. View listing photos, review sales history, and use our detailed real estate filters to find the perfect place.`;
+  const title = `Homes For Sale in ${location} | Lowrise`;
+  const description = `Lowrise has ${total} homes for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
 
   return {
     title,
