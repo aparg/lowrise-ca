@@ -2,6 +2,17 @@ import { NextResponse } from "next/server";
 
 export function middleware(request) {
   const url = request.nextUrl;
+  const host = request.headers.get("host");
+  const wwwRegex = /^www\./;
+
+  // Handle www to non-www redirect
+  if (wwwRegex.test(host)) {
+    const newHost = host.replace(wwwRegex, "");
+    return NextResponse.redirect(
+      `https://${newHost}${url.pathname}${url.search}`,
+      301
+    );
+  }
 
   // If ?page=0 is present
   if (
