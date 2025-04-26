@@ -14,22 +14,22 @@ const slugify = (str) => {
     .replace(/[^\w-]+/g, "");
 };
 
-function generateTitle(filters, actualTotal) {
-  const location = filters.city ? `${filters.city} ON` : "Ontario";
+function generateTitle(filters) {
+  const location = filters.city ? `${filters.city}` : "Ontario";
 
   // Handle condo corporation case
   if (filters.condoCorpNumber) {
-    return `${location} Real Estate - ${filters.condoCorpNumber} Condos For Sale`;
+    return `Condos by ${filters.condoCorp} in ${location}`;
   }
 
   // Handle open house case
   if (filters.isOpenHouse) {
-    return `${location} Real Estate - Open Houses`;
+    return `Open Houses for sale in ${location}`;
   }
 
   // Handle price dropped case
   if (filters.mlsStatus === "Price Change") {
-    return `${location} Real Estate - Price Dropped Homes`;
+    return `Price Dropped Homes for sale in ${location}`;
   }
 
   // Handle property type specific cases
@@ -38,7 +38,7 @@ function generateTitle(filters, actualTotal) {
       filters.propertyType === "Condo Townhome"
         ? "Townhomes"
         : filters.propertyType;
-    return `${location} Real Estate - ${propertyType} For Sale`;
+    return `${propertyType} for sale in ${location}`;
   }
 
   // Default case
