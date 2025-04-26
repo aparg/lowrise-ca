@@ -32,6 +32,10 @@ function generateTitle(filters) {
     return `Price Dropped Homes for sale in ${location}`;
   }
 
+  if (filters.minBeds) {
+    return `Homes with ${filters.minBeds} Bedroom For Sale in ${location}`;
+  }
+
   // Handle property type specific cases
   if (filters.propertyType) {
     const propertyType =
@@ -42,7 +46,7 @@ function generateTitle(filters) {
   }
 
   // Default case
-  return `${location} Real Estate - Homes For Sale`;
+  return `Homes For Sale in ${location}`;
 }
 
 function generateSubtitle(filters, total) {
