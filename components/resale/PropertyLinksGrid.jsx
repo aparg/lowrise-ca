@@ -4,7 +4,10 @@ import Link from "next/link";
 import React, { useState } from "react";
 import citiesWithProvinces from "@/constant/cities";
 
-const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
+const PropertyLinksGrid = ({
+  currentCity = "Toronto",
+  transactionType = "For Sale",
+}) => {
   const cities = citiesWithProvinces;
 
   const propertyTypes = [
@@ -15,13 +18,50 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
     { label: "Condos", slug: "condos", suffix: "" },
   ];
 
-  const priceRanges = [
-    { label: "Under $500k", slug: "homes-under-500k" },
-    { label: "Between $500k-$750k", slug: "homes-between-500k-750k" },
-    { label: "Between $750k-$1M", slug: "homes-between-750k-1000k" },
-    { label: "Between $1M-$1.5M", slug: "homes-between-1000k-1500k" },
-    { label: "Over $1.5M", slug: "homes-over-1500k" },
+  // Different price ranges for sale vs lease
+  const salePriceRanges = [
+    { label: "Under $500k", slug: "homes-under-500k", displayText: "Cheapest" },
+    {
+      label: "Between $500k-$750k",
+      slug: "homes-between-500k-750k",
+      displayText: "Affordable",
+    },
+    {
+      label: "Between $750k-$1M",
+      slug: "homes-between-750k-1000k",
+      displayText: "Mid-Range",
+    },
+    {
+      label: "Between $1M-$1.5M",
+      slug: "homes-between-1000k-1500k",
+      displayText: "Expensive",
+    },
+    { label: "Over $1.5M", slug: "homes-over-1500k", displayText: "Luxury" },
   ];
+
+  const leasePriceRanges = [
+    { label: "Under $1,500", slug: "homes-under-1500", displayText: "Budget" },
+    {
+      label: "Between $1,500-$2,000",
+      slug: "homes-between-1500-2000",
+      displayText: "Affordable",
+    },
+    {
+      label: "Between $2,000-$3,000",
+      slug: "homes-between-2000-3000",
+      displayText: "Mid-Range",
+    },
+    {
+      label: "Between $3,000-$4,000",
+      slug: "homes-between-3000-4000",
+      displayText: "Premium",
+    },
+    { label: "Over $4,000", slug: "homes-over-4000", displayText: "Luxury" },
+  ];
+
+  // Use the appropriate price ranges based on transaction type
+  const priceRanges =
+    transactionType === "For Lease" ? leasePriceRanges : salePriceRanges;
 
   const bedBathOptions = [
     { label: "1+ Bed", slug: "1-plus-bed" },
@@ -37,35 +77,122 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
   const [showAll, setShowAll] = useState(false);
   const displayedCities = showAll ? cities : cities.slice(0, 11);
 
+  // Determine the transaction type suffix for URLs
+  const transactionSuffix =
+    transactionType === "For Lease" ? "for-lease" : "for-sale";
+
+  // Determine the transaction type text for display
+  const transactionText =
+    transactionType === "For Lease" ? "for rent" : "for sale";
+
   const generatePropertyTypeURL = (city, propertyType) => {
-    return `/ontario/${city.toLowerCase()}/${propertyType}-for-sale`;
+    // Special case for Ontario as city
+    if (city.toLowerCase() === "ontario") {
+      return `/${propertyType}-${transactionSuffix}`;
+    }
+    return `/ontario/${city.toLowerCase()}/${propertyType}-${transactionSuffix}`;
   };
 
   const generatePriceRangeURL = (city, priceRange) => {
-    return `/ontario/${city.toLowerCase()}/${priceRange}-for-sale`;
+    // Special case for Ontario as city
+    if (city.toLowerCase() === "ontario") {
+      return `/${priceRange}-${transactionSuffix}`;
+    }
+    return `/ontario/${city.toLowerCase()}/${priceRange}-${transactionSuffix}`;
   };
 
   const generateOpenHouseURL = (city) => {
+    // Special case for Ontario as city
+    if (city.toLowerCase() === "ontario") {
+      return `/open-houses`;
+    }
     return `/ontario/${city.toLowerCase()}/open-houses`;
   };
 
   const generatePriceDroppedURL = (city) => {
+    // Special case for Ontario as city
+    if (city.toLowerCase() === "ontario") {
+      return `/price-dropped`;
+    }
     return `/ontario/${city.toLowerCase()}/price-dropped`;
   };
 
   const generateBedBathURL = (city, slug) => {
-    return `/ontario/${city.toLowerCase()}/homes-for-sale/${slug}`;
+    // Special case for Ontario as city
+    if (city.toLowerCase() === "ontario") {
+      return `/homes-${transactionSuffix}/${slug}`;
+    }
+    return `/ontario/${city.toLowerCase()}/homes-${transactionSuffix}/${slug}`;
+  };
+
+  // New function to generate combined filter URLs
+  const generateCombinedFilterURL = (
+    city,
+    propertyType,
+    bedCount,
+    priceRange
+  ) => {
+    // Special case for Ontario as city
+    if (city.toLowerCase() === "ontario") {
+      let url = "";
+
+      // Add property type if provided
+      if (propertyType) {
+        url += `/${propertyType}`;
+      } else {
+        url += `/homes`;
+      }
+
+      // Add price range if provided
+      if (priceRange) {
+        url += `-${priceRange}`;
+      }
+
+      // Add transaction type before bed count
+      url += `-${transactionSuffix}`;
+
+      // Add bed count if provided
+      if (bedCount) {
+        url += `/${bedCount}-plus-bed`;
+      }
+
+      return url;
+    }
+
+    let url = `/ontario/${city.toLowerCase()}`;
+
+    // Add property type if provided
+    if (propertyType) {
+      url += `/${propertyType}`;
+    } else {
+      url += `/homes`;
+    }
+
+    // Add price range if provided
+    if (priceRange) {
+      url += `-${priceRange}`;
+    }
+
+    // Add transaction type before bed count
+    url += `-${transactionSuffix}`;
+
+    // Add bed count if provided
+    if (bedCount) {
+      url += `/${bedCount}-plus-bed`;
+    }
+
+    return url;
   };
 
   const CurrentCitySection = ({ city }) => (
     <div className="rounded-xl">
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-900">
-          {city} Real Estate | Homes for Sale
+          {city} Real Estate | Homes {transactionText}
         </h2>
         <p className="text-black">
-          Explore detached, semi-detached, townhomes & condos for sale in{" "}
-          {city || "Ontario"}. Open houses available. Price Dropped Homes
+          Explore detached, semi-detached, townhomes & condos {transactionText}{" "}
+          in {city || "Ontario"}. Open houses available. Price Dropped Homes
           Available.
         </p>
       </div>
@@ -83,7 +210,7 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
                 className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
               >
                 <Link href={generatePropertyTypeURL(city, type.slug)}>
-                  {type.label} {type.suffix} for sale in {city}
+                  {type.label} {type.suffix} {transactionText} in {city}
                 </Link>
               </li>
             ))}
@@ -102,7 +229,7 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
                 className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
               >
                 <Link href={generatePriceRangeURL(city, range.slug)}>
-                  Homes {range.label} in {city}
+                  {range.displayText} Homes in {city}
                 </Link>
               </li>
             ))}
@@ -142,6 +269,278 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
           </div>
         </div>
 
+        {/* Combined Filters Section */}
+        <div className="md:col-span-3 border-t pt-6 mt-4">
+          <h3 className="text-lg font-semibold text-gray-800 mb-3">
+            Combined Filters in {city}
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Property Type + Bedroom Combinations */}
+            <div>
+              <h4 className="text-md font-semibold text-gray-700 mb-2">
+                Property Type + Bedrooms
+              </h4>
+              <ul className="flex flex-col space-y-1.5 list-none p-0 m-0">
+                {propertyTypes.slice(0, 3).map((type) => (
+                  <li
+                    key={`${type.slug}-combined`}
+                    className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
+                  >
+                    <Link
+                      href={generateCombinedFilterURL(
+                        city,
+                        type.slug,
+                        "1",
+                        null
+                      )}
+                    >
+                      1 Bedroom {type.label} {transactionText} in {city}
+                    </Link>
+                  </li>
+                ))}
+                {propertyTypes.slice(0, 3).map((type) => (
+                  <li
+                    key={`${type.slug}-combined-2`}
+                    className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
+                  >
+                    <Link
+                      href={generateCombinedFilterURL(
+                        city,
+                        type.slug,
+                        "2",
+                        null
+                      )}
+                    >
+                      2 Bedroom {type.label} {transactionText} in {city}
+                    </Link>
+                  </li>
+                ))}
+                {propertyTypes.slice(0, 3).map((type) => (
+                  <li
+                    key={`${type.slug}-combined-3`}
+                    className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
+                  >
+                    <Link
+                      href={generateCombinedFilterURL(
+                        city,
+                        type.slug,
+                        "3",
+                        null
+                      )}
+                    >
+                      3 Bedroom {type.label} {transactionText} in {city}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Property Type + Price Range Combinations */}
+            <div>
+              <h4 className="text-md font-semibold text-gray-700 mb-2">
+                Property Type + Price Range
+              </h4>
+              <ul className="flex flex-col space-y-1.5 list-none p-0 m-0">
+                {propertyTypes.slice(0, 3).map((type) => (
+                  <li
+                    key={`${type.slug}-price-1`}
+                    className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
+                  >
+                    <Link
+                      href={generateCombinedFilterURL(
+                        city,
+                        type.slug,
+                        null,
+                        transactionType === "For Lease"
+                          ? "under-1500"
+                          : "under-500k"
+                      )}
+                    >
+                      {transactionType === "For Lease" ? "Budget" : "Cheapest"}{" "}
+                      {type.label} {transactionText} in {city}
+                    </Link>
+                  </li>
+                ))}
+                {propertyTypes.slice(0, 3).map((type) => (
+                  <li
+                    key={`${type.slug}-price-2`}
+                    className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
+                  >
+                    <Link
+                      href={generateCombinedFilterURL(
+                        city,
+                        type.slug,
+                        null,
+                        transactionType === "For Lease"
+                          ? "between-1500-2000"
+                          : "between-500k-750k"
+                      )}
+                    >
+                      Affordable {type.label} {transactionText} in {city}
+                    </Link>
+                  </li>
+                ))}
+                {propertyTypes.slice(0, 3).map((type) => (
+                  <li
+                    key={`${type.slug}-price-3`}
+                    className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
+                  >
+                    <Link
+                      href={generateCombinedFilterURL(
+                        city,
+                        type.slug,
+                        null,
+                        transactionType === "For Lease"
+                          ? "between-2000-3000"
+                          : "between-750k-1000k"
+                      )}
+                    >
+                      Mid-Range {type.label} {transactionText} in {city}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Bedroom + Price Range Combinations */}
+            <div>
+              <h4 className="text-md font-semibold text-gray-700 mb-2">
+                Bedrooms + Price Range
+              </h4>
+              <ul className="flex flex-col space-y-1.5 list-none p-0 m-0">
+                {bedBathOptions.slice(0, 3).map((option) => (
+                  <li
+                    key={`${option.slug}-price-1`}
+                    className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
+                  >
+                    <Link
+                      href={generateCombinedFilterURL(
+                        city,
+                        "homes",
+                        option.slug,
+                        transactionType === "For Lease"
+                          ? "under-1500"
+                          : "under-500k"
+                      )}
+                    >
+                      {option.label}{" "}
+                      {transactionType === "For Lease" ? "Budget" : "Cheapest"}{" "}
+                      Homes in {city}
+                    </Link>
+                  </li>
+                ))}
+                {bedBathOptions.slice(0, 3).map((option) => (
+                  <li
+                    key={`${option.slug}-price-2`}
+                    className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
+                  >
+                    <Link
+                      href={generateCombinedFilterURL(
+                        city,
+                        "homes",
+                        option.slug,
+                        transactionType === "For Lease"
+                          ? "between-1500-2000"
+                          : "between-500k-750k"
+                      )}
+                    >
+                      {option.label} Affordable Homes in {city}
+                    </Link>
+                  </li>
+                ))}
+                {bedBathOptions.slice(0, 3).map((option) => (
+                  <li
+                    key={`${option.slug}-price-3`}
+                    className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
+                  >
+                    <Link
+                      href={generateCombinedFilterURL(
+                        city,
+                        "homes",
+                        option.slug,
+                        transactionType === "For Lease"
+                          ? "between-2000-3000"
+                          : "between-750k-1000k"
+                      )}
+                    >
+                      {option.label} Mid-Range Homes in {city}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Triple Combination Examples */}
+            <div>
+              <h4 className="text-md font-semibold text-gray-700 mb-2">
+                Popular Combinations
+              </h4>
+              <ul className="flex flex-col space-y-1.5 list-none p-0 m-0">
+                <li className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors">
+                  <Link
+                    href={generateCombinedFilterURL(
+                      city,
+                      "detached-homes",
+                      "2",
+                      transactionType === "For Lease"
+                        ? "between-1500-2000"
+                        : "between-500k-750k"
+                    )}
+                  >
+                    2 Bedroom Affordable Detached Homes {transactionText} in{" "}
+                    {city}
+                  </Link>
+                </li>
+                <li className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors">
+                  <Link
+                    href={generateCombinedFilterURL(
+                      city,
+                      "condos",
+                      "1",
+                      transactionType === "For Lease"
+                        ? "under-1500"
+                        : "under-500k"
+                    )}
+                  >
+                    1 Bedroom{" "}
+                    {transactionType === "For Lease" ? "Budget" : "Cheapest"}{" "}
+                    Condos {transactionText} in {city}
+                  </Link>
+                </li>
+                <li className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors">
+                  <Link
+                    href={generateCombinedFilterURL(
+                      city,
+                      "townhomes",
+                      "3",
+                      transactionType === "For Lease"
+                        ? "between-2000-3000"
+                        : "between-750k-1000k"
+                    )}
+                  >
+                    3 Bedroom Mid-Range Townhomes {transactionText} in {city}
+                  </Link>
+                </li>
+                <li className="text-[13px] font-normal tracking-wide text-gray-600 hover:text-black transition-colors">
+                  <Link
+                    href={generateCombinedFilterURL(
+                      city,
+                      "semi-detached-homes",
+                      "2",
+                      transactionType === "For Lease"
+                        ? "between-1500-2000"
+                        : "between-500k-750k"
+                    )}
+                  >
+                    2 Bedroom Affordable Semi-Detached Homes {transactionText}{" "}
+                    in {city}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
         {/* Featured Links Section */}
         <div className="md:col-span-3 border-t pt-6 mt-4">
           <h3 className="text-lg font-semibold text-gray-800 mb-3">
@@ -170,10 +569,10 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
     <div className="flex flex-col space-y-3">
       <h4 className="text-lg font-bold text-gray-800">
         <Link
-          href={`/ontario/${city.toLowerCase()}/homes-for-sale`}
+          href={`/ontario/${city.toLowerCase()}/homes-${transactionSuffix}`}
           className="hover:text-black transition-colors"
         >
-          Homes for Sale in {city}
+          Homes {transactionText} in {city}
         </Link>
       </h4>
 
@@ -188,7 +587,7 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
               className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
             >
               <Link href={generatePropertyTypeURL(city, type.slug)}>
-                {type.label} {type.suffix} for sale in {city}
+                {type.label} {type.suffix} {transactionText} in {city}
               </Link>
             </li>
           ))}
@@ -197,31 +596,55 @@ const PropertyLinksGrid = ({ currentCity = "Toronto" }) => {
 
       <div>
         <h4 className="text-[13px] font-semibold text-gray-700 mb-2">
-          Featured
+          By Price Range
         </h4>
         <ul className="flex flex-col space-y-1.5 list-none p-0 m-0">
-          <li className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors">
-            <Link href={generateOpenHouseURL(city)}>Open houses in {city}</Link>
-          </li>
-          <li className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors">
-            <Link href={generatePriceDroppedURL(city)}>
-              Price dropped homes in {city}
-            </Link>
-          </li>
+          {priceRanges.map((range) => (
+            <li
+              key={range.slug}
+              className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors"
+            >
+              <Link href={generatePriceRangeURL(city, range.slug)}>
+                {range.displayText} Homes {transactionText} in {city}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
+
+      {transactionType === "For Sale" && (
+        <div>
+          <h4 className="text-[13px] font-semibold text-gray-700 mb-2">
+            Featured
+          </h4>
+          <ul className="flex flex-col space-y-1.5 list-none p-0 m-0">
+            <li className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors">
+              <Link href={generateOpenHouseURL(city)}>
+                Open houses in {city}
+              </Link>
+            </li>
+            <li className="text-xs font-normal tracking-wide text-gray-600 hover:text-black transition-colors">
+              <Link href={generatePriceDroppedURL(city)}>
+                Price dropped homes in {city}
+              </Link>
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 
   return (
     <div className="space-y-12">
-      {/* Current City Section */}
-      <CurrentCitySection city={currentCity} />
+      {/* Current City Section - Skip for Ontario */}
+      {currentCity.toLowerCase() !== "ontario" && (
+        <CurrentCitySection city={currentCity} />
+      )}
 
       {/* Other Cities Section */}
       <div>
         <h3 className="text-xl font-bold mb-6">
-          Explore Homes for Sale Nearby {currentCity}
+          Explore Homes {transactionText} Nearby {currentCity}
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {displayedCities.map((city, index) => (

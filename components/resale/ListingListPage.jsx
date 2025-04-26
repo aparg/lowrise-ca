@@ -16,6 +16,8 @@ const slugify = (str) => {
 
 function generateTitle(filters) {
   const location = filters.city ? `${filters.city}` : "Ontario";
+  const transactionType =
+    filters.transactionType === "For Lease" ? "for rent" : "for sale";
 
   // Handle condo corporation case
   if (filters.condoCorpNumber) {
@@ -24,60 +26,148 @@ function generateTitle(filters) {
 
   // Handle open house case
   if (filters.isOpenHouse) {
-    return `Open Houses for sale in ${location}`;
+    return `Open Houses ${transactionType} in ${location}`;
   }
 
   // Handle price dropped case
   if (filters.mlsStatus === "Price Change") {
-    return `Price Dropped Homes for sale in ${location}`;
+    return `Price Dropped Homes ${transactionType} in ${location}`;
   }
 
+  // Handle multiple filters
+  let titleParts = [];
+
+  // Add bed filter if present (first priority)
   if (filters.minBeds) {
-    return `Homes with ${filters.minBeds} Bedroom For Sale in ${location}`;
+    titleParts.push(`${filters.minBeds} Bedroom`);
   }
 
-  // Handle property type specific cases
+  // Add price range if present (second priority)
+  if (filters.transactionType === "For Lease") {
+    // Rental price ranges
+    if (filters.maxPrice == "1500") {
+      titleParts.push("Budget");
+    } else if (filters.maxPrice == "2000") {
+      titleParts.push("Affordable");
+    } else if (filters.maxPrice == "3000") {
+      titleParts.push("Mid-Range");
+    } else if (filters.maxPrice == "4000") {
+      titleParts.push("Premium");
+    } else if (filters.minPrice == "4000") {
+      titleParts.push("Luxury");
+    }
+  } else {
+    // Sale price ranges
+    if (filters.maxPrice == "500000") {
+      titleParts.push("Cheapest");
+    } else if (filters.maxPrice == "750000") {
+      titleParts.push("Affordable");
+    } else if (filters.maxPrice == "1000000") {
+      titleParts.push("Mid-Range");
+    } else if (filters.minPrice == "1500000") {
+      titleParts.push("Expensive");
+    }
+  }
+
+  // Add property type if present (last priority)
   if (filters.propertyType) {
     const propertyType =
       filters.propertyType === "Condo Townhome"
         ? "Townhomes"
         : filters.propertyType;
-    return `${propertyType} for sale in ${location}`;
+    // Capitalize the first letter of the property type
+    const capitalizedPropertyType =
+      propertyType.charAt(0).toUpperCase() +
+      propertyType.slice(1).toLowerCase();
+    titleParts.push(capitalizedPropertyType);
+  }
+
+  // If we have multiple filters, combine them
+  if (titleParts.length > 0) {
+    return `${titleParts.join(" ")} Homes ${transactionType} in ${location}`;
   }
 
   // Default case
-  return `Homes For Sale in ${location}`;
+  return `Homes ${transactionType} in ${location}`;
 }
 
 function generateSubtitle(filters, total) {
-  const location = filters.city ? `${filters.city} ON` : "Ontario";
+  const location = filters.city ? `${filters.city}` : "Ontario";
+  const totalFormatted = total.toLocaleString();
+  const transactionType =
+    filters.transactionType === "For Lease" ? "for rent" : "for sale";
 
   // Handle condo corporation case
   if (filters.condoCorpNumber) {
-    return `Lowrise has ${total} condos for sale in ${filters.condoCorpNumber} located in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
+    return `Lowrise has ${totalFormatted} condos ${transactionType} in ${filters.condoCorpNumber} located in ${location}. Instantly search and view photos of all homes ${transactionType} in ${location} updated every 10 to 15 minutes.`;
   }
 
   // Handle open house case
   if (filters.isOpenHouse) {
-    return `Lowrise has open houses available in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
+    return `Lowrise has open houses available in ${location}. Instantly search and view photos of all homes ${transactionType} in ${location} updated every 10 to 15 minutes.`;
   }
 
   // Handle price dropped case
   if (filters.mlsStatus === "Price Change") {
-    return `Lowrise has ${total.toLocaleString()} price-reduced homes for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
+    return `Lowrise has ${totalFormatted} price-reduced homes ${transactionType} in ${location}. Instantly search and view photos of all homes ${transactionType} in ${location} updated every 10 to 15 minutes.`;
   }
 
-  // Handle property type specific cases
+  // Handle multiple filters
+  let subtitleParts = [];
+
+  // Add bed filter if present (first priority)
+  if (filters.minBeds) {
+    subtitleParts.push(`${filters.minBeds} bedroom`);
+  }
+
+  // Add price range if present (second priority)
+  if (filters.transactionType === "For Lease") {
+    // Rental price ranges
+    if (filters.maxPrice == "1500") {
+      subtitleParts.push("budget");
+    } else if (filters.maxPrice == "2000") {
+      subtitleParts.push("affordable");
+    } else if (filters.maxPrice == "3000") {
+      subtitleParts.push("mid-range");
+    } else if (filters.maxPrice == "4000") {
+      subtitleParts.push("premium");
+    } else if (filters.minPrice == "4000") {
+      subtitleParts.push("luxury");
+    }
+  } else {
+    // Sale price ranges
+    if (filters.maxPrice == "500000") {
+      subtitleParts.push("cheapest");
+    } else if (filters.maxPrice == "750000") {
+      subtitleParts.push("affordable");
+    } else if (filters.maxPrice == "1000000") {
+      subtitleParts.push("mid-range");
+    } else if (filters.minPrice == "1500000") {
+      subtitleParts.push("expensive");
+    }
+  }
+
+  // Add property type if present (last priority)
   if (filters.propertyType) {
     const propertyType =
       filters.propertyType === "Condo Townhome"
         ? "Townhomes"
         : filters.propertyType;
-    return `Lowrise has ${total.toLocaleString()} ${propertyType.toLowerCase()} for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
+    // Capitalize the first letter of the property type
+    const capitalizedPropertyType =
+      propertyType.charAt(0).toUpperCase() +
+      propertyType.slice(1).toLowerCase();
+    subtitleParts.push(capitalizedPropertyType);
+  }
+
+  // If we have multiple filters, combine them
+  if (subtitleParts.length > 0) {
+    const filterDescription = subtitleParts.join(" ");
+    return `Lowrise has ${totalFormatted} ${filterDescription} homes ${transactionType} in ${location}. Instantly search and view photos of all ${filterDescription} homes ${transactionType} in Ontario updated every 10 to 15 minutes.`;
   }
 
   // Default case
-  return `Lowrise has ${total.toLocaleString()} homes for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
+  return `Lowrise has ${totalFormatted} homes ${transactionType} in ${location}. Instantly search and view photos of all homes ${transactionType} in Ontario updated every 10 to 15 minutes.`;
 }
 
 export default async function ListingListPage({ slug, searchParams }) {
@@ -109,7 +199,7 @@ export default async function ListingListPage({ slug, searchParams }) {
   const actualTotal =
     filters.mlsStatus === "Price Change" ? filteredProperties.length : total;
 
-  const title = generateTitle(filters, actualTotal);
+  const title = generateTitle(filters);
   const subtitle = generateSubtitle(filters, total);
 
   return (
@@ -168,7 +258,10 @@ export default async function ListingListPage({ slug, searchParams }) {
           </div>
         )}
         <div className="w-full bg-white mt-20 col-span-full">
-          <PropertyLinksGrid currentCity={filters.city || "Ontario"} />
+          <PropertyLinksGrid
+            currentCity={filters.city || "Ontario"}
+            transactionType={filters.transactionType || "For Sale"}
+          />
         </div>
       </div>
     </>
@@ -183,19 +276,22 @@ ListingListPage.generateMetadata = async function ({ params, searchParams }) {
     ...searchParams,
   });
 
-  const location = filters.city ? `${filters.city} ON` : "Ontario";
+  const location = filters.city ? `${filters.city}` : "Ontario";
   const currentPage = searchParams.page || 1;
   const canonicalPath =
     currentPage > 1
       ? `/ontario/${params.slug1.join("/")}?page=${currentPage}`
       : `/ontario/${params.slug1.join("/")}`;
 
+  const transactionType =
+    filters.transactionType === "For Lease" ? "for rent" : "for sale";
+
   // Handle condo corporation metadata
   if (filters.condoCorpNumber) {
-    const title = `Condos For Sale by ${filters.condoCorpNumber} in ${location} | Lowrise`;
-    const description = `Lowrise has ${total.toLocaleString()} condos for sale in ${
+    const title = `Condos by ${filters.condoCorp} in ${location} | Lowrise`;
+    const description = `Lowrise has ${total.toLocaleString()} condos ${transactionType} in ${
       filters.condoCorpNumber
-    } located in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
+    } located in ${location}. Instantly search and view photos of all homes ${transactionType} in ${location} updated every 10 to 15 minutes.`;
 
     return {
       title,
@@ -252,8 +348,8 @@ ListingListPage.generateMetadata = async function ({ params, searchParams }) {
 
   // Handle open house metadata
   if (filters.isOpenHouse) {
-    const title = `Open Houses for sale in ${location} | Lowrise`;
-    const description = `Lowrise has open houses available in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
+    const title = `Open Houses ${transactionType} in ${location} | Lowrise`;
+    const description = `Lowrise has open houses available in ${location}. Instantly search and view photos of all homes ${transactionType} in ${location} updated every 10 to 15 minutes.`;
 
     return {
       title,
@@ -298,8 +394,8 @@ ListingListPage.generateMetadata = async function ({ params, searchParams }) {
 
   // Handle price dropped metadata
   if (filters.mlsStatus === "Price Change") {
-    const title = `Price Dropped Homes for sale in ${location} | Lowrise`;
-    const description = `Lowrise has ${actualTotal} price-reduced homes for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
+    const title = `Price Dropped Homes ${transactionType} in ${location} | Lowrise`;
+    const description = `Lowrise has ${actualTotal.toLocaleString()} price-reduced homes ${transactionType} in ${location}. Instantly search and view photos of all homes ${transactionType} in ${location} updated every 10 to 15 minutes.`;
 
     return {
       title,
@@ -342,39 +438,98 @@ ListingListPage.generateMetadata = async function ({ params, searchParams }) {
     };
   }
 
-  // Handle property type specific metadata
+  // Handle multiple filters for metadata
+  let titleParts = [];
+  let subtitleParts = [];
+
+  // Add bed filter if present (first priority)
+  if (filters.minBeds) {
+    titleParts.push(`${filters.minBeds} Bedroom`);
+    subtitleParts.push(`${filters.minBeds} bedroom`);
+  }
+
+  // Add price range if present (second priority)
+  if (filters.transactionType === "For Lease") {
+    // Rental price ranges
+    if (filters.maxPrice == "1500") {
+      titleParts.push("Budget");
+      subtitleParts.push("budget");
+    } else if (filters.maxPrice == "2000") {
+      titleParts.push("Affordable");
+      subtitleParts.push("affordable");
+    } else if (filters.maxPrice == "3000") {
+      titleParts.push("Mid-Range");
+      subtitleParts.push("mid-range");
+    } else if (filters.maxPrice == "4000") {
+      titleParts.push("Premium");
+      subtitleParts.push("premium");
+    } else if (filters.minPrice == "4000") {
+      titleParts.push("Luxury");
+      subtitleParts.push("luxury");
+    }
+  } else {
+    // Sale price ranges
+    if (filters.maxPrice == "500000") {
+      titleParts.push("Cheapest");
+      subtitleParts.push("cheapest");
+    } else if (filters.maxPrice == "750000") {
+      titleParts.push("Affordable");
+      subtitleParts.push("affordable");
+    } else if (filters.maxPrice == "1000000") {
+      titleParts.push("Mid-Range");
+      subtitleParts.push("mid-range");
+    } else if (filters.minPrice == "1500000") {
+      titleParts.push("Expensive");
+      subtitleParts.push("expensive");
+    }
+  }
+
+  // Add property type if present (last priority)
   if (filters.propertyType) {
     const propertyType =
       filters.propertyType === "Condo Townhome"
         ? "Townhomes"
         : filters.propertyType;
-    const title = `${propertyType} For Sale in ${location} | Lowrise`;
-    const description = `Lowrise has ${total} ${propertyType.toLowerCase()} for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
+    // Capitalize the first letter of the property type
+    const capitalizedPropertyType =
+      propertyType.charAt(0).toUpperCase() +
+      propertyType.slice(1).toLowerCase();
+    titleParts.push(capitalizedPropertyType);
+    subtitleParts.push(capitalizedPropertyType);
+  }
+
+  // If we have multiple filters, combine them
+  if (titleParts.length > 0) {
+    const titleText = `${titleParts.join(
+      " "
+    )} Homes ${transactionType} in ${location} | Lowrise`;
+    const filterDescription = subtitleParts.join(" ");
+    const description = `Lowrise has ${total.toLocaleString()} ${filterDescription} homes ${transactionType} in ${location}. Instantly search and view photos of all ${filterDescription} homes ${transactionType} in Ontario updated every 10 to 15 minutes.`;
 
     return {
-      title,
+      title: titleText,
       description,
       alternates: {
         canonical: `https://lowrise.ca${canonicalPath}`,
       },
       openGraph: {
-        title,
+        title: titleText,
         description,
         url: `https://lowrise.ca${canonicalPath}`,
         siteName: "Lowrise",
         type: "website",
         images: [
           {
-            url: "https://lowrise.ca/city-images/milton.jpeg",
+            url: "https://lowrise.ca/ajax.jpg",
             width: 1200,
             height: 630,
-            alt: `${propertyType} in ${location}`,
+            alt: `${titleParts.join(" ")} Homes in ${location}`,
           },
         ],
       },
       twitter: {
         card: "summary_large_image",
-        title,
+        title: titleText,
         description,
         images: ["https://lowrise.ca/ajax.jpg"],
       },
@@ -393,8 +548,8 @@ ListingListPage.generateMetadata = async function ({ params, searchParams }) {
   }
 
   // Default case
-  const title = `Homes For Sale in ${location} | Lowrise`;
-  const description = `Lowrise has ${total} homes for sale in ${location}. Instantly search and view photos of all homes for sale in ${location} updated every 10 to 15 minutes.`;
+  const title = `Homes ${transactionType} in ${location} | Lowrise`;
+  const description = `Lowrise has ${total.toLocaleString()} homes ${transactionType} in ${location}. Instantly search and view photos of all homes ${transactionType} in Ontario updated every 10 to 15 minutes.`;
 
   return {
     title,
