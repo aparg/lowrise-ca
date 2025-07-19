@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://lowrise.ca/sitemap.xml
+
+# Allow important pages
+Allow: /ontario/
+Allow: /alberta/
+Allow: /contact-us/
+Allow: /about/
+Allow: /blog/ 
