@@ -136,7 +136,7 @@ const ResaleCard = ({
                   small ? "h-32 sm:h-52" : "h-52 sm:h-52"
                 } sm:h-52 relative z-10 rounded-t-2xl rounded-b-2xl overflow-hidden`}
               >
-                {loadingImage ? (
+                {/* {loadingImage ? (
                   <Skeleton className="object-cover w-full h-full rounded-t-2xl rounded-b-2xl bg-gray-200" />
                 ) : imgUrl ? (
                   <img
@@ -148,17 +148,17 @@ const ResaleCard = ({
                       handleImageError(e);
                     }}
                   />
-                ) : (
-                  <img
-                    className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110 rounded-b-2xl hover:rounded-b-2xl rounded-t-2xl"
-                    src="/noimage.webp"
-                    alt="property image"
-                    onError={(e) => {
-                      console.log("Trigerring error");
-                      handleImageError(e);
-                    }}
-                  />
-                )}
+                ) : ( */}
+                <img
+                  className="object-cover w-full h-full transition-all duration-200 transform group-hover:scale-110 rounded-b-2xl hover:rounded-b-2xl rounded-t-2xl"
+                  src="/noimage.webp"
+                  alt="property image"
+                  onError={(e) => {
+                    console.log("Trigerring error");
+                    handleImageError(e);
+                  }}
+                />
+                {/* )} */}
 
                 {/* <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-50"></div> */}
               </div>

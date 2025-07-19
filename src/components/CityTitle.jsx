@@ -64,6 +64,7 @@ const CityTitle = async ({
   };
   const getSubtitle = () => {
     if (openHouse) return `Open houses in ${city || "Ontario"}`;
+
     return `${totalPropertyCount} ${capitalizeFirstLetter(city) || "Ontario"} ${
       requiredType ? homeText[requiredType]?.toLowerCase() : "homes"
     } for 

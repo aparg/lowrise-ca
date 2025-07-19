@@ -133,9 +133,9 @@ const page = async ({ params }) => {
               {/* <Thumbnails setCurrentImageIndex={setCurrentImageIndex} /> */}
             </div>
             <section className="padding-top w-full text-sm flex flex-col items-center justify-center gy-2 relative">
-              <div className="hidden sm:block relative w-full">
+              {/* <div className="hidden sm:block relative w-full">
                 <Gallery data={imageURLs} />
-              </div>
+              </div> */}
               {/* Carousel is only for mobile. */}
               <Carousel urls={imageURLs} />
               <div className=" w-full flex justify-start md:justify-center ps-3 md:ps-0 pt-0 sm:pt-4 relative">
